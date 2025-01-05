@@ -16,22 +16,23 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HomematicWandschalter = exports.HomematicFussbodenheizung = exports.HomematicDoor = exports.HomematicRollladen = exports.HomematicAccessPoint = exports.HomematicWandtaster = exports.HomematicTemperatursensor = exports.HomematicRauchmelder = exports.HomematicFunkschaltaktor = exports.HomematicDimmer = exports.HomematicHeizkoerper = exports.HomematicSteckdose = exports.HomematicWindow = exports.HomematicWetterstation = exports.HomematicPraesenzmelder = exports.HomematicWandthermostat = exports.AbstractHomematic = void 0;
-var deviceWandthermostat = "Wandthermostat";
-var devicePraesenzmelder = "Praesenzmelder";
-var deviceWetterstation = "Wetterstation";
-var deviceDoor = "Door";
-var deviceRollladen = "Rollladen";
-var deviceWandschalter = "Wandschalter";
-var deviceFussbodenheizung = "Fussbodenheizung";
-var deviceWandtaster = "Wandtaster";
-var deviceAccessPoint = "AccessPoint";
-var deviceTemperatursensor = "Temperatursensor";
-var deviceRauchmelder = "Rauchmelder";
-var deviceFunkSchaltaktor = "FunkSchaltaktor";
-var deviceWindow = "Window";
-var deviceSteckdose = "Steckdose";
-var deviceHeizkoerper = "Heizkoerper";
-var deviceDimmer = "Dimmer";
+// https://stackoverflow.com/questions/8595509/how-do-you-share-constants-in-nodejs-modules
+var deviceHomematicWandthermostat = "Wandthermostat";
+var deviceHomematicPraesenzmelder = "Praesenzmelder";
+var deviceHomematicWetterstation = "Wetterstation";
+var deviceHomematicDoor = "Door";
+var deviceHomematicRollladen = "Rollladen";
+var deviceHomematicWandschalter = "Wandschalter";
+var deviceHomematicFussbodenheizung = "Fussbodenheizung";
+var deviceHomematicWandtaster = "Wandtaster";
+var deviceHomematicAccessPoint = "AccessPoint";
+var deviceHomematicTemperatursensor = "Temperatursensor";
+var deviceHomematicRauchmelder = "Rauchmelder";
+var deviceHomematicFunkSchaltaktor = "FunkSchaltaktor";
+var deviceHomematicWindow = "Window";
+var deviceHomematicSteckdose = "Steckdose";
+var deviceHomematicHeizkoerper = "Heizkoerper";
+var deviceHomematicDimmer = "Dimmer";
 var AbstractHomematic = /** @class */ (function () {
     function AbstractHomematic(adapter, id, baseState, etage, raum, device) {
         this.adapter = adapter;
@@ -98,7 +99,7 @@ var HomematicWandthermostat = /** @class */ (function (_super) {
         return this.adapter.getState(this.baseState + ".1.HUMIDITY").val + " %"; // hm-rpc.0.000A9BE993E2F7.1.HUMIDITY
     };
     HomematicWandthermostat.prototype.getCategory = function () {
-        return deviceWandthermostat;
+        return deviceHomematicWandthermostat;
     };
     HomematicWandthermostat.prototype.isStatusBattery = function () {
         return !this.adapter.getState(this.baseState + ".0.LOW_BAT").val; // // hm-rpc.0.000A9BE993E2F7.0.LOW_BAT
@@ -112,7 +113,7 @@ var HomematicPraesenzmelder = /** @class */ (function (_super) {
         return _super.call(this, adapter, id, baseState, etage, raum, device) || this;
     }
     HomematicPraesenzmelder.prototype.getCategory = function () {
-        return devicePraesenzmelder;
+        return deviceHomematicPraesenzmelder;
     };
     HomematicPraesenzmelder.prototype.getIllumination = function () {
         if (this.adapter.getState(this.baseState + ".1.CURRENT_ILLUMINATION").val != null) {
@@ -132,7 +133,7 @@ var HomematicWetterstation = /** @class */ (function (_super) {
         return _super.call(this, adapter, id, baseState, etage, raum, device) || this;
     }
     HomematicWetterstation.prototype.getCategory = function () {
-        return deviceWetterstation;
+        return deviceHomematicWetterstation;
     };
     HomematicWetterstation.prototype.isStatusBattery = function () {
         return !this.adapter.getState(this.baseState + ".0.LOW_BAT").val; // // hm-rpc.0.000A9BE993E2F7.0.LOW_BAT
@@ -146,7 +147,7 @@ var HomematicWindow = /** @class */ (function (_super) {
         return _super.call(this, adapter, id, baseState, etage, raum, device) || this;
     }
     HomematicWindow.prototype.getCategory = function () {
-        return deviceWindow;
+        return deviceHomematicWindow;
     };
     HomematicWindow.prototype.isStatusBattery = function () {
         return !this.adapter.getState(this.baseState + ".0.LOW_BAT").val; // // hm-rpc.0.000A9BE993E2F7.0.LOW_BAT
@@ -160,7 +161,7 @@ var HomematicSteckdose = /** @class */ (function (_super) {
         return _super.call(this, adapter, id, baseState, etage, raum, device) || this;
     }
     HomematicSteckdose.prototype.getCategory = function () {
-        return deviceSteckdose;
+        return deviceHomematicSteckdose;
     };
     return HomematicSteckdose;
 }(AbstractHomematic));
@@ -171,7 +172,7 @@ var HomematicHeizkoerper = /** @class */ (function (_super) {
         return _super.call(this, adapter, id, baseState, etage, raum, device) || this;
     }
     HomematicHeizkoerper.prototype.getCategory = function () {
-        return deviceHeizkoerper;
+        return deviceHomematicHeizkoerper;
     };
     HomematicHeizkoerper.prototype.isStatusBattery = function () {
         return !this.adapter.getState(this.baseState + ".0.LOW_BAT").val; // // hm-rpc.0.000A9BE993E2F7.0.LOW_BAT
@@ -185,7 +186,7 @@ var HomematicDimmer = /** @class */ (function (_super) {
         return _super.call(this, adapter, id, baseState, etage, raum, device) || this;
     }
     HomematicDimmer.prototype.getCategory = function () {
-        return deviceDimmer;
+        return deviceHomematicDimmer;
     };
     return HomematicDimmer;
 }(AbstractHomematic));
@@ -196,7 +197,7 @@ var HomematicFunkschaltaktor = /** @class */ (function (_super) {
         return _super.call(this, adapter, id, baseState, etage, raum, device) || this;
     }
     HomematicFunkschaltaktor.prototype.getCategory = function () {
-        return deviceFunkSchaltaktor;
+        return deviceHomematicFunkSchaltaktor;
     };
     return HomematicFunkschaltaktor;
 }(AbstractHomematic));
@@ -207,7 +208,7 @@ var HomematicRauchmelder = /** @class */ (function (_super) {
         return _super.call(this, adapter, id, baseState, etage, raum, device) || this;
     }
     HomematicRauchmelder.prototype.getCategory = function () {
-        return deviceRauchmelder;
+        return deviceHomematicRauchmelder;
     };
     HomematicRauchmelder.prototype.isStatusBattery = function () {
         return !this.adapter.getState(this.baseState + ".0.LOW_BAT").val; // // hm-rpc.0.000A9BE993E2F7.0.LOW_BAT
@@ -227,7 +228,7 @@ var HomematicTemperatursensor = /** @class */ (function (_super) {
         return this.adapter.getState(this.baseState + ".1.HUMIDITY").val + " %"; // hm-rpc.0.00181BE98EF50E.1.HUMIDITY
     };
     HomematicTemperatursensor.prototype.getCategory = function () {
-        return deviceTemperatursensor;
+        return deviceHomematicTemperatursensor;
     };
     HomematicTemperatursensor.prototype.isStatusBattery = function () {
         return !this.adapter.getState(this.baseState + ".0.LOW_BAT").val; // // hm-rpc.0.000A9BE993E2F7.0.LOW_BAT
@@ -241,7 +242,7 @@ var HomematicWandtaster = /** @class */ (function (_super) {
         return _super.call(this, adapter, id, baseState, etage, raum, device) || this;
     }
     HomematicWandtaster.prototype.getCategory = function () {
-        return deviceWandtaster;
+        return deviceHomematicWandtaster;
     };
     return HomematicWandtaster;
 }(AbstractHomematic));
@@ -261,7 +262,7 @@ var HomematicAccessPoint = /** @class */ (function (_super) {
         return "";
     };
     HomematicAccessPoint.prototype.getCategory = function () {
-        return deviceAccessPoint;
+        return deviceHomematicAccessPoint;
     };
     return HomematicAccessPoint;
 }(AbstractHomematic));
@@ -276,7 +277,7 @@ var HomematicRollladen = /** @class */ (function (_super) {
         return _this;
     }
     HomematicRollladen.prototype.getCategory = function () {
-        return deviceRollladen;
+        return deviceHomematicRollladen;
     };
     HomematicRollladen.prototype.auf = function () {
         this.adapter.setState(this.getBaseState() + ".4.LEVEL", this.positionAuf);
@@ -305,7 +306,7 @@ var HomematicDoor = /** @class */ (function (_super) {
         return this.skipStatisticIsClosed;
     };
     HomematicDoor.prototype.getCategory = function () {
-        return deviceDoor;
+        return deviceHomematicDoor;
     };
     HomematicDoor.prototype.isStatusBattery = function () {
         return !this.adapter.getState(this.baseState + ".0.LOW_BAT").val; // // hm-rpc.0.000A9BE993E2F7.0.LOW_BAT
@@ -325,7 +326,7 @@ var HomematicFussbodenheizung = /** @class */ (function (_super) {
         return _super.call(this, adapter, id, baseState, etage, raum, device) || this;
     }
     HomematicFussbodenheizung.prototype.getCategory = function () {
-        return deviceFussbodenheizung;
+        return deviceHomematicFussbodenheizung;
     };
     return HomematicFussbodenheizung;
 }(AbstractHomematic));
@@ -336,7 +337,7 @@ var HomematicWandschalter = /** @class */ (function (_super) {
         return _super.call(this, adapter, id, baseState, etage, raum, device) || this;
     }
     HomematicWandschalter.prototype.getCategory = function () {
-        return deviceWandschalter;
+        return deviceHomematicWandschalter;
     };
     HomematicWandschalter.prototype.isStatusBattery = function () {
         return !this.adapter.getState(this.baseState + ".0.LOW_BAT").val; // // hm-rpc.0.000A9BE993E2F7.0.LOW_BAT
@@ -362,4 +363,38 @@ var HomematicWandschalter = /** @class */ (function (_super) {
     return HomematicWandschalter;
 }(AbstractHomematic));
 exports.HomematicWandschalter = HomematicWandschalter;
-module.exports = { HomematicWindow: HomematicWindow, HomematicSteckdose: HomematicSteckdose, HomematicHeizkoerper: HomematicHeizkoerper, HomematicDimmer: HomematicDimmer, HomematicWandthermostat: HomematicWandthermostat, HomematicFussbodenheizung: HomematicFussbodenheizung, HomematicWandschalter: HomematicWandschalter, HomematicDoor: HomematicDoor, HomematicWetterstation: HomematicWetterstation, HomematicAccessPoint: HomematicAccessPoint, HomematicRollladen: HomematicRollladen, HomematicWandtaster: HomematicWandtaster, HomematicTemperatursensor: HomematicTemperatursensor, HomematicRauchmelder: HomematicRauchmelder, HomematicPraesenzmelder: HomematicPraesenzmelder, AbstractHomematic: AbstractHomematic, HomematicFunkschaltaktor: HomematicFunkschaltaktor };
+module.exports = {
+    HomematicWindow: HomematicWindow,
+    HomematicSteckdose: HomematicSteckdose,
+    HomematicHeizkoerper: HomematicHeizkoerper,
+    HomematicDimmer: HomematicDimmer,
+    HomematicWandthermostat: HomematicWandthermostat,
+    HomematicFussbodenheizung: HomematicFussbodenheizung,
+    HomematicWandschalter: HomematicWandschalter,
+    HomematicDoor: HomematicDoor,
+    HomematicWetterstation: HomematicWetterstation,
+    HomematicAccessPoint: HomematicAccessPoint,
+    HomematicRollladen: HomematicRollladen,
+    HomematicWandtaster: HomematicWandtaster,
+    HomematicTemperatursensor: HomematicTemperatursensor,
+    HomematicRauchmelder: HomematicRauchmelder,
+    HomematicPraesenzmelder: HomematicPraesenzmelder,
+    AbstractHomematic: AbstractHomematic,
+    HomematicFunkschaltaktor: HomematicFunkschaltaktor,
+    deviceHomematicWandthermostat: deviceHomematicWandthermostat,
+    deviceHomematicPraesenzmelder: deviceHomematicPraesenzmelder,
+    deviceHomematicWetterstation: deviceHomematicWetterstation,
+    deviceHomematicDoor: deviceHomematicDoor,
+    deviceHomematicRollladen: deviceHomematicRollladen,
+    deviceHomematicWandschalter: deviceHomematicWandschalter,
+    deviceHomematicFussbodenheizung: deviceHomematicFussbodenheizung,
+    deviceHomematicWandtaster: deviceHomematicWandtaster,
+    deviceHomematicAccessPoint: deviceHomematicAccessPoint,
+    deviceHomematicTemperatursensor: deviceHomematicTemperatursensor,
+    deviceHomematicRauchmelder: deviceHomematicRauchmelder,
+    deviceHomematicFunkSchaltaktor: deviceHomematicFunkSchaltaktor,
+    deviceHomematicWindow: deviceHomematicWindow,
+    deviceHomematicSteckdose: deviceHomematicSteckdose,
+    deviceHomematicHeizkoerper: deviceHomematicHeizkoerper,
+    deviceHomematicDimmer: deviceHomematicDimmer
+};

@@ -1,20 +1,20 @@
-
-const deviceWandthermostat = "Wandthermostat";
-const devicePraesenzmelder = "Praesenzmelder";
-const deviceWetterstation = "Wetterstation";
-const deviceDoor = "Door";
-const deviceRollladen = "Rollladen";
-const deviceWandschalter = "Wandschalter";
-const deviceFussbodenheizung = "Fussbodenheizung";
-const deviceWandtaster = "Wandtaster";
-const deviceAccessPoint = "AccessPoint";
-const deviceTemperatursensor = "Temperatursensor";
-const deviceRauchmelder = "Rauchmelder";
-const deviceFunkSchaltaktor = "FunkSchaltaktor";
-const deviceWindow = "Window";
-const deviceSteckdose = "Steckdose";
-const deviceHeizkoerper = "Heizkoerper";
-const deviceDimmer = "Dimmer";
+// https://stackoverflow.com/questions/8595509/how-do-you-share-constants-in-nodejs-modules
+const deviceHomematicWandthermostat: string = "Wandthermostat";
+const deviceHomematicPraesenzmelder: string = "Praesenzmelder";
+const deviceHomematicWetterstation: string = "Wetterstation";
+const deviceHomematicDoor: string = "Door";
+const deviceHomematicRollladen: string = "Rollladen";
+const deviceHomematicWandschalter: string = "Wandschalter";
+const deviceHomematicFussbodenheizung: string = "Fussbodenheizung";
+const deviceHomematicWandtaster: string = "Wandtaster";
+const deviceHomematicAccessPoint: string = "AccessPoint";
+const deviceHomematicTemperatursensor: string = "Temperatursensor";
+const deviceHomematicRauchmelder: string = "Rauchmelder";
+const deviceHomematicFunkSchaltaktor: string = "FunkSchaltaktor";
+const deviceHomematicWindow: string = "Window";
+const deviceHomematicSteckdose: string = "Steckdose";
+const deviceHomematicHeizkoerper: string = "Heizkoerper";
+const deviceHomematicDimmer: string = "Dimmer";
 
 export abstract class AbstractHomematic {
     protected baseState: string;
@@ -106,7 +106,7 @@ export class HomematicWandthermostat extends AbstractHomematic {
     }
 
     public getCategory(): string {
-        return deviceWandthermostat;
+        return deviceHomematicWandthermostat;
     }
 
     public isStatusBattery(): boolean { 
@@ -120,7 +120,7 @@ export class HomematicPraesenzmelder extends AbstractHomematic {
     }
 
     public getCategory(): string {
-        return devicePraesenzmelder;
+        return deviceHomematicPraesenzmelder;
     }
 
     public getIllumination(): string {
@@ -141,7 +141,7 @@ export class HomematicWetterstation extends AbstractHomematic {
     }
 
     public getCategory(): string {
-        return deviceWetterstation;
+        return deviceHomematicWetterstation;
     }
 
     public isStatusBattery(): boolean { 
@@ -155,7 +155,7 @@ export class HomematicWindow extends AbstractHomematic {
     }
 
     public getCategory(): string {
-        return deviceWindow;
+        return deviceHomematicWindow;
     }
 
     public isStatusBattery(): boolean { 
@@ -169,7 +169,7 @@ export class HomematicSteckdose extends AbstractHomematic {
     }
 
     public getCategory(): string {
-        return deviceSteckdose;
+        return deviceHomematicSteckdose;
     }
 }
 
@@ -179,7 +179,7 @@ export class HomematicHeizkoerper extends AbstractHomematic {
     }
 
     public getCategory(): string {
-        return deviceHeizkoerper;
+        return deviceHomematicHeizkoerper;
     }
 
     public isStatusBattery(): boolean { 
@@ -193,7 +193,7 @@ export class HomematicDimmer extends AbstractHomematic {
     }
 
     public getCategory(): string {
-        return deviceDimmer;
+        return deviceHomematicDimmer;
     }
 }
 
@@ -203,7 +203,7 @@ export class HomematicFunkschaltaktor extends AbstractHomematic {
     }
 
     public getCategory(): string {
-        return deviceFunkSchaltaktor;
+        return deviceHomematicFunkSchaltaktor;
     }
 }
 
@@ -213,7 +213,7 @@ export class HomematicRauchmelder extends AbstractHomematic {
     }
 
     public getCategory(): string {
-        return deviceRauchmelder;
+        return deviceHomematicRauchmelder;
     }
 
     public isStatusBattery(): boolean { 
@@ -236,7 +236,7 @@ export class HomematicTemperatursensor extends AbstractHomematic {
     }
 
     public getCategory(): string {
-        return deviceTemperatursensor;
+        return deviceHomematicTemperatursensor;
     }
 
     public isStatusBattery(): boolean { 
@@ -250,7 +250,7 @@ export class HomematicWandtaster extends AbstractHomematic {
     }
 
     public getCategory(): string {
-        return deviceWandtaster;
+        return deviceHomematicWandtaster;
     }
 
 }
@@ -273,7 +273,7 @@ export class HomematicAccessPoint extends AbstractHomematic {
     }
 
     public getCategory(): string {
-        return deviceAccessPoint;
+        return deviceHomematicAccessPoint;
     }
 
 }
@@ -291,7 +291,7 @@ export class HomematicRollladen extends AbstractHomematic {
     }
 
     public getCategory(): string {
-        return deviceRollladen;
+        return deviceHomematicRollladen;
     }
 
     public auf() {
@@ -326,7 +326,7 @@ export class HomematicDoor extends AbstractHomematic {
     }
 
     public getCategory(): string {
-        return deviceDoor;
+        return deviceHomematicDoor;
     }
 
     public isStatusBattery(): boolean { 
@@ -347,7 +347,7 @@ export class HomematicFussbodenheizung extends AbstractHomematic {
     }
 
     public getCategory(): string {
-        return deviceFussbodenheizung;
+        return deviceHomematicFussbodenheizung;
     }
 
 }
@@ -358,7 +358,7 @@ export class HomematicWandschalter extends AbstractHomematic {
     }
 
     public getCategory(): string {
-        return deviceWandschalter;
+        return deviceHomematicWandschalter;
     }
 
     public isStatusBattery(): boolean { 
@@ -383,4 +383,9 @@ export class HomematicWandschalter extends AbstractHomematic {
     }
 }
 
-module.exports = { HomematicWindow, HomematicSteckdose, HomematicHeizkoerper, HomematicDimmer, HomematicWandthermostat, HomematicFussbodenheizung, HomematicWandschalter, HomematicDoor, HomematicWetterstation, HomematicAccessPoint, HomematicRollladen, HomematicWandtaster, HomematicTemperatursensor, HomematicRauchmelder, HomematicPraesenzmelder, AbstractHomematic, HomematicFunkschaltaktor };
+
+
+module.exports = { 
+    HomematicWindow, HomematicSteckdose, HomematicHeizkoerper, HomematicDimmer, HomematicWandthermostat, HomematicFussbodenheizung, HomematicWandschalter, HomematicDoor, HomematicWetterstation, HomematicAccessPoint, HomematicRollladen, HomematicWandtaster, HomematicTemperatursensor, HomematicRauchmelder, HomematicPraesenzmelder, AbstractHomematic, HomematicFunkschaltaktor,
+    deviceHomematicWandthermostat, deviceHomematicPraesenzmelder, deviceHomematicWetterstation, deviceHomematicDoor, deviceHomematicRollladen, deviceHomematicWandschalter, deviceHomematicFussbodenheizung, deviceHomematicWandtaster, deviceHomematicAccessPoint, deviceHomematicTemperatursensor, deviceHomematicRauchmelder, deviceHomematicFunkSchaltaktor, deviceHomematicWindow, deviceHomematicSteckdose, deviceHomematicHeizkoerper, deviceHomematicDimmer
+};
