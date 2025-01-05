@@ -1,32 +1,31 @@
-export class DateCalendarTest  {
+// https://stackoverflow.com/questions/8595509/how-do-you-share-constants-in-nodejs-modules
 
-    public getCurrentWeekdayAsString() : string {
-        var now = new Date();
-        let weekday = now.getDay();
-        return this.getWeekdayAsString(weekday);
-    }
+const deviceHomematicWandthermostat: string = "Wandthermostat";
+const deviceHomematicPraesenzmelder: string = "Praesenzmelder";
+const deviceHomematicWetterstation: string = "Wetterstation";
+const deviceHomematicDoor: string = "Door";
+const deviceHomematicRollladen: string = "Rollladen";
+const deviceHomematicWandschalter: string = "Wandschalter";
+const deviceHomematicFussbodenheizung: string = "Fussbodenheizung";
+const deviceHomematicWandtaster: string = "Wandtaster";
+const deviceHomematicAccessPoint: string = "AccessPoint";
+const deviceHomematicTemperatursensor: string = "Temperatursensor";
+const deviceHomematicRauchmelder: string = "Rauchmelder";
+const deviceHomematicFunkSchaltaktor: string = "FunkSchaltaktor";
+const deviceHomematicWindow: string = "Window";
+const deviceHomematicSteckdose: string = "Steckdose";
+const deviceHomematicHeizkoerper: string = "Heizkoerper";
+const deviceHomematicDimmer: string = "Dimmer";
 
-    public getWeekdayAsString(weekday: number) : string {
-        let weekdayAsString;
-        if (weekday == 1) {
-            weekdayAsString = "Montag1";
-        } else if (weekday == 2) {
-            weekdayAsString = "Dienstag2";
-        } else if (weekday == 3) {
-            weekdayAsString = "Mittwoch3";
-        } else if (weekday == 4) {
-            weekdayAsString = "Donnerstag4";
-        } else if (weekday == 5) {
-            weekdayAsString = "Freitag5";
-        } else if (weekday == 6) {
-            weekdayAsString = "Samstag6";
-        } else if (weekday == 7) {
-            weekdayAsString = "Sonntag7";
-        } else if (weekday == 0) {
-            weekdayAsString = "Sonntag8";
-        }
-        return weekdayAsString;
-    }     
-}
+const { DateHelper } = require('./date.js');
+const { DateCalendarTest } = require('./test.js');
+const { AbstractColumn, HtmlTable, HtmlCreator, StaticIconColumn, AbstractStandardTextColumn } = require('./html.js');
+const { HomematicWindow, HomematicSteckdose, HomematicHeizkoerper, HomematicDimmer, HomematicWandthermostat, HomematicFussbodenheizung, HomematicWandschalter, HomematicDoor, HomematicWetterstation, HomematicAccessPoint, HomematicRollladen, HomematicWandtaster, HomematicTemperatursensor, HomematicRauchmelder, HomematicPraesenzmelder, AbstractHomematic, HomematicFunkschaltaktor } = require('./homematic.js');
 
-module.exports = DateCalendarTest;
+module.exports = {
+    DateHelper,
+    DateCalendarTest,
+    AbstractColumn, HtmlTable, HtmlCreator, StaticIconColumn, AbstractStandardTextColumn,
+    HomematicWindow, HomematicSteckdose, HomematicHeizkoerper, HomematicDimmer, HomematicWandthermostat, HomematicFussbodenheizung, HomematicWandschalter, HomematicDoor, HomematicWetterstation, HomematicAccessPoint, HomematicRollladen, HomematicWandtaster, HomematicTemperatursensor, HomematicRauchmelder, HomematicPraesenzmelder, AbstractHomematic, HomematicFunkschaltaktor,
+    deviceHomematicWandthermostat, deviceHomematicPraesenzmelder, deviceHomematicWetterstation, deviceHomematicDoor, deviceHomematicRollladen, deviceHomematicWandschalter, deviceHomematicFussbodenheizung, deviceHomematicWandtaster, deviceHomematicAccessPoint, deviceHomematicTemperatursensor, deviceHomematicRauchmelder, deviceHomematicFunkSchaltaktor, deviceHomematicWindow, deviceHomematicSteckdose, deviceHomematicHeizkoerper, deviceHomematicDimmer
+};
