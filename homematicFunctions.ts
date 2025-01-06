@@ -1,16 +1,16 @@
-const { HomematicWindow, HomematicSteckdose, HomematicHeizkoerper, HomematicDimmer, HomematicWandthermostat, HomematicFussbodenheizung, HomematicWandschalter, HomematicDoor, HomematicWetterstation, HomematicAccessPoint, HomematicRollladen, HomematicWandtaster, HomematicTemperatursensor, HomematicRauchmelder, HomematicPraesenzmelder, AbstractHomematic, HomematicFunkschaltaktor, deviceHomematicWandthermostat, deviceHomematicPraesenzmelder, deviceHomematicWetterstation, deviceHomematicDoor, deviceHomematicRollladen, deviceHomematicWandschalter, deviceHomematicFussbodenheizung, deviceHomematicWandtaster, deviceHomematicAccessPoint, deviceHomematicTemperatursensor, deviceHomematicRauchmelder, deviceHomematicFunkSchaltaktor, deviceHomematicWindow, deviceHomematicSteckdose, deviceHomematicHeizkoerper, deviceHomematicDimmer} = require('./homematicClasses.js');
+const { HomematicWindow, HomematicSteckdose, HomematicHeizkoerper, HomematicDimmer, HomematicWandthermostat, HomematicFussbodenheizung, HomematicWandschalter, HomematicDoor, HomematicWetterstation, HomematicAccessPoint, HomematicRollladen, HomematicWandtaster, HomematicTemperatursensor, HomematicRauchmelder, HomematicPraesenzmelder, AbstractHomematic, HomematicFunkschaltaktor, deviceHomematicWandthermostat, deviceHomematicPraesenzmelder, deviceHomematicWetterstation, deviceHomematicDoor, deviceHomematicRollladen, deviceHomematicWandschalter, deviceHomematicFussbodenheizung, deviceHomematicWandtaster, deviceHomematicAccessPoint, deviceHomematicTemperatursensor, deviceHomematicRauchmelder, deviceHomematicFunkSchaltaktor, deviceHomematicWindow, deviceHomematicSteckdose, deviceHomematicHeizkoerper, deviceHomematicDimmer } = require('./homematicClasses.js');
 
 const attributeRawID = "rawId";
 const attributeBaseState = "baseState";
 const attributeEtage = "etage";
 const attributeRaum = "raum";
 const attributeDevice = "device";
-const attributeCategory = "type";
+const attributeCategory = "category";
 
 const attributeTypeNumber = "number";
 const attributeTypeString = "string";
 
-export function createHomematicDevice(adapter:any, rawId, baseState, etage, raum, device, category) {
+export function createHomematicDevice(adapter: any, rawId: number, baseState: string, etage: string, raum: string, device: string, category: string) {
     createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRawID, rawId);
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeCategory, category);
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeBaseState, baseState);
@@ -19,24 +19,24 @@ export function createHomematicDevice(adapter:any, rawId, baseState, etage, raum
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDevice, device);
 }
 
-function createDatenpunktSingle(adapter:any, deviceRawId, attributeType, attributeName, attributeValue) {
+function createDatenpunktSingle(adapter: any, deviceRawId, attributeType, attributeName, attributeValue) {
     var stateDatenpunkt = "0_userdata.0.devices.homematic." + deviceRawId + "." + attributeName;
     adapter.createState(stateDatenpunkt, null, {
         name: stateDatenpunkt,
         desc: stateDatenpunkt,
-        type: attributeType, 
+        type: attributeType,
         read: true,
         write: true
     });
     adapter.setState(stateDatenpunkt, attributeValue);
 }
 
-export function getHomematicDevices(adapter:any, filterCategory:string) {
+export function getHomematicDevices(adapter: any, filterCategory: string) {
     var homematicArray = [];
     //var homematicArray : Array<InstanceType<typeof AbstractHomematic>> = [];
-    
-    adapter.$('state[id=0_userdata.0.devices.homematic.*.type]').each(datenpunktKey => {  // 0_userdata.0.devices.homematic.30.type
-        var datenpunktPraefix = datenpunktKey.replaceAll(".type", "");
+
+    adapter.$('state[id=0_userdata.0.devices.homematic.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.homematic.30.type
+        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == filterCategory) {
             if (filterCategory == deviceHomematicWandthermostat) {
                 // @ts-ignore            
@@ -183,17 +183,17 @@ export function getHomematicDevices(adapter:any, filterCategory:string) {
                     adapter.getState(datenpunktPraefix + "." + attributeDevice).val     // [4] Device            (z.B. Stehlampe)            
                 ));
             }
-        }                                    
+        }
 
     });
     return homematicArray;
 }
 
-export function getHomematicDevicesAll(adapter:any) {
+export function getHomematicDevicesAll(adapter: any) {
     //var homematicArray : Array<InstanceType<typeof AbstractHomematic>> = [];
     var homematicArray = [];
 
-    
+
     adapter.getHomematicDevices(adapter, deviceHomematicWandthermostat).forEach(homematic => {
         // @ts-ignore            
         homematicArray.push(homematic);
@@ -260,14 +260,5 @@ export function getHomematicDevicesAll(adapter:any) {
     });
     return homematicArray;
 }
-
-/*export function getHomematicDevicesUwe(adapter: any, filterCategory:string) {
-    adapter.log("INSIDE: ");
-    var homematicArray = [];    
-    adapter.$('state[id=0_userdata.0.devices.homematic.*.type]').each(datenpunktKey => {  // 0_userdata.0.devices.homematic.30.type
-        adapter.log("Here i am: " + datenpunktKey);
-    });
-    return homematicArray;
-}*/
 
 module.exports = { createHomematicDevice, getHomematicDevices, getHomematicDevicesAll };

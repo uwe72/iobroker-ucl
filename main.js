@@ -3,6 +3,8 @@ var DateCalendarTest = require('./test.js').DateCalendarTest;
 var _a = require('./html.js'), AbstractColumn = _a.AbstractColumn, HtmlTable = _a.HtmlTable, HtmlCreator = _a.HtmlCreator, StaticIconColumn = _a.StaticIconColumn, AbstractStandardTextColumn = _a.AbstractStandardTextColumn;
 var _b = require('./homematicClasses.js'), HomematicWindow = _b.HomematicWindow, HomematicSteckdose = _b.HomematicSteckdose, HomematicHeizkoerper = _b.HomematicHeizkoerper, HomematicDimmer = _b.HomematicDimmer, HomematicWandthermostat = _b.HomematicWandthermostat, HomematicFussbodenheizung = _b.HomematicFussbodenheizung, HomematicWandschalter = _b.HomematicWandschalter, HomematicDoor = _b.HomematicDoor, HomematicWetterstation = _b.HomematicWetterstation, HomematicAccessPoint = _b.HomematicAccessPoint, HomematicRollladen = _b.HomematicRollladen, HomematicWandtaster = _b.HomematicWandtaster, HomematicTemperatursensor = _b.HomematicTemperatursensor, HomematicRauchmelder = _b.HomematicRauchmelder, HomematicPraesenzmelder = _b.HomematicPraesenzmelder, AbstractHomematic = _b.AbstractHomematic, HomematicFunkschaltaktor = _b.HomematicFunkschaltaktor, deviceHomematicWandthermostat = _b.deviceHomematicWandthermostat, deviceHomematicPraesenzmelder = _b.deviceHomematicPraesenzmelder, deviceHomematicWetterstation = _b.deviceHomematicWetterstation, deviceHomematicDoor = _b.deviceHomematicDoor, deviceHomematicRollladen = _b.deviceHomematicRollladen, deviceHomematicWandschalter = _b.deviceHomematicWandschalter, deviceHomematicFussbodenheizung = _b.deviceHomematicFussbodenheizung, deviceHomematicWandtaster = _b.deviceHomematicWandtaster, deviceHomematicAccessPoint = _b.deviceHomematicAccessPoint, deviceHomematicTemperatursensor = _b.deviceHomematicTemperatursensor, deviceHomematicRauchmelder = _b.deviceHomematicRauchmelder, deviceHomematicFunkSchaltaktor = _b.deviceHomematicFunkSchaltaktor, deviceHomematicWindow = _b.deviceHomematicWindow, deviceHomematicSteckdose = _b.deviceHomematicSteckdose, deviceHomematicHeizkoerper = _b.deviceHomematicHeizkoerper, deviceHomematicDimmer = _b.deviceHomematicDimmer;
 var _c = require('./homematicFunctions.js'), createHomematicDevice = _c.createHomematicDevice, getHomematicDevices = _c.getHomematicDevices, getHomematicDevicesAll = _c.getHomematicDevicesAll;
+var _d = require('./zigbeeClasses.js'), AbstractZigbee = _d.AbstractZigbee, ColorScheme = _d.ColorScheme, RGBColorScheme = _d.RGBColorScheme, WhiteColorScheme = _d.WhiteColorScheme, ZigbeeLampeRGB = _d.ZigbeeLampeRGB, LampeWeissTasterScheme = _d.LampeWeissTasterScheme, LampeWeissAlexaScheme = _d.LampeWeissAlexaScheme, ZigbeeLampeWeiss = _d.ZigbeeLampeWeiss, ZigbeeSteckdose = _d.ZigbeeSteckdose, ZigbeeSchalter = _d.ZigbeeSchalter, ZigbeeRepeater = _d.ZigbeeRepeater, ZigbeeFenstersensor = _d.ZigbeeFenstersensor, ZigbeeRauchmelder = _d.ZigbeeRauchmelder, ZigbeeBewegungsmelder = _d.ZigbeeBewegungsmelder, ZigbeeWandtaster = _d.ZigbeeWandtaster, ZigbeeDosenrelais = _d.ZigbeeDosenrelais, AlexaInputConverter = _d.AlexaInputConverter, deviceZigbeeSteckdose = _d.deviceZigbeeSteckdose, deviceZigbeeBewegungsmelder = _d.deviceZigbeeBewegungsmelder, deviceZigbeeLampeRGB = _d.deviceZigbeeLampeRGB, deviceZigbeeLampeWeiss = _d.deviceZigbeeLampeWeiss, deviceZigbeeRauchmelder = _d.deviceZigbeeRauchmelder, deviceZigbeeWandtaster = _d.deviceZigbeeWandtaster, deviceZigbeeDosenrelais = _d.deviceZigbeeDosenrelais, deviceZigbeeSchalter = _d.deviceZigbeeSchalter, deviceZigbeeRepeater = _d.deviceZigbeeRepeater, deviceZigbeeFenstersensor = _d.deviceZigbeeFenstersensor;
+var _e = require('./zigbeeFunctions.js'), createZigbeeDevice = _e.createZigbeeDevice, createLampeWeiss = _e.createLampeWeiss, createSteckdose = _e.createSteckdose, getZigbeeDevices = _e.getZigbeeDevices, getZigbeeDevicesAll = _e.getZigbeeDevicesAll;
 module.exports = {
     // date.ts:
     DateHelper: DateHelper,
@@ -51,5 +53,39 @@ module.exports = {
     // homematicFunctions.ts
     createHomematicDevice: createHomematicDevice,
     getHomematicDevices: getHomematicDevices,
-    getHomematicDevicesAll: getHomematicDevicesAll
+    getHomematicDevicesAll: getHomematicDevicesAll,
+    // zigbeeClasses.ts
+    AbstractZigbee: AbstractZigbee,
+    ColorScheme: ColorScheme,
+    RGBColorScheme: RGBColorScheme,
+    WhiteColorScheme: WhiteColorScheme,
+    ZigbeeLampeRGB: ZigbeeLampeRGB,
+    LampeWeissTasterScheme: LampeWeissTasterScheme,
+    LampeWeissAlexaScheme: LampeWeissAlexaScheme,
+    ZigbeeLampeWeiss: ZigbeeLampeWeiss,
+    ZigbeeSteckdose: ZigbeeSteckdose,
+    ZigbeeSchalter: ZigbeeSchalter,
+    ZigbeeRepeater: ZigbeeRepeater,
+    ZigbeeFenstersensor: ZigbeeFenstersensor,
+    ZigbeeRauchmelder: ZigbeeRauchmelder,
+    ZigbeeBewegungsmelder: ZigbeeBewegungsmelder,
+    ZigbeeWandtaster: ZigbeeWandtaster,
+    ZigbeeDosenrelais: ZigbeeDosenrelais,
+    AlexaInputConverter: AlexaInputConverter,
+    deviceZigbeeSteckdose: deviceZigbeeSteckdose,
+    deviceZigbeeBewegungsmelder: deviceZigbeeBewegungsmelder,
+    deviceZigbeeLampeRGB: deviceZigbeeLampeRGB,
+    deviceZigbeeLampeWeiss: deviceZigbeeLampeWeiss,
+    deviceZigbeeRauchmelder: deviceZigbeeRauchmelder,
+    deviceZigbeeWandtaster: deviceZigbeeWandtaster,
+    deviceZigbeeDosenrelais: deviceZigbeeDosenrelais,
+    deviceZigbeeSchalter: deviceZigbeeSchalter,
+    deviceZigbeeRepeater: deviceZigbeeRepeater,
+    deviceZigbeeFenstersensor: deviceZigbeeFenstersensor,
+    // zigbeeFunctions.ts
+    createZigbeeDevice: createZigbeeDevice,
+    createLampeWeiss: createLampeWeiss,
+    createSteckdose: createSteckdose,
+    getZigbeeDevices: getZigbeeDevices,
+    getZigbeeDevicesAll: getZigbeeDevicesAll
 };
