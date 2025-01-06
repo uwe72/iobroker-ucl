@@ -109,6 +109,9 @@ const attributeRGBLamp_ColorSchemes_Weiss4_name = "alexaColorSchemeForOn_Weiss4_
 const attributeRGBLamp_ColorSchemes_Weiss4_level = "alexaColorSchemeForOn_Weiss4_level";
 const attributeRGBLamp_ColorSchemes_Weiss4_ct = "alexaColorSchemeForOn_Weiss4_ct";
 
+// Dosenrelais:
+const attributeDosenrelais_smartNames = "smartNames";
+
 // Lampen/Steckdosen allgemein:
 const attribute_TasterBooleanOn = "tasterBooleanOn";
 const attribute_TasterBooleanOff = "tasterBooleanOff";
@@ -133,17 +136,37 @@ const attributeCategory = "category";
 
 // Standarddevices, ohne zusätzliche Attribute:
 export function createZigbeeDevice(adapter:any, rawId: number, baseState: string, etage:string, raum:string, device:string, category:string) {
-    createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRawID, rawId);
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeCategory, category);
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeBaseState, baseState);
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeEtage, etage);
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRaum, raum);
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDevice, device);
+    createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRawID, rawId, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeCategory, category, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeBaseState, baseState, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeEtage, etage, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRaum, raum, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDevice, device, category);
+}
+
+// Dosenrelais:
+export function createDosenrelaisDevice(adapter:any, rawId: number, baseState: string, etage:string, raum:string, device:string, smartNames:string[]) {
+
+    // Allgemein:
+    createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeDosenrelais);
+
+    // Spezifisch:
+    var db_smartNames = null;
+    smartNames.forEach(value => {
+        if (db_smartNames == null) {
+            // @ts-ignore                        
+            db_smartNames = value;
+        } else {
+            // @ts-ignore                        
+            db_smartNames += "|" + value;
+        }
+    });
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDosenrelais_smartNames, db_smartNames, deviceZigbeeDosenrelais);
 }
 
 // Steckdose:
 export function createSteckdose(adapter:any, rawId: number, baseState: string, etage: string, raum: string, device: string, alexaSmartNamesForOn:string[],
-    alexaActionNamesForOn:string[], alexaSmartNamesForOff: string[],alexaActionNamesForOff: string[], additionalStates4TurnOn:string[], additionalStates4TurnOff:string[]) {
+    alexaActionNamesForOn:string[], alexaSmartNamesForOff: string[],alexaActionNamesForOff: string[], additionalStates4TurnOn:string[], additionalStates4TurnOff:string[], category:string) {
 
     // Allgemein:
     createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeSteckdose);
@@ -159,7 +182,7 @@ export function createSteckdose(adapter:any, rawId: number, baseState: string, e
             db_alexaSmartNamesForOn += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, category);
 
     // alexaActionNamesForOn:string[]
     var db_alexaActionNamesForOn = null;
@@ -172,7 +195,7 @@ export function createSteckdose(adapter:any, rawId: number, baseState: string, e
             db_alexaActionNamesForOn += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, category);
 
     // alexaSmartNamesForOff:string[]
     var db_alexaSmartNamesForOff = null;
@@ -185,7 +208,7 @@ export function createSteckdose(adapter:any, rawId: number, baseState: string, e
             db_alexaSmartNamesForOff += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, category);
 
     // alexaActionNamesForOff:string[]
     var db_alexaActionNamesForOff = null;
@@ -198,7 +221,7 @@ export function createSteckdose(adapter:any, rawId: number, baseState: string, e
             db_alexaActionNamesForOff += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, category);
 
     // additionalStates4TurnOn: string[]
     var db_additionalStates4TurnOn = null;
@@ -211,7 +234,7 @@ export function createSteckdose(adapter:any, rawId: number, baseState: string, e
             db_additionalStates4TurnOn += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOn, db_additionalStates4TurnOn);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOn, db_additionalStates4TurnOn, category);
 
     // additionalStates4TurnOff: string[]
     var db_additionalStates4TurnOff = null;
@@ -224,7 +247,7 @@ export function createSteckdose(adapter:any, rawId: number, baseState: string, e
             db_additionalStates4TurnOff += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_additionalStates4TurnOff);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_additionalStates4TurnOff, category);
 }
 
 // LampeWeiss:
@@ -234,7 +257,7 @@ export function createLampeWeiss(adapter:any, rawId: number, baseState: string, 
         isGroup: boolean, 
             tasterBooleanOn1: InstanceType<typeof LampeWeissTasterScheme>, tasterBooleanOn2: InstanceType<typeof LampeWeissTasterScheme>, tasterBooleanOn3: InstanceType<typeof LampeWeissTasterScheme>, tasterBooleanOn4: InstanceType<typeof LampeWeissTasterScheme>, 
             tasterBooleanOff: string[], nachtbeleuchtung:boolean, 
-            turnOffExitHouseSummer:boolean, turnOffExitHouseWinter:boolean, turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean) {
+            turnOffExitHouseSummer:boolean, turnOffExitHouseWinter:boolean, turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean, category:string) {
 
     // Allgemein:
     createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeLampeWeiss);
@@ -250,7 +273,7 @@ export function createLampeWeiss(adapter:any, rawId: number, baseState: string, 
             db_alexaSmartNamesForOn += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, category);
 
     // alexaActionNamesForOn:string[]
     var db_alexaActionNamesForOn = null;
@@ -263,7 +286,7 @@ export function createLampeWeiss(adapter:any, rawId: number, baseState: string, 
             db_alexaActionNamesForOn += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, category);
 
     // alexaSmartNamesForOff:string[]
     var db_alexaSmartNamesForOff = null;
@@ -276,7 +299,7 @@ export function createLampeWeiss(adapter:any, rawId: number, baseState: string, 
             db_alexaSmartNamesForOff += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, category);
 
     // alexaActionNamesForOff:string[]
     var db_alexaActionNamesForOff = null;
@@ -289,58 +312,58 @@ export function createLampeWeiss(adapter:any, rawId: number, baseState: string, 
             db_alexaActionNamesForOff += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, category);
 
     // tasterBooleanOn1 : LampeWeissTasterScheme
     if (tasterBooleanOn1 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn1_aktiv, true);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn1_name, tasterBooleanOn1.getTasterBooleanOnName());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn1_level, tasterBooleanOn1.getLevel());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn1_ct, tasterBooleanOn1.getCt());        
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn1_aktiv, true, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn1_name, tasterBooleanOn1.getTasterBooleanOnName(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn1_level, tasterBooleanOn1.getLevel(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn1_ct, tasterBooleanOn1.getCt(), category);        
     } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn1_aktiv, false);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn1_name, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn1_level, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn1_ct, null);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn1_aktiv, false, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn1_name, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn1_level, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn1_ct, null, category);        
     }    
 
     // tasterBooleanOn2 : LampeWeissTasterScheme
     if (tasterBooleanOn2 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn2_aktiv, true);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn2_name, tasterBooleanOn2.getTasterBooleanOnName());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn2_level, tasterBooleanOn2.getLevel());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn2_ct, tasterBooleanOn2.getCt());        
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn2_aktiv, true, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn2_name, tasterBooleanOn2.getTasterBooleanOnName(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn2_level, tasterBooleanOn2.getLevel(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn2_ct, tasterBooleanOn2.getCt(), category);        
     } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn2_aktiv, false);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn2_name, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn2_level, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn2_ct, null);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn2_aktiv, false, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn2_name, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn2_level, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn2_ct, null, category);        
     }    
 
     // tasterBooleanOn3 : LampeWeissTasterScheme
     if (tasterBooleanOn3 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn3_aktiv, true);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn3_name, tasterBooleanOn3.getTasterBooleanOnName());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn3_level, tasterBooleanOn3.getLevel());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn3_ct, tasterBooleanOn3.getCt());        
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn3_aktiv, true, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn3_name, tasterBooleanOn3.getTasterBooleanOnName(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn3_level, tasterBooleanOn3.getLevel(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn3_ct, tasterBooleanOn3.getCt(), category);        
     } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn3_aktiv, false);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn3_name, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn3_level, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn3_ct, null);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn3_aktiv, false, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn3_name, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn3_level, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn3_ct, null, category);        
     }    
 
     // tasterBooleanOn4 : LampeWeissTasterScheme
     if (tasterBooleanOn4 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn4_aktiv, true);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn4_name, tasterBooleanOn4.getTasterBooleanOnName());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn4_level, tasterBooleanOn4.getLevel());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn4_ct, tasterBooleanOn4.getCt());        
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn4_aktiv, true, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn4_name, tasterBooleanOn4.getTasterBooleanOnName(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn4_level, tasterBooleanOn4.getLevel(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn4_ct, tasterBooleanOn4.getCt(), category);        
     } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn4_aktiv, false);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn4_name, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn4_level, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn4_ct, null);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn4_aktiv, false, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn4_name, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn4_level, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn4_ct, null, category);        
     }    
 
     // tasterBooleanOff: string[]
@@ -354,79 +377,79 @@ export function createLampeWeiss(adapter:any, rawId: number, baseState: string, 
             db_tasterBooleanOff += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_tasterBooleanOff);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_tasterBooleanOff, category);
 
     // Weitere:
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_Nachtbeleuchtung, nachtbeleuchtung);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseSummer, turnOffExitHouseSummer);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter);
+    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_Nachtbeleuchtung, nachtbeleuchtung, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseSummer, turnOffExitHouseSummer, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, category);
 
     // Gruppe:
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampeWeissGroup, isGroup);
+    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampeWeissGroup, isGroup, category);
 
     // alexaLevelSchemeForOn: LampeWeissColorScheme
     if (alexaLevelSchemeForOn != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_aktiv, true);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_level, alexaLevelSchemeForOn.getLevel());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_ct, alexaLevelSchemeForOn.getCt());
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_aktiv, true, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_level, alexaLevelSchemeForOn.getLevel(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_ct, alexaLevelSchemeForOn.getCt(), category);
     } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_aktiv, false);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_level, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_ct, null);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_aktiv, false, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_level, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_ct, null, category);
     }
 
     // colorSchemesWeiss1: LampeWeissAlexaScheme
     if (colorSchemesWeiss1 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss1_aktiv, true);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss1_name, colorSchemesWeiss1.getAlexaName());        
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss1_level, colorSchemesWeiss1.getLevel());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss1_ct, colorSchemesWeiss1.getCt());
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss1_aktiv, true, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss1_name, colorSchemesWeiss1.getAlexaName(), category);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss1_level, colorSchemesWeiss1.getLevel(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss1_ct, colorSchemesWeiss1.getCt(), category);
     } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss1_aktiv, false);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss1_name, null);        
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss1_level, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss1_ct, null);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss1_aktiv, false, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss1_name, null, category);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss1_level, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss1_ct, null, category);
     }
 
     // colorSchemesWeiss2: LampeWeissAlexaScheme
     if (colorSchemesWeiss2 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss2_aktiv, true);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss2_name, colorSchemesWeiss2.getAlexaName());        
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss2_level, colorSchemesWeiss2.getLevel());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss2_ct, colorSchemesWeiss2.getCt());
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss2_aktiv, true, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss2_name, colorSchemesWeiss2.getAlexaName(), category);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss2_level, colorSchemesWeiss2.getLevel(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss2_ct, colorSchemesWeiss2.getCt(), category);
     } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss2_aktiv, false);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss2_name, null);        
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss2_level, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss2_ct, null);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss2_aktiv, false, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss2_name, null, category);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss2_level, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss2_ct, null, category);
     }
 
     // colorSchemesWeiss3: LampeWeissAlexaScheme
     if (colorSchemesWeiss3 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss3_aktiv, true);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss3_name, colorSchemesWeiss3.getAlexaName());        
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss3_level, colorSchemesWeiss3.getLevel());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss3_ct, colorSchemesWeiss3.getCt());
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss3_aktiv, true, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss3_name, colorSchemesWeiss3.getAlexaName(), category);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss3_level, colorSchemesWeiss3.getLevel(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss3_ct, colorSchemesWeiss3.getCt(), category);
     } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss3_aktiv, false);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss3_name, null);        
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss3_level, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss3_ct, null);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss3_aktiv, false, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss3_name, null, category);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss3_level, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss3_ct, null, category);
     }
 
     // colorSchemesWeiss4: LampeWeissAlexaScheme
     if (colorSchemesWeiss4 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss4_aktiv, true);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss4_name, colorSchemesWeiss4.getAlexaName());        
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_level, colorSchemesWeiss4.getLevel());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_ct, colorSchemesWeiss4.getCt());
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss4_aktiv, true, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss4_name, colorSchemesWeiss4.getAlexaName(), category);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_level, colorSchemesWeiss4.getLevel(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_ct, colorSchemesWeiss4.getCt(), category);
     } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss4_aktiv, false);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss4_name, null);        
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_level, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_ct, null);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss4_aktiv, false, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss4_name, null, category);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_level, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_ct, null, category);
     }
 }
 
@@ -436,13 +459,13 @@ export function createLampeRGB(adapter:any, rawId: number, baseState: string, et
     colorSchemesFarbe1: InstanceType<typeof RGBColorScheme>, colorSchemesFarbe2: InstanceType<typeof RGBColorScheme>, colorSchemesFarbe3: InstanceType<typeof RGBColorScheme>, colorSchemesFarbe4: InstanceType<typeof RGBColorScheme>, 
     colorSchemesWeiss1: InstanceType<typeof WhiteColorScheme>, colorSchemesWeiss2: InstanceType<typeof WhiteColorScheme>, colorSchemesWeiss3: InstanceType<typeof WhiteColorScheme>, colorSchemesWeiss4: InstanceType<typeof WhiteColorScheme>, 
     tasterBooleanOn: string[], tasterBooleanOff: string[],nachtbeleuchtung:boolean, turnOffExitHouseSummer:boolean, turnOffExitHouseWinter:boolean, 
-    turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean) {
+    turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean, category: string) {
 
     // Allgemein:
     createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeLampeRGB);
 
     // Lampe-RGB spezifisch:
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_Group, isGroup);
+    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_Group, isGroup, category);
     
     // groupMembers:string[]
     var db_groupMembers = null;
@@ -455,7 +478,7 @@ export function createLampeRGB(adapter:any, rawId: number, baseState: string, et
             db_groupMembers += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_Groupmembers, db_groupMembers);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_Groupmembers, db_groupMembers, category);
 
     // alexaSmartNamesForOn:string[]
     var db_alexaSmartNamesForOn = null;
@@ -468,7 +491,7 @@ export function createLampeRGB(adapter:any, rawId: number, baseState: string, et
             db_alexaSmartNamesForOn += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, category);
 
     // alexaActionNamesForOn:string[]
     var db_alexaActionNamesForOn = null;
@@ -481,7 +504,7 @@ export function createLampeRGB(adapter:any, rawId: number, baseState: string, et
             db_alexaActionNamesForOn += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, category);
 
     // alexaSmartNamesForOff:string[]
     var db_alexaSmartNamesForOff = null;
@@ -494,7 +517,7 @@ export function createLampeRGB(adapter:any, rawId: number, baseState: string, et
             db_alexaSmartNamesForOff += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, category);
 
     // alexaActionNamesForOff:string[]
     var db_alexaActionNamesForOff = null;
@@ -507,7 +530,7 @@ export function createLampeRGB(adapter:any, rawId: number, baseState: string, et
             db_alexaActionNamesForOff += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, category);
 
     // tasterBooleanOn: string[]
     var db_tasterBooleanOn = null;
@@ -520,7 +543,7 @@ export function createLampeRGB(adapter:any, rawId: number, baseState: string, et
             db_tasterBooleanOn += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOn, db_tasterBooleanOn);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOn, db_tasterBooleanOn, category);
 
     // tasterBooleanOff: string[]
     var db_tasterBooleanOff = null;
@@ -533,154 +556,154 @@ export function createLampeRGB(adapter:any, rawId: number, baseState: string, et
             db_tasterBooleanOff += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_tasterBooleanOff);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_tasterBooleanOff, category);
 
     // Weitere:
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_Nachtbeleuchtung, nachtbeleuchtung);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseSummer, turnOffExitHouseSummer);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter);
+    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_Nachtbeleuchtung, nachtbeleuchtung, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseSummer, turnOffExitHouseSummer, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, category);
 
     // alexaColorSchemeForOnFarbe: RGBColorScheme
     if (alexaColorSchemeForOnFarbe != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_aktiv, true);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_level, alexaColorSchemeForOnFarbe.getLevel());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_hue, alexaColorSchemeForOnFarbe.getHue());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_sat, alexaColorSchemeForOnFarbe.getSat());
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_aktiv, true, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_level, alexaColorSchemeForOnFarbe.getLevel(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_hue, alexaColorSchemeForOnFarbe.getHue(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_sat, alexaColorSchemeForOnFarbe.getSat(), category);
     } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_aktiv, false);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_level, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_hue, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_sat, null);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_aktiv, false, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_level, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_hue, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_sat, null, category);
     }
 
     // alexaColorSchemeForOnWeiss: WhiteColorScheme
     if (alexaColorSchemeForOnWeiss != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_aktiv, true);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_level, alexaColorSchemeForOnWeiss.getLevel());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_ct, alexaColorSchemeForOnWeiss.getCt());
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_aktiv, true, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_level, alexaColorSchemeForOnWeiss.getLevel(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_ct, alexaColorSchemeForOnWeiss.getCt(), category);
     } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_aktiv, false);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_level, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_ct, null);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_aktiv, false, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_level, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_ct, null, category);
     }
 
     // colorSchemesFarbe1: RGBColorScheme
     if (colorSchemesFarbe1 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe1_aktiv, true);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe1_name, colorSchemesFarbe1.getAlexaName());        
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_level, colorSchemesFarbe1.getLevel());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_hue, colorSchemesFarbe1.getHue());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_sat, colorSchemesFarbe1.getSat());
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe1_aktiv, true, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe1_name, colorSchemesFarbe1.getAlexaName(), category);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_level, colorSchemesFarbe1.getLevel(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_hue, colorSchemesFarbe1.getHue(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_sat, colorSchemesFarbe1.getSat(), category);
     } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe1_aktiv, false);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe1_name, null);        
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_level, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_hue, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_sat, null);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe1_aktiv, false, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe1_name, null, category);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_level, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_hue, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_sat, null, category);
     }
 
     // colorSchemesFarbe2: RGBColorScheme
     if (colorSchemesFarbe2 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe2_aktiv, true);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe2_name, colorSchemesFarbe2.getAlexaName());        
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_level, colorSchemesFarbe2.getLevel());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_hue, colorSchemesFarbe2.getHue());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_sat, colorSchemesFarbe2.getSat());
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe2_aktiv, true, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe2_name, colorSchemesFarbe2.getAlexaName(), category);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_level, colorSchemesFarbe2.getLevel(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_hue, colorSchemesFarbe2.getHue(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_sat, colorSchemesFarbe2.getSat(), category);
     } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe2_aktiv, false);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe2_name, null);        
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_level, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_hue, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_sat, null);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe2_aktiv, false, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe2_name, null, category);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_level, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_hue, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_sat, null, category);
     }
 
     // colorSchemesFarbe3: RGBColorScheme
     if (colorSchemesFarbe3 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe3_aktiv, true);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe3_name, colorSchemesFarbe3.getAlexaName());        
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_level, colorSchemesFarbe3.getLevel());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_hue, colorSchemesFarbe3.getHue());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_sat, colorSchemesFarbe3.getSat());
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe3_aktiv, true, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe3_name, colorSchemesFarbe3.getAlexaName(), category);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_level, colorSchemesFarbe3.getLevel(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_hue, colorSchemesFarbe3.getHue(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_sat, colorSchemesFarbe3.getSat(), category);
     } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe3_aktiv, false);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe3_name, null);        
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_level, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_hue, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_sat, null);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe3_aktiv, false, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe3_name, null, category);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_level, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_hue, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_sat, null, category);
     }
 
     // colorSchemesFarbe4: RGBColorScheme
     if (colorSchemesFarbe4 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe4_aktiv, true);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe4_name, colorSchemesFarbe4.getAlexaName());        
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_level, colorSchemesFarbe4.getLevel());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_hue, colorSchemesFarbe4.getHue());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_sat, colorSchemesFarbe4.getSat());
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe4_aktiv, true, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe4_name, colorSchemesFarbe4.getAlexaName(), category);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_level, colorSchemesFarbe4.getLevel(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_hue, colorSchemesFarbe4.getHue(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_sat, colorSchemesFarbe4.getSat(), category);
     } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe4_aktiv, false);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe4_name, null);        
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_level, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_hue, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_sat, null);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe4_aktiv, false, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe4_name, null, category);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_level, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_hue, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_sat, null, category);
     }
 
     // colorSchemesWeiss1: WhiteColorScheme
     if (colorSchemesWeiss1 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss1_aktiv, true);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss1_name, colorSchemesWeiss1.getAlexaName());        
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss1_level, colorSchemesWeiss1.getLevel());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss1_ct, colorSchemesWeiss1.getCt());
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss1_aktiv, true, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss1_name, colorSchemesWeiss1.getAlexaName(), category);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss1_level, colorSchemesWeiss1.getLevel(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss1_ct, colorSchemesWeiss1.getCt(), category);
     } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss1_aktiv, false);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss1_name, null);        
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss1_level, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss1_ct, null);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss1_aktiv, false, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss1_name, null, category);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss1_level, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss1_ct, null, category);
     }
 
     // colorSchemesWeiss2: WhiteColorScheme
     if (colorSchemesWeiss2 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss2_aktiv, true);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss2_name, colorSchemesWeiss2.getAlexaName());        
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss2_level, colorSchemesWeiss2.getLevel());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss2_ct, colorSchemesWeiss2.getCt());
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss2_aktiv, true, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss2_name, colorSchemesWeiss2.getAlexaName(), category);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss2_level, colorSchemesWeiss2.getLevel(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss2_ct, colorSchemesWeiss2.getCt(), category);
     } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss2_aktiv, false);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss2_name, null);        
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss2_level, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss2_ct, null);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss2_aktiv, false, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss2_name, null, category);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss2_level, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss2_ct, null, category);
     }
 
     // colorSchemesWeiss3: WhiteColorScheme
     if (colorSchemesWeiss3 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss3_aktiv, true);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss3_name, colorSchemesWeiss3.getAlexaName());        
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss3_level, colorSchemesWeiss3.getLevel());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss3_ct, colorSchemesWeiss3.getCt());
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss3_aktiv, true, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss3_name, colorSchemesWeiss3.getAlexaName(), category);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss3_level, colorSchemesWeiss3.getLevel(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss3_ct, colorSchemesWeiss3.getCt(), category);
     } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss3_aktiv, false);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss3_name, null);        
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss3_level, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss3_ct, null);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss3_aktiv, false, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss3_name, null, category);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss3_level, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss3_ct, null, category);
     }
 
     // colorSchemesWeiss4: WhiteColorScheme
     if (colorSchemesWeiss4 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss4_aktiv, true);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss4_name, colorSchemesWeiss4.getAlexaName());        
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss4_level, colorSchemesWeiss4.getLevel());
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss4_ct, colorSchemesWeiss4.getCt());
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss4_aktiv, true, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss4_name, colorSchemesWeiss4.getAlexaName(), category);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss4_level, colorSchemesWeiss4.getLevel(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss4_ct, colorSchemesWeiss4.getCt(), category);
     } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss4_aktiv, false);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss4_name, null);        
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss4_level, null);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss4_ct, null);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss4_aktiv, false, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss4_name, null, category);        
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss4_level, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss4_ct, null, category);
     }
 }
 
-function createDatenpunktSingle(adapter:any, deviceRawId, attributeType, attributeName, attributeValue) {
-    var stateDatenpunkt = "0_userdata.0.devices.zigbee." + deviceRawId + "." + attributeName;
+function createDatenpunktSingle(adapter:any, deviceRawId, attributeType, attributeName, attributeValue, category:string) {
+    var stateDatenpunkt = "0_userdata.0.devices.zigbee." + category + "." + deviceRawId + "." + attributeName;
     adapter.createState(stateDatenpunkt, null, {
         name: stateDatenpunkt,
         desc: stateDatenpunkt,
@@ -688,13 +711,13 @@ function createDatenpunktSingle(adapter:any, deviceRawId, attributeType, attribu
         read: true,
         write: true
     });
-    adapter.setState(stateDatenpunkt, attributeValue);
+     adapter.setState(stateDatenpunkt, attributeValue);
 }
 
 export function getZigbeeDevices(adapter: any, filterCategory: string) {
     var zigbeeArray = [];
 
-    adapter.$('state[id=0_userdata.0.devices.zigbee.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.zigbee.30.type
+    adapter.$('state[id=0_userdata.0.devices.zigbee.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.zigbee.30.type
         var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == filterCategory) {
             //constructor(adapter:any, id: number, baseState: string, etage: string, raum: string, 
@@ -999,7 +1022,8 @@ export function getZigbeeDevices(adapter: any, filterCategory: string) {
                     adapter.getState(datenpunktPraefix + "." + attributeBaseState).val, // [1] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)
                     adapter.getState(datenpunktPraefix + "." + attributeEtage).val,     // [2] Etage/Bereich     (z.B. EG)
                     adapter.getState(datenpunktPraefix + "." + attributeRaum).val,      // [3] Raum/Unterbereich (z.B. Wohnzimmer)
-                    adapter.getState(datenpunktPraefix + "." + attributeDevice).val     // [4] Device            (z.B. Stehlampe)            
+                    adapter.getState(datenpunktPraefix + "." + attributeDevice).val,     // [4] Device            (z.B. Stehlampe)         
+                    adapter.getState(datenpunktPraefix + "." + attributeDosenrelais_smartNames).val.split('|'),           // 14 TasterBoolOff
                 ));
             } else if (filterCategory == deviceZigbeeSchalter) {
                 // @ts-ignore            
@@ -1082,4 +1106,4 @@ export function getZigbeeDevicesAll(adapter: any) {
     return zigbeeArray;
 }
 
-module.exports = { createZigbeeDevice, createLampeWeiss, createSteckdose, getZigbeeDevices, getZigbeeDevicesAll };
+module.exports = { createZigbeeDevice, createDosenrelaisDevice, createLampeWeiss, createSteckdose, getZigbeeDevices, getZigbeeDevicesAll };

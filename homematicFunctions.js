@@ -11,16 +11,16 @@ var attributeCategory = "category";
 var attributeTypeNumber = "number";
 var attributeTypeString = "string";
 function createHomematicDevice(adapter, rawId, baseState, etage, raum, device, category) {
-    createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRawID, rawId);
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeCategory, category);
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeBaseState, baseState);
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeEtage, etage);
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRaum, raum);
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDevice, device);
+    createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRawID, rawId, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeCategory, category, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeBaseState, baseState, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeEtage, etage, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRaum, raum, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDevice, device, category);
 }
 exports.createHomematicDevice = createHomematicDevice;
-function createDatenpunktSingle(adapter, deviceRawId, attributeType, attributeName, attributeValue) {
-    var stateDatenpunkt = "0_userdata.0.devices.homematic." + deviceRawId + "." + attributeName;
+function createDatenpunktSingle(adapter, deviceRawId, attributeType, attributeName, attributeValue, category) {
+    var stateDatenpunkt = "0_userdata.0.devices.homematic." + category + "." + deviceRawId + "." + attributeName;
     adapter.createState(stateDatenpunkt, null, {
         name: stateDatenpunkt,
         desc: stateDatenpunkt,
@@ -33,7 +33,7 @@ function createDatenpunktSingle(adapter, deviceRawId, attributeType, attributeNa
 function getHomematicDevices(adapter, filterCategory) {
     var homematicArray = [];
     //var homematicArray : Array<InstanceType<typeof AbstractHomematic>> = [];
-    adapter.$('state[id=0_userdata.0.devices.homematic.*.category]').each(function (datenpunktKey) {
+    adapter.$('state[id=0_userdata.0.devices.homematic.*.*.category]').each(function (datenpunktKey) {
         var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == filterCategory) {
             if (filterCategory == deviceHomematicWandthermostat) {
