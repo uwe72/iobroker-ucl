@@ -695,12 +695,12 @@ function getZigbeeDevices(adapter, filterCategory) {
                 adapter.getState(datenpunktPraefix + "." + attributeEtage).val, // [2] Etage/Bereich     (z.B. EG)
                 adapter.getState(datenpunktPraefix + "." + attributeRaum).val, // [3] Raum/Unterbereich (z.B. Wohnzimmer)
                 adapter.getState(datenpunktPraefix + "." + attributeDevice).val, // [4] Device            (z.B. Stehlampe)            
-                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOn).val), // 08 Alexa-Ein
-                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_AlexaActionNamesForOn).val), // Alexa-Action-Ein, z.B. "Guten morgen" (Würde auch funktionieren, wenn dies bei [06] eingetragen ist)                
-                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOff).val), // 09 Alexa-Aus
-                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_AlexaActionNamesForOff).val), // [10] Alexa-Action Aus, z.B. "Gute Nacht". Wir müssen hier zu [09] unterscheiden, da wir über "Gute Nacht" und isActionTurnedOn=true informiert werden.        
-                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_TasterBooleanOn).val), // 07 TunrnOn-DP
-                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_TasterBooleanOff).val) // 08 TasterBoolOff-DP                    
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOn).val), // 08 Alexa-Ein
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOn).val), // Alexa-Action-Ein, z.B. "Guten morgen" (Würde auch funktionieren, wenn dies bei [06] eingetragen ist)                
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOff).val), // 09 Alexa-Aus
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOff).val), // [10] Alexa-Action Aus, z.B. "Gute Nacht". Wir müssen hier zu [09] unterscheiden, da wir über "Gute Nacht" und isActionTurnedOn=true informiert werden.        
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_TasterBooleanOn).val), // 07 TunrnOn-DP
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_TasterBooleanOff).val) // 08 TasterBoolOff-DP                    
                 ));
             }
             else if (filterCategory == deviceZigbeeBewegungsmelder) {
@@ -770,15 +770,15 @@ function getZigbeeDevices(adapter, filterCategory) {
                 adapter.getState(datenpunktPraefix + "." + attributeRaum).val, // [3] Raum/Unterbereich (z.B. Wohnzimmer)
                 adapter.getState(datenpunktPraefix + "." + attributeDevice).val, // [4] Device            (z.B. Stehlampe)            
                 adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_Group).val, // [5] Gruppe
-                adapter.getState(toStringArray(datenpunktPraefix + "." + attributeRGBLamp_Groupmembers).val), // [6] Gruppenmitglieder
-                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOn).val), // 08 Alexa-Ein
-                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_AlexaActionNamesForOn).val), // Alexa-Action-Ein, z.B. "Guten morgen" (Würde auch funktionieren, wenn dies bei [06] eingetragen ist)                
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_Groupmembers).val), // [6] Gruppenmitglieder
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOn).val), // 08 Alexa-Ein
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOn).val), // Alexa-Action-Ein, z.B. "Guten morgen" (Würde auch funktionieren, wenn dies bei [06] eingetragen ist)                
                 alexaOnScheme, // [09 A.-Ein-Scheme]   
-                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOff).val), // 10 Alexa-Aus                   
-                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_AlexaActionNamesForOff).val), // [10] Alexa-Action Aus, z.B. "Gute Nacht". Wir müssen hier zu [09] unterscheiden, da wir über "Gute Nacht" und isActionTurnedOn=true informiert werden.                
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOff).val), // 10 Alexa-Aus                   
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOff).val), // [10] Alexa-Action Aus, z.B. "Gute Nacht". Wir müssen hier zu [09] unterscheiden, da wir über "Gute Nacht" und isActionTurnedOn=true informiert werden.                
                 schemeArray, // [12 Alexa-Schemes]  
-                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_TasterBooleanOn).val), // 13 TasterBoolOn
-                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_TasterBooleanOff).val), // 14 TasterBoolOff
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_TasterBooleanOn).val), // 13 TasterBoolOn
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_TasterBooleanOff).val), // 14 TasterBoolOff
                 adapter.getState(datenpunktPraefix + "." + attribute_Nachtbeleuchtung).val, // Gehört zur Nachtbeleuchtung ja/nein
                 adapter.getState(datenpunktPraefix + "." + attribute_TurnOffExitHouseSummer).val, // turnOffExitHouseSummer (Ausschalten, wenn Haus verlassen - Sommer)
                 adapter.getState(datenpunktPraefix + "." + attribute_TurnOffExitHouseWinter).val, // turnOffExitHouseWinter (Ausschalten, wenn Haus verlassen - Winter)
@@ -844,15 +844,15 @@ function getZigbeeDevices(adapter, filterCategory) {
                 adapter.getState(datenpunktPraefix + "." + attributeEtage).val, // [2] Etage/Bereich     (z.B. EG)
                 adapter.getState(datenpunktPraefix + "." + attributeRaum).val, // [3] Raum/Unterbereich (z.B. Wohnzimmer)
                 adapter.getState(datenpunktPraefix + "." + attributeDevice).val, // [4] Device            (z.B. Stehlampe)            
-                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOn).val), // 08 Alexa-Ein
-                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_AlexaActionNamesForOn).val), // Alexa-Action-Ein, z.B. "Guten morgen" (Würde auch funktionieren, wenn dies bei [06] eingetragen ist)                
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOn).val), // 08 Alexa-Ein
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOn).val), // Alexa-Action-Ein, z.B. "Guten morgen" (Würde auch funktionieren, wenn dies bei [06] eingetragen ist)                
                 alexaOnScheme, // [06 A.-Ein-Scheme]   */  new LampeWeissAlexaScheme(null, 100, -1), // Letzter Paramter = -1 heußt, dass diese Lampe keine Farbtemperatur unterstützt. Ansonsten hier die Temperatur angeben
-                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOff).val), // 09 Alexa-Aus
-                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_AlexaActionNamesForOff).val), // [10] Alexa-Action Aus, z.B. "Gute Nacht". Wir müssen hier zu [09] unterscheiden, da wir über "Gute Nacht" und isActionTurnedOn=true informiert werden.        
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOff).val), // 09 Alexa-Aus
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOff).val), // [10] Alexa-Action Aus, z.B. "Gute Nacht". Wir müssen hier zu [09] unterscheiden, da wir über "Gute Nacht" und isActionTurnedOn=true informiert werden.        
                 schemeArray, //  [08 Alexa-Schemes]  
                 adapter.getState(datenpunktPraefix + "." + attributeLampeWeissGroup).val, // [6] Gruppe
                 tasterOnBoolschemeArray, // [07 TasterBoolOn ]
-                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_TasterBooleanOff).val), // 14 TasterBoolOff
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_TasterBooleanOff).val), // 14 TasterBoolOff
                 adapter.getState(datenpunktPraefix + "." + attribute_Nachtbeleuchtung).val, // Gehört zur Nachtbeleuchtung ja/nein
                 adapter.getState(datenpunktPraefix + "." + attribute_TurnOffExitHouseSummer).val, // turnOffExitHouseSummer (Ausschalten, wenn Haus verlassen - Sommer)
                 adapter.getState(datenpunktPraefix + "." + attribute_TurnOffExitHouseWinter).val, // turnOffExitHouseWinter (Ausschalten, wenn Haus verlassen - Winter)
@@ -885,7 +885,7 @@ function getZigbeeDevices(adapter, filterCategory) {
                 adapter.getState(datenpunktPraefix + "." + attributeEtage).val, // [2] Etage/Bereich     (z.B. EG)
                 adapter.getState(datenpunktPraefix + "." + attributeRaum).val, // [3] Raum/Unterbereich (z.B. Wohnzimmer)
                 adapter.getState(datenpunktPraefix + "." + attributeDevice).val, // [4] Device            (z.B. Stehlampe)         
-                adapter.getState(toStringArray(datenpunktPraefix + "." + attributeDosenrelais_smartNames).val) // 14 TasterBoolOff
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attributeDosenrelais_smartNames).val) // 14 TasterBoolOff
                 ));
             }
             else if (filterCategory == deviceZigbeeSchalter) {
