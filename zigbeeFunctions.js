@@ -141,7 +141,7 @@ function createDosenrelaisDevice(adapter, rawId, baseState, etage, raum, device,
 }
 exports.createDosenrelaisDevice = createDosenrelaisDevice;
 // Steckdose:
-function createSteckdose(adapter, rawId, baseState, etage, raum, device, alexaSmartNamesForOn, alexaActionNamesForOn, alexaSmartNamesForOff, alexaActionNamesForOff, additionalStates4TurnOn, additionalStates4TurnOff, category) {
+function createSteckdose(adapter, rawId, baseState, etage, raum, device, alexaSmartNamesForOn, alexaActionNamesForOn, alexaSmartNamesForOff, alexaActionNamesForOff, additionalStates4TurnOn, additionalStates4TurnOff) {
     // Allgemein:
     createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeSteckdose);
     // alexaSmartNamesForOn:string[]
@@ -156,7 +156,7 @@ function createSteckdose(adapter, rawId, baseState, etage, raum, device, alexaSm
             db_alexaSmartNamesForOn += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, deviceZigbeeSteckdose);
     // alexaActionNamesForOn:string[]
     var db_alexaActionNamesForOn = null;
     alexaActionNamesForOn.forEach(function (value) {
@@ -169,7 +169,7 @@ function createSteckdose(adapter, rawId, baseState, etage, raum, device, alexaSm
             db_alexaActionNamesForOn += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, deviceZigbeeSteckdose);
     // alexaSmartNamesForOff:string[]
     var db_alexaSmartNamesForOff = null;
     alexaSmartNamesForOff.forEach(function (value) {
@@ -182,7 +182,7 @@ function createSteckdose(adapter, rawId, baseState, etage, raum, device, alexaSm
             db_alexaSmartNamesForOff += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, deviceZigbeeSteckdose);
     // alexaActionNamesForOff:string[]
     var db_alexaActionNamesForOff = null;
     alexaActionNamesForOff.forEach(function (value) {
@@ -195,7 +195,7 @@ function createSteckdose(adapter, rawId, baseState, etage, raum, device, alexaSm
             db_alexaActionNamesForOff += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, deviceZigbeeSteckdose);
     // additionalStates4TurnOn: string[]
     var db_additionalStates4TurnOn = null;
     additionalStates4TurnOn.forEach(function (value) {
@@ -208,7 +208,7 @@ function createSteckdose(adapter, rawId, baseState, etage, raum, device, alexaSm
             db_additionalStates4TurnOn += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOn, db_additionalStates4TurnOn, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOn, db_additionalStates4TurnOn, deviceZigbeeSteckdose);
     // additionalStates4TurnOff: string[]
     var db_additionalStates4TurnOff = null;
     additionalStates4TurnOff.forEach(function (value) {
@@ -221,11 +221,11 @@ function createSteckdose(adapter, rawId, baseState, etage, raum, device, alexaSm
             db_additionalStates4TurnOff += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_additionalStates4TurnOff, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_additionalStates4TurnOff, deviceZigbeeSteckdose);
 }
 exports.createSteckdose = createSteckdose;
 // LampeWeiss:
-function createLampeWeiss(adapter, rawId, baseState, etage, raum, device, alexaSmartNamesForOn, alexaActionNamesForOn, alexaLevelSchemeForOn, alexaSmartNamesForOff, alexaActionNamesForOff, colorSchemesWeiss1, colorSchemesWeiss2, colorSchemesWeiss3, colorSchemesWeiss4, isGroup, tasterBooleanOn1, tasterBooleanOn2, tasterBooleanOn3, tasterBooleanOn4, tasterBooleanOff, nachtbeleuchtung, turnOffExitHouseSummer, turnOffExitHouseWinter, turnOnEnterHouseSummer, turnOnEnterHouseWinter, category) {
+function createLampeWeiss(adapter, rawId, baseState, etage, raum, device, alexaSmartNamesForOn, alexaActionNamesForOn, alexaLevelSchemeForOn, alexaSmartNamesForOff, alexaActionNamesForOff, colorSchemesWeiss1, colorSchemesWeiss2, colorSchemesWeiss3, colorSchemesWeiss4, isGroup, tasterBooleanOn1, tasterBooleanOn2, tasterBooleanOn3, tasterBooleanOn4, tasterBooleanOff, nachtbeleuchtung, turnOffExitHouseSummer, turnOffExitHouseWinter, turnOnEnterHouseSummer, turnOnEnterHouseWinter) {
     // Allgemein:
     createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeLampeWeiss);
     // alexaSmartNamesForOn:string[]
@@ -240,7 +240,7 @@ function createLampeWeiss(adapter, rawId, baseState, etage, raum, device, alexaS
             db_alexaSmartNamesForOn += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, deviceZigbeeLampeWeiss);
     // alexaActionNamesForOn:string[]
     var db_alexaActionNamesForOn = null;
     alexaActionNamesForOn.forEach(function (value) {
@@ -253,7 +253,7 @@ function createLampeWeiss(adapter, rawId, baseState, etage, raum, device, alexaS
             db_alexaActionNamesForOn += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, deviceZigbeeLampeWeiss);
     // alexaSmartNamesForOff:string[]
     var db_alexaSmartNamesForOff = null;
     alexaSmartNamesForOff.forEach(function (value) {
@@ -266,7 +266,7 @@ function createLampeWeiss(adapter, rawId, baseState, etage, raum, device, alexaS
             db_alexaSmartNamesForOff += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, deviceZigbeeLampeWeiss);
     // alexaActionNamesForOff:string[]
     var db_alexaActionNamesForOff = null;
     alexaActionNamesForOff.forEach(function (value) {
@@ -279,58 +279,58 @@ function createLampeWeiss(adapter, rawId, baseState, etage, raum, device, alexaS
             db_alexaActionNamesForOff += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, deviceZigbeeLampeWeiss);
     // tasterBooleanOn1 : LampeWeissTasterScheme
     if (tasterBooleanOn1 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn1_aktiv, true, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn1_name, tasterBooleanOn1.getTasterBooleanOnName(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn1_level, tasterBooleanOn1.getLevel(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn1_ct, tasterBooleanOn1.getCt(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn1_aktiv, true, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn1_name, tasterBooleanOn1.getTasterBooleanOnName(), deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn1_level, tasterBooleanOn1.getLevel(), deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn1_ct, tasterBooleanOn1.getCt(), deviceZigbeeLampeWeiss);
     }
     else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn1_aktiv, false, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn1_name, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn1_level, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn1_ct, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn1_aktiv, false, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn1_name, null, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn1_level, null, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn1_ct, null, deviceZigbeeLampeWeiss);
     }
     // tasterBooleanOn2 : LampeWeissTasterScheme
     if (tasterBooleanOn2 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn2_aktiv, true, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn2_name, tasterBooleanOn2.getTasterBooleanOnName(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn2_level, tasterBooleanOn2.getLevel(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn2_ct, tasterBooleanOn2.getCt(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn2_aktiv, true, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn2_name, tasterBooleanOn2.getTasterBooleanOnName(), deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn2_level, tasterBooleanOn2.getLevel(), deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn2_ct, tasterBooleanOn2.getCt(), deviceZigbeeLampeWeiss);
     }
     else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn2_aktiv, false, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn2_name, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn2_level, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn2_ct, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn2_aktiv, false, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn2_name, null, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn2_level, null, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn2_ct, null, deviceZigbeeLampeWeiss);
     }
     // tasterBooleanOn3 : LampeWeissTasterScheme
     if (tasterBooleanOn3 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn3_aktiv, true, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn3_name, tasterBooleanOn3.getTasterBooleanOnName(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn3_level, tasterBooleanOn3.getLevel(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn3_ct, tasterBooleanOn3.getCt(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn3_aktiv, true, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn3_name, tasterBooleanOn3.getTasterBooleanOnName(), deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn3_level, tasterBooleanOn3.getLevel(), deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn3_ct, tasterBooleanOn3.getCt(), deviceZigbeeLampeWeiss);
     }
     else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn3_aktiv, false, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn3_name, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn3_level, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn3_ct, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn3_aktiv, false, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn3_name, null, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn3_level, null, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn3_ct, null, deviceZigbeeLampeWeiss);
     }
     // tasterBooleanOn4 : LampeWeissTasterScheme
     if (tasterBooleanOn4 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn4_aktiv, true, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn4_name, tasterBooleanOn4.getTasterBooleanOnName(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn4_level, tasterBooleanOn4.getLevel(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn4_ct, tasterBooleanOn4.getCt(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn4_aktiv, true, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn4_name, tasterBooleanOn4.getTasterBooleanOnName(), deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn4_level, tasterBooleanOn4.getLevel(), deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn4_ct, tasterBooleanOn4.getCt(), deviceZigbeeLampeWeiss);
     }
     else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn4_aktiv, false, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn4_name, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn4_level, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn4_ct, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn4_aktiv, false, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn4_name, null, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn4_level, null, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn4_ct, null, deviceZigbeeLampeWeiss);
     }
     // tasterBooleanOff: string[]
     var db_tasterBooleanOff = null;
@@ -344,82 +344,83 @@ function createLampeWeiss(adapter, rawId, baseState, etage, raum, device, alexaS
             db_tasterBooleanOff += "|" + value;
         }
     });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_tasterBooleanOff, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_tasterBooleanOff, deviceZigbeeLampeWeiss);
     // Weitere:
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_Nachtbeleuchtung, nachtbeleuchtung, category);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseSummer, turnOffExitHouseSummer, category);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, category);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, category);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_Nachtbeleuchtung, nachtbeleuchtung, deviceZigbeeLampeWeiss);
+    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseSummer, turnOffExitHouseSummer, deviceZigbeeLampeWeiss);
+    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, deviceZigbeeLampeWeiss);
+    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceZigbeeLampeWeiss);
+    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceZigbeeLampeWeiss);
     // Gruppe:
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampeWeissGroup, isGroup, category);
+    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampeWeissGroup, isGroup, deviceZigbeeLampeWeiss);
     // alexaLevelSchemeForOn: LampeWeissColorScheme
     if (alexaLevelSchemeForOn != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_aktiv, true, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_level, alexaLevelSchemeForOn.getLevel(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_ct, alexaLevelSchemeForOn.getCt(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_aktiv, true, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_level, alexaLevelSchemeForOn.getLevel(), deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_ct, alexaLevelSchemeForOn.getCt(), deviceZigbeeLampeWeiss);
     }
     else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_aktiv, false, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_level, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_ct, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_aktiv, false, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_level, null, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_ct, null, deviceZigbeeLampeWeiss);
     }
     // colorSchemesWeiss1: LampeWeissAlexaScheme
     if (colorSchemesWeiss1 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss1_aktiv, true, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss1_name, colorSchemesWeiss1.getAlexaName(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss1_level, colorSchemesWeiss1.getLevel(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss1_ct, colorSchemesWeiss1.getCt(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss1_aktiv, true, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss1_name, colorSchemesWeiss1.getAlexaName(), deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss1_level, colorSchemesWeiss1.getLevel(), deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss1_ct, colorSchemesWeiss1.getCt(), deviceZigbeeLampeWeiss);
     }
     else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss1_aktiv, false, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss1_name, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss1_level, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss1_ct, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss1_aktiv, false, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss1_name, null, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss1_level, null, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss1_ct, null, deviceZigbeeLampeWeiss);
     }
     // colorSchemesWeiss2: LampeWeissAlexaScheme
     if (colorSchemesWeiss2 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss2_aktiv, true, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss2_name, colorSchemesWeiss2.getAlexaName(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss2_level, colorSchemesWeiss2.getLevel(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss2_ct, colorSchemesWeiss2.getCt(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss2_aktiv, true, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss2_name, colorSchemesWeiss2.getAlexaName(), deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss2_level, colorSchemesWeiss2.getLevel(), deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss2_ct, colorSchemesWeiss2.getCt(), deviceZigbeeLampeWeiss);
     }
     else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss2_aktiv, false, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss2_name, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss2_level, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss2_ct, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss2_aktiv, false, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss2_name, null, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss2_level, null, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss2_ct, null, deviceZigbeeLampeWeiss);
     }
     // colorSchemesWeiss3: LampeWeissAlexaScheme
     if (colorSchemesWeiss3 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss3_aktiv, true, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss3_name, colorSchemesWeiss3.getAlexaName(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss3_level, colorSchemesWeiss3.getLevel(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss3_ct, colorSchemesWeiss3.getCt(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss3_aktiv, true, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss3_name, colorSchemesWeiss3.getAlexaName(), deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss3_level, colorSchemesWeiss3.getLevel(), deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss3_ct, colorSchemesWeiss3.getCt(), deviceZigbeeLampeWeiss);
     }
     else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss3_aktiv, false, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss3_name, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss3_level, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss3_ct, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss3_aktiv, false, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss3_name, null, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss3_level, null, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss3_ct, null, deviceZigbeeLampeWeiss);
     }
     // colorSchemesWeiss4: LampeWeissAlexaScheme
     if (colorSchemesWeiss4 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss4_aktiv, true, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss4_name, colorSchemesWeiss4.getAlexaName(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_level, colorSchemesWeiss4.getLevel(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_ct, colorSchemesWeiss4.getCt(), category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss4_aktiv, true, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss4_name, colorSchemesWeiss4.getAlexaName(), deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_level, colorSchemesWeiss4.getLevel(), deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_ct, colorSchemesWeiss4.getCt(), deviceZigbeeLampeWeiss);
     }
     else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss4_aktiv, false, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss4_name, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_level, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_ct, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss4_aktiv, false, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss4_name, null, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_level, null, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_ct, null, deviceZigbeeLampeWeiss);
     }
 }
 exports.createLampeWeiss = createLampeWeiss;
 // LampeRGB:
-function createLampeRGB(adapter, rawId, baseState, etage, raum, device, isGroup, groupMembers, alexaSmartNamesForOn, alexaActionNamesForOn, alexaColorSchemeForOnFarbe, alexaColorSchemeForOnWeiss, alexaSmartNamesForOff, alexaActionNamesForOff, colorSchemesFarbe1, colorSchemesFarbe2, colorSchemesFarbe3, colorSchemesFarbe4, colorSchemesWeiss1, colorSchemesWeiss2, colorSchemesWeiss3, colorSchemesWeiss4, tasterBooleanOn, tasterBooleanOff, nachtbeleuchtung, turnOffExitHouseSummer, turnOffExitHouseWinter, turnOnEnterHouseSummer, turnOnEnterHouseWinter, category) {
+function createLampeRGB(adapter, rawId, baseState, etage, raum, device, isGroup, groupMembers, alexaSmartNamesForOn, alexaActionNamesForOn, alexaColorSchemeForOnFarbe, alexaColorSchemeForOnWeiss, alexaSmartNamesForOff, alexaActionNamesForOff, colorSchemesFarbe1, colorSchemesFarbe2, colorSchemesFarbe3, colorSchemesFarbe4, colorSchemesWeiss1, colorSchemesWeiss2, colorSchemesWeiss3, colorSchemesWeiss4, tasterBooleanOn, tasterBooleanOff, nachtbeleuchtung, turnOffExitHouseSummer, turnOffExitHouseWinter, turnOnEnterHouseSummer, turnOnEnterHouseWinter) {
+    var category = deviceZigbeeLampeRGB;
     // Allgemein:
     createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeLampeRGB);
     // Lampe-RGB spezifisch:
@@ -670,6 +671,15 @@ function createDatenpunktSingle(adapter, deviceRawId, attributeType, attributeNa
     });
     adapter.setState(stateDatenpunkt, attributeValue);
 }
+function toStringArray(databaseValue) {
+    var stringArray = [];
+    if (databaseValue == null) {
+        return stringArray;
+    }
+    else {
+        return databaseValue.split('|');
+    }
+}
 function getZigbeeDevices(adapter, filterCategory) {
     var zigbeeArray = [];
     adapter.$('state[id=0_userdata.0.devices.zigbee.*.*.category]').each(function (datenpunktKey) {
@@ -685,12 +695,12 @@ function getZigbeeDevices(adapter, filterCategory) {
                 adapter.getState(datenpunktPraefix + "." + attributeEtage).val, // [2] Etage/Bereich     (z.B. EG)
                 adapter.getState(datenpunktPraefix + "." + attributeRaum).val, // [3] Raum/Unterbereich (z.B. Wohnzimmer)
                 adapter.getState(datenpunktPraefix + "." + attributeDevice).val, // [4] Device            (z.B. Stehlampe)            
-                adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOn).val.split('|'), // 08 Alexa-Ein
-                adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOn).val.split('|'), // Alexa-Action-Ein, z.B. "Guten morgen" (Würde auch funktionieren, wenn dies bei [06] eingetragen ist)                
-                adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOff).val.split('|'), // 09 Alexa-Aus
-                adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOff).val.split('|'), // [10] Alexa-Action Aus, z.B. "Gute Nacht". Wir müssen hier zu [09] unterscheiden, da wir über "Gute Nacht" und isActionTurnedOn=true informiert werden.        
-                adapter.getState(datenpunktPraefix + "." + attribute_TasterBooleanOn).val.split('|'), // 07 TunrnOn-DP
-                adapter.getState(datenpunktPraefix + "." + attribute_TasterBooleanOff).val.split('|') // 08 TasterBoolOff-DP                    
+                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOn).val), // 08 Alexa-Ein
+                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_AlexaActionNamesForOn).val), // Alexa-Action-Ein, z.B. "Guten morgen" (Würde auch funktionieren, wenn dies bei [06] eingetragen ist)                
+                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOff).val), // 09 Alexa-Aus
+                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_AlexaActionNamesForOff).val), // [10] Alexa-Action Aus, z.B. "Gute Nacht". Wir müssen hier zu [09] unterscheiden, da wir über "Gute Nacht" und isActionTurnedOn=true informiert werden.        
+                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_TasterBooleanOn).val), // 07 TunrnOn-DP
+                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_TasterBooleanOff).val) // 08 TasterBoolOff-DP                    
                 ));
             }
             else if (filterCategory == deviceZigbeeBewegungsmelder) {
@@ -760,15 +770,15 @@ function getZigbeeDevices(adapter, filterCategory) {
                 adapter.getState(datenpunktPraefix + "." + attributeRaum).val, // [3] Raum/Unterbereich (z.B. Wohnzimmer)
                 adapter.getState(datenpunktPraefix + "." + attributeDevice).val, // [4] Device            (z.B. Stehlampe)            
                 adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_Group).val, // [5] Gruppe
-                adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_Groupmembers).val.split('|'), // [6] Gruppenmitglieder
-                adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOn).val.split('|'), // 08 Alexa-Ein
-                adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOn).val.split('|'), // Alexa-Action-Ein, z.B. "Guten morgen" (Würde auch funktionieren, wenn dies bei [06] eingetragen ist)                
+                adapter.getState(toStringArray(datenpunktPraefix + "." + attributeRGBLamp_Groupmembers).val), // [6] Gruppenmitglieder
+                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOn).val), // 08 Alexa-Ein
+                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_AlexaActionNamesForOn).val), // Alexa-Action-Ein, z.B. "Guten morgen" (Würde auch funktionieren, wenn dies bei [06] eingetragen ist)                
                 alexaOnScheme, // [09 A.-Ein-Scheme]   
-                adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOff).val.split('|'), // 10 Alexa-Aus                   
-                adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOff).val.split('|'), // [10] Alexa-Action Aus, z.B. "Gute Nacht". Wir müssen hier zu [09] unterscheiden, da wir über "Gute Nacht" und isActionTurnedOn=true informiert werden.                
+                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOff).val), // 10 Alexa-Aus                   
+                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_AlexaActionNamesForOff).val), // [10] Alexa-Action Aus, z.B. "Gute Nacht". Wir müssen hier zu [09] unterscheiden, da wir über "Gute Nacht" und isActionTurnedOn=true informiert werden.                
                 schemeArray, // [12 Alexa-Schemes]  
-                adapter.getState(datenpunktPraefix + "." + attribute_TasterBooleanOn).val.split('|'), // 13 TasterBoolOn
-                adapter.getState(datenpunktPraefix + "." + attribute_TasterBooleanOff).val.split('|'), // 14 TasterBoolOff
+                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_TasterBooleanOn).val), // 13 TasterBoolOn
+                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_TasterBooleanOff).val), // 14 TasterBoolOff
                 adapter.getState(datenpunktPraefix + "." + attribute_Nachtbeleuchtung).val, // Gehört zur Nachtbeleuchtung ja/nein
                 adapter.getState(datenpunktPraefix + "." + attribute_TurnOffExitHouseSummer).val, // turnOffExitHouseSummer (Ausschalten, wenn Haus verlassen - Sommer)
                 adapter.getState(datenpunktPraefix + "." + attribute_TurnOffExitHouseWinter).val, // turnOffExitHouseWinter (Ausschalten, wenn Haus verlassen - Winter)
@@ -834,15 +844,15 @@ function getZigbeeDevices(adapter, filterCategory) {
                 adapter.getState(datenpunktPraefix + "." + attributeEtage).val, // [2] Etage/Bereich     (z.B. EG)
                 adapter.getState(datenpunktPraefix + "." + attributeRaum).val, // [3] Raum/Unterbereich (z.B. Wohnzimmer)
                 adapter.getState(datenpunktPraefix + "." + attributeDevice).val, // [4] Device            (z.B. Stehlampe)            
-                adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOn).val.split('|'), // 08 Alexa-Ein
-                adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOn).val.split('|'), // Alexa-Action-Ein, z.B. "Guten morgen" (Würde auch funktionieren, wenn dies bei [06] eingetragen ist)                
+                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOn).val), // 08 Alexa-Ein
+                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_AlexaActionNamesForOn).val), // Alexa-Action-Ein, z.B. "Guten morgen" (Würde auch funktionieren, wenn dies bei [06] eingetragen ist)                
                 alexaOnScheme, // [06 A.-Ein-Scheme]   */  new LampeWeissAlexaScheme(null, 100, -1), // Letzter Paramter = -1 heußt, dass diese Lampe keine Farbtemperatur unterstützt. Ansonsten hier die Temperatur angeben
-                adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOff).val.split('|'), // 09 Alexa-Aus
-                adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOff).val.split('|'), // [10] Alexa-Action Aus, z.B. "Gute Nacht". Wir müssen hier zu [09] unterscheiden, da wir über "Gute Nacht" und isActionTurnedOn=true informiert werden.        
+                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOff).val), // 09 Alexa-Aus
+                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_AlexaActionNamesForOff).val), // [10] Alexa-Action Aus, z.B. "Gute Nacht". Wir müssen hier zu [09] unterscheiden, da wir über "Gute Nacht" und isActionTurnedOn=true informiert werden.        
                 schemeArray, //  [08 Alexa-Schemes]  
                 adapter.getState(datenpunktPraefix + "." + attributeLampeWeissGroup).val, // [6] Gruppe
                 tasterOnBoolschemeArray, // [07 TasterBoolOn ]
-                adapter.getState(datenpunktPraefix + "." + attribute_TasterBooleanOff).val.split('|'), // 14 TasterBoolOff
+                adapter.getState(toStringArray(datenpunktPraefix + "." + attribute_TasterBooleanOff).val), // 14 TasterBoolOff
                 adapter.getState(datenpunktPraefix + "." + attribute_Nachtbeleuchtung).val, // Gehört zur Nachtbeleuchtung ja/nein
                 adapter.getState(datenpunktPraefix + "." + attribute_TurnOffExitHouseSummer).val, // turnOffExitHouseSummer (Ausschalten, wenn Haus verlassen - Sommer)
                 adapter.getState(datenpunktPraefix + "." + attribute_TurnOffExitHouseWinter).val, // turnOffExitHouseWinter (Ausschalten, wenn Haus verlassen - Winter)
@@ -875,7 +885,8 @@ function getZigbeeDevices(adapter, filterCategory) {
                 adapter.getState(datenpunktPraefix + "." + attributeEtage).val, // [2] Etage/Bereich     (z.B. EG)
                 adapter.getState(datenpunktPraefix + "." + attributeRaum).val, // [3] Raum/Unterbereich (z.B. Wohnzimmer)
                 adapter.getState(datenpunktPraefix + "." + attributeDevice).val, // [4] Device            (z.B. Stehlampe)         
-                adapter.getState(datenpunktPraefix + "." + attributeDosenrelais_smartNames).val.split('|')));
+                adapter.getState(toStringArray(datenpunktPraefix + "." + attributeDosenrelais_smartNames).val) // 14 TasterBoolOff
+                ));
             }
             else if (filterCategory == deviceZigbeeSchalter) {
                 // @ts-ignore            
