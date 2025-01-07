@@ -289,9 +289,9 @@ function createLampeWeiss(adapter, rawId, baseState, etage, raum, device, alexaS
     }
     else {
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn1_aktiv, false, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn1_name, null, deviceZigbeeLampeWeiss);
+        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn1_name, null, deviceZigbeeLampeWeiss);
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn1_level, null, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn1_ct, null, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn1_ct, null, deviceZigbeeLampeWeiss);        */
     }
     // tasterBooleanOn2 : LampeWeissTasterScheme
     if (tasterBooleanOn2 != null) {
@@ -302,9 +302,9 @@ function createLampeWeiss(adapter, rawId, baseState, etage, raum, device, alexaS
     }
     else {
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn2_aktiv, false, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn2_name, null, deviceZigbeeLampeWeiss);
+        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn2_name, null, deviceZigbeeLampeWeiss);
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn2_level, null, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn2_ct, null, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn2_ct, null, deviceZigbeeLampeWeiss);        */
     }
     // tasterBooleanOn3 : LampeWeissTasterScheme
     if (tasterBooleanOn3 != null) {
@@ -315,9 +315,9 @@ function createLampeWeiss(adapter, rawId, baseState, etage, raum, device, alexaS
     }
     else {
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn3_aktiv, false, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn3_name, null, deviceZigbeeLampeWeiss);
+        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn3_name, null, deviceZigbeeLampeWeiss);
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn3_level, null, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn3_ct, null, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn3_ct, null, deviceZigbeeLampeWeiss);        */
     }
     // tasterBooleanOn4 : LampeWeissTasterScheme
     if (tasterBooleanOn4 != null) {
@@ -328,9 +328,9 @@ function createLampeWeiss(adapter, rawId, baseState, etage, raum, device, alexaS
     }
     else {
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn4_aktiv, false, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn4_name, null, deviceZigbeeLampeWeiss);
+        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn4_name, null, deviceZigbeeLampeWeiss);
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn4_level, null, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn4_ct, null, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn4_ct, null, deviceZigbeeLampeWeiss);        */
     }
     // tasterBooleanOff: string[]
     var db_tasterBooleanOff = null;
@@ -361,8 +361,8 @@ function createLampeWeiss(adapter, rawId, baseState, etage, raum, device, alexaS
     }
     else {
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_aktiv, false, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_level, null, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_ct, null, deviceZigbeeLampeWeiss);
+        /*createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_level, null, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_ct, null, deviceZigbeeLampeWeiss);*/
     }
     // colorSchemesWeiss1: LampeWeissAlexaScheme
     if (colorSchemesWeiss1 != null) {
@@ -373,9 +373,9 @@ function createLampeWeiss(adapter, rawId, baseState, etage, raum, device, alexaS
     }
     else {
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss1_aktiv, false, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss1_name, null, deviceZigbeeLampeWeiss);
+        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss1_name, null, deviceZigbeeLampeWeiss);
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss1_level, null, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss1_ct, null, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss1_ct, null, deviceZigbeeLampeWeiss);*/
     }
     // colorSchemesWeiss2: LampeWeissAlexaScheme
     if (colorSchemesWeiss2 != null) {
@@ -386,9 +386,9 @@ function createLampeWeiss(adapter, rawId, baseState, etage, raum, device, alexaS
     }
     else {
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss2_aktiv, false, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss2_name, null, deviceZigbeeLampeWeiss);
+        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss2_name, null, deviceZigbeeLampeWeiss);
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss2_level, null, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss2_ct, null, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss2_ct, null, deviceZigbeeLampeWeiss);*/
     }
     // colorSchemesWeiss3: LampeWeissAlexaScheme
     if (colorSchemesWeiss3 != null) {
@@ -399,9 +399,9 @@ function createLampeWeiss(adapter, rawId, baseState, etage, raum, device, alexaS
     }
     else {
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss3_aktiv, false, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss3_name, null, deviceZigbeeLampeWeiss);
+        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss3_name, null, deviceZigbeeLampeWeiss);
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss3_level, null, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss3_ct, null, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss3_ct, null, deviceZigbeeLampeWeiss);*/
     }
     // colorSchemesWeiss4: LampeWeissAlexaScheme
     if (colorSchemesWeiss4 != null) {
@@ -412,9 +412,9 @@ function createLampeWeiss(adapter, rawId, baseState, etage, raum, device, alexaS
     }
     else {
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss4_aktiv, false, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss4_name, null, deviceZigbeeLampeWeiss);
+        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss4_name, null, deviceZigbeeLampeWeiss);
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_level, null, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_ct, null, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_ct, null, deviceZigbeeLampeWeiss);*/
     }
 }
 exports.createLampeWeiss = createLampeWeiss;
@@ -531,9 +531,9 @@ function createLampeRGB(adapter, rawId, baseState, etage, raum, device, isGroup,
     }
     else {
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_aktiv, false, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_level, null, category);
+        /*createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_level, null, category);
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_hue, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_sat, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_sat, null, category);*/
     }
     // alexaColorSchemeForOnWeiss: WhiteColorScheme
     if (alexaColorSchemeForOnWeiss != null) {
@@ -543,8 +543,8 @@ function createLampeRGB(adapter, rawId, baseState, etage, raum, device, isGroup,
     }
     else {
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_aktiv, false, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_level, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_ct, null, category);
+        /*createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_level, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_ct, null, category);*/
     }
     // colorSchemesFarbe1: RGBColorScheme
     if (colorSchemesFarbe1 != null) {
@@ -556,10 +556,10 @@ function createLampeRGB(adapter, rawId, baseState, etage, raum, device, isGroup,
     }
     else {
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe1_aktiv, false, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe1_name, null, category);
+        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe1_name, null, category);
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_level, null, category);
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_hue, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_sat, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_sat, null, category);*/
     }
     // colorSchemesFarbe2: RGBColorScheme
     if (colorSchemesFarbe2 != null) {
@@ -571,10 +571,10 @@ function createLampeRGB(adapter, rawId, baseState, etage, raum, device, isGroup,
     }
     else {
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe2_aktiv, false, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe2_name, null, category);
+        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe2_name, null, category);
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_level, null, category);
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_hue, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_sat, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_sat, null, category);*/
     }
     // colorSchemesFarbe3: RGBColorScheme
     if (colorSchemesFarbe3 != null) {
@@ -586,10 +586,10 @@ function createLampeRGB(adapter, rawId, baseState, etage, raum, device, isGroup,
     }
     else {
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe3_aktiv, false, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe3_name, null, category);
+        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe3_name, null, category);
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_level, null, category);
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_hue, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_sat, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_sat, null, category);*/
     }
     // colorSchemesFarbe4: RGBColorScheme
     if (colorSchemesFarbe4 != null) {
@@ -601,10 +601,10 @@ function createLampeRGB(adapter, rawId, baseState, etage, raum, device, isGroup,
     }
     else {
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe4_aktiv, false, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe4_name, null, category);
+        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe4_name, null, category);
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_level, null, category);
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_hue, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_sat, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_sat, null, category);*/
     }
     // colorSchemesWeiss1: WhiteColorScheme
     if (colorSchemesWeiss1 != null) {
@@ -615,9 +615,9 @@ function createLampeRGB(adapter, rawId, baseState, etage, raum, device, isGroup,
     }
     else {
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss1_aktiv, false, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss1_name, null, category);
+        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss1_name, null, category);
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss1_level, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss1_ct, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss1_ct, null, category);*/
     }
     // colorSchemesWeiss2: WhiteColorScheme
     if (colorSchemesWeiss2 != null) {
@@ -628,9 +628,9 @@ function createLampeRGB(adapter, rawId, baseState, etage, raum, device, isGroup,
     }
     else {
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss2_aktiv, false, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss2_name, null, category);
+        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss2_name, null, category);
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss2_level, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss2_ct, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss2_ct, null, category);*/
     }
     // colorSchemesWeiss3: WhiteColorScheme
     if (colorSchemesWeiss3 != null) {
@@ -641,9 +641,9 @@ function createLampeRGB(adapter, rawId, baseState, etage, raum, device, isGroup,
     }
     else {
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss3_aktiv, false, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss3_name, null, category);
+        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss3_name, null, category);
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss3_level, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss3_ct, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss3_ct, null, category);*/
     }
     // colorSchemesWeiss4: WhiteColorScheme
     if (colorSchemesWeiss4 != null) {
@@ -654,9 +654,9 @@ function createLampeRGB(adapter, rawId, baseState, etage, raum, device, isGroup,
     }
     else {
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss4_aktiv, false, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss4_name, null, category);
+        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss4_name, null, category);
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss4_level, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss4_ct, null, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss4_ct, null, category);*/
     }
 }
 exports.createLampeRGB = createLampeRGB;
