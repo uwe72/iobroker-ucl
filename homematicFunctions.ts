@@ -22,8 +22,8 @@ export function createHomematicDevice(adapter: any, rawId: number, baseState: st
 function createDatenpunktSingle(adapter: any, deviceRawId, attributeType, attributeName, attributeValue, category) {
     var stateDatenpunkt = "0_userdata.0.devices.homematic." + category + "." + deviceRawId + "." + attributeName;
     adapter.createState(stateDatenpunkt, attributeValue, {
-        name: stateDatenpunkt,
-        desc: stateDatenpunkt,
+        name: "H" + deviceRawId.padStart(2, '0'),
+        desc: "",
         type: attributeType,
         read: true,
         write: true

@@ -707,8 +707,8 @@ export function createLampeRGB(adapter:any, rawId: number, baseState: string, et
 function createDatenpunktSingle(adapter:any, deviceRawId, attributeType, attributeName, attributeValue, category:string) {
     var stateDatenpunkt = "0_userdata.0.devices.zigbee." + category + "." + deviceRawId + "." + attributeName;
     adapter.createState(stateDatenpunkt, attributeValue, {
-        name: stateDatenpunkt,
-        desc: stateDatenpunkt,
+        name: "Z" + deviceRawId.toString().padStart(3, '0'),
+        desc: "",
         type: attributeType, 
         read: true,
         write: true
