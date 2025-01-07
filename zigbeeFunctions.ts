@@ -706,14 +706,16 @@ export function createLampeRGB(adapter:any, rawId: number, baseState: string, et
 
 function createDatenpunktSingle(adapter:any, deviceRawId, attributeType, attributeName, attributeValue, category:string) {
     var stateDatenpunkt = "0_userdata.0.devices.zigbee." + category + "." + deviceRawId + "." + attributeName;
-    adapter.createState(stateDatenpunkt, null, {
+    adapter.createState(stateDatenpunkt, attributeValue, {
         name: stateDatenpunkt,
         desc: stateDatenpunkt,
         type: attributeType, 
         read: true,
         write: true
     });
-     adapter.setState(stateDatenpunkt, attributeValue);
+    /*if (adapter.getState(stateDatenpunkt).val != attributeValue) {
+        adapter.setState(stateDatenpunkt, attributeValue);
+    }*/
 }
 
 function toStringArray(databaseValue) { // z.B. "Werkbank|Arbeiten|Keller"
@@ -1117,4 +1119,4 @@ export function getZigbeeDevicesAll(adapter: any) {
     return zigbeeArray;
 }
 
-module.exports = { createZigbeeDevice, createDosenrelaisDevice, createLampeWeiss, createSteckdose, getZigbeeDevices, getZigbeeDevicesAll };
+module.exports = { createZigbeeDevice, createDosenrelaisDevice, createLampeRGB, createLampeWeiss, createSteckdose, getZigbeeDevices, getZigbeeDevicesAll };

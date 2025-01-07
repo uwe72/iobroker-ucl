@@ -21,14 +21,16 @@ export function createHomematicDevice(adapter: any, rawId: number, baseState: st
 
 function createDatenpunktSingle(adapter: any, deviceRawId, attributeType, attributeName, attributeValue, category) {
     var stateDatenpunkt = "0_userdata.0.devices.homematic." + category + "." + deviceRawId + "." + attributeName;
-    adapter.createState(stateDatenpunkt, null, {
+    adapter.createState(stateDatenpunkt, attributeValue, {
         name: stateDatenpunkt,
         desc: stateDatenpunkt,
         type: attributeType,
         read: true,
         write: true
     });
-    adapter.setState(stateDatenpunkt, attributeValue);
+    /*if (adapter.getState(stateDatenpunkt).val != attributeValue) {
+        adapter.setState(stateDatenpunkt, attributeValue);
+    }*/
 }
 
 export function getHomematicDevices(adapter: any, filterCategory: string) {

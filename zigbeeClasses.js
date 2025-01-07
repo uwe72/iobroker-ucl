@@ -1142,31 +1142,31 @@ var AlexaInputConverter = /** @class */ (function () {
             this.ctNew = this.adapter.getState(value).val;
             this.actionChangeCT = true;
         }
-        this.adapter.log("");
-        this.adapter.log(">>> ALEXA (" + logContext + ") >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-        this.adapter.log("    Value            : " + this.value);
-        this.adapter.log("    smartName        : " + this.smartName);
-        this.adapter.log("    actionTurnOn     : " + this.actionTurnOn);
-        this.adapter.log("    actionTurnOff    : " + this.actionTurnOff);
+        adapter.log("");
+        adapter.log(">>> ALEXA (" + logContext + ") >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        adapter.log("    Value            : " + this.value);
+        adapter.log("    smartName        : " + this.smartName);
+        adapter.log("    actionTurnOn     : " + this.actionTurnOn);
+        adapter.log("    actionTurnOff    : " + this.actionTurnOff);
         if (this.actionChangeLevel) {
-            this.adapter.log("    actionChangeLevel: " + this.actionChangeLevel + " (" + this.levelNew + ")");
+            adapter.log("    actionChangeLevel: " + this.actionChangeLevel + " (" + this.levelNew + ")");
         }
         else {
-            this.adapter.log("    actionChangeLevel: " + this.actionChangeLevel);
+            adapter.log("    actionChangeLevel: " + this.actionChangeLevel);
         }
         if (this.actionChangeColor) {
-            this.adapter.log("    actionChangeColor: " + this.actionChangeColor + " (" + this.hueNew + ")");
+            adapter.log("    actionChangeColor: " + this.actionChangeColor + " (" + this.hueNew + ")");
         }
         else {
-            this.adapter.log("    actionChangeColor: " + this.actionChangeColor);
+            adapter.log("    actionChangeColor: " + this.actionChangeColor);
         }
         if (this.actionChangeCT) {
-            this.adapter.log("    actionChangeCT: " + this.actionChangeCT + " (" + this.ctNew + ")");
+            adapter.log("    actionChangeCT: " + this.actionChangeCT + " (" + this.ctNew + ")");
         }
         else {
-            this.adapter.log("    actionChangeCT: " + this.actionChangeCT);
+            adapter.log("    actionChangeCT: " + this.actionChangeCT);
         }
-        this.adapter.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+        adapter.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
     }
     AlexaInputConverter.prototype.isActionTurnedOn = function () {
         return this.actionTurnOn;
