@@ -1,4 +1,3 @@
-// https://stackoverflow.com/questions/8595509/how-do-you-share-constants-in-nodejs-modules
 const deviceHomematicWandthermostat: string = "Wandthermostat";
 const deviceHomematicPraesenzmelder: string = "Praesenzmelder";
 const deviceHomematicWetterstation: string = "Wetterstation";
