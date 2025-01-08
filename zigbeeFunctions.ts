@@ -1,3 +1,5 @@
+import { AbstractZigbee } from "./zigbeeClasses";
+
 const { AbstractZigbee, ColorScheme, RGBColorScheme, WhiteColorScheme, ZigbeeLampeRGB, LampeWeissTasterScheme, LampeWeissAlexaScheme, ZigbeeLampeWeiss, ZigbeeSteckdose, ZigbeeSchalter, ZigbeeRepeater, ZigbeeFenstersensor, ZigbeeRauchmelder, ZigbeeBewegungsmelder, ZigbeeWandtaster, ZigbeeDosenrelais,AlexaInputConverter, deviceZigbeeSteckdose, deviceZigbeeBewegungsmelder, deviceZigbeeLampeRGB, deviceZigbeeLampeWeiss, deviceZigbeeRauchmelder, deviceZigbeeWandtaster, deviceZigbeeDosenrelais, deviceZigbeeSchalter, deviceZigbeeRepeater, deviceZigbeeFenstersensor  } = require('./zigbeeClasses.js');
 
 // Alexa:
@@ -685,6 +687,7 @@ export function createLampeRGB(adapter:any, rawId: number, baseState: string, et
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss3_ct, colorSchemesWeiss3.getCt(), category);
     } else {
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss3_aktiv, false, category);
+       
         /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss3_name, null, category);        
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss3_level, null, category);
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss3_ct, null, category);*/
@@ -727,9 +730,15 @@ function toStringArray(databaseValue) { // z.B. "Werkbank|Arbeiten|Keller"
     }
 }
 
-export function getZigbeeDevices(adapter: any, filterCategory: string) {
-    var zigbeeArray = [];
+var cache = new Map<string, AbstractZigbee[]>;
 
+export function getZigbeeDevices(adapter: any, filterCategory: string) {
+    if (cache.get(filterCategory) != null) {
+        return cache.get(filterCategory);
+    }
+
+
+    var zigbeeArray = [];
     adapter.$('state[id=0_userdata.0.devices.zigbee.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.zigbee.30.type
         var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == filterCategory) {
@@ -1069,6 +1078,8 @@ export function getZigbeeDevices(adapter: any, filterCategory: string) {
         }
 
     });
+
+    cache.set(filterCategory, zigbeeArray);
     return zigbeeArray;
 }
 

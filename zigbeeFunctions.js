@@ -682,7 +682,11 @@ function toStringArray(databaseValue) {
         return databaseValue.split('|');
     }
 }
+var cache = new Map;
 function getZigbeeDevices(adapter, filterCategory) {
+    if (cache.get(filterCategory) != null) {
+        return cache.get(filterCategory);
+    }
     var zigbeeArray = [];
     adapter.$('state[id=0_userdata.0.devices.zigbee.*.*.category]').each(function (datenpunktKey) {
         var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
@@ -919,6 +923,7 @@ function getZigbeeDevices(adapter, filterCategory) {
             }
         }
     });
+    cache.set(filterCategory, zigbeeArray);
     return zigbeeArray;
 }
 exports.getZigbeeDevices = getZigbeeDevices;
