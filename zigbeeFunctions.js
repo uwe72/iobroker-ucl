@@ -1,4 +1,5 @@
 "use strict";
+//import { AbstractZigbee } from "./zigbeeClasses";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getZigbeeDevicesAll = exports.getZigbeeDevices = exports.createLampeRGB = exports.createLampeWeiss = exports.createSteckdose = exports.createDosenrelaisDevice = exports.createZigbeeDevice = void 0;
 var _a = require('./zigbeeClasses.js'), AbstractZigbee = _a.AbstractZigbee, ColorScheme = _a.ColorScheme, RGBColorScheme = _a.RGBColorScheme, WhiteColorScheme = _a.WhiteColorScheme, ZigbeeLampeRGB = _a.ZigbeeLampeRGB, LampeWeissTasterScheme = _a.LampeWeissTasterScheme, LampeWeissAlexaScheme = _a.LampeWeissAlexaScheme, ZigbeeLampeWeiss = _a.ZigbeeLampeWeiss, ZigbeeSteckdose = _a.ZigbeeSteckdose, ZigbeeSchalter = _a.ZigbeeSchalter, ZigbeeRepeater = _a.ZigbeeRepeater, ZigbeeFenstersensor = _a.ZigbeeFenstersensor, ZigbeeRauchmelder = _a.ZigbeeRauchmelder, ZigbeeBewegungsmelder = _a.ZigbeeBewegungsmelder, ZigbeeWandtaster = _a.ZigbeeWandtaster, ZigbeeDosenrelais = _a.ZigbeeDosenrelais, AlexaInputConverter = _a.AlexaInputConverter, deviceZigbeeSteckdose = _a.deviceZigbeeSteckdose, deviceZigbeeBewegungsmelder = _a.deviceZigbeeBewegungsmelder, deviceZigbeeLampeRGB = _a.deviceZigbeeLampeRGB, deviceZigbeeLampeWeiss = _a.deviceZigbeeLampeWeiss, deviceZigbeeRauchmelder = _a.deviceZigbeeRauchmelder, deviceZigbeeWandtaster = _a.deviceZigbeeWandtaster, deviceZigbeeDosenrelais = _a.deviceZigbeeDosenrelais, deviceZigbeeSchalter = _a.deviceZigbeeSchalter, deviceZigbeeRepeater = _a.deviceZigbeeRepeater, deviceZigbeeFenstersensor = _a.deviceZigbeeFenstersensor;
@@ -682,11 +683,11 @@ function toStringArray(databaseValue) {
         return databaseValue.split('|');
     }
 }
-var cache = new Map;
+//var cache = new Map<string, AbstractZigbee[]>;
 function getZigbeeDevices(adapter, filterCategory) {
-    if (cache.get(filterCategory) != null) {
-        return cache.get(filterCategory);
-    }
+    /*  if (cache.get(filterCategory) != null) {
+          return cache.get(filterCategory);
+      }*/
     var zigbeeArray = [];
     adapter.$('state[id=0_userdata.0.devices.zigbee.*.*.category]').each(function (datenpunktKey) {
         var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
@@ -923,7 +924,7 @@ function getZigbeeDevices(adapter, filterCategory) {
             }
         }
     });
-    cache.set(filterCategory, zigbeeArray);
+    //cache.set(filterCategory, zigbeeArray);
     return zigbeeArray;
 }
 exports.getZigbeeDevices = getZigbeeDevices;

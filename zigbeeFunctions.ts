@@ -1,4 +1,4 @@
-import { AbstractZigbee } from "./zigbeeClasses";
+//import { AbstractZigbee } from "./zigbeeClasses";
 
 const { AbstractZigbee, ColorScheme, RGBColorScheme, WhiteColorScheme, ZigbeeLampeRGB, LampeWeissTasterScheme, LampeWeissAlexaScheme, ZigbeeLampeWeiss, ZigbeeSteckdose, ZigbeeSchalter, ZigbeeRepeater, ZigbeeFenstersensor, ZigbeeRauchmelder, ZigbeeBewegungsmelder, ZigbeeWandtaster, ZigbeeDosenrelais,AlexaInputConverter, deviceZigbeeSteckdose, deviceZigbeeBewegungsmelder, deviceZigbeeLampeRGB, deviceZigbeeLampeWeiss, deviceZigbeeRauchmelder, deviceZigbeeWandtaster, deviceZigbeeDosenrelais, deviceZigbeeSchalter, deviceZigbeeRepeater, deviceZigbeeFenstersensor  } = require('./zigbeeClasses.js');
 
@@ -730,12 +730,12 @@ function toStringArray(databaseValue) { // z.B. "Werkbank|Arbeiten|Keller"
     }
 }
 
-var cache = new Map<string, AbstractZigbee[]>;
+//var cache = new Map<string, AbstractZigbee[]>;
 
 export function getZigbeeDevices(adapter: any, filterCategory: string) {
-    if (cache.get(filterCategory) != null) {
+  /*  if (cache.get(filterCategory) != null) {
         return cache.get(filterCategory);
-    }
+    }*/
 
 
     var zigbeeArray = [];
@@ -1079,7 +1079,7 @@ export function getZigbeeDevices(adapter: any, filterCategory: string) {
 
     });
 
-    cache.set(filterCategory, zigbeeArray);
+    //cache.set(filterCategory, zigbeeArray);
     return zigbeeArray;
 }
 
