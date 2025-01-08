@@ -730,404 +730,523 @@ function toStringArray(databaseValue) { // z.B. "Werkbank|Arbeiten|Keller"
     }
 }
 
-//var cache = new Map<string, AbstractZigbee[]>;
-
-export function getZigbeeDevices(adapter: any, filterCategory: string) {
-  /*  if (cache.get(filterCategory) != null) {
-        return cache.get(filterCategory);
-    }*/
-
-
-    var zigbeeArray = [];
-    adapter.$('state[id=0_userdata.0.devices.zigbee.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.zigbee.30.type
+var cacheSteckdosenArray = null;
+export function loadZigbeeSteckdosen(adapter: any) {
+    if (cacheSteckdosenArray != null) {
+        return cacheSteckdosenArray;
+    }
+    // @ts-ignore            
+    cacheSteckdosenArray = [];
+    adapter.$('state[id=0_userdata.0.devices.zigbee.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.zigbee.Steckdose.30.category;
         var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
-        if (adapter.getState(datenpunktKey).val == filterCategory) {
-            //constructor(adapter:any, id: number, baseState: string, etage: string, raum: string, 
-            // device: string, 
-            // alexaSmartNamesForOn:string[],alexaActionNamesForOn:string[], alexaSmartNamesForOff: string[],alexaActionNamesForOff: string[], additionalStates4TurnOn:string[], additionalStates4TurnOff:string[]) {
+        if (adapter.getState(datenpunktKey).val == deviceZigbeeSteckdose) {
+            // @ts-ignore            
+            cacheSteckdosenArray.push(new ZigbeeSteckdose(adapter,
+                adapter.getState(datenpunktPraefix + "." + attributeRawID).val,                                 // [0] Device-ID         (z.B. 1 --> In der Anzeige wird daraus "H01")
+                adapter.getState(datenpunktPraefix + "." + attributeBaseState).val,                             // [1] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)
+                adapter.getState(datenpunktPraefix + "." + attributeEtage).val,                                 // [2] Etage/Bereich     (z.B. EG)
+                adapter.getState(datenpunktPraefix + "." + attributeRaum).val,                                  // [3] Raum/Unterbereich (z.B. Wohnzimmer)
+                adapter.getState(datenpunktPraefix + "." + attributeDevice).val,                                // [4] Device            (z.B. Stehlampe)            
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOn).val),     // 08 Alexa-Ein
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOn).val),     // Alexa-Action-Ein, z.B. "Guten morgen" (Würde auch funktionieren, wenn dies bei [06] eingetragen ist)                
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOff).val),    // 09 Alexa-Aus
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOff).val),    // [10] Alexa-Action Aus, z.B. "Gute Nacht". Wir müssen hier zu [09] unterscheiden, da wir über "Gute Nacht" und isActionTurnedOn=true informiert werden.        
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_TasterBooleanOn).val),           // 07 TunrnOn-DP
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_TasterBooleanOff).val)           // 08 TasterBoolOff-DP                    
+            ));                    
+        }
+    });
+    return cacheSteckdosenArray;
+}
 
-            if (filterCategory == deviceZigbeeSteckdose) {
-                // @ts-ignore            
-                zigbeeArray.push(new ZigbeeSteckdose(adapter,
-                    adapter.getState(datenpunktPraefix + "." + attributeRawID).val,                                 // [0] Device-ID         (z.B. 1 --> In der Anzeige wird daraus "H01")
-                    adapter.getState(datenpunktPraefix + "." + attributeBaseState).val,                             // [1] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)
-                    adapter.getState(datenpunktPraefix + "." + attributeEtage).val,                                 // [2] Etage/Bereich     (z.B. EG)
-                    adapter.getState(datenpunktPraefix + "." + attributeRaum).val,                                  // [3] Raum/Unterbereich (z.B. Wohnzimmer)
-                    adapter.getState(datenpunktPraefix + "." + attributeDevice).val,                                // [4] Device            (z.B. Stehlampe)            
-                    toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOn).val),     // 08 Alexa-Ein
-                    toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOn).val),     // Alexa-Action-Ein, z.B. "Guten morgen" (Würde auch funktionieren, wenn dies bei [06] eingetragen ist)                
-                    toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOff).val),    // 09 Alexa-Aus
-                    toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOff).val),    // [10] Alexa-Action Aus, z.B. "Gute Nacht". Wir müssen hier zu [09] unterscheiden, da wir über "Gute Nacht" und isActionTurnedOn=true informiert werden.        
-                    toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_TasterBooleanOn).val),           // 07 TunrnOn-DP
-                    toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_TasterBooleanOff).val)           // 08 TasterBoolOff-DP                    
-                ));                    
+var cacheBewegungsmelderArray = null;
+export function loadZigbeeBewegungsmelder(adapter: any) {
+    if (cacheBewegungsmelderArray != null) {
+        return cacheBewegungsmelderArray;
+    }
+    // @ts-ignore            
+    cacheBewegungsmelderArray = [];
+    adapter.$('state[id=0_userdata.0.devices.zigbee.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.zigbee.Steckdose.30.category;
+        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        if (adapter.getState(datenpunktKey).val == deviceZigbeeBewegungsmelder) {
+            // @ts-ignore            
+            cacheBewegungsmelderArray.push(new ZigbeeBewegungsmelder(adapter,
+                adapter.getState(datenpunktPraefix + "." + attributeRawID).val,     // [0] Device-ID         (z.B. 1 --> In der Anzeige wird daraus "H01")
+                adapter.getState(datenpunktPraefix + "." + attributeBaseState).val, // [1] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)
+                adapter.getState(datenpunktPraefix + "." + attributeEtage).val,     // [2] Etage/Bereich     (z.B. EG)
+                adapter.getState(datenpunktPraefix + "." + attributeRaum).val,      // [3] Raum/Unterbereich (z.B. Wohnzimmer)
+                adapter.getState(datenpunktPraefix + "." + attributeDevice).val     // [4] Device            (z.B. Stehlampe)            
+            ));
+        }
+    });
+    return cacheBewegungsmelderArray;
+}
 
-            } else if (filterCategory == deviceZigbeeBewegungsmelder) {
-                // @ts-ignore                            
-                zigbeeArray.push(new ZigbeeBewegungsmelder(adapter,
-                    adapter.getState(datenpunktPraefix + "." + attributeRawID).val,     // [0] Device-ID         (z.B. 1 --> In der Anzeige wird daraus "H01")
-                    adapter.getState(datenpunktPraefix + "." + attributeBaseState).val, // [1] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)
-                    adapter.getState(datenpunktPraefix + "." + attributeEtage).val,     // [2] Etage/Bereich     (z.B. EG)
-                    adapter.getState(datenpunktPraefix + "." + attributeRaum).val,      // [3] Raum/Unterbereich (z.B. Wohnzimmer)
-                    adapter.getState(datenpunktPraefix + "." + attributeDevice).val     // [4] Device            (z.B. Stehlampe)            
-                ));
-            } else if (filterCategory == deviceZigbeeLampeRGB) {
+var cacheLampenRGBArray = null;
+export function loadZigbeeLampenRGB(adapter: any) {
+    if (cacheLampenRGBArray != null) {
+        return cacheLampenRGBArray;
+    }
+    // @ts-ignore            
+    cacheLampenRGBArray = [];
+    adapter.$('state[id=0_userdata.0.devices.zigbee.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.zigbee.Steckdose.30.category;
+        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        if (adapter.getState(datenpunktKey).val == deviceZigbeeLampeRGB) {
 
-                // Einschalt-Scheme:
-                var alexaOnScheme = null;
-                if (adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_AlexaColorSchemeForOn_Farbe_aktiv).val == true) {
-                    alexaOnScheme = new RGBColorScheme(null,
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_AlexaColorSchemeForOn_Farbe_level).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_AlexaColorSchemeForOn_Farbe_hue).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_AlexaColorSchemeForOn_Farbe_sat).val
-                    );
-                } else if (adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_AlexaColorSchemeForOn_Weiss_aktiv).val == true) {
-                    alexaOnScheme = new WhiteColorScheme(null,
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_AlexaColorSchemeForOn_Weiss_level).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_AlexaColorSchemeForOn_Weiss_ct).val
-                    );
-                }
+            // Einschalt-Scheme:
+            var alexaOnScheme = null;
+            if (adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_AlexaColorSchemeForOn_Farbe_aktiv).val == true) {
+                alexaOnScheme = new RGBColorScheme(null,
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_AlexaColorSchemeForOn_Farbe_level).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_AlexaColorSchemeForOn_Farbe_hue).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_AlexaColorSchemeForOn_Farbe_sat).val
+                );
+            } else if (adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_AlexaColorSchemeForOn_Weiss_aktiv).val == true) {
+                alexaOnScheme = new WhiteColorScheme(null,
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_AlexaColorSchemeForOn_Weiss_level).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_AlexaColorSchemeForOn_Weiss_ct).val
+                );
+            }
 
-                // Weitere Schemes als Array:
-                var schemeArray = [];
+            // Weitere Schemes als Array:
+            var schemeArray = [];
 
-                // RGBColorScheme1:
-                if (adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe1_aktiv).val == true) {
-                    // @ts-ignore                                                
-                    schemeArray.push(new RGBColorScheme(
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe1_name).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe1_level).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe1_hue).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe1_sat).val
-                    ));
-                }
-
-                // RGBColorScheme2:
-                if (adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe2_aktiv).val == true) {
-                    // @ts-ignore                                                
-                    schemeArray.push(new RGBColorScheme(
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe2_name).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe2_level).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe2_hue).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe2_sat).val
-                    ));
-                }
-
-                // RGBColorScheme3:
-                if (adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe3_aktiv).val == true) {
-                    // @ts-ignore                                                
-                    schemeArray.push(new RGBColorScheme(
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe3_name).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe3_level).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe3_hue).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe3_sat).val
-                    ));
-                }
-
-                // RGBColorScheme4:
-                if (adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe4_aktiv).val == true) {
-                    // @ts-ignore                                                
-                    schemeArray.push(new RGBColorScheme(
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe4_name).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe4_level).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe4_hue).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe4_sat).val
-                    ));
-                }
-
-                // WhiteColorScheme1:
-                if (adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss1_aktiv).val == true) {
-                    // @ts-ignore                                                
-                    schemeArray.push(new WhiteColorScheme(
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss1_name).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss1_level).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss1_ct).val
-                    ));
-                }
-
-                // WhiteColorScheme2:
-                if (adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss2_aktiv).val == true) {
-                    // @ts-ignore                                                
-                    schemeArray.push(new WhiteColorScheme(
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss2_name).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss2_level).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss2_ct).val
-                    ));
-                }
-
-                // WhiteColorScheme3:
-                if (adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss3_aktiv).val == true) {
-                    // @ts-ignore                                                
-                    schemeArray.push(new WhiteColorScheme(
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss3_name).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss3_level).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss3_ct).val
-                    ));
-                }
-
-                // WhiteColorScheme4:
-                if (adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss4_aktiv).val == true) {
-                    // @ts-ignore                                                
-                    schemeArray.push(new WhiteColorScheme(
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss4_name).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss4_level).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss4_ct).val
-                    ));
-                }
-
-                // @ts-ignore            
-                zigbeeArray.push(new ZigbeeLampeRGB(adapter,
-                    adapter.getState(datenpunktPraefix + "." + attributeRawID).val,             // [0] Device-ID         (z.B. 1 --> In der Anzeige wird daraus "H01")
-                    adapter.getState(datenpunktPraefix + "." + attributeBaseState).val,         // [1] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)
-                    adapter.getState(datenpunktPraefix + "." + attributeEtage).val,             // [2] Etage/Bereich     (z.B. EG)
-                    adapter.getState(datenpunktPraefix + "." + attributeRaum).val,              // [3] Raum/Unterbereich (z.B. Wohnzimmer)
-                    adapter.getState(datenpunktPraefix + "." + attributeDevice).val,            // [4] Device            (z.B. Stehlampe)            
-                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_Group).val,     // [5] Gruppe
-                    toStringArray(adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_Groupmembers).val),           // [6] Gruppenmitglieder
-                    toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOn).val),   // 08 Alexa-Ein
-                    toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOn).val),   // Alexa-Action-Ein, z.B. "Guten morgen" (Würde auch funktionieren, wenn dies bei [06] eingetragen ist)                
-                    alexaOnScheme,                                                                                      // [09 A.-Ein-Scheme]   
-                    toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOff).val),   // 10 Alexa-Aus                   
-                    toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOff).val),   // [10] Alexa-Action Aus, z.B. "Gute Nacht". Wir müssen hier zu [09] unterscheiden, da wir über "Gute Nacht" und isActionTurnedOn=true informiert werden.                
-                    schemeArray, // [12 Alexa-Schemes]  
-                    toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_TasterBooleanOn).val),           // 13 TasterBoolOn
-                    toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_TasterBooleanOff).val),           // 14 TasterBoolOff
-                    adapter.getState(datenpunktPraefix + "." + attribute_Nachtbeleuchtung).val,     // Gehört zur Nachtbeleuchtung ja/nein
-                    adapter.getState(datenpunktPraefix + "." + attribute_TurnOffExitHouseSummer).val, // turnOffExitHouseSummer (Ausschalten, wenn Haus verlassen - Sommer)
-                    adapter.getState(datenpunktPraefix + "." + attribute_TurnOffExitHouseWinter).val, // turnOffExitHouseWinter (Ausschalten, wenn Haus verlassen - Winter)
-                    adapter.getState(datenpunktPraefix + "." + attribute_TurnOnEnterHouseSummer).val, // turnOnEnterHouseSummer (Einschalten, wenn Haus betreten - Sommer)
-                    adapter.getState(datenpunktPraefix + "." + attribute_TurnOnEnterHouseWinter).val  // turnOnEnterHouseWinter (Einschalten, wenn Haus betreten - Winter)
-                ));
-            } else if (filterCategory == deviceZigbeeLampeWeiss) {
-
-                // Einschalt-Scheme:
-                var alexaOnScheme = null;
-                if (adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_AlexaColorSchemeForOn_Weiss_aktiv).val == true) {
-                    // @ts-ignore                                                
-                    alexaOnScheme = new LampeWeissColorScheme(null,
-                        adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_AlexaColorSchemeForOn_Weiss_level).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_AlexaColorSchemeForOn_Weiss_ct).val
-                    );
-                }
-
-                // Weitere Schemes als Array:
-                var schemeArray = [];
-
-                // WhiteColorScheme1:
-                if (adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss1_aktiv).val == true) {
-                    // @ts-ignore                                                                    
-                    schemeArray.push(new LampeWeissAlexaScheme(
-                        adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss1_name).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss1_level).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss1_ct).val
-                    ));
-                }
-
-                // WhiteColorScheme2:
-                if (adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss2_aktiv).val == true) {
-                    // @ts-ignore                                                                    
-                    schemeArray.push(new LampeWeissAlexaScheme(
-                        adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss2_name).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss2_level).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss2_ct).val
-                    ));
-                }
-
-                // WhiteColorScheme3:
-                if (adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss3_aktiv).val == true) {
-                    // @ts-ignore                                                                    
-                    schemeArray.push(new LampeWeissAlexaScheme(
-                        adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss3_name).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss3_level).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss3_ct).val
-                    ));
-                }
-
-                // WhiteColorScheme4:
-                if (adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss4_aktiv).val == true) {
-                    // @ts-ignore                                                                    
-                    schemeArray.push(new LampeWeissAlexaScheme(
-                        adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss4_name).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss4_level).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss4_ct).val
-                    ));
-                }
-
-                // Taster Boolean On Schemes:
-                var tasterOnBoolschemeArray = [];
-
-                // LampeWeissTasterScheme1:
-                //constructor(tasterBooleanOn: string, level: number, ct: number) {
-                if (adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn1_aktiv).val == true) {
-                    // @ts-ignore                                                                    
-                    tasterOnBoolschemeArray.push(new LampeWeissTasterScheme( 
-                        adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn1_name).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn1_level).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn1_ct).val
-                    ));
-                }
-
-                // LampeWeissTasterScheme2:
-                if (adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn2_aktiv).val == true) {
-                    // @ts-ignore                                                                    
-                    tasterOnBoolschemeArray.push(new LampeWeissTasterScheme (
-                        adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn2_name).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn2_level).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn2_ct).val
-                    ));
-                }
-
-                // LampeWeissTasterScheme3:
-                if (adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn3_aktiv).val == true) {
-                    // @ts-ignore                                                                    
-                    tasterOnBoolschemeArray.push(new LampeWeissTasterScheme (
-                        adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn3_name).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn3_level).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn3_ct).val
-                    ));
-                }
-
-                // LampeWeissTasterScheme4:
-                if (adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn4_aktiv).val == true) {
-                    // @ts-ignore                                                                    
-                    tasterOnBoolschemeArray.push(new LampeWeissTasterScheme (
-                        adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn4_name).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn4_level).val,
-                        adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn4_ct).val
-                    ));
-                }
-
-                // @ts-ignore            
-                zigbeeArray.push(new ZigbeeLampeWeiss(adapter,
-                    adapter.getState(datenpunktPraefix + "." + attributeRawID).val,     // [0] Device-ID         (z.B. 1 --> In der Anzeige wird daraus "H01")
-                    adapter.getState(datenpunktPraefix + "." + attributeBaseState).val, // [1] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)
-                    adapter.getState(datenpunktPraefix + "." + attributeEtage).val,     // [2] Etage/Bereich     (z.B. EG)
-                    adapter.getState(datenpunktPraefix + "." + attributeRaum).val,      // [3] Raum/Unterbereich (z.B. Wohnzimmer)
-                    adapter.getState(datenpunktPraefix + "." + attributeDevice).val,     // [4] Device            (z.B. Stehlampe)            
-                    toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOn).val),   // 08 Alexa-Ein
-                    toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOn).val),   // Alexa-Action-Ein, z.B. "Guten morgen" (Würde auch funktionieren, wenn dies bei [06] eingetragen ist)                
-                    alexaOnScheme,                                                    // [06 A.-Ein-Scheme]   */  new LampeWeissAlexaScheme(null, 100, -1), // Letzter Paramter = -1 heußt, dass diese Lampe keine Farbtemperatur unterstützt. Ansonsten hier die Temperatur angeben
-                    toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOff).val),   // 09 Alexa-Aus
-                    toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOff).val),   // [10] Alexa-Action Aus, z.B. "Gute Nacht". Wir müssen hier zu [09] unterscheiden, da wir über "Gute Nacht" und isActionTurnedOn=true informiert werden.        
-                    schemeArray, //  [08 Alexa-Schemes]  
-                    adapter.getState(datenpunktPraefix + "." + attributeLampeWeissGroup).val,     // [6] Gruppe
-                    tasterOnBoolschemeArray, // [07 TasterBoolOn ]
-                    toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_TasterBooleanOff).val),           // 14 TasterBoolOff
-                    adapter.getState(datenpunktPraefix + "." + attribute_Nachtbeleuchtung).val,     // Gehört zur Nachtbeleuchtung ja/nein
-                    adapter.getState(datenpunktPraefix + "." + attribute_TurnOffExitHouseSummer).val, // turnOffExitHouseSummer (Ausschalten, wenn Haus verlassen - Sommer)
-                    adapter.getState(datenpunktPraefix + "." + attribute_TurnOffExitHouseWinter).val, // turnOffExitHouseWinter (Ausschalten, wenn Haus verlassen - Winter)
-                    adapter.getState(datenpunktPraefix + "." + attribute_TurnOnEnterHouseSummer).val, // turnOnEnterHouseSummer (Einschalten, wenn Haus betreten - Sommer)
-                    adapter.getState(datenpunktPraefix + "." + attribute_TurnOnEnterHouseWinter).val  // turnOnEnterHouseWinter (Einschalten, wenn Haus betreten - Winter)
-                ));
-            } else if (filterCategory == deviceZigbeeRauchmelder) {
-                // @ts-ignore                            
-                zigbeeArray.push(new ZigbeeRauchmelder(adapter,
-                    adapter.getState(datenpunktPraefix + "." + attributeRawID).val,     // [0] Device-ID         (z.B. 1 --> In der Anzeige wird daraus "H01")
-                    adapter.getState(datenpunktPraefix + "." + attributeBaseState).val, // [1] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)
-                    adapter.getState(datenpunktPraefix + "." + attributeEtage).val,     // [2] Etage/Bereich     (z.B. EG)
-                    adapter.getState(datenpunktPraefix + "." + attributeRaum).val,      // [3] Raum/Unterbereich (z.B. Wohnzimmer)
-                    adapter.getState(datenpunktPraefix + "." + attributeDevice).val     // [4] Device            (z.B. Stehlampe)            
-                ));
-            } else if (filterCategory == deviceZigbeeWandtaster) {
-                // @ts-ignore            
-                zigbeeArray.push(new ZigbeeWandtaster(adapter,
-                    adapter.getState(datenpunktPraefix + "." + attributeRawID).val,     // [0] Device-ID         (z.B. 1 --> In der Anzeige wird daraus "H01")
-                    adapter.getState(datenpunktPraefix + "." + attributeBaseState).val, // [1] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)
-                    adapter.getState(datenpunktPraefix + "." + attributeEtage).val,     // [2] Etage/Bereich     (z.B. EG)
-                    adapter.getState(datenpunktPraefix + "." + attributeRaum).val,      // [3] Raum/Unterbereich (z.B. Wohnzimmer)
-                    adapter.getState(datenpunktPraefix + "." + attributeDevice).val     // [4] Device            (z.B. Stehlampe)            
-                ));
-            } else if (filterCategory == deviceZigbeeDosenrelais) {
-                // @ts-ignore            
-                zigbeeArray.push(new ZigbeeDosenrelais(adapter,
-                    adapter.getState(datenpunktPraefix + "." + attributeRawID).val,     // [0] Device-ID         (z.B. 1 --> In der Anzeige wird daraus "H01")
-                    adapter.getState(datenpunktPraefix + "." + attributeBaseState).val, // [1] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)
-                    adapter.getState(datenpunktPraefix + "." + attributeEtage).val,     // [2] Etage/Bereich     (z.B. EG)
-                    adapter.getState(datenpunktPraefix + "." + attributeRaum).val,      // [3] Raum/Unterbereich (z.B. Wohnzimmer)
-                    adapter.getState(datenpunktPraefix + "." + attributeDevice).val,     // [4] Device            (z.B. Stehlampe)         
-                    toStringArray(adapter.getState(datenpunktPraefix + "." + attributeDosenrelais_smartNames).val)           // 14 TasterBoolOff
-                ));
-            } else if (filterCategory == deviceZigbeeSchalter) {
-                // @ts-ignore            
-                zigbeeArray.push(new ZigbeeSchalter(adapter,
-                    adapter.getState(datenpunktPraefix + "." + attributeRawID).val,     // [0] Device-ID         (z.B. 1 --> In der Anzeige wird daraus "H01")
-                    adapter.getState(datenpunktPraefix + "." + attributeBaseState).val, // [1] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)
-                    adapter.getState(datenpunktPraefix + "." + attributeEtage).val,     // [2] Etage/Bereich     (z.B. EG)
-                    adapter.getState(datenpunktPraefix + "." + attributeRaum).val,      // [3] Raum/Unterbereich (z.B. Wohnzimmer)
-                    adapter.getState(datenpunktPraefix + "." + attributeDevice).val     // [4] Device            (z.B. Stehlampe)            
-                ));
-            } else if (filterCategory == deviceZigbeeRepeater) {
-                // @ts-ignore            
-                zigbeeArray.push(new ZigbeeRepeater(adapter,
-                    adapter.getState(datenpunktPraefix + "." + attributeRawID).val,     // [0] Device-ID         (z.B. 1 --> In der Anzeige wird daraus "H01")
-                    adapter.getState(datenpunktPraefix + "." + attributeBaseState).val, // [1] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)
-                    adapter.getState(datenpunktPraefix + "." + attributeEtage).val,     // [2] Etage/Bereich     (z.B. EG)
-                    adapter.getState(datenpunktPraefix + "." + attributeRaum).val,      // [3] Raum/Unterbereich (z.B. Wohnzimmer)
-                    adapter.getState(datenpunktPraefix + "." + attributeDevice).val     // [4] Device            (z.B. Stehlampe)            
-                ));
-            } else if (filterCategory == deviceZigbeeFenstersensor) {  // TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                // @ts-ignore            
-                zigbeeArray.push(new Zigbee(adapter,
-                    adapter.getState(datenpunktPraefix + "." + attributeRawID).val,     // [0] Device-ID         (z.B. 1 --> In der Anzeige wird daraus "H01")
-                    adapter.getState(datenpunktPraefix + "." + attributeBaseState).val, // [1] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)
-                    adapter.getState(datenpunktPraefix + "." + attributeEtage).val,     // [2] Etage/Bereich     (z.B. EG)
-                    adapter.getState(datenpunktPraefix + "." + attributeRaum).val,      // [3] Raum/Unterbereich (z.B. Wohnzimmer)
-                    adapter.getState(datenpunktPraefix + "." + attributeDevice).val     // [4] Device            (z.B. Stehlampe)            
+            // RGBColorScheme1:
+            if (adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe1_aktiv).val == true) {
+                // @ts-ignore                                                
+                schemeArray.push(new RGBColorScheme(
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe1_name).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe1_level).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe1_hue).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe1_sat).val
                 ));
             }
+
+            // RGBColorScheme2:
+            if (adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe2_aktiv).val == true) {
+                // @ts-ignore                                                
+                schemeArray.push(new RGBColorScheme(
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe2_name).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe2_level).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe2_hue).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe2_sat).val
+                ));
+            }
+
+            // RGBColorScheme3:
+            if (adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe3_aktiv).val == true) {
+                // @ts-ignore                                                
+                schemeArray.push(new RGBColorScheme(
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe3_name).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe3_level).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe3_hue).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe3_sat).val
+                ));
+            }
+
+            // RGBColorScheme4:
+            if (adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe4_aktiv).val == true) {
+                // @ts-ignore                                                
+                schemeArray.push(new RGBColorScheme(
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe4_name).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe4_level).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe4_hue).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe4_sat).val
+                ));
+            }
+
+            // WhiteColorScheme1:
+            if (adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss1_aktiv).val == true) {
+                // @ts-ignore                                                
+                schemeArray.push(new WhiteColorScheme(
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss1_name).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss1_level).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss1_ct).val
+                ));
+            }
+
+            // WhiteColorScheme2:
+            if (adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss2_aktiv).val == true) {
+                // @ts-ignore                                                
+                schemeArray.push(new WhiteColorScheme(
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss2_name).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss2_level).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss2_ct).val
+                ));
+            }
+
+            // WhiteColorScheme3:
+            if (adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss3_aktiv).val == true) {
+                // @ts-ignore                                                
+                schemeArray.push(new WhiteColorScheme(
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss3_name).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss3_level).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss3_ct).val
+                ));
+            }
+
+            // WhiteColorScheme4:
+            if (adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss4_aktiv).val == true) {
+                // @ts-ignore                                                
+                schemeArray.push(new WhiteColorScheme(
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss4_name).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss4_level).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Weiss4_ct).val
+                ));
+            }
+
+            // @ts-ignore            
+            cacheLampenRGBArray.push(new ZigbeeLampeRGB(adapter,
+                adapter.getState(datenpunktPraefix + "." + attributeRawID).val,             // [0] Device-ID         (z.B. 1 --> In der Anzeige wird daraus "H01")
+                adapter.getState(datenpunktPraefix + "." + attributeBaseState).val,         // [1] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)
+                adapter.getState(datenpunktPraefix + "." + attributeEtage).val,             // [2] Etage/Bereich     (z.B. EG)
+                adapter.getState(datenpunktPraefix + "." + attributeRaum).val,              // [3] Raum/Unterbereich (z.B. Wohnzimmer)
+                adapter.getState(datenpunktPraefix + "." + attributeDevice).val,            // [4] Device            (z.B. Stehlampe)            
+                adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_Group).val,     // [5] Gruppe
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_Groupmembers).val),           // [6] Gruppenmitglieder
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOn).val),   // 08 Alexa-Ein
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOn).val),   // Alexa-Action-Ein, z.B. "Guten morgen" (Würde auch funktionieren, wenn dies bei [06] eingetragen ist)                
+                alexaOnScheme,                                                                                      // [09 A.-Ein-Scheme]   
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOff).val),   // 10 Alexa-Aus                   
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOff).val),   // [10] Alexa-Action Aus, z.B. "Gute Nacht". Wir müssen hier zu [09] unterscheiden, da wir über "Gute Nacht" und isActionTurnedOn=true informiert werden.                
+                schemeArray, // [12 Alexa-Schemes]  
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_TasterBooleanOn).val),           // 13 TasterBoolOn
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_TasterBooleanOff).val),           // 14 TasterBoolOff
+                adapter.getState(datenpunktPraefix + "." + attribute_Nachtbeleuchtung).val,     // Gehört zur Nachtbeleuchtung ja/nein
+                adapter.getState(datenpunktPraefix + "." + attribute_TurnOffExitHouseSummer).val, // turnOffExitHouseSummer (Ausschalten, wenn Haus verlassen - Sommer)
+                adapter.getState(datenpunktPraefix + "." + attribute_TurnOffExitHouseWinter).val, // turnOffExitHouseWinter (Ausschalten, wenn Haus verlassen - Winter)
+                adapter.getState(datenpunktPraefix + "." + attribute_TurnOnEnterHouseSummer).val, // turnOnEnterHouseSummer (Einschalten, wenn Haus betreten - Sommer)
+                adapter.getState(datenpunktPraefix + "." + attribute_TurnOnEnterHouseWinter).val  // turnOnEnterHouseWinter (Einschalten, wenn Haus betreten - Winter)
+            ));
         }
-
     });
-
-    //cache.set(filterCategory, zigbeeArray);
-    return zigbeeArray;
+    return cacheLampenRGBArray;
 }
 
+var cacheLampenWeissArray = null;
+export function loadZigbeeLampenWeiss(adapter: any) {
+    if (cacheLampenWeissArray != null) {
+        return cacheLampenWeissArray;
+    }
+    // @ts-ignore            
+    cacheLampenWeissArray = [];
+    adapter.$('state[id=0_userdata.0.devices.zigbee.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.zigbee.Steckdose.30.category;
+        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        if (adapter.getState(datenpunktKey).val == deviceZigbeeLampeWeiss) {
+            // Einschalt-Scheme:
+            var alexaOnScheme = null;
+            if (adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_AlexaColorSchemeForOn_Weiss_aktiv).val == true) {
+                // @ts-ignore                                                
+                alexaOnScheme = new LampeWeissColorScheme(null,
+                    adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_AlexaColorSchemeForOn_Weiss_level).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_AlexaColorSchemeForOn_Weiss_ct).val
+                );
+            }
+
+            // Weitere Schemes als Array:
+            var schemeArray = [];
+
+            // WhiteColorScheme1:
+            if (adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss1_aktiv).val == true) {
+                // @ts-ignore                                                                    
+                schemeArray.push(new LampeWeissAlexaScheme(
+                    adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss1_name).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss1_level).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss1_ct).val
+                ));
+            }
+
+            // WhiteColorScheme2:
+            if (adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss2_aktiv).val == true) {
+                // @ts-ignore                                                                    
+                schemeArray.push(new LampeWeissAlexaScheme(
+                    adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss2_name).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss2_level).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss2_ct).val
+                ));
+            }
+
+            // WhiteColorScheme3:
+            if (adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss3_aktiv).val == true) {
+                // @ts-ignore                                                                    
+                schemeArray.push(new LampeWeissAlexaScheme(
+                    adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss3_name).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss3_level).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss3_ct).val
+                ));
+            }
+
+            // WhiteColorScheme4:
+            if (adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss4_aktiv).val == true) {
+                // @ts-ignore                                                                    
+                schemeArray.push(new LampeWeissAlexaScheme(
+                    adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss4_name).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss4_level).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss4_ct).val
+                ));
+            }
+
+            // Taster Boolean On Schemes:
+            var tasterOnBoolschemeArray = [];
+
+            // LampeWeissTasterScheme1:
+            //constructor(tasterBooleanOn: string, level: number, ct: number) {
+            if (adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn1_aktiv).val == true) {
+                // @ts-ignore                                                                    
+                tasterOnBoolschemeArray.push(new LampeWeissTasterScheme( 
+                    adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn1_name).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn1_level).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn1_ct).val
+                ));
+            }
+
+            // LampeWeissTasterScheme2:
+            if (adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn2_aktiv).val == true) {
+                // @ts-ignore                                                                    
+                tasterOnBoolschemeArray.push(new LampeWeissTasterScheme (
+                    adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn2_name).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn2_level).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn2_ct).val
+                ));
+            }
+
+            // LampeWeissTasterScheme3:
+            if (adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn3_aktiv).val == true) {
+                // @ts-ignore                                                                    
+                tasterOnBoolschemeArray.push(new LampeWeissTasterScheme (
+                    adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn3_name).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn3_level).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn3_ct).val
+                ));
+            }
+
+            // LampeWeissTasterScheme4:
+            if (adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn4_aktiv).val == true) {
+                // @ts-ignore                                                                    
+                tasterOnBoolschemeArray.push(new LampeWeissTasterScheme (
+                    adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn4_name).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn4_level).val,
+                    adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_tasterBoolOn4_ct).val
+                ));
+            }
+
+            // @ts-ignore            
+            cacheLampenWeissArray.push(new ZigbeeLampeWeiss(adapter,
+                adapter.getState(datenpunktPraefix + "." + attributeRawID).val,     // [0] Device-ID         (z.B. 1 --> In der Anzeige wird daraus "H01")
+                adapter.getState(datenpunktPraefix + "." + attributeBaseState).val, // [1] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)
+                adapter.getState(datenpunktPraefix + "." + attributeEtage).val,     // [2] Etage/Bereich     (z.B. EG)
+                adapter.getState(datenpunktPraefix + "." + attributeRaum).val,      // [3] Raum/Unterbereich (z.B. Wohnzimmer)
+                adapter.getState(datenpunktPraefix + "." + attributeDevice).val,     // [4] Device            (z.B. Stehlampe)            
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOn).val),   // 08 Alexa-Ein
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOn).val),   // Alexa-Action-Ein, z.B. "Guten morgen" (Würde auch funktionieren, wenn dies bei [06] eingetragen ist)                
+                alexaOnScheme,                                                    // [06 A.-Ein-Scheme]   */  new LampeWeissAlexaScheme(null, 100, -1), // Letzter Paramter = -1 heußt, dass diese Lampe keine Farbtemperatur unterstützt. Ansonsten hier die Temperatur angeben
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOff).val),   // 09 Alexa-Aus
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOff).val),   // [10] Alexa-Action Aus, z.B. "Gute Nacht". Wir müssen hier zu [09] unterscheiden, da wir über "Gute Nacht" und isActionTurnedOn=true informiert werden.        
+                schemeArray, //  [08 Alexa-Schemes]  
+                adapter.getState(datenpunktPraefix + "." + attributeLampeWeissGroup).val,     // [6] Gruppe
+                tasterOnBoolschemeArray, // [07 TasterBoolOn ]
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_TasterBooleanOff).val),           // 14 TasterBoolOff
+                adapter.getState(datenpunktPraefix + "." + attribute_Nachtbeleuchtung).val,     // Gehört zur Nachtbeleuchtung ja/nein
+                adapter.getState(datenpunktPraefix + "." + attribute_TurnOffExitHouseSummer).val, // turnOffExitHouseSummer (Ausschalten, wenn Haus verlassen - Sommer)
+                adapter.getState(datenpunktPraefix + "." + attribute_TurnOffExitHouseWinter).val, // turnOffExitHouseWinter (Ausschalten, wenn Haus verlassen - Winter)
+                adapter.getState(datenpunktPraefix + "." + attribute_TurnOnEnterHouseSummer).val, // turnOnEnterHouseSummer (Einschalten, wenn Haus betreten - Sommer)
+                adapter.getState(datenpunktPraefix + "." + attribute_TurnOnEnterHouseWinter).val  // turnOnEnterHouseWinter (Einschalten, wenn Haus betreten - Winter)
+            ));
+        }
+    });
+    return cacheLampenWeissArray;
+}
+
+var cacheRauchmelderArray = null;
+export function loadZigbeeRauchmeler(adapter: any) {
+    if (cacheRauchmelderArray != null) {
+        return cacheRauchmelderArray;
+    }
+    // @ts-ignore            
+    cacheRauchmelderArray = [];
+    adapter.$('state[id=0_userdata.0.devices.zigbee.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.zigbee.Steckdose.30.category;
+        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        if (adapter.getState(datenpunktKey).val == deviceZigbeeRauchmelder) {
+            // @ts-ignore                            
+            cacheRauchmelderArray.push(new ZigbeeRauchmelder(adapter,
+                adapter.getState(datenpunktPraefix + "." + attributeRawID).val,     // [0] Device-ID         (z.B. 1 --> In der Anzeige wird daraus "H01")
+                adapter.getState(datenpunktPraefix + "." + attributeBaseState).val, // [1] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)
+                adapter.getState(datenpunktPraefix + "." + attributeEtage).val,     // [2] Etage/Bereich     (z.B. EG)
+                adapter.getState(datenpunktPraefix + "." + attributeRaum).val,      // [3] Raum/Unterbereich (z.B. Wohnzimmer)
+                adapter.getState(datenpunktPraefix + "." + attributeDevice).val     // [4] Device            (z.B. Stehlampe)            
+            ));
+        }
+    });
+    return cacheRauchmelderArray;
+}
+
+var cacheWandtasterArray = null;
+export function loadZigbeeWandtaster(adapter: any) {
+    if (cacheWandtasterArray != null) {
+        return cacheWandtasterArray;
+    }
+    // @ts-ignore            
+    cacheWandtasterArray = [];
+    adapter.$('state[id=0_userdata.0.devices.zigbee.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.zigbee.Steckdose.30.category;
+        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        if (adapter.getState(datenpunktKey).val == deviceZigbeeWandtaster) {
+            // @ts-ignore            
+            cacheWandtasterArray.push(new ZigbeeWandtaster(adapter,
+                adapter.getState(datenpunktPraefix + "." + attributeRawID).val,     // [0] Device-ID         (z.B. 1 --> In der Anzeige wird daraus "H01")
+                adapter.getState(datenpunktPraefix + "." + attributeBaseState).val, // [1] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)
+                adapter.getState(datenpunktPraefix + "." + attributeEtage).val,     // [2] Etage/Bereich     (z.B. EG)
+                adapter.getState(datenpunktPraefix + "." + attributeRaum).val,      // [3] Raum/Unterbereich (z.B. Wohnzimmer)
+                adapter.getState(datenpunktPraefix + "." + attributeDevice).val     // [4] Device            (z.B. Stehlampe)            
+            ));
+        }
+    });
+    return cacheWandtasterArray;
+}
+
+var cacheDosenrelaisArray = null;
+export function loadZigbeeDosenrelais(adapter: any) {
+    if (cacheDosenrelaisArray != null) {
+        return cacheDosenrelaisArray;
+    }
+    // @ts-ignore            
+    cacheDosenrelaisArray = [];
+    adapter.$('state[id=0_userdata.0.devices.zigbee.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.zigbee.Steckdose.30.category;
+        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        if (adapter.getState(datenpunktKey).val == deviceZigbeeDosenrelais) {
+            // @ts-ignore            
+            cacheDosenrelaisArray.push(new ZigbeeDosenrelais(adapter,
+                adapter.getState(datenpunktPraefix + "." + attributeRawID).val,     // [0] Device-ID         (z.B. 1 --> In der Anzeige wird daraus "H01")
+                adapter.getState(datenpunktPraefix + "." + attributeBaseState).val, // [1] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)
+                adapter.getState(datenpunktPraefix + "." + attributeEtage).val,     // [2] Etage/Bereich     (z.B. EG)
+                adapter.getState(datenpunktPraefix + "." + attributeRaum).val,      // [3] Raum/Unterbereich (z.B. Wohnzimmer)
+                adapter.getState(datenpunktPraefix + "." + attributeDevice).val,     // [4] Device            (z.B. Stehlampe)         
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attributeDosenrelais_smartNames).val)           // 14 TasterBoolOff
+            ));
+        }
+    });
+    return cacheDosenrelaisArray;
+}
+
+var cacheSchalterArray = null;
+export function loadZigbeeSchalter(adapter: any) {
+    if (cacheSchalterArray != null) {
+        return cacheSchalterArray;
+    }
+    // @ts-ignore            
+    cacheSchalterArray = [];
+    adapter.$('state[id=0_userdata.0.devices.zigbee.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.zigbee.Steckdose.30.category;
+        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        if (adapter.getState(datenpunktKey).val == deviceZigbeeSchalter) {
+            // @ts-ignore            
+            cacheSchalterArray.push(new ZigbeeSchalter(adapter,
+                adapter.getState(datenpunktPraefix + "." + attributeRawID).val,     // [0] Device-ID         (z.B. 1 --> In der Anzeige wird daraus "H01")
+                adapter.getState(datenpunktPraefix + "." + attributeBaseState).val, // [1] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)
+                adapter.getState(datenpunktPraefix + "." + attributeEtage).val,     // [2] Etage/Bereich     (z.B. EG)
+                adapter.getState(datenpunktPraefix + "." + attributeRaum).val,      // [3] Raum/Unterbereich (z.B. Wohnzimmer)
+                adapter.getState(datenpunktPraefix + "." + attributeDevice).val     // [4] Device            (z.B. Stehlampe)            
+            ));
+        }
+    });
+    return cacheSchalterArray;
+}
+
+var cacheRepeaterArray = null;
+export function loadZigbeeRepeater(adapter: any) {
+    if (cacheRepeaterArray != null) {
+        return cacheRepeaterArray;
+    }
+    // @ts-ignore            
+    cacheRepeaterArray = [];
+    adapter.$('state[id=0_userdata.0.devices.zigbee.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.zigbee.Steckdose.30.category;
+        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        if (adapter.getState(datenpunktKey).val == deviceZigbeeRepeater) {
+            // @ts-ignore            
+            cacheRepeaterArray.push(new ZigbeeRepeater(adapter,
+                adapter.getState(datenpunktPraefix + "." + attributeRawID).val,     // [0] Device-ID         (z.B. 1 --> In der Anzeige wird daraus "H01")
+                adapter.getState(datenpunktPraefix + "." + attributeBaseState).val, // [1] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)
+                adapter.getState(datenpunktPraefix + "." + attributeEtage).val,     // [2] Etage/Bereich     (z.B. EG)
+                adapter.getState(datenpunktPraefix + "." + attributeRaum).val,      // [3] Raum/Unterbereich (z.B. Wohnzimmer)
+                adapter.getState(datenpunktPraefix + "." + attributeDevice).val     // [4] Device            (z.B. Stehlampe)            
+            ));
+        }
+    });
+    return cacheRepeaterArray;
+}
+
+var cacheFenstersensorenArray = null;
+export function loadZigbeeFenstersensor(adapter: any) {
+    if (cacheFenstersensorenArray != null) {
+        return cacheFenstersensorenArray;
+    }
+    // @ts-ignore            
+    cacheFenstersensorenArray = [];
+    adapter.$('state[id=0_userdata.0.devices.zigbee.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.zigbee.Steckdose.30.category;
+        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        if (adapter.getState(datenpunktKey).val == deviceZigbeeFenstersensor) {
+            // @ts-ignore            
+            cacheFenstersensorenArray.push(new Zigbee(adapter,
+                adapter.getState(datenpunktPraefix + "." + attributeRawID).val,     // [0] Device-ID         (z.B. 1 --> In der Anzeige wird daraus "H01")
+                adapter.getState(datenpunktPraefix + "." + attributeBaseState).val, // [1] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)
+                adapter.getState(datenpunktPraefix + "." + attributeEtage).val,     // [2] Etage/Bereich     (z.B. EG)
+                adapter.getState(datenpunktPraefix + "." + attributeRaum).val,      // [3] Raum/Unterbereich (z.B. Wohnzimmer)
+                adapter.getState(datenpunktPraefix + "." + attributeDevice).val     // [4] Device            (z.B. Stehlampe)            
+            ));
+        }
+    });
+    return cacheFenstersensorenArray;
+}
+
+var zigbeeAllArray = null;
 export function getZigbeeDevicesAll(adapter: any) {
-    var zigbeeArray = [];
-
-    adapter.getZigbeeDevices(adapter, deviceZigbeeSteckdose).forEach(zigbee => {
+    if (zigbeeAllArray != null) {
+        return zigbeeAllArray;
+    }
+    
+    // @ts-ignore            
+    zigbeeAllArray = [];
+    
+    adapter.loadZigbeeSteckdosen(adapter).forEach(zigbee => {
         // @ts-ignore            
-        zigbeeArray.push(zigbee);
+        zigbeeAllArray.push(zigbee);
     });
-    adapter.getZigbeeDevices(adapter, deviceZigbeeBewegungsmelder).forEach(zigbee => {
+    adapter.loadZigbeeBewegungsmelder(adapter).forEach(zigbee => {
         // @ts-ignore                    
-        zigbeeArray.push(zigbee);
+        zigbeeAllArray.push(zigbee);
     });
-    adapter.getZigbeeDevices(adapter, deviceZigbeeLampeRGB).forEach(zigbee => {
+    adapter.loadZigbeeLampenRGB(adapter).forEach(zigbee => {
         // @ts-ignore                    
-        zigbeeArray.push(zigbee);
+        zigbeeAllArray.push(zigbee);
     });
-    adapter.getZigbeeDevices(adapter, deviceZigbeeLampeWeiss).forEach(zigbee => {
+    adapter.loadZigbeeLampenWeiss(adapter).forEach(zigbee => {
         // @ts-ignore                    
-        zigbeeArray.push(zigbee);
+        zigbeeAllArray.push(zigbee);
     });
-    adapter.getZigbeeDevices(adapter, deviceZigbeeRauchmelder).forEach(zigbee => {
+    adapter.loadZigbeeRauchmeler(adapter).forEach(zigbee => {
         // @ts-ignore                    
-        zigbeeArray.push(zigbee);
+        zigbeeAllArray.push(zigbee);
     });
-    adapter.getZigbeeDevices(adapter, deviceZigbeeWandtaster).forEach(zigbee => {
+    adapter.loadZigbeeWandtaster(adapter).forEach(zigbee => {
         // @ts-ignore                    
-        zigbeeArray.push(zigbee);
+        zigbeeAllArray.push(zigbee);
     });
-    adapter.getZigbeeDevices(adapter, deviceZigbeeDosenrelais).forEach(zigbee => {
+    adapter.loadZigbeeDosenrelais(adapter).forEach(zigbee => {
         // @ts-ignore                    
-        zigbeeArray.push(zigbee);
+        zigbeeAllArray.push(zigbee);
     });
-    adapter.getZigbeeDevices(adapter, deviceZigbeeSchalter).forEach(zigbee => {
+    adapter.loadZigbeeSchalter(adapter).forEach(zigbee => {
         // @ts-ignore                    
-        zigbeeArray.push(zigbee);
+        zigbeeAllArray.push(zigbee);
     });
-    adapter.getZigbeeDevices(adapter, deviceZigbeeRepeater).forEach(zigbee => {
+    adapter.loadZigbeeRepeater(adapter).forEach(zigbee => {
         // @ts-ignore                    
-        zigbeeArray.push(zigbee);
+        zigbeeAllArray.push(zigbee);
     });
-    adapter.getZigbeeDevices(adapter, deviceZigbeeFenstersensor).forEach(zigbee => {
+    adapter.loadZigbeeFenstersensor(adapter).forEach(zigbee => {
         // @ts-ignore                    
-        zigbeeArray.push(zigbee);
+        zigbeeAllArray.push(zigbee);
     });
 
-    return zigbeeArray;
+    return zigbeeAllArray;
 }
 
-module.exports = { createZigbeeDevice, createDosenrelaisDevice, createLampeRGB, createLampeWeiss, createSteckdose, getZigbeeDevices, getZigbeeDevicesAll };
+module.exports = { createZigbeeDevice, createDosenrelaisDevice, createLampeRGB, createLampeWeiss, createSteckdose, loadZigbeeSteckdosen, loadZigbeeBewegungsmelder, loadZigbeeLampenRGB, loadZigbeeLampenWeiss, loadZigbeeRauchmeler, loadZigbeeWandtaster, loadZigbeeDosenrelais, loadZigbeeSchalter, loadZigbeeRepeater, loadZigbeeFenstersensor, getZigbeeDevicesAll };
