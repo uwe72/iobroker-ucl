@@ -16,7 +16,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HomematicWandschalter = exports.HomematicFussbodenheizung = exports.HomematicDoor = exports.HomematicRollladen = exports.HomematicAccessPoint = exports.HomematicWandtaster = exports.HomematicTemperatursensor = exports.HomematicRauchmelder = exports.HomematicFunkschaltaktor = exports.HomematicDimmer = exports.HomematicHeizkoerper = exports.HomematicSteckdose = exports.HomematicWindow = exports.HomematicWetterstation = exports.HomematicPraesenzmelder = exports.HomematicWandthermostat = exports.AbstractHomematic = void 0;
-// https://stackoverflow.com/questions/8595509/how-do-you-share-constants-in-nodejs-modules
 var deviceHomematicWandthermostat = "Wandthermostat";
 var deviceHomematicPraesenzmelder = "Praesenzmelder";
 var deviceHomematicWetterstation = "Wetterstation";
