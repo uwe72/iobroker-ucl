@@ -147,7 +147,7 @@ export function createZigbeeDevice(adapter:any, rawId: number, baseState: string
 }
 
 // Dosenrelais:
-export function createDosenrelaisDevice(adapter:any, rawId: number, baseState: string, etage:string, raum:string, device:string, smartNames:string[]) {
+export function createZigbeeDosenrelais(adapter:any, rawId: number, baseState: string, etage:string, raum:string, device:string, smartNames:string[]) {
 
     // Allgemein:
     createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeDosenrelais);
@@ -167,7 +167,7 @@ export function createDosenrelaisDevice(adapter:any, rawId: number, baseState: s
 }
 
 // Steckdose:
-export function createSteckdose(adapter:any, rawId: number, baseState: string, etage: string, raum: string, device: string, alexaSmartNamesForOn:string[],
+export function createZigbeeSteckdose(adapter:any, rawId: number, baseState: string, etage: string, raum: string, device: string, alexaSmartNamesForOn:string[],
     alexaActionNamesForOn:string[], alexaSmartNamesForOff: string[],alexaActionNamesForOff: string[], additionalStates4TurnOn:string[], additionalStates4TurnOff:string[]) {
 
     // Allgemein:
@@ -253,7 +253,7 @@ export function createSteckdose(adapter:any, rawId: number, baseState: string, e
 }
 
 // LampeWeiss:
-export function createLampeWeiss(adapter:any, rawId: number, baseState: string, etage: string, raum: string, device: string, alexaSmartNamesForOn:string[], 
+export function createZigbeeLampeWeiss(adapter:any, rawId: number, baseState: string, etage: string, raum: string, device: string, alexaSmartNamesForOn:string[], 
     alexaActionNamesForOn:string[], alexaLevelSchemeForOn: InstanceType<typeof LampeWeissAlexaScheme>, alexaSmartNamesForOff: string[], alexaActionNamesForOff: string[], 
         colorSchemesWeiss1: InstanceType<typeof LampeWeissAlexaScheme>, colorSchemesWeiss2: InstanceType<typeof LampeWeissAlexaScheme>, colorSchemesWeiss3: InstanceType<typeof LampeWeissAlexaScheme>, colorSchemesWeiss4: InstanceType<typeof LampeWeissAlexaScheme>, 
         isGroup: boolean, 
@@ -456,7 +456,7 @@ export function createLampeWeiss(adapter:any, rawId: number, baseState: string, 
 }
 
 // LampeRGB:
-export function createLampeRGB(adapter:any, rawId: number, baseState: string, etage:string, raum:string, device:string, isGroup:boolean, groupMembers:string[], 
+export function createZigbeeLampeRGB(adapter:any, rawId: number, baseState: string, etage:string, raum:string, device:string, isGroup:boolean, groupMembers:string[], 
     alexaSmartNamesForOn:string[], alexaActionNamesForOn:string[], alexaColorSchemeForOnFarbe: InstanceType<typeof RGBColorScheme>, alexaColorSchemeForOnWeiss: InstanceType<typeof WhiteColorScheme>, alexaSmartNamesForOff: string[],alexaActionNamesForOff: string[], 
     colorSchemesFarbe1: InstanceType<typeof RGBColorScheme>, colorSchemesFarbe2: InstanceType<typeof RGBColorScheme>, colorSchemesFarbe3: InstanceType<typeof RGBColorScheme>, colorSchemesFarbe4: InstanceType<typeof RGBColorScheme>, 
     colorSchemesWeiss1: InstanceType<typeof WhiteColorScheme>, colorSchemesWeiss2: InstanceType<typeof WhiteColorScheme>, colorSchemesWeiss3: InstanceType<typeof WhiteColorScheme>, colorSchemesWeiss4: InstanceType<typeof WhiteColorScheme>, 
@@ -1058,7 +1058,7 @@ export function loadZigbeeLampenWeiss(adapter: any) {
 }
 
 var cacheRauchmelderArray = null;
-export function loadZigbeeRauchmeler(adapter: any) {
+export function loadZigbeeRauchmelder(adapter: any) {
     if (cacheRauchmelderArray != null) {
         return cacheRauchmelderArray;
     }
@@ -1197,7 +1197,7 @@ export function loadZigbeeFenstersensor(adapter: any) {
 }
 
 var zigbeeAllArray = null;
-export function getZigbeeDevicesAll(adapter: any) {
+export function loadZigbeeDevicesAll(adapter: any) {
     if (zigbeeAllArray != null) {
         return zigbeeAllArray;
     }
@@ -1249,4 +1249,4 @@ export function getZigbeeDevicesAll(adapter: any) {
     return zigbeeAllArray;
 }
 
-module.exports = { createZigbeeDevice, createDosenrelaisDevice, createLampeRGB, createLampeWeiss, createSteckdose, loadZigbeeSteckdosen, loadZigbeeBewegungsmelder, loadZigbeeLampenRGB, loadZigbeeLampenWeiss, loadZigbeeRauchmeler, loadZigbeeWandtaster, loadZigbeeDosenrelais, loadZigbeeSchalter, loadZigbeeRepeater, loadZigbeeFenstersensor, getZigbeeDevicesAll };
+module.exports = { createZigbeeDevice, createZigbeeDosenrelais, createZigbeeLampeRGB, createZigbeeLampeWeiss, createZigbeeSteckdose, loadZigbeeSteckdosen, loadZigbeeBewegungsmelder, loadZigbeeLampenRGB, loadZigbeeLampenWeiss, loadZigbeeRauchmelder, loadZigbeeWandtaster, loadZigbeeDosenrelais, loadZigbeeSchalter, loadZigbeeRepeater, loadZigbeeFenstersensor, loadZigbeeDevicesAll };

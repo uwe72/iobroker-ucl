@@ -1,7 +1,7 @@
 "use strict";
 //import { AbstractZigbee } from "./zigbeeClasses";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getZigbeeDevicesAll = exports.loadZigbeeFenstersensor = exports.loadZigbeeRepeater = exports.loadZigbeeSchalter = exports.loadZigbeeDosenrelais = exports.loadZigbeeWandtaster = exports.loadZigbeeRauchmeler = exports.loadZigbeeLampenWeiss = exports.loadZigbeeLampenRGB = exports.loadZigbeeBewegungsmelder = exports.loadZigbeeSteckdosen = exports.createLampeRGB = exports.createLampeWeiss = exports.createSteckdose = exports.createDosenrelaisDevice = exports.createZigbeeDevice = void 0;
+exports.loadZigbeeDevicesAll = exports.loadZigbeeFenstersensor = exports.loadZigbeeRepeater = exports.loadZigbeeSchalter = exports.loadZigbeeDosenrelais = exports.loadZigbeeWandtaster = exports.loadZigbeeRauchmelder = exports.loadZigbeeLampenWeiss = exports.loadZigbeeLampenRGB = exports.loadZigbeeBewegungsmelder = exports.loadZigbeeSteckdosen = exports.createZigbeeLampeRGB = exports.createZigbeeLampeWeiss = exports.createZigbeeSteckdose = exports.createZigbeeDosenrelais = exports.createZigbeeDevice = void 0;
 var _a = require('./zigbeeClasses.js'), AbstractZigbee = _a.AbstractZigbee, ColorScheme = _a.ColorScheme, RGBColorScheme = _a.RGBColorScheme, WhiteColorScheme = _a.WhiteColorScheme, ZigbeeLampeRGB = _a.ZigbeeLampeRGB, LampeWeissTasterScheme = _a.LampeWeissTasterScheme, LampeWeissAlexaScheme = _a.LampeWeissAlexaScheme, ZigbeeLampeWeiss = _a.ZigbeeLampeWeiss, ZigbeeSteckdose = _a.ZigbeeSteckdose, ZigbeeSchalter = _a.ZigbeeSchalter, ZigbeeRepeater = _a.ZigbeeRepeater, ZigbeeFenstersensor = _a.ZigbeeFenstersensor, ZigbeeRauchmelder = _a.ZigbeeRauchmelder, ZigbeeBewegungsmelder = _a.ZigbeeBewegungsmelder, ZigbeeWandtaster = _a.ZigbeeWandtaster, ZigbeeDosenrelais = _a.ZigbeeDosenrelais, AlexaInputConverter = _a.AlexaInputConverter, deviceZigbeeSteckdose = _a.deviceZigbeeSteckdose, deviceZigbeeBewegungsmelder = _a.deviceZigbeeBewegungsmelder, deviceZigbeeLampeRGB = _a.deviceZigbeeLampeRGB, deviceZigbeeLampeWeiss = _a.deviceZigbeeLampeWeiss, deviceZigbeeRauchmelder = _a.deviceZigbeeRauchmelder, deviceZigbeeWandtaster = _a.deviceZigbeeWandtaster, deviceZigbeeDosenrelais = _a.deviceZigbeeDosenrelais, deviceZigbeeSchalter = _a.deviceZigbeeSchalter, deviceZigbeeRepeater = _a.deviceZigbeeRepeater, deviceZigbeeFenstersensor = _a.deviceZigbeeFenstersensor;
 // Alexa:
 var attribute_AlexaSmartNamesForOn = "alexaSmartNamesForOn";
@@ -123,7 +123,7 @@ function createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, cate
 }
 exports.createZigbeeDevice = createZigbeeDevice;
 // Dosenrelais:
-function createDosenrelaisDevice(adapter, rawId, baseState, etage, raum, device, smartNames) {
+function createZigbeeDosenrelais(adapter, rawId, baseState, etage, raum, device, smartNames) {
     // Allgemein:
     createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeDosenrelais);
     // Spezifisch:
@@ -140,9 +140,9 @@ function createDosenrelaisDevice(adapter, rawId, baseState, etage, raum, device,
     });
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDosenrelais_smartNames, db_smartNames, deviceZigbeeDosenrelais);
 }
-exports.createDosenrelaisDevice = createDosenrelaisDevice;
+exports.createZigbeeDosenrelais = createZigbeeDosenrelais;
 // Steckdose:
-function createSteckdose(adapter, rawId, baseState, etage, raum, device, alexaSmartNamesForOn, alexaActionNamesForOn, alexaSmartNamesForOff, alexaActionNamesForOff, additionalStates4TurnOn, additionalStates4TurnOff) {
+function createZigbeeSteckdose(adapter, rawId, baseState, etage, raum, device, alexaSmartNamesForOn, alexaActionNamesForOn, alexaSmartNamesForOff, alexaActionNamesForOff, additionalStates4TurnOn, additionalStates4TurnOff) {
     // Allgemein:
     createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeSteckdose);
     // alexaSmartNamesForOn:string[]
@@ -224,9 +224,9 @@ function createSteckdose(adapter, rawId, baseState, etage, raum, device, alexaSm
     });
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_additionalStates4TurnOff, deviceZigbeeSteckdose);
 }
-exports.createSteckdose = createSteckdose;
+exports.createZigbeeSteckdose = createZigbeeSteckdose;
 // LampeWeiss:
-function createLampeWeiss(adapter, rawId, baseState, etage, raum, device, alexaSmartNamesForOn, alexaActionNamesForOn, alexaLevelSchemeForOn, alexaSmartNamesForOff, alexaActionNamesForOff, colorSchemesWeiss1, colorSchemesWeiss2, colorSchemesWeiss3, colorSchemesWeiss4, isGroup, tasterBooleanOn1, tasterBooleanOn2, tasterBooleanOn3, tasterBooleanOn4, tasterBooleanOff, nachtbeleuchtung, turnOffExitHouseSummer, turnOffExitHouseWinter, turnOnEnterHouseSummer, turnOnEnterHouseWinter) {
+function createZigbeeLampeWeiss(adapter, rawId, baseState, etage, raum, device, alexaSmartNamesForOn, alexaActionNamesForOn, alexaLevelSchemeForOn, alexaSmartNamesForOff, alexaActionNamesForOff, colorSchemesWeiss1, colorSchemesWeiss2, colorSchemesWeiss3, colorSchemesWeiss4, isGroup, tasterBooleanOn1, tasterBooleanOn2, tasterBooleanOn3, tasterBooleanOn4, tasterBooleanOff, nachtbeleuchtung, turnOffExitHouseSummer, turnOffExitHouseWinter, turnOnEnterHouseSummer, turnOnEnterHouseWinter) {
     // Allgemein:
     createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeLampeWeiss);
     // alexaSmartNamesForOn:string[]
@@ -418,9 +418,9 @@ function createLampeWeiss(adapter, rawId, baseState, etage, raum, device, alexaS
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_ct, null, deviceZigbeeLampeWeiss);*/
     }
 }
-exports.createLampeWeiss = createLampeWeiss;
+exports.createZigbeeLampeWeiss = createZigbeeLampeWeiss;
 // LampeRGB:
-function createLampeRGB(adapter, rawId, baseState, etage, raum, device, isGroup, groupMembers, alexaSmartNamesForOn, alexaActionNamesForOn, alexaColorSchemeForOnFarbe, alexaColorSchemeForOnWeiss, alexaSmartNamesForOff, alexaActionNamesForOff, colorSchemesFarbe1, colorSchemesFarbe2, colorSchemesFarbe3, colorSchemesFarbe4, colorSchemesWeiss1, colorSchemesWeiss2, colorSchemesWeiss3, colorSchemesWeiss4, tasterBooleanOn, tasterBooleanOff, nachtbeleuchtung, turnOffExitHouseSummer, turnOffExitHouseWinter, turnOnEnterHouseSummer, turnOnEnterHouseWinter) {
+function createZigbeeLampeRGB(adapter, rawId, baseState, etage, raum, device, isGroup, groupMembers, alexaSmartNamesForOn, alexaActionNamesForOn, alexaColorSchemeForOnFarbe, alexaColorSchemeForOnWeiss, alexaSmartNamesForOff, alexaActionNamesForOff, colorSchemesFarbe1, colorSchemesFarbe2, colorSchemesFarbe3, colorSchemesFarbe4, colorSchemesWeiss1, colorSchemesWeiss2, colorSchemesWeiss3, colorSchemesWeiss4, tasterBooleanOn, tasterBooleanOff, nachtbeleuchtung, turnOffExitHouseSummer, turnOffExitHouseWinter, turnOnEnterHouseSummer, turnOnEnterHouseWinter) {
     var category = deviceZigbeeLampeRGB;
     // Allgemein:
     createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeLampeRGB);
@@ -660,7 +660,7 @@ function createLampeRGB(adapter, rawId, baseState, etage, raum, device, isGroup,
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss4_ct, null, category);*/
     }
 }
-exports.createLampeRGB = createLampeRGB;
+exports.createZigbeeLampeRGB = createZigbeeLampeRGB;
 function createDatenpunktSingle(adapter, deviceRawId, attributeType, attributeName, attributeValue, category) {
     var stateDatenpunkt = "0_userdata.0.devices.zigbee." + category + "." + deviceRawId + "." + attributeName;
     adapter.createState(stateDatenpunkt, attributeValue, {
@@ -908,7 +908,7 @@ function loadZigbeeLampenWeiss(adapter) {
 }
 exports.loadZigbeeLampenWeiss = loadZigbeeLampenWeiss;
 var cacheRauchmelderArray = null;
-function loadZigbeeRauchmeler(adapter) {
+function loadZigbeeRauchmelder(adapter) {
     if (cacheRauchmelderArray != null) {
         return cacheRauchmelderArray;
     }
@@ -928,7 +928,7 @@ function loadZigbeeRauchmeler(adapter) {
     });
     return cacheRauchmelderArray;
 }
-exports.loadZigbeeRauchmeler = loadZigbeeRauchmeler;
+exports.loadZigbeeRauchmelder = loadZigbeeRauchmelder;
 var cacheWandtasterArray = null;
 function loadZigbeeWandtaster(adapter) {
     if (cacheWandtasterArray != null) {
@@ -1041,7 +1041,7 @@ function loadZigbeeFenstersensor(adapter) {
 }
 exports.loadZigbeeFenstersensor = loadZigbeeFenstersensor;
 var zigbeeAllArray = null;
-function getZigbeeDevicesAll(adapter) {
+function loadZigbeeDevicesAll(adapter) {
     if (zigbeeAllArray != null) {
         return zigbeeAllArray;
     }
@@ -1089,5 +1089,5 @@ function getZigbeeDevicesAll(adapter) {
     });
     return zigbeeAllArray;
 }
-exports.getZigbeeDevicesAll = getZigbeeDevicesAll;
-module.exports = { createZigbeeDevice: createZigbeeDevice, createDosenrelaisDevice: createDosenrelaisDevice, createLampeRGB: createLampeRGB, createLampeWeiss: createLampeWeiss, createSteckdose: createSteckdose, loadZigbeeSteckdosen: loadZigbeeSteckdosen, loadZigbeeBewegungsmelder: loadZigbeeBewegungsmelder, loadZigbeeLampenRGB: loadZigbeeLampenRGB, loadZigbeeLampenWeiss: loadZigbeeLampenWeiss, loadZigbeeRauchmeler: loadZigbeeRauchmeler, loadZigbeeWandtaster: loadZigbeeWandtaster, loadZigbeeDosenrelais: loadZigbeeDosenrelais, loadZigbeeSchalter: loadZigbeeSchalter, loadZigbeeRepeater: loadZigbeeRepeater, loadZigbeeFenstersensor: loadZigbeeFenstersensor, getZigbeeDevicesAll: getZigbeeDevicesAll };
+exports.loadZigbeeDevicesAll = loadZigbeeDevicesAll;
+module.exports = { createZigbeeDevice: createZigbeeDevice, createZigbeeDosenrelais: createZigbeeDosenrelais, createZigbeeLampeRGB: createZigbeeLampeRGB, createZigbeeLampeWeiss: createZigbeeLampeWeiss, createZigbeeSteckdose: createZigbeeSteckdose, loadZigbeeSteckdosen: loadZigbeeSteckdosen, loadZigbeeBewegungsmelder: loadZigbeeBewegungsmelder, loadZigbeeLampenRGB: loadZigbeeLampenRGB, loadZigbeeLampenWeiss: loadZigbeeLampenWeiss, loadZigbeeRauchmelder: loadZigbeeRauchmelder, loadZigbeeWandtaster: loadZigbeeWandtaster, loadZigbeeDosenrelais: loadZigbeeDosenrelais, loadZigbeeSchalter: loadZigbeeSchalter, loadZigbeeRepeater: loadZigbeeRepeater, loadZigbeeFenstersensor: loadZigbeeFenstersensor, loadZigbeeDevicesAll: loadZigbeeDevicesAll };

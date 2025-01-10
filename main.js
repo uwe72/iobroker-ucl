@@ -2,9 +2,9 @@ var DateHelper = require('./date.js').DateHelper;
 var DateCalendarTest = require('./test.js').DateCalendarTest;
 var _a = require('./html.js'), AbstractColumn = _a.AbstractColumn, HtmlTable = _a.HtmlTable, HtmlCreator = _a.HtmlCreator, StaticIconColumn = _a.StaticIconColumn, AbstractStandardTextColumn = _a.AbstractStandardTextColumn;
 var _b = require('./homematicClasses.js'), HomematicWindow = _b.HomematicWindow, HomematicSteckdose = _b.HomematicSteckdose, HomematicHeizkoerper = _b.HomematicHeizkoerper, HomematicDimmer = _b.HomematicDimmer, HomematicWandthermostat = _b.HomematicWandthermostat, HomematicFussbodenheizung = _b.HomematicFussbodenheizung, HomematicWandschalter = _b.HomematicWandschalter, HomematicDoor = _b.HomematicDoor, HomematicWetterstation = _b.HomematicWetterstation, HomematicAccessPoint = _b.HomematicAccessPoint, HomematicRollladen = _b.HomematicRollladen, HomematicWandtaster = _b.HomematicWandtaster, HomematicTemperatursensor = _b.HomematicTemperatursensor, HomematicRauchmelder = _b.HomematicRauchmelder, HomematicPraesenzmelder = _b.HomematicPraesenzmelder, AbstractHomematic = _b.AbstractHomematic, HomematicFunkschaltaktor = _b.HomematicFunkschaltaktor, deviceHomematicWandthermostat = _b.deviceHomematicWandthermostat, deviceHomematicPraesenzmelder = _b.deviceHomematicPraesenzmelder, deviceHomematicWetterstation = _b.deviceHomematicWetterstation, deviceHomematicDoor = _b.deviceHomematicDoor, deviceHomematicRollladen = _b.deviceHomematicRollladen, deviceHomematicWandschalter = _b.deviceHomematicWandschalter, deviceHomematicFussbodenheizung = _b.deviceHomematicFussbodenheizung, deviceHomematicWandtaster = _b.deviceHomematicWandtaster, deviceHomematicAccessPoint = _b.deviceHomematicAccessPoint, deviceHomematicTemperatursensor = _b.deviceHomematicTemperatursensor, deviceHomematicRauchmelder = _b.deviceHomematicRauchmelder, deviceHomematicFunkSchaltaktor = _b.deviceHomematicFunkSchaltaktor, deviceHomematicWindow = _b.deviceHomematicWindow, deviceHomematicSteckdose = _b.deviceHomematicSteckdose, deviceHomematicHeizkoerper = _b.deviceHomematicHeizkoerper, deviceHomematicDimmer = _b.deviceHomematicDimmer;
-var _c = require('./homematicFunctions.js'), createHomematicDevice = _c.createHomematicDevice, loadHomematicWandthermostate = _c.loadHomematicWandthermostate, loadHomematicPraesenzmelder = _c.loadHomematicPraesenzmelder, loadHomematicWetterstationen = _c.loadHomematicWetterstationen, loadHomematicDoors = _c.loadHomematicDoors, loadHomematicRollladen = _c.loadHomematicRollladen, loadHomematicWandschalter = _c.loadHomematicWandschalter, loadHomematicFussbodenheizungen = _c.loadHomematicFussbodenheizungen, loadHomematicWandtaster = _c.loadHomematicWandtaster, loadHomematicAccessPoints = _c.loadHomematicAccessPoints, loadHomematicTemperatursensoren = _c.loadHomematicTemperatursensoren, loadHomematicRauchmelder = _c.loadHomematicRauchmelder, loadHomematicFunktschaltaktoren = _c.loadHomematicFunktschaltaktoren, loadHomematicWindows = _c.loadHomematicWindows, loadHomematicSteckdosen = _c.loadHomematicSteckdosen, loadHomematicHeizkoerper = _c.loadHomematicHeizkoerper, loadHomematicDimmer = _c.loadHomematicDimmer, getHomematicDevicesAll = _c.getHomematicDevicesAll;
+var _c = require('./homematicFunctions.js'), createHomematicDevice = _c.createHomematicDevice, loadHomematicWandthermostate = _c.loadHomematicWandthermostate, loadHomematicPraesenzmelder = _c.loadHomematicPraesenzmelder, loadHomematicWetterstationen = _c.loadHomematicWetterstationen, loadHomematicDoors = _c.loadHomematicDoors, loadHomematicRollladen = _c.loadHomematicRollladen, loadHomematicWandschalter = _c.loadHomematicWandschalter, loadHomematicFussbodenheizungen = _c.loadHomematicFussbodenheizungen, loadHomematicWandtaster = _c.loadHomematicWandtaster, loadHomematicAccessPoints = _c.loadHomematicAccessPoints, loadHomematicTemperatursensoren = _c.loadHomematicTemperatursensoren, loadHomematicRauchmelder = _c.loadHomematicRauchmelder, loadHomematicFunktschaltaktoren = _c.loadHomematicFunktschaltaktoren, loadHomematicWindows = _c.loadHomematicWindows, loadHomematicSteckdosen = _c.loadHomematicSteckdosen, loadHomematicHeizkoerper = _c.loadHomematicHeizkoerper, loadHomematicDimmer = _c.loadHomematicDimmer, loadHomematicDevicesAll = _c.loadHomematicDevicesAll;
 var _d = require('./zigbeeClasses.js'), AbstractZigbee = _d.AbstractZigbee, ColorScheme = _d.ColorScheme, RGBColorScheme = _d.RGBColorScheme, WhiteColorScheme = _d.WhiteColorScheme, ZigbeeLampeRGB = _d.ZigbeeLampeRGB, LampeWeissTasterScheme = _d.LampeWeissTasterScheme, LampeWeissAlexaScheme = _d.LampeWeissAlexaScheme, ZigbeeLampeWeiss = _d.ZigbeeLampeWeiss, ZigbeeSteckdose = _d.ZigbeeSteckdose, ZigbeeSchalter = _d.ZigbeeSchalter, ZigbeeRepeater = _d.ZigbeeRepeater, ZigbeeFenstersensor = _d.ZigbeeFenstersensor, ZigbeeRauchmelder = _d.ZigbeeRauchmelder, ZigbeeBewegungsmelder = _d.ZigbeeBewegungsmelder, ZigbeeWandtaster = _d.ZigbeeWandtaster, ZigbeeDosenrelais = _d.ZigbeeDosenrelais, AlexaInputConverter = _d.AlexaInputConverter, deviceZigbeeSteckdose = _d.deviceZigbeeSteckdose, deviceZigbeeBewegungsmelder = _d.deviceZigbeeBewegungsmelder, deviceZigbeeLampeRGB = _d.deviceZigbeeLampeRGB, deviceZigbeeLampeWeiss = _d.deviceZigbeeLampeWeiss, deviceZigbeeRauchmelder = _d.deviceZigbeeRauchmelder, deviceZigbeeWandtaster = _d.deviceZigbeeWandtaster, deviceZigbeeDosenrelais = _d.deviceZigbeeDosenrelais, deviceZigbeeSchalter = _d.deviceZigbeeSchalter, deviceZigbeeRepeater = _d.deviceZigbeeRepeater, deviceZigbeeFenstersensor = _d.deviceZigbeeFenstersensor;
-var _e = require('./zigbeeFunctions.js'), createZigbeeDevice = _e.createZigbeeDevice, createDosenrelaisDevice = _e.createDosenrelaisDevice, createLampeRGB = _e.createLampeRGB, createLampeWeiss = _e.createLampeWeiss, createSteckdose = _e.createSteckdose, loadZigbeeSteckdosen = _e.loadZigbeeSteckdosen, loadZigbeeBewegungsmelder = _e.loadZigbeeBewegungsmelder, loadZigbeeLampenRGB = _e.loadZigbeeLampenRGB, loadZigbeeLampenWeiss = _e.loadZigbeeLampenWeiss, loadZigbeeRauchmeler = _e.loadZigbeeRauchmeler, loadZigbeeWandtaster = _e.loadZigbeeWandtaster, loadZigbeeDosenrelais = _e.loadZigbeeDosenrelais, loadZigbeeSchalter = _e.loadZigbeeSchalter, loadZigbeeRepeater = _e.loadZigbeeRepeater, loadZigbeeFenstersensor = _e.loadZigbeeFenstersensor, getZigbeeDevicesAll = _e.getZigbeeDevicesAll;
+var _e = require('./zigbeeFunctions.js'), createZigbeeDevice = _e.createZigbeeDevice, createZigbeeDosenrelais = _e.createZigbeeDosenrelais, createZigbeeLampeRGB = _e.createZigbeeLampeRGB, createZigbeeLampeWeiss = _e.createZigbeeLampeWeiss, createZigbeeSteckdose = _e.createZigbeeSteckdose, loadZigbeeSteckdosen = _e.loadZigbeeSteckdosen, loadZigbeeBewegungsmelder = _e.loadZigbeeBewegungsmelder, loadZigbeeLampenRGB = _e.loadZigbeeLampenRGB, loadZigbeeLampenWeiss = _e.loadZigbeeLampenWeiss, loadZigbeeRauchmelder = _e.loadZigbeeRauchmelder, loadZigbeeWandtaster = _e.loadZigbeeWandtaster, loadZigbeeDosenrelais = _e.loadZigbeeDosenrelais, loadZigbeeSchalter = _e.loadZigbeeSchalter, loadZigbeeRepeater = _e.loadZigbeeRepeater, loadZigbeeFenstersensor = _e.loadZigbeeFenstersensor, loadZigbeeDevicesAll = _e.loadZigbeeDevicesAll;
 module.exports = {
     // date.ts:
     DateHelper: DateHelper,
@@ -68,7 +68,7 @@ module.exports = {
     loadHomematicSteckdosen: loadHomematicSteckdosen,
     loadHomematicHeizkoerper: loadHomematicHeizkoerper,
     loadHomematicDimmer: loadHomematicDimmer,
-    getHomematicDevicesAll: getHomematicDevicesAll,
+    loadHomematicDevicesAll: loadHomematicDevicesAll,
     // zigbeeClasses.ts
     AbstractZigbee: AbstractZigbee,
     ColorScheme: ColorScheme,
@@ -99,19 +99,19 @@ module.exports = {
     deviceZigbeeFenstersensor: deviceZigbeeFenstersensor,
     // zigbeeFunctions.ts
     createZigbeeDevice: createZigbeeDevice,
-    createDosenrelaisDevice: createDosenrelaisDevice,
-    createLampeRGB: createLampeRGB,
-    createLampeWeiss: createLampeWeiss,
-    createSteckdose: createSteckdose,
+    createZigbeeDosenrelais: createZigbeeDosenrelais,
+    createZigbeeLampeRGB: createZigbeeLampeRGB,
+    createZigbeeLampeWeiss: createZigbeeLampeWeiss,
+    createZigbeeSteckdose: createZigbeeSteckdose,
     loadZigbeeSteckdosen: loadZigbeeSteckdosen,
     loadZigbeeBewegungsmelder: loadZigbeeBewegungsmelder,
     loadZigbeeLampenRGB: loadZigbeeLampenRGB,
     loadZigbeeLampenWeiss: loadZigbeeLampenWeiss,
-    loadZigbeeRauchmeler: loadZigbeeRauchmeler,
+    loadZigbeeRauchmelder: loadZigbeeRauchmelder,
     loadZigbeeWandtaster: loadZigbeeWandtaster,
     loadZigbeeDosenrelais: loadZigbeeDosenrelais,
     loadZigbeeSchalter: loadZigbeeSchalter,
     loadZigbeeRepeater: loadZigbeeRepeater,
     loadZigbeeFenstersensor: loadZigbeeFenstersensor,
-    getZigbeeDevicesAll: getZigbeeDevicesAll
+    loadZigbeeDevicesAll: loadZigbeeDevicesAll
 };
