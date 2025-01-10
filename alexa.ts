@@ -11,7 +11,7 @@ export class AlexaInputConverter {
     private ctNew = -1;      
     private adapter:any;  
         
-    constructor(adapter:any, value: string, logContext: string) {
+    constructor(adapter:any, value: string, logContext: string, callback) {
         setTimeout(() => {        
             this.adapter = adapter;
             this.value = value;
@@ -56,6 +56,8 @@ export class AlexaInputConverter {
                 adapter.log("    actionChangeCT: " + this.actionChangeCT);                
             }
             adapter.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+            adapter.log("return now");
+            callback(this);
         }, 75);        
     }
 

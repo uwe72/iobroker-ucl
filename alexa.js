@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AlexaInputConverter = void 0;
 var AlexaInputConverter = /** @class */ (function () {
-    function AlexaInputConverter(adapter, value, logContext) {
+    function AlexaInputConverter(adapter, value, logContext, callback) {
         var _this = this;
         this.actionTurnOn = false;
         this.actionTurnOff = false;
@@ -64,6 +64,8 @@ var AlexaInputConverter = /** @class */ (function () {
                 adapter.log("    actionChangeCT: " + _this.actionChangeCT);
             }
             adapter.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+            adapter.log("return now");
+            callback(_this);
         }, 75);
     }
     AlexaInputConverter.prototype.isActionTurnedOn = function () {
