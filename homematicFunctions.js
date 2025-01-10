@@ -386,6 +386,7 @@ function loadHomematicDevicesAll(adapter) {
     if (homematicAllArray != null) {
         return homematicAllArray;
     }
+    adapter.log("Test");
     // @ts-ignore            
     homematicAllArray = [];
     adapter.loadHomematicWandthermostate(adapter).forEach(function (homematic) {

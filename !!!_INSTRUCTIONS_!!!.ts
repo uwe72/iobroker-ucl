@@ -5,7 +5,7 @@
 // ===================================================================================================
 
 // 1.) "Aus TS Dateien JS Dateien machen: (unten im TERMINAL-Fenster)
-tsc date.ts test.ts main.ts html.ts homematicClasses.ts homematicFunctions.ts zigbeeClasses.ts zigbeeFunctions.ts INSTRUCTIONS.ts
+tsc date.ts test.ts main.ts html.ts homematicClasses.ts homematicFunctions.ts zigbeeClasses.ts zigbeeFunctions.ts camera.ts alexa.ts
 
 // 2.) In package.json eine Nummer hochzählen bei der Version
 

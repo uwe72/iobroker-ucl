@@ -1043,6 +1043,7 @@ exports.loadZigbeeFenstersensor = loadZigbeeFenstersensor;
 var zigbeeAllArray = null;
 function loadZigbeeDevicesAll(adapter) {
     if (zigbeeAllArray != null) {
+        // @ts-ignore            
         return zigbeeAllArray;
     }
     // @ts-ignore            
@@ -1063,7 +1064,7 @@ function loadZigbeeDevicesAll(adapter) {
         // @ts-ignore                    
         zigbeeAllArray.push(zigbee);
     });
-    adapter.loadZigbeeRauchmeler(adapter).forEach(function (zigbee) {
+    adapter.loadZigbeeRauchmelder(adapter).forEach(function (zigbee) {
         // @ts-ignore                    
         zigbeeAllArray.push(zigbee);
     });

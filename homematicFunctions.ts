@@ -405,6 +405,7 @@ export function loadHomematicDevicesAll(adapter: any) {
     if (homematicAllArray != null) {
         return homematicAllArray;
     }
+    adapter.log("Test");
 
     // @ts-ignore            
     homematicAllArray = [];

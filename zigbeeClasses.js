@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AlexaInputConverter = exports.ZigbeeDosenrelais = exports.ZigbeeWandtaster = exports.ZigbeeBewegungsmelder = exports.ZigbeeRauchmelder = exports.ZigbeeFenstersensor = exports.ZigbeeRepeater = exports.ZigbeeSchalter = exports.ZigbeeSteckdose = exports.ZigbeeLampeWeiss = exports.LampeWeissAlexaScheme = exports.LampeWeissTasterScheme = exports.ZigbeeLampeRGB = exports.WhiteColorScheme = exports.RGBColorScheme = exports.ColorScheme = exports.AbstractZigbee = void 0;
+exports.ZigbeeDosenrelais = exports.ZigbeeWandtaster = exports.ZigbeeBewegungsmelder = exports.ZigbeeRauchmelder = exports.ZigbeeFenstersensor = exports.ZigbeeRepeater = exports.ZigbeeSchalter = exports.ZigbeeSteckdose = exports.ZigbeeLampeWeiss = exports.LampeWeissAlexaScheme = exports.LampeWeissTasterScheme = exports.ZigbeeLampeRGB = exports.WhiteColorScheme = exports.RGBColorScheme = exports.ColorScheme = exports.AbstractZigbee = void 0;
 // https://stackoverflow.com/questions/8595509/how-do-you-share-constants-in-nodejs-modules
 var deviceZigbeeSteckdose = "Steckdose";
 var deviceZigbeeBewegungsmelder = "Bewegungsmelder";
@@ -1106,98 +1106,6 @@ var ZigbeeDosenrelais = /** @class */ (function (_super) {
     return ZigbeeDosenrelais;
 }(AbstractZigbee));
 exports.ZigbeeDosenrelais = ZigbeeDosenrelais;
-var AlexaInputConverter = /** @class */ (function () {
-    function AlexaInputConverter(adapter, value, logContext) {
-        this.actionTurnOn = false;
-        this.actionTurnOff = false;
-        this.actionChangeLevel = false;
-        this.actionChangeColor = false;
-        this.actionChangeCT = false;
-        this.smartName = "?";
-        this.levelNew = -1;
-        this.hueNew = -1;
-        this.ctNew = -1;
-        this.adapter = adapter;
-        this.value = value;
-        if (this.value.toString().endsWith('.level')) {
-            this.smartName = this.value.replace("0_userdata.0.alexa.", "").replace(".level", "");
-            this.levelNew = this.adapter.getState(value).val;
-            if (this.levelNew == 100) {
-                this.actionTurnOn = true;
-            }
-            else if (this.levelNew == 0) {
-                this.actionTurnOff = true;
-            }
-            else {
-                this.actionChangeLevel = true;
-            }
-        }
-        else if (value.endsWith('.hue')) {
-            this.smartName = value.replace("0_userdata.0.alexa.", "").replace(".hue", "");
-            this.hueNew = this.adapter.getState(this.value).val;
-            this.actionChangeColor = true;
-        }
-        else if (value.endsWith('.ct')) {
-            this.smartName = value.replace("0_userdata.0.alexa.", "").replace(".ct", "");
-            this.ctNew = this.adapter.getState(value).val;
-            this.actionChangeCT = true;
-        }
-        adapter.log("");
-        adapter.log(">>> ALEXA (" + logContext + ") >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-        adapter.log("    Value            : " + this.value);
-        adapter.log("    smartName        : " + this.smartName);
-        adapter.log("    actionTurnOn     : " + this.actionTurnOn);
-        adapter.log("    actionTurnOff    : " + this.actionTurnOff);
-        if (this.actionChangeLevel) {
-            adapter.log("    actionChangeLevel: " + this.actionChangeLevel + " (" + this.levelNew + ")");
-        }
-        else {
-            adapter.log("    actionChangeLevel: " + this.actionChangeLevel);
-        }
-        if (this.actionChangeColor) {
-            adapter.log("    actionChangeColor: " + this.actionChangeColor + " (" + this.hueNew + ")");
-        }
-        else {
-            adapter.log("    actionChangeColor: " + this.actionChangeColor);
-        }
-        if (this.actionChangeCT) {
-            adapter.log("    actionChangeCT: " + this.actionChangeCT + " (" + this.ctNew + ")");
-        }
-        else {
-            adapter.log("    actionChangeCT: " + this.actionChangeCT);
-        }
-        adapter.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-    }
-    AlexaInputConverter.prototype.isActionTurnedOn = function () {
-        return this.actionTurnOn;
-    };
-    AlexaInputConverter.prototype.isActionTurnedOff = function () {
-        return this.actionTurnOff;
-    };
-    AlexaInputConverter.prototype.isActionChangedLevel = function () {
-        return this.actionChangeLevel;
-    };
-    AlexaInputConverter.prototype.isActionChangedColor = function () {
-        return this.actionChangeColor;
-    };
-    AlexaInputConverter.prototype.isActionChangedColorTemperature = function () {
-        return this.actionChangeCT;
-    };
-    AlexaInputConverter.prototype.getSmartName = function () {
-        return this.smartName;
-    };
-    AlexaInputConverter.prototype.getLevel = function () {
-        return this.levelNew;
-    };
-    AlexaInputConverter.prototype.getHue = function () {
-        return this.hueNew;
-    };
-    AlexaInputConverter.prototype.getColorTemperature = function () {
-        return this.ctNew;
-    };
-    return AlexaInputConverter;
-}());
-exports.AlexaInputConverter = AlexaInputConverter;
 module.exports = {
     AbstractZigbee: AbstractZigbee,
     ColorScheme: ColorScheme,
@@ -1215,7 +1123,6 @@ module.exports = {
     ZigbeeBewegungsmelder: ZigbeeBewegungsmelder,
     ZigbeeWandtaster: ZigbeeWandtaster,
     ZigbeeDosenrelais: ZigbeeDosenrelais,
-    AlexaInputConverter: AlexaInputConverter,
     deviceZigbeeSteckdose: deviceZigbeeSteckdose,
     deviceZigbeeBewegungsmelder: deviceZigbeeBewegungsmelder,
     deviceZigbeeLampeRGB: deviceZigbeeLampeRGB,
