@@ -1,12 +1,14 @@
 var DateHelper = require('./date.js').DateHelper;
 var DateCalendarTest = require('./test.js').DateCalendarTest;
 var _a = require('./html.js'), AbstractColumn = _a.AbstractColumn, HtmlTable = _a.HtmlTable, HtmlCreator = _a.HtmlCreator, StaticIconColumn = _a.StaticIconColumn, AbstractStandardTextColumn = _a.AbstractStandardTextColumn;
-var _b = require('./homematicClasses.js'), HomematicWindow = _b.HomematicWindow, HomematicSteckdose = _b.HomematicSteckdose, HomematicHeizkoerper = _b.HomematicHeizkoerper, HomematicDimmer = _b.HomematicDimmer, HomematicWandthermostat = _b.HomematicWandthermostat, HomematicFussbodenheizung = _b.HomematicFussbodenheizung, HomematicWandschalter = _b.HomematicWandschalter, HomematicDoor = _b.HomematicDoor, HomematicWetterstation = _b.HomematicWetterstation, HomematicAccessPoint = _b.HomematicAccessPoint, HomematicRollladen = _b.HomematicRollladen, HomematicWandtaster = _b.HomematicWandtaster, HomematicTemperatursensor = _b.HomematicTemperatursensor, HomematicRauchmelder = _b.HomematicRauchmelder, HomematicPraesenzmelder = _b.HomematicPraesenzmelder, AbstractHomematic = _b.AbstractHomematic, HomematicFunkschaltaktor = _b.HomematicFunkschaltaktor, deviceHomematicWandthermostat = _b.deviceHomematicWandthermostat, deviceHomematicPraesenzmelder = _b.deviceHomematicPraesenzmelder, deviceHomematicWetterstation = _b.deviceHomematicWetterstation, deviceHomematicDoor = _b.deviceHomematicDoor, deviceHomematicRollladen = _b.deviceHomematicRollladen, deviceHomematicWandschalter = _b.deviceHomematicWandschalter, deviceHomematicFussbodenheizung = _b.deviceHomematicFussbodenheizung, deviceHomematicWandtaster = _b.deviceHomematicWandtaster, deviceHomematicAccessPoint = _b.deviceHomematicAccessPoint, deviceHomematicTemperatursensor = _b.deviceHomematicTemperatursensor, deviceHomematicRauchmelder = _b.deviceHomematicRauchmelder, deviceHomematicFunkSchaltaktor = _b.deviceHomematicFunkSchaltaktor, deviceHomematicWindow = _b.deviceHomematicWindow, deviceHomematicSteckdose = _b.deviceHomematicSteckdose, deviceHomematicHeizkoerper = _b.deviceHomematicHeizkoerper, deviceHomematicDimmer = _b.deviceHomematicDimmer;
+var _b = require('./homematicClasses.js'), HomematicWindow = _b.HomematicWindow, HomematicSteckdose = _b.HomematicSteckdose, HomematicHeizkoerper = _b.HomematicHeizkoerper, HomematicDimmer = _b.HomematicDimmer, HomematicWandthermostat = _b.HomematicWandthermostat, HomematicFussbodenheizung = _b.HomematicFussbodenheizung, HomematicWandschalter = _b.HomematicWandschalter, HomematicDoor = _b.HomematicDoor, HomematicWetterstation = _b.HomematicWetterstation, HomematicAccessPoint = _b.HomematicAccessPoint, HomematicRollladen = _b.HomematicRollladen, HomematicWandtaster = _b.HomematicWandtaster, HomematicTemperatursensor = _b.HomematicTemperatursensor, HomematicRauchmelder = _b.HomematicRauchmelder, HomematicPraesenzmelder = _b.HomematicPraesenzmelder, AbstractHomematic = _b.AbstractHomematic, HomematicFunkschaltaktor = _b.HomematicFunkschaltaktor, deviceHomematicWandthermostat = _b.deviceHomematicWandthermostat, deviceHomematicPraesenzmelder = _b.deviceHomematicPraesenzmelder, deviceHomematicWetterstation = _b.deviceHomematicWetterstation, deviceHomematicDoor = _b.deviceHomematicDoor, deviceHomematicRollladen = _b.deviceHomematicRollladen, deviceHomematicWandschalter = _b.deviceHomematicWandschalter, deviceHomematicFussbodenheizung = _b.deviceHomematicFussbodenheizung, deviceHomematicWandtaster = _b.deviceHomematicWandtaster, deviceHomematicAccessPoint = _b.deviceHomematicAccessPoint, deviceHomematicTemperatursensor = _b.deviceHomematicTemperatursensor, deviceHomematicRauchmelder = _b.deviceHomematicRauchmelder, deviceHomematicFunkSchaltaktor = _b.deviceHomematicFunkSchaltaktor, deviceHomematicWindow = _b.deviceHomematicWindow, deviceHomematicSteckdose = _b.deviceHomematicSteckdose, deviceHomematicHeizkoerper = _b.deviceHomematicHeizkoerper, deviceHomematicDimmer = _b.deviceHomematicDimmer, DimmerAlexaScheme = _b.DimmerAlexaScheme, DimmerTasterScheme = _b.DimmerTasterScheme;
 var _c = require('./homematicFunctions.js'), createHomematicDevice = _c.createHomematicDevice, loadHomematicWandthermostate = _c.loadHomematicWandthermostate, loadHomematicPraesenzmelder = _c.loadHomematicPraesenzmelder, loadHomematicWetterstationen = _c.loadHomematicWetterstationen, loadHomematicDoors = _c.loadHomematicDoors, loadHomematicRollladen = _c.loadHomematicRollladen, loadHomematicWandschalter = _c.loadHomematicWandschalter, loadHomematicFussbodenheizungen = _c.loadHomematicFussbodenheizungen, loadHomematicWandtaster = _c.loadHomematicWandtaster, loadHomematicAccessPoints = _c.loadHomematicAccessPoints, loadHomematicTemperatursensoren = _c.loadHomematicTemperatursensoren, loadHomematicRauchmelder = _c.loadHomematicRauchmelder, loadHomematicFunktschaltaktoren = _c.loadHomematicFunktschaltaktoren, loadHomematicWindows = _c.loadHomematicWindows, loadHomematicSteckdosen = _c.loadHomematicSteckdosen, loadHomematicHeizkoerper = _c.loadHomematicHeizkoerper, loadHomematicDimmer = _c.loadHomematicDimmer, loadHomematicDevicesAll = _c.loadHomematicDevicesAll;
 var _d = require('./zigbeeClasses.js'), AbstractZigbee = _d.AbstractZigbee, ColorScheme = _d.ColorScheme, RGBColorScheme = _d.RGBColorScheme, WhiteColorScheme = _d.WhiteColorScheme, ZigbeeLampeRGB = _d.ZigbeeLampeRGB, LampeWeissTasterScheme = _d.LampeWeissTasterScheme, LampeWeissAlexaScheme = _d.LampeWeissAlexaScheme, ZigbeeLampeWeiss = _d.ZigbeeLampeWeiss, ZigbeeSteckdose = _d.ZigbeeSteckdose, ZigbeeSchalter = _d.ZigbeeSchalter, ZigbeeRepeater = _d.ZigbeeRepeater, ZigbeeFenstersensor = _d.ZigbeeFenstersensor, ZigbeeRauchmelder = _d.ZigbeeRauchmelder, ZigbeeBewegungsmelder = _d.ZigbeeBewegungsmelder, ZigbeeWandtaster = _d.ZigbeeWandtaster, ZigbeeDosenrelais = _d.ZigbeeDosenrelais, deviceZigbeeSteckdose = _d.deviceZigbeeSteckdose, deviceZigbeeBewegungsmelder = _d.deviceZigbeeBewegungsmelder, deviceZigbeeLampeRGB = _d.deviceZigbeeLampeRGB, deviceZigbeeLampeWeiss = _d.deviceZigbeeLampeWeiss, deviceZigbeeRauchmelder = _d.deviceZigbeeRauchmelder, deviceZigbeeWandtaster = _d.deviceZigbeeWandtaster, deviceZigbeeDosenrelais = _d.deviceZigbeeDosenrelais, deviceZigbeeSchalter = _d.deviceZigbeeSchalter, deviceZigbeeRepeater = _d.deviceZigbeeRepeater, deviceZigbeeFenstersensor = _d.deviceZigbeeFenstersensor;
 var _e = require('./zigbeeFunctions.js'), createZigbeeDevice = _e.createZigbeeDevice, createZigbeeDosenrelais = _e.createZigbeeDosenrelais, createZigbeeLampeRGB = _e.createZigbeeLampeRGB, createZigbeeLampeWeiss = _e.createZigbeeLampeWeiss, createZigbeeSteckdose = _e.createZigbeeSteckdose, loadZigbeeSteckdosen = _e.loadZigbeeSteckdosen, loadZigbeeBewegungsmelder = _e.loadZigbeeBewegungsmelder, loadZigbeeLampenRGB = _e.loadZigbeeLampenRGB, loadZigbeeLampenWeiss = _e.loadZigbeeLampenWeiss, loadZigbeeRauchmelder = _e.loadZigbeeRauchmelder, loadZigbeeWandtaster = _e.loadZigbeeWandtaster, loadZigbeeDosenrelais = _e.loadZigbeeDosenrelais, loadZigbeeSchalter = _e.loadZigbeeSchalter, loadZigbeeRepeater = _e.loadZigbeeRepeater, loadZigbeeFenstersensor = _e.loadZigbeeFenstersensor, loadZigbeeDevicesAll = _e.loadZigbeeDevicesAll;
 var _f = require('./camera.js'), sendToPictureGartenToTelegram = _f.sendToPictureGartenToTelegram, sendToPictureSeiteToTelegram = _f.sendToPictureSeiteToTelegram, sendToPictureHaustuereToTelegram = _f.sendToPictureHaustuereToTelegram, sendToPictureDoorbellToTelegram = _f.sendToPictureDoorbellToTelegram, sendToPictureGarageToTelegram = _f.sendToPictureGarageToTelegram;
 var AlexaInputConverter = require('./alexa.js').AlexaInputConverter;
+var _g = require('./shellyClasses.js'), ShellyLampeWeiss = _g.ShellyLampeWeiss, ShellyDimmerAlexaScheme = _g.ShellyDimmerAlexaScheme, ShellyDimmerTasterScheme = _g.ShellyDimmerTasterScheme, ShellyDimmer = _g.ShellyDimmer, ShellyRGBAlexaScheme = _g.ShellyRGBAlexaScheme, ShellyRGBTasterScheme = _g.ShellyRGBTasterScheme, ShellyLampeRGB = _g.ShellyLampeRGB, ShellySteckdose = _g.ShellySteckdose, ShellyRollladen = _g.ShellyRollladen, ShellySensor = _g.ShellySensor, deviceShellyLampeWeiss = _g.deviceShellyLampeWeiss, deviceShellyDimmer = _g.deviceShellyDimmer, deviceShellyLampeRGB = _g.deviceShellyLampeRGB, deviceShellySteckdose = _g.deviceShellySteckdose, deviceShellyRollladen = _g.deviceShellyRollladen, deviceShellySensor = _g.deviceShellySensor;
+var _h = require('./shellyFunctions.js'), createShellyDevice = _h.createShellyDevice, createShellySensor = _h.createShellySensor, createShellyLampeRGB = _h.createShellyLampeRGB, createShellyRollladen = _h.createShellyRollladen, createShellyDimmer = _h.createShellyDimmer, createShellyLampe = _h.createShellyLampe, createShellySteckdose = _h.createShellySteckdose, loadShellyRollladen = _h.loadShellyRollladen, loadShellySensoren = _h.loadShellySensoren, loadShellyDimmer = _h.loadShellyDimmer, loadShellyLampenWeiss = _h.loadShellyLampenWeiss, loadShellySteckdosen = _h.loadShellySteckdosen, loadShellyDevicesAll = _h.loadShellyDevicesAll;
 module.exports = {
     // date.ts:
     DateHelper: DateHelper,
@@ -36,6 +38,8 @@ module.exports = {
     HomematicPraesenzmelder: HomematicPraesenzmelder,
     AbstractHomematic: AbstractHomematic,
     HomematicFunkschaltaktor: HomematicFunkschaltaktor,
+    DimmerAlexaScheme: DimmerAlexaScheme,
+    DimmerTasterScheme: DimmerTasterScheme,
     deviceHomematicWandthermostat: deviceHomematicWandthermostat,
     deviceHomematicPraesenzmelder: deviceHomematicPraesenzmelder,
     deviceHomematicWetterstation: deviceHomematicWetterstation,
@@ -122,5 +126,36 @@ module.exports = {
     sendToPictureDoorbellToTelegram: sendToPictureDoorbellToTelegram,
     sendToPictureGarageToTelegram: sendToPictureGarageToTelegram,
     // alexa.ts
-    AlexaInputConverter: AlexaInputConverter
+    AlexaInputConverter: AlexaInputConverter,
+    // shellyClasses.ts
+    ShellyLampeWeiss: ShellyLampeWeiss,
+    ShellyDimmerAlexaScheme: ShellyDimmerAlexaScheme,
+    ShellyDimmerTasterScheme: ShellyDimmerTasterScheme,
+    ShellyDimmer: ShellyDimmer,
+    ShellyRGBAlexaScheme: ShellyRGBAlexaScheme,
+    ShellyRGBTasterScheme: ShellyRGBTasterScheme,
+    ShellyLampeRGB: ShellyLampeRGB,
+    ShellySteckdose: ShellySteckdose,
+    ShellyRollladen: ShellyRollladen,
+    ShellySensor: ShellySensor,
+    deviceShellyLampeWeiss: deviceShellyLampeWeiss,
+    deviceShellyDimmer: deviceShellyDimmer,
+    deviceShellyLampeRGB: deviceShellyLampeRGB,
+    deviceShellySteckdose: deviceShellySteckdose,
+    deviceShellyRollladen: deviceShellyRollladen,
+    deviceShellySensor: deviceShellySensor,
+    // ShellyFunctions.ts
+    createShellyDevice: createShellyDevice,
+    createShellySensor: createShellySensor,
+    createShellyLampeRGB: createShellyLampeRGB,
+    createShellyRollladen: createShellyRollladen,
+    createShellyDimmer: createShellyDimmer,
+    createShellyLampe: createShellyLampe,
+    createShellySteckdose: createShellySteckdose,
+    loadShellyRollladen: loadShellyRollladen,
+    loadShellySensoren: loadShellySensoren,
+    loadShellyDimmer: loadShellyDimmer,
+    loadShellyLampenWeiss: loadShellyLampenWeiss,
+    loadShellySteckdosen: loadShellySteckdosen,
+    loadShellyDevicesAll: loadShellyDevicesAll
 };

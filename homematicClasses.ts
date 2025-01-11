@@ -83,8 +83,126 @@ export abstract class AbstractHomematic {
         return this.adapter.getState(this.baseState + ".0.RSSI_DEVICE").val;
     }
 
-    abstract getCategory(): string;
+    protected createIOTAdapterSmartDevices(smartName) {
 
+        // Level:
+        // ----------------------------------------------------------------------------------
+        var alexaLampeLevel = "0_userdata.0.alexa." + smartName + ".level";
+        this.adapter.createState(alexaLampeLevel, 0, {
+            name: alexaLampeLevel,
+            desc: alexaLampeLevel,
+            type: 'number',
+            read: true,
+            write: true
+        });
+
+        // @ts-ignore                    
+        let objLevel = this.adapter.getObject(alexaLampeLevel) as unknown as iobJS.StateObject;
+        objLevel.common = {
+            "type": "number",
+            "name": alexaLampeLevel,
+            "read": true,
+            "write": true,
+            "role": "level.dimmer",
+            "min": 0,
+            "max": 100,
+            "def": 0,
+            "smartName": {
+                "de": smartName,
+                "smartType": "LIGHT"
+            }
+        };
+        this.adapter.setObject(alexaLampeLevel, objLevel);
+
+        // HUE:
+        // ----------------------------------------------------------------------------------
+        var alexaLampeHue = "0_userdata.0.alexa." + smartName + ".hue";
+        this.adapter.createState(alexaLampeHue, 0, {
+            name: alexaLampeHue,
+            desc: alexaLampeHue,
+            type: 'number',
+            read: true,
+            write: true
+        });
+        // @ts-ignore                    
+        let objHue = this.adapter.getObject(alexaLampeHue) as unknown as iobJS.StateObject;
+        objHue.common = {
+            "name": alexaLampeHue,
+            "desc": alexaLampeHue,
+            "type": "number",
+            "read": true,
+            "write": true,
+            "role": "level.color.hue", // <---- Das ist wichtig, ohne dieses Common-Zeugs würde hier "state" stehen und die ALexa-App würde dieses Gerär nicht als "Farbe-Lampe" akzeptieren/erkennen
+            "smartName": {
+                "de": smartName,
+                "smartType": "LIGHT"
+            }
+        };
+        this.adapter.setObject(alexaLampeHue, objHue);
+
+        // SAT:
+        // ----------------------------------------------------------------------------------
+        var alexaLampeSat = "0_userdata.0.alexa." + smartName + ".sat";
+        this.adapter.createState(alexaLampeSat, 0, {
+            name: alexaLampeSat,
+            desc: alexaLampeSat,
+            type: 'number',
+            read: true,
+            write: true
+        });
+        // @ts-ignore                                
+        let obSat = this.adapter.getObject(alexaLampeSat) as unknown as iobJS.StateObject;
+        obSat.common = {
+            "name": alexaLampeSat,
+            "desc": alexaLampeSat,
+            "type": "number",
+            "read": true,
+            "write": true,
+            "role": "level.color.saturation", // <---- Das ist wichtig, ohne dieses Common-Zeugs würde hier "state" stehen und die ALexa-App würde dieses Gerär nicht als "Farbe-Lampe" akzeptieren/erkennen
+            "smartName": {
+                "de": smartName,
+                "smartType": "LIGHT"
+            }
+        };
+        this.adapter.setObject(alexaLampeSat, obSat);
+
+        // CT:
+        // ----------------------------------------------------------------------------------
+        var alexaLampeCT = "0_userdata.0.alexa." + smartName + ".ct";
+        this.adapter.createState(alexaLampeCT, 0, {
+            name: alexaLampeCT,
+            desc: alexaLampeCT,
+            type: 'number',
+            read: true,
+            write: true
+        });
+        // @ts-ignore                    
+        let objCT = this.adapter.getObject(alexaLampeCT) as unknown as iobJS.StateObject;
+        objCT.common = {
+            "type": "number",
+            "name": alexaLampeCT,
+            "read": true,
+            "write": true,
+            "role": "level.color.temperature",
+            "smartName": {
+                "de": smartName,
+                "smartType": "LIGHT"
+            }
+        };
+        this.adapter.setObject(alexaLampeCT, objCT);
+    }
+
+    abstract getCategory(): string;
+}
+
+export class HomematicWandtaster extends AbstractHomematic {
+    constructor(adapter: any, id: number, baseState: string, etage: string, raum: string, device: string) {
+        super(adapter, id, baseState, etage, raum, device); 
+    }
+
+    public getCategory(): string {
+        return deviceHomematicWandtaster;
+    }
 }
 
 export class HomematicWandthermostat extends AbstractHomematic {
@@ -160,6 +278,13 @@ export class HomematicWindow extends AbstractHomematic {
     public isStatusBattery(): boolean { 
         return !this.adapter.getState(this.baseState + ".0.LOW_BAT").val; // // hm-rpc.0.000A9BE993E2F7.0.LOW_BAT
     }
+
+    public isOpen(): boolean {
+        if (this.adapter.getState(this.baseState + ".1.STATE").val == 0) {
+            return false;
+        }
+        return true;
+    }
 }
 
 export class HomematicSteckdose extends AbstractHomematic {
@@ -170,6 +295,13 @@ export class HomematicSteckdose extends AbstractHomematic {
     public getCategory(): string {
         return deviceHomematicSteckdose;
     }
+
+    public isSwitchedOn(): boolean {
+        if (this.adapter.getState(this.baseState + ".3.STATE").val == false) { // hm-rpc.1.00021D8999C78B.3.STATE    
+            return false;
+        }
+        return true;
+    }     
 }
 
 export class HomematicHeizkoerper extends AbstractHomematic {
@@ -181,20 +313,279 @@ export class HomematicHeizkoerper extends AbstractHomematic {
         return deviceHomematicHeizkoerper;
     }
 
+    public getTemperatureIst() : number {
+        return this.adapter.getState(this.baseState + ".1.ACTUAL_TEMPERATURE").val; // hm-rpc.0.000A9BE9A03005.1.ACTUAL_TEMPERATURE
+    }
+
+    public getTemperatureSoll() : number {
+        return this.adapter.getState(this.baseState + ".1.SET_POINT_TEMPERATURE").val; // hm-rpc.0.000A9BE9A03005.1.SET_POINT_TEMPERATURE
+    }
+
     public isStatusBattery(): boolean { 
         return !this.adapter.getState(this.baseState + ".0.LOW_BAT").val; // // hm-rpc.0.000A9BE993E2F7.0.LOW_BAT
     }
 }
 
-export class HomematicDimmer extends AbstractHomematic {
-    constructor(adapter: any, id: number, baseState: string, etage: string, raum: string, device: string) {
-        super(adapter, id, baseState, etage, raum, device);
+export class DimmerAlexaScheme {
+    protected alexaName: string;
+    protected level: number;
+    protected device: HomematicDimmer;
+
+    constructor(alexaName: string, level: number) {
+        this.alexaName = alexaName;
+        this.level = level;
     }
+
+    public getAlexaName() : string {
+        return this.alexaName;
+    }
+
+    public getLevel() : number {
+        return this.level;
+    }
+
+    public setDevice(device: HomematicDimmer) {
+        this.device = device;
+    }
+
+    public getDevice() : HomematicDimmer {
+        return this.device;
+    }
+}
+
+export class DimmerTasterScheme {
+    protected tasterBooleanOn: string;
+    protected level: number;
+
+    constructor(tasterBooleanOn: string, level: number) {
+        this.tasterBooleanOn = tasterBooleanOn;
+        this.level = level;
+    }
+
+    public getTasterBooleanOnName() : string {
+        return this.tasterBooleanOn;
+    }
+
+    public getLevel() : number {
+        return this.level;
+    }
+}
+
+export class HomematicDimmer extends AbstractHomematic {
+    protected alexaLevelSchemeForOn: DimmerAlexaScheme;
+    protected alexaSmartNamesForOn:string[];
+    protected alexaSmartNamesForOff: string[];
+    protected alexaActionNamesForOn:string[];
+    protected alexaActionNamesForOff: string[];
+
+    protected tasterBooleanOn: DimmerTasterScheme[];
+    protected tasterBooleanOff: string[];
+    protected levelSchemes: DimmerAlexaScheme[];
+
+    private nachtbeleuchtung:boolean;
+    private turnOffExitHouseSummer:boolean;
+    private turnOffExitHouseWinter:boolean;
+    private turnOnEnterHouseSummer:boolean;
+    private turnOnEnterHouseWinter:boolean;
+
+    constructor(adapter:any, id: number, baseState: string, etage: string, raum: string, device: string, alexaSmartNamesForOn:string[], alexaActionNamesForOn:string[], alexaLevelSchemeForOn: DimmerAlexaScheme, alexaSmartNamesForOff: string[],alexaActionNamesForOff: string[], levelSchemes: DimmerAlexaScheme[], tasterBooleanOn: DimmerTasterScheme[], tasterBooleanOff: string[], nachtbeleuchtung:boolean, turnOffExitHouseSummer:boolean, turnOffExitHouseWinter:boolean, turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean) {
+        super(adapter, id, baseState, etage, raum, device); 
+        this.alexaLevelSchemeForOn = alexaLevelSchemeForOn;
+        this.levelSchemes = levelSchemes;
+        this.tasterBooleanOn = tasterBooleanOn;
+        this.tasterBooleanOff = tasterBooleanOff;       
+        this.alexaSmartNamesForOn = alexaSmartNamesForOn;
+        this.alexaSmartNamesForOff = alexaSmartNamesForOff;
+        this.alexaActionNamesForOn = alexaActionNamesForOn;
+        this.alexaActionNamesForOff = alexaActionNamesForOff;
+        this.nachtbeleuchtung = nachtbeleuchtung;
+        this.turnOffExitHouseSummer = turnOffExitHouseSummer;
+        this.turnOffExitHouseWinter = turnOffExitHouseWinter;
+        this.turnOnEnterHouseSummer = turnOnEnterHouseSummer;
+        this.turnOnEnterHouseWinter = turnOnEnterHouseWinter;
+
+        this.levelSchemes.forEach(colorscheme => {    
+            colorscheme.setDevice(this);
+            if (colorscheme.getAlexaName() != null) {
+                this.createState(colorscheme.getAlexaName());
+            }
+        });
+        if (this.alexaLevelSchemeForOn != null) {
+            this.alexaLevelSchemeForOn.setDevice(this);
+            if (alexaLevelSchemeForOn.getAlexaName() != null) {
+                this.createState(alexaLevelSchemeForOn.getAlexaName());
+            }
+        }             
+        this.tasterBooleanOn.forEach(tasterScheme => {    
+            if (tasterScheme.getTasterBooleanOnName() != null) {
+                this.createState(tasterScheme.getTasterBooleanOnName());
+            }
+        });
+        this.tasterBooleanOff.forEach(offName => {    
+            this.createState(offName);
+        });
+
+        this.alexaSmartNamesForOn.forEach(alexaSmartName => {  
+            this.createIOTAdapterSmartDevices(alexaSmartName);
+        });      
+        this.alexaSmartNamesForOff.forEach(alexaSmartName => {  
+            this.createIOTAdapterSmartDevices(alexaSmartName);
+        });      
+        this.alexaActionNamesForOn.forEach(alexaSmartName => {  
+            this.createIOTAdapterSmartDevices(alexaSmartName);
+        });      
+        this.alexaActionNamesForOff.forEach(alexaSmartName => {  
+            this.createIOTAdapterSmartDevices(alexaSmartName);
+        });       
+
+        this.levelSchemes.forEach(scheme => {    
+            if (scheme.getAlexaName() != null) {
+                this.createIOTAdapterSmartDevices(scheme.getAlexaName());
+            }
+        });
+    }
+
+    public isNachtbeleuchtung() : boolean {
+       return this.nachtbeleuchtung;
+    }
+
+    public isTurnOffExitHouseSummer() : boolean {
+       return this.turnOffExitHouseSummer;
+    }
+
+    public isTurnOffExitHouseWinter() : boolean {
+       return this.turnOffExitHouseWinter;
+    }
+
+    public isTurnOnEnterHouseSummer() : boolean {
+       return this.turnOnEnterHouseSummer;
+    }
+
+    public isTurnOnEnterHouseWinter() : boolean {
+       return this.turnOnEnterHouseWinter;
+    }
+
+    private createState(key_in) {
+        var key = key_in;//.replace(/\./g,'_'); // wegen Wohnzimmer T.V.
+        var jarvisDatenpunkt = key;
+        this.adapter.createState(jarvisDatenpunkt, false, {
+            name: key,
+            desc: key,
+            type: 'boolean', 
+            read: true,
+            write: true
+        });     
+    }
+
+    public getTasterBooleanOn(): DimmerTasterScheme[] {
+        return this.tasterBooleanOn;
+    }
+
+    public getTasterBooleanOff(): string[] {
+        return this.tasterBooleanOff;
+    }
+
+    public getAlexaSchemeForOn(): DimmerAlexaScheme {
+        return this.alexaLevelSchemeForOn;
+    }
+
+    public getAlexaSmartNamesForOn() : string[] {
+        return this.alexaSmartNamesForOn;
+    }    
+
+    public getAlexaSmartNamesForOff() : string[] {
+        return this.alexaSmartNamesForOff;
+    }    
+
+    public getAlexaActionNamesForOn() : string[] {
+        return this.alexaActionNamesForOn;
+    }    
+
+    public getAlexaActionNamesForOff() : string[] {
+        return this.alexaActionNamesForOff;
+    }    
+
+    public getAlexaSchemes(): DimmerAlexaScheme[] {
+        return this.levelSchemes;
+    }
+
+    public getAlexaNamesForOnAsString() : string {
+        var result = "";
+        this.alexaSmartNamesForOn.forEach(alexaOnName => {    
+            if (result == "") {
+                result += alexaOnName
+            } else {
+                result += ", " + alexaOnName;
+            }
+        });        
+
+        this.alexaActionNamesForOn.forEach(alexaOnName => {    
+            if (result == "") {
+                result += alexaOnName
+            } else {
+                result += ", " + alexaOnName;
+            }
+        });        
+
+        return result;
+    }
+
+    public getAlexaNamesForOffAsString() : string {
+        var result = "";
+
+        this.alexaSmartNamesForOff.forEach(alexaOffName => {    
+            if (result == "") {
+                result += alexaOffName
+            } else {
+                result += ", " + alexaOffName;
+            }
+        });        
+
+        this.alexaActionNamesForOff.forEach(alexaOffName => {    
+            if (result == "") {
+                result += alexaOffName
+            } else {
+                result += ", " + alexaOffName;
+            }
+        });        
+
+        return result;
+    }
+
+    public turnOnHM() {
+        if (this.alexaLevelSchemeForOn == null) { // Schalte Licht nur ein
+            if (this.adapter.getState(this.baseState + ".4.LEVEL").val != 100) {
+                this.adapter.setState(this.baseState + ".4.LEVEL", 100);
+            }
+        } else {
+            this.changeLevel(this.alexaLevelSchemeForOn);
+        }
+    }
+
+    public getSwitchState(): string {
+        return this.baseState + ".4.LEVEL";
+    }
+
+    public turnOffHM() {
+        if (this.adapter.getState(this.baseState + ".4.LEVEL").val != 0) {
+            this.adapter.setState(this.baseState + ".4.LEVEL", 0);
+        }
+    }         
+
+    public changeLevel(levelScheme: DimmerAlexaScheme) {
+        if (this.adapter.getState(this.baseState + ".4.LEVEL").val != levelScheme.getLevel()) {
+            this.adapter.setState(this.baseState + ".4.LEVEL", levelScheme.getLevel());
+        }
+    }    
 
     public getCategory(): string {
         return deviceHomematicDimmer;
     }
+    public getLevel(): number {
+        return this.adapter.getState(this.baseState + ".4.LEVEL").val // hm-rpc.1.0008DA49A7C659.3.LEVEL
+    } 
 }
+
 
 export class HomematicFunkschaltaktor extends AbstractHomematic {
     constructor(adapter: any, id: number, baseState: string, etage: string, raum: string, device: string) {
@@ -243,15 +634,127 @@ export class HomematicTemperatursensor extends AbstractHomematic {
     }
 }
 
-export class HomematicWandtaster extends AbstractHomematic {
-    constructor(adapter: any, id: number, baseState: string, etage: string, raum: string, device: string) {
+export class HomematicWandschalter extends AbstractHomematic {
+    protected alexaSmartNamesForOn:string[];
+    protected alexaSmartNamesForOff: string[];
+    protected alexaActionNamesForOn:string[];
+    protected alexaActionNamesForOff: string[];
+    private nachtbeleuchtung:boolean;    
+    private turnOffExitHouseSummer:boolean;
+    private turnOffExitHouseWinter:boolean;
+    private turnOnEnterHouseSummer:boolean;
+    private turnOnEnterHouseWinter:boolean;
+
+    constructor(adapter:any, id: number, baseState: string, etage: string, raum: string, device: string, alexaSmartNamesForOn:string[], alexaActionNamesForOn:string[], alexaSmartNamesForOff: string[],alexaActionNamesForOff: string[], nachtbeleuchtung:boolean, turnOffExitHouseSummer:boolean, turnOffExitHouseWinter:boolean, turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean) {
         super(adapter, id, baseState, etage, raum, device);
+        this.nachtbeleuchtung = nachtbeleuchtung;        
+        this.turnOffExitHouseSummer = turnOffExitHouseSummer;
+        this.turnOffExitHouseWinter = turnOffExitHouseWinter;
+        this.turnOnEnterHouseSummer = turnOnEnterHouseSummer;
+        this.turnOnEnterHouseWinter = turnOnEnterHouseWinter;
+
+        this.alexaSmartNamesForOn = alexaSmartNamesForOn;
+        this.alexaSmartNamesForOff = alexaSmartNamesForOff;
+        this.alexaActionNamesForOn = alexaActionNamesForOn;
+        this.alexaActionNamesForOff = alexaActionNamesForOff;
+
+        this.alexaSmartNamesForOn.forEach(alexaSmartName => {  
+            this.createIOTAdapterSmartDevices(alexaSmartName);
+        });      
+        this.alexaSmartNamesForOff.forEach(alexaSmartName => {  
+            this.createIOTAdapterSmartDevices(alexaSmartName);
+        });      
+        this.alexaActionNamesForOn.forEach(alexaSmartName => {  
+            this.createIOTAdapterSmartDevices(alexaSmartName);
+        });      
+        this.alexaActionNamesForOff.forEach(alexaSmartName => {  
+            this.createIOTAdapterSmartDevices(alexaSmartName);
+        });              
     }
+
+    public isNachtbeleuchtung() : boolean {
+       return this.nachtbeleuchtung;
+    }
+
+    public isTurnOffExitHouseSummer() : boolean {
+       return this.turnOffExitHouseSummer;
+    }
+
+    public isTurnOffExitHouseWinter() : boolean {
+       return this.turnOffExitHouseWinter;
+    }
+
+    public isTurnOnEnterHouseSummer() : boolean {
+       return this.turnOnEnterHouseSummer;
+    }
+
+    public isTurnOnEnterHouseWinter() : boolean {
+       return this.turnOnEnterHouseWinter;
+    }
+
+    public getAlexaSmartNamesForOn() : string[] {
+        return this.alexaSmartNamesForOn;
+    }    
+
+    public getAlexaSmartNamesForOff() : string[] {
+        return this.alexaSmartNamesForOff;
+    }    
+
+    public getAlexaActionNamesForOn() : string[] {
+        return this.alexaActionNamesForOn;
+    }    
+
+    public getAlexaActionNamesForOff() : string[] {
+        return this.alexaActionNamesForOff;
+    }        
 
     public getCategory(): string {
-        return deviceHomematicWandtaster;
+        return deviceHomematicWandschalter;
     }
 
+    public isSwitchedOn(): boolean {
+        if (this.getType() == "HM-LC-Sw1PBU-FM") {
+            if (this.adapter.getState(this.baseState + ".1.STATE").val == false) { // hm-rpc.0.PEQ2220753.1.STATE
+                return false;
+            }
+            return true;
+        } else if (this.getType() == "HmIP-BSM") { 
+            if (this.adapter.getState(this.baseState + ".4.STATE").val == false) { // // hm-rpc.1.000855699C4F38.4.STATE
+                return false;
+            }
+            return true;
+        } else {
+            // @ts-ignore                        
+            return undefined;
+        }
+    } 
+
+    public getSwitchState(): string {
+        if (this.getType() == "HM-LC-Sw1PBU-FM") {
+            return this.baseState + ".1.STATE";
+        } else if (this.getType() == "HmIP-BSM") { 
+            return this.baseState + ".4.STATE";
+        } else {
+            // @ts-ignore                        
+            return undefined;
+        }
+    }
+
+    public turnOn() {
+        if (this.getType() == "HM-LC-Sw1PBU-FM") {
+            this.adapter.setState(this.baseState + ".1.STATE", true); // hm-rpc.0.PEQ2220753.1.STATE
+        } else if (this.getType() == "HmIP-BSM") { 
+            this.adapter.setState(this.baseState + ".4.STATE", true); // // hm-rpc.1.000855699C4F38.4.STATE
+        }
+    }
+
+    public turnOff() {
+        if (this.getType() == "HM-LC-Sw1PBU-FM") {
+            this.adapter.setState(this.baseState + ".1.STATE", false); // hm-rpc.0.PEQ2220753.1.STATE
+        } else if (this.getType() == "HmIP-BSM") { 
+            this.adapter.setState(this.baseState + ".4.STATE", false); // // hm-rpc.1.000855699C4F38.4.STATE
+        }
+    }
 }
 
 export class HomematicAccessPoint extends AbstractHomematic {
@@ -278,50 +781,20 @@ export class HomematicAccessPoint extends AbstractHomematic {
 }
 
 export class HomematicRollladen extends AbstractHomematic {
-    protected positionAuf: number;
-    protected positionMitte: number;
-    protected positionZu: number;
 
-    constructor(adapter: any, id: number, baseState: string, etage: string, raum: string, device: string, positionAuf: number, positionMitte: number, positionZu: number) {
+    constructor(adapter: any, id: number, baseState: string, etage: string, raum: string, device: string) {
         super(adapter, id, baseState, etage, raum, device);
-        this.positionAuf = positionAuf;
-        this.positionMitte = positionMitte;
-        this.positionZu = positionZu;
     }
 
     public getCategory(): string {
         return deviceHomematicRollladen;
     }
-
-    public auf() {
-        this.adapter.setState(this.getBaseState() + ".4.LEVEL", this.positionAuf);
-    }
-
-    public zu() {
-        this.adapter.setState(this.getBaseState() + ".4.LEVEL", this.positionZu);
-    }
-
-    public mitte() {
-        this.adapter.setState(this.getBaseState() + ".4.LEVEL", this.positionMitte);
-    }
 }
 
 export class HomematicDoor extends AbstractHomematic {
-    protected skipStatisticIsOpened: boolean;
-    protected skipStatisticIsClosed: boolean;
 
-    constructor(adapter: any, id: number, baseState: string, etage: string, raum: string, device: string, skipStatisticIsOpened: boolean, skipStatisticIsClosed: boolean) {
+    constructor(adapter: any, id: number, baseState: string, etage: string, raum: string, device: string) {
         super(adapter, id, baseState, etage, raum, device);
-        this.skipStatisticIsOpened = skipStatisticIsOpened;
-        this.skipStatisticIsClosed = skipStatisticIsClosed;
-    }
-
-    public isSkipStatisticIsOpened(): boolean {
-        return this.skipStatisticIsOpened;
-    }
-
-    public isSkipStatisticIsClosed(): boolean {
-        return this.skipStatisticIsClosed;
     }
 
     public getCategory(): string {
@@ -333,11 +806,11 @@ export class HomematicDoor extends AbstractHomematic {
     }
 
     public isOpen(): boolean {
-        if (this.adapter.getState(this.baseState + ".1.STATE").val) { // hm-rpc.0.0000DD89BE05F9.1.STATE
-            return true;
+        if (this.adapter.getState(this.baseState + ".1.STATE").val == 0) {
+            return false;
         }
-        return false;
-    }
+        return true;
+    }    
 }
 
 export class HomematicFussbodenheizung extends AbstractHomematic {
@@ -351,40 +824,8 @@ export class HomematicFussbodenheizung extends AbstractHomematic {
 
 }
 
-export class HomematicWandschalter extends AbstractHomematic {
-    constructor(adapter: any, id: number, baseState: string, etage: string, raum: string, device: string) {
-        super(adapter, id, baseState, etage, raum, device);
-    }
-
-    public getCategory(): string {
-        return deviceHomematicWandschalter;
-    }
-
-    public isStatusBattery(): boolean { 
-        return !this.adapter.getState(this.baseState + ".0.LOW_BAT").val; // // hm-rpc.0.000A9BE993E2F7.0.LOW_BAT
-    }
-
-    public isSwitchedOn(): boolean {
-        if (this.getType() == "HM-LC-Sw1PBU-FM") {
-            if (this.adapter.getState(this.baseState + ".1.STATE").val == false) { // hm-rpc.0.PEQ2220753.1.STATE
-                return false;
-            }
-            return true;
-        } else if (this.getType() == "HmIP-BSM") {
-            if (this.adapter.getState(this.baseState + ".4.STATE").val == false) { // // hm-rpc.1.000855699C4F38.4.STATE
-                return false;
-            }
-            return true;
-        } else {
-            // @ts-ignore                        
-            return undefined;
-        }
-    }
-}
-
-
 
 module.exports = { 
-    HomematicWindow, HomematicSteckdose, HomematicHeizkoerper, HomematicDimmer, HomematicWandthermostat, HomematicFussbodenheizung, HomematicWandschalter, HomematicDoor, HomematicWetterstation, HomematicAccessPoint, HomematicRollladen, HomematicWandtaster, HomematicTemperatursensor, HomematicRauchmelder, HomematicPraesenzmelder, AbstractHomematic, HomematicFunkschaltaktor,
+    HomematicWindow, HomematicSteckdose, HomematicHeizkoerper, HomematicDimmer, HomematicWandthermostat, HomematicFussbodenheizung, HomematicWandschalter, HomematicDoor, HomematicWetterstation, HomematicAccessPoint, HomematicRollladen, HomematicWandtaster, HomematicTemperatursensor, HomematicRauchmelder, HomematicPraesenzmelder, AbstractHomematic, HomematicFunkschaltaktor, DimmerAlexaScheme, DimmerTasterScheme,
     deviceHomematicWandthermostat, deviceHomematicPraesenzmelder, deviceHomematicWetterstation, deviceHomematicDoor, deviceHomematicRollladen, deviceHomematicWandschalter, deviceHomematicFussbodenheizung, deviceHomematicWandtaster, deviceHomematicAccessPoint, deviceHomematicTemperatursensor, deviceHomematicRauchmelder, deviceHomematicFunkSchaltaktor, deviceHomematicWindow, deviceHomematicSteckdose, deviceHomematicHeizkoerper, deviceHomematicDimmer
 };

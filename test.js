@@ -27,28 +27,28 @@ var DateCalendarTest = /** @class */ (function () {
     DateCalendarTest.prototype.getWeekdayAsString = function (weekday) {
         var weekdayAsString;
         if (weekday == 1) {
-            weekdayAsString = "Montag1";
+            weekdayAsString = "Montag";
         }
         else if (weekday == 2) {
-            weekdayAsString = "Dienstag2";
+            weekdayAsString = "Dienstag";
         }
         else if (weekday == 3) {
-            weekdayAsString = "Mittwoch3";
+            weekdayAsString = "Mittwoch";
         }
         else if (weekday == 4) {
-            weekdayAsString = "Donnerstag4";
+            weekdayAsString = "Donnerstag";
         }
         else if (weekday == 5) {
-            weekdayAsString = "Freitag5";
+            weekdayAsString = "Freitag";
         }
         else if (weekday == 6) {
-            weekdayAsString = "Samstag6_works!!!!!!!!!_2ab";
+            weekdayAsString = "Samstag";
         }
         else if (weekday == 7) {
-            weekdayAsString = "Sonntag7";
+            weekdayAsString = "Sonntag";
         }
         else if (weekday == 0) {
-            weekdayAsString = "Sonntag8";
+            weekdayAsString = "Sonntag";
         }
         return weekdayAsString;
     };
@@ -56,4 +56,3 @@ var DateCalendarTest = /** @class */ (function () {
 }());
 exports.DateCalendarTest = DateCalendarTest;
 module.exports = { DateCalendarTest: DateCalendarTest };
-console.log("temp");
