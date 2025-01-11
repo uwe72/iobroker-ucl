@@ -633,7 +633,7 @@ function loadShellySteckdosen(adapter) {
         var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceShellySteckdose) {
             // @ts-ignore            
-            cacheLampenWeissArray.push(new ShellySteckdose(adapter, adapter.cacheSteckdosenArray(datenpunktPraefix + "." + attributeRawID).val, // [0] Device-ID         (z.B. 1 --> In der Anzeige wird daraus "H01")
+            cacheSteckdosenArray.push(new ShellySteckdose(adapter, adapter.getState(datenpunktPraefix + "." + attributeRawID).val, // [0] Device-ID         (z.B. 1 --> In der Anzeige wird daraus "H01")
             adapter.getState(datenpunktPraefix + "." + attributeEtage).val, // [1] Etage/Bereich     (z.B. EG)
             adapter.getState(datenpunktPraefix + "." + attributeRaum).val, // [2] Raum/Unterbereich (z.B. Wohnzimmer)
             adapter.getState(datenpunktPraefix + "." + attributeDevice).val, // [3] Device            (z.B. Stehlampe)            

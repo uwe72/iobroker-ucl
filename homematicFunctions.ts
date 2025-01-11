@@ -16,7 +16,7 @@ const attributeTypeBoolean = "boolean";
 // Alexa:
 const attribute_AlexaSmartNamesForOn = "alexaSmartNamesForOn";
 const attribute_AlexaActionNamesForOn = "alexaActionNamesForOn";
-const attribute_AlexaSmartNamesForOff = "alexaSmartNamesForOff";
+  const attribute_AlexaSmartNamesForOff = "alexaSmartNamesForOff";
 const attribute_AlexaActionNamesForOff = "alexaActionNamesForOff";
 
 // Lampen/Steckdosen allgemein:

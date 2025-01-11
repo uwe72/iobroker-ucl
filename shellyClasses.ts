@@ -226,7 +226,8 @@ export class ShellyLampeWeiss extends AbstractShelly {
     private turnOnEnterHouseSummer:boolean;
     private turnOnEnterHouseWinter:boolean;
 
-    constructor(adapter:any, id: number, etage: string, raum: string, device: string, baseState: string, channel: number, alexaSmartNamesForOn:string[], alexaActionNamesForOn:string[], alexaSmartNamesForOff: string[],alexaActionNamesForOff: string[], additionalStates4TurnOn:string[], additionalStates4TurnOff:string[], nachtbeleuchtung:boolean, turnOffExitHouseSummer:boolean, turnOffExitHouseWinter:boolean, turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean) {
+    constructor(adapter:any, id: number, etage: string, raum: string, device: string, baseState: string, channel: number, alexaSmartNamesForOn:string[], alexaActionNamesForOn:string[], alexaSmartNamesForOff: string[],
+        alexaActionNamesForOff: string[], additionalStates4TurnOn:string[], additionalStates4TurnOff:string[], nachtbeleuchtung:boolean, turnOffExitHouseSummer:boolean, turnOffExitHouseWinter:boolean, turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean) {
         super(adapter, id, etage, raum, device, baseState); 
         this.turnOffExitHouseSummer = turnOffExitHouseSummer;
         this.turnOffExitHouseWinter = turnOffExitHouseWinter;
@@ -440,12 +441,12 @@ export class ShellyDimmer extends AbstractShelly {
             alexaSmartNamesForOff: string[], alexaActionNamesForOff: string[], levelSchemes: ShellyDimmerAlexaScheme[], tasterBooleanOn: ShellyDimmerTasterScheme[], 
             tasterBooleanOff: string[],nachtbeleuchtung:boolean, turnOffExitHouseSummer:boolean, turnOffExitHouseWinter:boolean, turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean) {
         super(adapter, id, etage, raum, device, baseState); 
-        this.alexaSmartNamesForOn = alexaSmartNamesForOn;
+           this.alexaSmartNamesForOn = alexaSmartNamesForOn;
         this.alexaSmartNamesForOff = alexaSmartNamesForOff;
-        this.alexaActionNamesForOn = alexaActionNamesForOn;
+         this.alexaActionNamesForOn = alexaActionNamesForOn;
         this.alexaActionNamesForOff = alexaActionNamesForOff;
 
-        this.nachtbeleuchtung = nachtbeleuchtung;
+         this.nachtbeleuchtung = nachtbeleuchtung;
         this.turnOffExitHouseSummer = turnOffExitHouseSummer;
         this.turnOffExitHouseWinter = turnOffExitHouseWinter;
         this.turnOnEnterHouseSummer = turnOnEnterHouseSummer;
@@ -457,10 +458,10 @@ export class ShellyDimmer extends AbstractShelly {
         this.tasterBooleanOff = tasterBooleanOff;                
 
         if (this.alexaLevelSchemeForOn != null) {
-            this.alexaLevelSchemeForOn.setDevice(this);
-            if (alexaLevelSchemeForOn.getAlexaName() != null) {
-                this.createState(alexaLevelSchemeForOn.getAlexaName());
+            if (this.alexaLevelSchemeForOn.getAlexaName() != null) {
+                this.createState(this.alexaLevelSchemeForOn.getAlexaName());
             }
+            this.alexaLevelSchemeForOn.setDevice(this);            
         }             
         this.tasterBooleanOn.forEach(tasterScheme => {    
             if (tasterScheme.getTasterBooleanOnName() != null) {
@@ -511,7 +512,7 @@ export class ShellyDimmer extends AbstractShelly {
         this.adapter.createState(jarvisDatenpunkt, false, {
             name: jarvisDatenpunkt,
             desc: jarvisDatenpunkt,
-            type: 'boolean', 
+             type: 'boolean', 
             read: true,
             write: true
         });     
@@ -673,7 +674,7 @@ export class ShellyLampeRGB extends AbstractShelly {
         this.tasterBooleanOff = tasterBooleanOff;                
 
         if (this.alexaLevelSchemeForOn != null) {
-            this.alexaLevelSchemeForOn.setDevice(this);
+            this.alexaLevelSchemeForOn.setDevice(adapter);
             if (alexaLevelSchemeForOn.getAlexaName() != null) {
                 this.createState(alexaLevelSchemeForOn.getAlexaName());
             }
@@ -874,7 +875,7 @@ class ShellySensor extends AbstractShelly {
 }
 
 module.exports = { 
-    ShellyLampeWeiss, ShellyDimmerAlexaScheme, ShellyDimmerTasterScheme, ShellyDimmer, ShellyRGBAlexaScheme, ShellyRGBTasterScheme, ShellyLampeRGB, ShellySteckdose, ShellyRollladen,ShellySensor,
+    AbstractShelly, ShellyLampeWeiss, ShellyDimmerAlexaScheme, ShellyDimmerTasterScheme, ShellyDimmer, ShellyRGBAlexaScheme, ShellyRGBTasterScheme, ShellyLampeRGB, ShellySteckdose, ShellyRollladen,ShellySensor,
     deviceShellyLampeWeiss, deviceShellyDimmer, deviceShellyLampeRGB, deviceShellySteckdose, deviceShellyRollladen, deviceShellySensor
 };
 

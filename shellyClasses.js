@@ -387,10 +387,10 @@ var ShellyDimmer = /** @class */ (function (_super) {
         _this.levelSchemes = levelSchemes;
         _this.tasterBooleanOff = tasterBooleanOff;
         if (_this.alexaLevelSchemeForOn != null) {
-            _this.alexaLevelSchemeForOn.setDevice(_this);
-            if (alexaLevelSchemeForOn.getAlexaName() != null) {
-                _this.createState(alexaLevelSchemeForOn.getAlexaName());
+            if (_this.alexaLevelSchemeForOn.getAlexaName() != null) {
+                _this.createState(_this.alexaLevelSchemeForOn.getAlexaName());
             }
+            _this.alexaLevelSchemeForOn.setDevice(_this);
         }
         _this.tasterBooleanOn.forEach(function (tasterScheme) {
             if (tasterScheme.getTasterBooleanOnName() != null) {
@@ -564,7 +564,7 @@ var ShellyLampeRGB = /** @class */ (function (_super) {
         _this.levelSchemes = levelSchemes;
         _this.tasterBooleanOff = tasterBooleanOff;
         if (_this.alexaLevelSchemeForOn != null) {
-            _this.alexaLevelSchemeForOn.setDevice(_this);
+            _this.alexaLevelSchemeForOn.setDevice(adapter);
             if (alexaLevelSchemeForOn.getAlexaName() != null) {
                 _this.createState(alexaLevelSchemeForOn.getAlexaName());
             }
@@ -743,6 +743,7 @@ var ShellySensor = /** @class */ (function (_super) {
     return ShellySensor;
 }(AbstractShelly));
 module.exports = {
+    AbstractShelly: AbstractShelly,
     ShellyLampeWeiss: ShellyLampeWeiss,
     ShellyDimmerAlexaScheme: ShellyDimmerAlexaScheme,
     ShellyDimmerTasterScheme: ShellyDimmerTasterScheme,
