@@ -511,14 +511,18 @@ export function loadShellyLampenRGB(adapter: any) {
 }*/
 var cacheDimmerArray = null;
 function loadShellyDimmer(adapter) {
+    adapter.log("loadShelly Modul inside");
     if (cacheDimmerArray != null) {
+        adapter.log("loadShelly Modul inside_b_ääääääääääääääääää" + cacheDimmerArray);
         return cacheDimmerArray;
     }
+    adapter.log("loadShelly Modul inside_b");
     // @ts-ignore            
     cacheDimmerArray = [];
     adapter.$('state[id=0_userdata.0.devices.shelly.*.*.category]').each(function (datenpunktKey) {
         var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceShellyDimmer) {
+            adapter.log("loadShelly Modul inside_c" + datenpunktKey);
             // Einschalt-Scheme:
             var alexaOnScheme = null;
             if (adapter.getState(datenpunktPraefix + "." + attributeDimmer_alexaScheme_aktiv).val == true) {
@@ -575,7 +579,6 @@ function loadShellyDimmer(adapter) {
             adapter.getState(datenpunktPraefix + "." + attributeRaum).val, // [2] Raum/Unterbereich (z.B. Wohnzimmer)
             adapter.getState(datenpunktPraefix + "." + attributeDevice).val, // [3] Device            (z.B. Stehlampe)            
             adapter.getState(datenpunktPraefix + "." + attributeBaseState).val, // [4] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)  
-            adapter.getState(datenpunktPraefix + "." + attributeChannel).val, // [4] Channel
             toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOn).val), // 08 Alexa-Ein     
             toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOn).val), // Alexa-Action-Ein, z.B. "Guten morgen" (Würde auch funktionieren, wenn dies bei [06] eingetragen ist)                                                                         
             alexaOnScheme, // 08] A.-Ein-Schem
