@@ -9,7 +9,7 @@ var _f = require('./camera.js'), sendToPictureGartenToTelegram = _f.sendToPictur
 var AlexaInputConverter = require('./alexa.js').AlexaInputConverter;
 var _g = require('./shellyClasses.js'), AbstractShelly = _g.AbstractShelly, ShellyLampeWeiss = _g.ShellyLampeWeiss, ShellyDimmerAlexaScheme = _g.ShellyDimmerAlexaScheme, ShellyDimmerTasterScheme = _g.ShellyDimmerTasterScheme, ShellyDimmer = _g.ShellyDimmer, ShellyRGBAlexaScheme = _g.ShellyRGBAlexaScheme, ShellyRGBTasterScheme = _g.ShellyRGBTasterScheme, ShellyLampeRGB = _g.ShellyLampeRGB, ShellySteckdose = _g.ShellySteckdose, ShellyRollladen = _g.ShellyRollladen, ShellySensor = _g.ShellySensor, deviceShellyLampeWeiss = _g.deviceShellyLampeWeiss, deviceShellyDimmer = _g.deviceShellyDimmer, deviceShellyLampeRGB = _g.deviceShellyLampeRGB, deviceShellySteckdose = _g.deviceShellySteckdose, deviceShellyRollladen = _g.deviceShellyRollladen, deviceShellySensor = _g.deviceShellySensor;
 var _h = require('./shellyFunctions.js'), createShellyDevice = _h.createShellyDevice, createShellySensor = _h.createShellySensor, createShellyLampeRGB = _h.createShellyLampeRGB, createShellyRollladen = _h.createShellyRollladen, createShellyDimmer = _h.createShellyDimmer, createShellyLampe = _h.createShellyLampe, createShellySteckdose = _h.createShellySteckdose, loadShellyRollladen = _h.loadShellyRollladen, loadShellySensoren = _h.loadShellySensoren, loadShellyDimmer = _h.loadShellyDimmer, loadShellyLampenWeiss = _h.loadShellyLampenWeiss, loadShellySteckdosen = _h.loadShellySteckdosen, loadShellyDevicesAll = _h.loadShellyDevicesAll;
-console.log("ddd3322333d");
+console.log("ddd33333d");
 module.exports = {
     // date.ts:
     DateHelper: DateHelper,

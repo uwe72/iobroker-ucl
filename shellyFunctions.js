@@ -645,6 +645,7 @@ function loadShellySteckdosen(adapter) {
             adapter.getState(datenpunktPraefix + "." + attributeRaum).val, // [2] Raum/Unterbereich (z.B. Wohnzimmer)
             adapter.getState(datenpunktPraefix + "." + attributeDevice).val, // [3] Device            (z.B. Stehlampe)            
             adapter.getState(datenpunktPraefix + "." + attributeBaseState).val, // [4] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)  
+            adapter.getState(datenpunktPraefix + "." + attributeChannel).val, // [4] Channel                                
             toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOn).val), // 08 Alexa-Ein     
             toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOn).val), // Alexa-Action-Ein, z.B. "Guten morgen" (Würde auch funktionieren, wenn dies bei [06] eingetragen ist)                                                                         
             toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOff).val), // 09 Alexa-Aus
