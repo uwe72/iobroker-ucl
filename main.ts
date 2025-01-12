@@ -11,14 +11,15 @@ const { AlexaInputConverter } = require('./alexa.js');
 const { AbstractShelly, ShellyLampeWeiss, ShellyDimmerAlexaScheme, ShellyDimmerTasterScheme, ShellyDimmer, ShellyRGBAlexaScheme, ShellyRGBTasterScheme, ShellyLampeRGB, ShellySteckdose, ShellyRollladen,ShellySensor, deviceShellyLampeWeiss, deviceShellyDimmer, deviceShellyLampeRGB, deviceShellySteckdose, deviceShellyRollladen, deviceShellySensor } = require('./shellyClasses.js');
 const { createShellyDevice, createShellySensor, createShellyLampeRGB, createShellyRollladen, createShellyDimmer, createShellyLampe, createShellySteckdose, loadShellyRollladen, loadShellySensoren, loadShellyDimmer, loadShellyLampenWeiss, loadShellySteckdosen, loadShellyDevicesAll } = require('./shellyFunctions.js');
 
+console.log("ddd33333d");
 
 module.exports = {
 
     // date.ts:
-     DateHelper,
+           DateHelper,
     
     // test.ts:
-    DateCalendarTest,
+       DateCalendarTest,
     
     // html.ts:
     AbstractColumn, HtmlTable, HtmlCreator, StaticIconColumn, AbstractStandardTextColumn,

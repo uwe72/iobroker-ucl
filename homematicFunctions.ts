@@ -11,7 +11,7 @@ const attributeCategory = "category";
 // Datenpunkttyp:
 const attributeTypeNumber = "number";
 const attributeTypeString = "string";
-const attributeTypeBoolean = "boolean";
+  const attributeTypeBoolean = "boolean";
 
 // Alexa:
 const attribute_AlexaSmartNamesForOn = "alexaSmartNamesForOn";

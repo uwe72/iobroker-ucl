@@ -50,5 +50,5 @@ export class DateCalendarTest  {
     }     
 }
 
-module.exports = {DateCalendarTest };
+module.exports = { DateCalendarTest };
 

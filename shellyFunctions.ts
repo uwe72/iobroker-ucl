@@ -73,6 +73,8 @@ const attributeDimmer_tasterScheme_aktiv4 = "tasterScheme4_aktiv";
 const attributeDimmer_tasterScheme_name4 = "tasterScheme4_name";
 const attributeDimmer_tasterScheme_level4 = "tasterScheme4_level";
 
+const attributeChannel = "channel";
+
 export function createShellyDevice(adapter: any, rawId: number, etage: string, raum: string, device: string, baseState: string, category: string) {
     createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRawID, rawId, category);
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeCategory, category, category);
@@ -284,13 +286,16 @@ export function createShellyDimmer(adapter: any, rawId: number,  etage: string, 
 }
 
 // Lampe Weiss:
-export function createShellyLampe(adapter:any, rawId: number, etage: string, raum: string, device: string, baseState: string, 
+export function createShellyLampe(adapter:any, rawId: number, etage: string, raum: string, device: string, baseState: string, channel: number, 
     alexaSmartNamesForOn:string[],  alexaActionNamesForOn:string[], alexaSmartNamesForOff: string[],alexaActionNamesForOff: string[], 
     additionalStates4TurnOn:string[], additionalStates4TurnOff:string[], 
         nachtbeleuchtung:boolean, turnOffExitHouseSummer:boolean, turnOffExitHouseWinter:boolean, turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean) {
 
     // Allgemein:
     createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellyLampeWeiss);
+
+    // attributeChannel
+    createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeChannel, channel, deviceShellyLampeWeiss);
     
     // alexaSmartNamesForOn:string[]
     var db_alexaSmartNamesForOn = null;
@@ -379,13 +384,16 @@ export function createShellyLampe(adapter:any, rawId: number, etage: string, rau
 }
 
 // Steckdose:
-export function createShellySteckdose(adapter:any, rawId: number, etage: string, raum: string, device: string, baseState: string, alexaSmartNamesForOn:string[], 
+export function createShellySteckdose(adapter:any, rawId: number, etage: string, raum: string, device: string, baseState: string, channel: number, alexaSmartNamesForOn:string[], 
     alexaActionNamesForOn:string[], alexaSmartNamesForOff: string[],alexaActionNamesForOff: string[], 
         additionalStates4TurnOn:string[], additionalStates4TurnOff:string[], 
         nachtbeleuchtung:boolean, turnOffExitHouseSummer:boolean, turnOffExitHouseWinter:boolean, turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean) {
 
     // Allgemein:
     createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellySteckdose);
+
+    // attributeChannel
+    createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeChannel, channel, deviceShellyLampeWeiss);
     
     // alexaSmartNamesForOn:string[]
     var db_alexaSmartNamesForOn = null;
@@ -549,18 +557,19 @@ export function loadShellyDimmer(adapter: any) {
     if (cacheDimmerArray != null) {
         return cacheDimmerArray;
     }
+
     // @ts-ignore            
     cacheDimmerArray = [];
-
     adapter.$('state[id=0_userdata.0.devices.shelly.*.*.category]').each(datenpunktKey => { 
         var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceShellyDimmer) {
+
 
             // Einschalt-Scheme:
             var alexaOnScheme = null;
             if (adapter.getState(datenpunktPraefix + "." + attributeDimmer_alexaScheme_aktiv ).val == true) {
                 // @ts-ignore                                                
-                alexaOnScheme = new ShellyDimmerAlexaScheme>(null,
+                alexaOnScheme = new ShellyDimmerAlexaScheme(null,
                     adapter.getState(datenpunktPraefix + "." + attributeDimmer_alexaScheme_level ).val
                 );
             }
@@ -650,6 +659,7 @@ export function loadShellyDimmer(adapter: any) {
                 adapter.getState(datenpunktPraefix + "." + attributeRaum).val,      // [2] Raum/Unterbereich (z.B. Wohnzimmer)
                 adapter.getState(datenpunktPraefix + "." + attributeDevice).val,     // [3] Device            (z.B. Stehlampe)            
                 adapter.getState(datenpunktPraefix + "." + attributeBaseState).val, // [4] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)  
+                adapter.getState(datenpunktPraefix + "." + attributeChannel).val, // [4] Channel
                 toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOn).val),  // 08 Alexa-Ein     
                 toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOn).val), // Alexa-Action-Ein, z.B. "Guten morgen" (Würde auch funktionieren, wenn dies bei [06] eingetragen ist)                                                                         
                 alexaOnScheme,                                                                                  // 08] A.-Ein-Schem
@@ -689,10 +699,12 @@ export function loadShellyLampenWeiss(adapter: any) {
                 adapter.getState(datenpunktPraefix + "." + attributeRaum).val,      // [2] Raum/Unterbereich (z.B. Wohnzimmer)
                 adapter.getState(datenpunktPraefix + "." + attributeDevice).val,     // [3] Device            (z.B. Stehlampe)            
                 adapter.getState(datenpunktPraefix + "." + attributeBaseState).val, // [4] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)  
+                adapter.getState(datenpunktPraefix + "." + attributeChannel).val, // [4] Channel                
                 toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOn).val),  // 08 Alexa-Ein     
                 toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOn).val), // Alexa-Action-Ein, z.B. "Guten morgen" (Würde auch funktionieren, wenn dies bei [06] eingetragen ist)                                                                         
                 toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOff).val),   // 09 Alexa-Aus
                 toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOff).val),   // [10] Alexa-Action Aus, z.B. "Gute Nacht". Wir müssen hier zu [09] unterscheiden, da wir über "Gute Nacht" und isActionTurnedOn=true informiert werden.        
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_TasterBooleanOn).val),           // 14 TasterBoolOn
                 toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_TasterBooleanOff).val),           // 14 TasterBoolOff
                 adapter.getState(datenpunktPraefix + "." + attribute_Nachtbeleuchtung).val,     // Gehört zur Nachtbeleuchtung ja/nein
                 adapter.getState(datenpunktPraefix + "." + attribute_TurnOffExitHouseSummer).val, // turnOffExitHouseSummer (Ausschalten, wenn Haus verlassen - Sommer)
@@ -728,6 +740,7 @@ export function loadShellySteckdosen(adapter: any) {
                 toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOn).val), // Alexa-Action-Ein, z.B. "Guten morgen" (Würde auch funktionieren, wenn dies bei [06] eingetragen ist)                                                                         
                 toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaSmartNamesForOff).val),   // 09 Alexa-Aus
                 toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_AlexaActionNamesForOff).val),   // [10] Alexa-Action Aus, z.B. "Gute Nacht". Wir müssen hier zu [09] unterscheiden, da wir über "Gute Nacht" und isActionTurnedOn=true informiert werden.        
+                toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_TasterBooleanOn).val),           // 14 TasterBoolOn
                 toStringArray(adapter.getState(datenpunktPraefix + "." + attribute_TasterBooleanOff).val),           // 14 TasterBoolOff
                 adapter.getState(datenpunktPraefix + "." + attribute_Nachtbeleuchtung).val,     // Gehört zur Nachtbeleuchtung ja/nein
                 adapter.getState(datenpunktPraefix + "." + attribute_TurnOffExitHouseSummer).val, // turnOffExitHouseSummer (Ausschalten, wenn Haus verlassen - Sommer)

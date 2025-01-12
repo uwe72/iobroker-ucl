@@ -234,6 +234,8 @@ export class ShellyLampeWeiss extends AbstractShelly {
         this.turnOnEnterHouseSummer = turnOnEnterHouseSummer;
         this.turnOnEnterHouseWinter = turnOnEnterHouseWinter;
 
+        adapter.log("here7777: " + additionalStates4TurnOff);
+
         this.nachtbeleuchtung = nachtbeleuchtung;
         this.channel = channel;
         this.alexaSmartNamesForOn = alexaSmartNamesForOn;
@@ -426,7 +428,7 @@ export class ShellyDimmer extends AbstractShelly {
     protected alexaActionNamesForOn:string[];
     protected alexaActionNamesForOff: string[];
     protected alexaLevelSchemeForOn: ShellyDimmerAlexaScheme;
-    protected tasterBooleanOn: ShellyDimmerTasterScheme[];
+     protected tasterBooleanOn: ShellyDimmerTasterScheme[];
     protected levelSchemes: ShellyDimmerAlexaScheme[];
     protected tasterBooleanOff: string[];  
 
@@ -438,10 +440,17 @@ export class ShellyDimmer extends AbstractShelly {
 
     constructor(adapter:any, id: number, etage: string, raum: string, device: string, baseState: string, 
             alexaSmartNamesForOn:string[], alexaActionNamesForOn:string[], alexaLevelSchemeForOn: ShellyDimmerAlexaScheme, 
-            alexaSmartNamesForOff: string[], alexaActionNamesForOff: string[], levelSchemes: ShellyDimmerAlexaScheme[], tasterBooleanOn: ShellyDimmerTasterScheme[], 
-            tasterBooleanOff: string[],nachtbeleuchtung:boolean, turnOffExitHouseSummer:boolean, turnOffExitHouseWinter:boolean, turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean) {
+            alexaSmartNamesForOff: string[], alexaActionNamesForOff: string[], levelSchemes: ShellyDimmerAlexaScheme[], 
+            tasterBooleanOn: ShellyDimmerTasterScheme[], 
+            tasterBooleanOff: string[],nachtbeleuchtung:boolean, turnOffExitHouseSummer:boolean, turnOffExitHouseWinter:boolean, 
+            turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean) {
         super(adapter, id, etage, raum, device, baseState); 
-           this.alexaSmartNamesForOn = alexaSmartNamesForOn;
+
+
+        adapter.log("here:1 " + alexaLevelSchemeForOn);
+        //adapter.log("here:2 " + alexaLevelSchemeForOn.getAlexaName());
+
+        this.alexaSmartNamesForOn = alexaSmartNamesForOn;
         this.alexaSmartNamesForOff = alexaSmartNamesForOff;
          this.alexaActionNamesForOn = alexaActionNamesForOn;
         this.alexaActionNamesForOff = alexaActionNamesForOff;
@@ -456,12 +465,15 @@ export class ShellyDimmer extends AbstractShelly {
         this.tasterBooleanOn = tasterBooleanOn;
         this.levelSchemes = levelSchemes;
         this.tasterBooleanOff = tasterBooleanOff;                
-
+adapter.log("1111ff" + this.alexaLevelSchemeForOn);
         if (this.alexaLevelSchemeForOn != null) {
+            adapter.log("1111a");
             if (this.alexaLevelSchemeForOn.getAlexaName() != null) {
+                adapter.log("1111b");
                 this.createState(this.alexaLevelSchemeForOn.getAlexaName());
             }
-            this.alexaLevelSchemeForOn.setDevice(this);            
+            this.alexaLevelSchemeForOn.setDevice(this);  
+            adapter.log("1111c");          
         }             
         this.tasterBooleanOn.forEach(tasterScheme => {    
             if (tasterScheme.getTasterBooleanOnName() != null) {

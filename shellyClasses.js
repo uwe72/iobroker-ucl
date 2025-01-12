@@ -212,6 +212,7 @@ var ShellyLampeWeiss = /** @class */ (function (_super) {
         _this.turnOffExitHouseWinter = turnOffExitHouseWinter;
         _this.turnOnEnterHouseSummer = turnOnEnterHouseSummer;
         _this.turnOnEnterHouseWinter = turnOnEnterHouseWinter;
+        adapter.log("here7777: " + additionalStates4TurnOff);
         _this.nachtbeleuchtung = nachtbeleuchtung;
         _this.channel = channel;
         _this.alexaSmartNamesForOn = alexaSmartNamesForOn;
@@ -373,6 +374,8 @@ var ShellyDimmer = /** @class */ (function (_super) {
     __extends(ShellyDimmer, _super);
     function ShellyDimmer(adapter, id, etage, raum, device, baseState, alexaSmartNamesForOn, alexaActionNamesForOn, alexaLevelSchemeForOn, alexaSmartNamesForOff, alexaActionNamesForOff, levelSchemes, tasterBooleanOn, tasterBooleanOff, nachtbeleuchtung, turnOffExitHouseSummer, turnOffExitHouseWinter, turnOnEnterHouseSummer, turnOnEnterHouseWinter) {
         var _this = _super.call(this, adapter, id, etage, raum, device, baseState) || this;
+        adapter.log("here:1 " + alexaLevelSchemeForOn);
+        //adapter.log("here:2 " + alexaLevelSchemeForOn.getAlexaName());
         _this.alexaSmartNamesForOn = alexaSmartNamesForOn;
         _this.alexaSmartNamesForOff = alexaSmartNamesForOff;
         _this.alexaActionNamesForOn = alexaActionNamesForOn;
@@ -386,11 +389,15 @@ var ShellyDimmer = /** @class */ (function (_super) {
         _this.tasterBooleanOn = tasterBooleanOn;
         _this.levelSchemes = levelSchemes;
         _this.tasterBooleanOff = tasterBooleanOff;
+        adapter.log("1111ff" + _this.alexaLevelSchemeForOn);
         if (_this.alexaLevelSchemeForOn != null) {
+            adapter.log("1111a");
             if (_this.alexaLevelSchemeForOn.getAlexaName() != null) {
+                adapter.log("1111b");
                 _this.createState(_this.alexaLevelSchemeForOn.getAlexaName());
             }
             _this.alexaLevelSchemeForOn.setDevice(_this);
+            adapter.log("1111c");
         }
         _this.tasterBooleanOn.forEach(function (tasterScheme) {
             if (tasterScheme.getTasterBooleanOnName() != null) {
