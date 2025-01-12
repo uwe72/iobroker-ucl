@@ -93,6 +93,9 @@ var HtmlCreator = /** @class */ (function () {
     HtmlCreator.prototype.setAdditionalHTMLaboveTable = function (additionalHTMLaboveTable) {
         this.additionalHTMLaboveTable = additionalHTMLaboveTable;
     };
+    HtmlCreator.prototype.setAdditionalHTMLbelowTable = function (additionalHTMLbelowTable) {
+        this.additionalHTMLbelowTable = additionalHTMLbelowTable;
+    };
     HtmlCreator.prototype.addSeparatorAfterObjectThick = function (separator) {
         this.separatorRowAfterObjectThick.push(separator);
     };
@@ -301,6 +304,9 @@ var HtmlCreator = /** @class */ (function () {
             });
         });
         html += "</table>\n";
+        if (this.additionalHTMLbelowTable != null) {
+            html += this.additionalHTMLbelowTable + "<p>";
+        }
         html += "</body>\n";
         html += "</html>\n";
         this.adapter.setState(this.htmlState, html);

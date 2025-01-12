@@ -86,7 +86,7 @@ export function createHomeaticDimmer(adapter: any, rawId: number, baseState: str
     tasterBooleanOff: string[], nachtbeleuchtung:boolean, turnOffExitHouseSummer:boolean, turnOffExitHouseWinter:boolean, turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean) {
 
     // Allgemein:
-    this.createHomematicDevice(adapter, baseState, etage, raum, device, deviceHomematicDimmer);
+    this.createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicDimmer);
     
     // alexaScheme1: InstanceType<typeof DimmerAlexaScheme>
     if (alexaScheme1 != null) {
@@ -243,8 +243,11 @@ export function createHomeaticWandschalter(adapter:any, rawId: number, baseState
     alexaSmartNamesForOn:string[], alexaActionNamesForOn:string[], alexaSmartNamesForOff: string[],alexaActionNamesForOff: string[], 
     nachtbeleuchtung:boolean, turnOffExitHouseSummer:boolean, turnOffExitHouseWinter:boolean, turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean) {
 
+adapter.log("Wandschalter Create 1");
+
     // Allgemein:
-    this.createHomematicDevice(adapter, baseState, etage, raum, device, deviceHomematicWandschalter);
+    this.createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicWandschalter);
+    adapter.log("Wandschalter Create 2");
 
     // alexaSmartNamesForOn:string[]
     var db_alexaSmartNamesForOn = null;
@@ -258,6 +261,7 @@ export function createHomeaticWandschalter(adapter:any, rawId: number, baseState
         }
     });
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, deviceHomematicWandschalter);
+    adapter.log("Wandschalter Create 3");
 
     // alexaActionNamesForOn:string[]
     var db_alexaActionNamesForOn = null;
@@ -271,6 +275,7 @@ export function createHomeaticWandschalter(adapter:any, rawId: number, baseState
         }
     });
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, deviceHomematicWandschalter);
+    adapter.log("Wandschalter Create 4");
 
     // alexaSmartNamesForOff:string[]
     var db_alexaSmartNamesForOff = null;
@@ -879,4 +884,4 @@ function toStringArray(databaseValue) { // z.B. "Werkbank|Arbeiten|Keller"
 }
 
 
-module.exports = { createHomematicDevice, loadHomematicWandthermostate, loadHomematicPraesenzmelder, loadHomematicWetterstationen, loadHomematicDoors, loadHomematicRollladen, loadHomematicWandschalter, loadHomematicFussbodenheizungen, loadHomematicWandtaster, loadHomematicAccessPoints, loadHomematicTemperatursensoren, loadHomematicRauchmelder, loadHomematicFunktschaltaktoren, loadHomematicWindows, loadHomematicSteckdosen, loadHomematicHeizkoerper, loadHomematicDimmer, loadHomematicDevicesAll };
+module.exports = { createHomematicDevice, createHomeaticDimmer, createHomeaticWandschalter, loadHomematicWandthermostate, loadHomematicPraesenzmelder, loadHomematicWetterstationen, loadHomematicDoors, loadHomematicRollladen, loadHomematicWandschalter, loadHomematicFussbodenheizungen, loadHomematicWandtaster, loadHomematicAccessPoints, loadHomematicTemperatursensoren, loadHomematicRauchmelder, loadHomematicFunktschaltaktoren, loadHomematicWindows, loadHomematicSteckdosen, loadHomematicHeizkoerper, loadHomematicDimmer, loadHomematicDevicesAll };

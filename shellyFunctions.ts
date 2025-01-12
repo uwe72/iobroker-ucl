@@ -815,8 +815,8 @@ function sortArray(inputArray) {
             return compareEtage;
         }
 
-        var typA = elementA.getUsageType();
-        var typB = elementB.getUsageType();
+        var typA = elementA.getCategory();
+        var typB = elementB.getCategory();
         var compareTyp = typA.localeCompare(typB);
         if (compareTyp != 0) {
             return compareTyp;

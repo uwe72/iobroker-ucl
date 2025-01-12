@@ -93,6 +93,7 @@
     export class HtmlCreator {
         private htmlState: string;
         private additionalHTMLaboveTable: string;    
+        private additionalHTMLbelowTable: string;    
         private backgroundImageUrl: string;    
         private tables: HtmlTable[];
         private separatorRowAfterObjectThick: Object[];
@@ -117,6 +118,10 @@
     
         public setAdditionalHTMLaboveTable(additionalHTMLaboveTable: string) {
             this.additionalHTMLaboveTable = additionalHTMLaboveTable;
+        }
+
+        public setAdditionalHTMLbelowTable(additionalHTMLbelowTable: string) {
+            this.additionalHTMLbelowTable = additionalHTMLbelowTable;
         }
     
         public addSeparatorAfterObjectThick(separator: Object) {
@@ -365,6 +370,12 @@
     
     
             html +=          "</table>\n";
+    
+            if (this.additionalHTMLbelowTable != null) {
+                html += this.additionalHTMLbelowTable + "<p>";
+            }
+   
+    
             html +=      "</body>\n";
             html +=  "</html>\n";
             this.adapter.setState(this.htmlState, html);
