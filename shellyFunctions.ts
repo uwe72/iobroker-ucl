@@ -501,6 +501,7 @@ export function loadShellyRollladen(adapter: any) {
             ));
         }
     });
+    cacheRollladenArray = sortArray(cacheRollladenArray);                
     return cacheRollladenArray;
 }
 
@@ -524,6 +525,7 @@ export function loadShellySensoren(adapter: any) {
             ));
         }
     });
+    cacheSensorenArray = sortArray(cacheSensorenArray);            
     return cacheSensorenArray;
 }
 
@@ -679,9 +681,9 @@ export function loadShellyDimmer(adapter: any) {
             ));
         }
     });
+    cacheDimmerArray = sortArray(cacheDimmerArray);            
     return cacheDimmerArray;
 }
-
 
 var cacheLampenWeissArray = null;
 export function loadShellyLampenWeiss(adapter: any) {
@@ -717,6 +719,7 @@ export function loadShellyLampenWeiss(adapter: any) {
             ));
         }
     });
+    cacheLampenWeissArray = sortArray(cacheLampenWeissArray);        
     return cacheLampenWeissArray;
 }
 
@@ -754,6 +757,7 @@ export function loadShellySteckdosen(adapter: any) {
             ));
         }
     });
+    cacheSteckdosenArray = sortArray(cacheSteckdosenArray);    
     return cacheSteckdosenArray;
 }
 
@@ -786,6 +790,7 @@ export function loadShellyDevicesAll(adapter: any) {
         // @ts-ignore                    
         shellyAllArray.push(shelly);
     });
+    shellyAllArray = sortArray(shellyAllArray);
     return shellyAllArray;
 }
 
@@ -797,5 +802,57 @@ function toStringArray(databaseValue) { // z.B. "Werkbank|Arbeiten|Keller"
         return databaseValue.split('|');
     }
 }
+
+function sortArray(inputArray) {
+    inputArray.sort((a,b) => {
+        var elementA = a;
+        var elementB = b;
+
+        var etageA = elementA.getEtage();
+        var etageB = elementB.getEtage();
+        var compareEtage = getEtageSortIndex(etageA).localeCompare(getEtageSortIndex(etageB));
+        if (compareEtage != 0) {
+            return compareEtage;
+        }
+
+        var typA = elementA.getUsageType();
+        var typB = elementB.getUsageType();
+        var compareTyp = typA.localeCompare(typB);
+        if (compareTyp != 0) {
+            return compareTyp;
+        }
+
+
+        var raumA = elementA.getRaum();
+        var raumB = elementB.getRaum();
+        var compareRaum = raumA.localeCompare(raumB);
+        if (compareRaum != 0) {
+            return compareRaum;
+        }
+
+        var deviceA = elementA.getDevice();
+        var deviceB = elementB.getDevice();
+        var compareDevice = deviceA.localeCompare(deviceB);
+        if (compareDevice != 0) {
+            return compareDevice;
+        }
+
+        return 0;
+    });    
+    return inputArray;
+}
+
+function getEtageSortIndex(etage: string) {
+    if (etage == "OG") {
+        return "a";
+    } else if (etage == "EG") {
+        return "b";
+    } else if (etage == "UG") {
+        return "c";
+    } else {
+        return "d";
+    }
+}
+
 
 module.exports = { createShellyDevice, createShellySensor, createShellyLampeRGB, createShellyRollladen, createShellyDimmer, createShellyLampe, createShellySteckdose, loadShellyRollladen, loadShellySensoren, loadShellyDimmer, loadShellyLampenWeiss, loadShellySteckdosen, loadShellyDevicesAll };

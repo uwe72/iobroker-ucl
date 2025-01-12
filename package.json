@@ -1,6 +1,6 @@
 {
   "name": "iobroker-ucl",
-  "version": "1.2.73",
+  "version": "1.2.74",
   "main": "main.js",
     "scripts": {
     "build": "tsc --build",
