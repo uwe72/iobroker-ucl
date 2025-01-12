@@ -67,7 +67,7 @@ exports.createHomematicDevice = createHomematicDevice;
 // Dimmer:
 function createHomeaticDimmer(adapter, rawId, baseState, etage, raum, device, alexaSmartNamesForOn, alexaActionNamesForOn, alexaLevelSchemeForOn, alexaSmartNamesForOff, alexaActionNamesForOff, alexaScheme1, alexaScheme2, alexaScheme3, alexaScheme4, tasterBooleanOnScheme1, tasterBooleanOnScheme2, tasterBooleanOnScheme3, tasterBooleanOnScheme4, tasterBooleanOff, nachtbeleuchtung, turnOffExitHouseSummer, turnOffExitHouseWinter, turnOnEnterHouseSummer, turnOnEnterHouseWinter) {
     // Allgemein:
-    this.createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicDimmer);
+    createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicDimmer);
     // alexaScheme1: InstanceType<typeof DimmerAlexaScheme>
     if (alexaScheme1 != null) {
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme1_aktiv, true, deviceHomematicDimmer);
@@ -220,10 +220,9 @@ function createHomeaticDimmer(adapter, rawId, baseState, etage, raum, device, al
 exports.createHomeaticDimmer = createHomeaticDimmer;
 // Wandschalter:
 function createHomeaticWandschalter(adapter, rawId, baseState, etage, raum, device, alexaSmartNamesForOn, alexaActionNamesForOn, alexaSmartNamesForOff, alexaActionNamesForOff, nachtbeleuchtung, turnOffExitHouseSummer, turnOffExitHouseWinter, turnOnEnterHouseSummer, turnOnEnterHouseWinter) {
-    adapter.log("Wandschalter Create 1");
     // Allgemein:
-    this.createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicWandschalter);
-    adapter.log("Wandschalter Create 2");
+    //export function createHomematicDevice(adapter: any, rawId: number, baseState: string, etage: string, raum: string, device: string, category: string) {
+    createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicWandschalter);
     // alexaSmartNamesForOn:string[]
     var db_alexaSmartNamesForOn = null;
     alexaSmartNamesForOn.forEach(function (value) {
@@ -237,7 +236,6 @@ function createHomeaticWandschalter(adapter, rawId, baseState, etage, raum, devi
         }
     });
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, deviceHomematicWandschalter);
-    adapter.log("Wandschalter Create 3");
     // alexaActionNamesForOn:string[]
     var db_alexaActionNamesForOn = null;
     alexaActionNamesForOn.forEach(function (value) {
@@ -251,7 +249,6 @@ function createHomeaticWandschalter(adapter, rawId, baseState, etage, raum, devi
         }
     });
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, deviceHomematicWandschalter);
-    adapter.log("Wandschalter Create 4");
     // alexaSmartNamesForOff:string[]
     var db_alexaSmartNamesForOff = null;
     alexaSmartNamesForOff.forEach(function (value) {
@@ -315,6 +312,7 @@ function loadHomematicRollladen(adapter) {
             ));
         }
     });
+    cacheRollladenArray = sortArray(cacheRollladenArray);
     return cacheRollladenArray;
 }
 exports.loadHomematicRollladen = loadHomematicRollladen;
@@ -337,6 +335,7 @@ function loadHomematicWandthermostate(adapter) {
             ));
         }
     });
+    cacheWandthermostateArray = sortArray(cacheWandthermostateArray);
     return cacheWandthermostateArray;
 }
 exports.loadHomematicWandthermostate = loadHomematicWandthermostate;
@@ -359,6 +358,7 @@ function loadHomematicPraesenzmelder(adapter) {
             ));
         }
     });
+    cachePraesenzmelderArray = sortArray(cachePraesenzmelderArray);
     return cachePraesenzmelderArray;
 }
 exports.loadHomematicPraesenzmelder = loadHomematicPraesenzmelder;
@@ -381,6 +381,7 @@ function loadHomematicWetterstationen(adapter) {
             ));
         }
     });
+    cacheWetterstationenArray = sortArray(cacheWetterstationenArray);
     return cacheWetterstationenArray;
 }
 exports.loadHomematicWetterstationen = loadHomematicWetterstationen;
@@ -403,6 +404,7 @@ function loadHomematicDoors(adapter) {
             ));
         }
     });
+    cacheDoorsArray = sortArray(cacheDoorsArray);
     return cacheDoorsArray;
 }
 exports.loadHomematicDoors = loadHomematicDoors;
@@ -434,6 +436,7 @@ function loadHomematicWandschalter(adapter) {
             ));
         }
     });
+    cacheWandschalterArray = sortArray(cacheWandschalterArray);
     return cacheWandschalterArray;
 }
 exports.loadHomematicWandschalter = loadHomematicWandschalter;
@@ -456,6 +459,7 @@ function loadHomematicFussbodenheizungen(adapter) {
             ));
         }
     });
+    cacheFussbodenheizungenArray = sortArray(cacheFussbodenheizungenArray);
     return cacheFussbodenheizungenArray;
 }
 exports.loadHomematicFussbodenheizungen = loadHomematicFussbodenheizungen;
@@ -478,6 +482,7 @@ function loadHomematicWandtaster(adapter) {
             ));
         }
     });
+    cacheWandtasterArray = sortArray(cacheWandtasterArray);
     return cacheWandtasterArray;
 }
 exports.loadHomematicWandtaster = loadHomematicWandtaster;
@@ -500,6 +505,7 @@ function loadHomematicAccessPoints(adapter) {
             ));
         }
     });
+    cacheAccessPointsArray = sortArray(cacheAccessPointsArray);
     return cacheAccessPointsArray;
 }
 exports.loadHomematicAccessPoints = loadHomematicAccessPoints;
@@ -522,6 +528,7 @@ function loadHomematicTemperatursensoren(adapter) {
             ));
         }
     });
+    cacheTemperatursensorenArray = sortArray(cacheTemperatursensorenArray);
     return cacheTemperatursensorenArray;
 }
 exports.loadHomematicTemperatursensoren = loadHomematicTemperatursensoren;
@@ -544,6 +551,7 @@ function loadHomematicRauchmelder(adapter) {
             ));
         }
     });
+    cacheRauchmelderArray = sortArray(cacheRauchmelderArray);
     return cacheRauchmelderArray;
 }
 exports.loadHomematicRauchmelder = loadHomematicRauchmelder;
@@ -566,6 +574,7 @@ function loadHomematicFunktschaltaktoren(adapter) {
             ));
         }
     });
+    cacheFunkschaltaktorenArray = sortArray(cacheFunkschaltaktorenArray);
     return cacheFunkschaltaktorenArray;
 }
 exports.loadHomematicFunktschaltaktoren = loadHomematicFunktschaltaktoren;
@@ -588,6 +597,7 @@ function loadHomematicWindows(adapter) {
             ));
         }
     });
+    cacheWindowsArray = sortArray(cacheWindowsArray);
     return cacheWindowsArray;
 }
 exports.loadHomematicWindows = loadHomematicWindows;
@@ -610,6 +620,7 @@ function loadHomematicSteckdosen(adapter) {
             ));
         }
     });
+    cacheSteckdosenArray = sortArray(cacheSteckdosenArray);
     return cacheSteckdosenArray;
 }
 exports.loadHomematicSteckdosen = loadHomematicSteckdosen;
@@ -632,6 +643,7 @@ function loadHomematicHeizkoerper(adapter) {
             ));
         }
     });
+    cacheHeizkoerperArray = sortArray(cacheHeizkoerperArray);
     return cacheHeizkoerperArray;
 }
 exports.loadHomematicHeizkoerper = loadHomematicHeizkoerper;
@@ -649,8 +661,7 @@ function loadHomematicDimmer(adapter) {
             var alexaOnScheme = null;
             if (adapter.getState(datenpunktPraefix + "." + attributeDimmer_alexaScheme_aktiv).val == true) {
                 // @ts-ignore                                                
-                alexaOnScheme = new DimmerAlexaScheme > (null,
-                    adapter.getState(datenpunktPraefix + "." + attributeDimmer_alexaScheme_level).val);
+                alexaOnScheme = new DimmerAlexaScheme(null, adapter.getState(datenpunktPraefix + "." + attributeDimmer_alexaScheme_level).val);
             }
             // Weitere Schemes als Array:
             var schemeArray = [];
@@ -718,6 +729,7 @@ function loadHomematicDimmer(adapter) {
             ));
         }
     });
+    cacheDimmerArray = sortArray(cacheDimmerArray);
     return cacheDimmerArray;
 }
 exports.loadHomematicDimmer = loadHomematicDimmer;
@@ -726,7 +738,6 @@ function loadHomematicDevicesAll(adapter) {
     if (homematicAllArray != null) {
         return homematicAllArray;
     }
-    adapter.log("Test");
     // @ts-ignore            
     homematicAllArray = [];
     adapter.loadHomematicWandthermostate(adapter).forEach(function (homematic) {
@@ -793,6 +804,7 @@ function loadHomematicDevicesAll(adapter) {
         // @ts-ignore                    
         homematicAllArray.push(homematic);
     });
+    homematicAllArray = sortArray(homematicAllArray);
     return homematicAllArray;
 }
 exports.loadHomematicDevicesAll = loadHomematicDevicesAll;
@@ -803,6 +815,52 @@ function toStringArray(databaseValue) {
     }
     else {
         return databaseValue.split('|');
+    }
+}
+function sortArray(inputArray) {
+    inputArray.sort(function (a, b) {
+        var elementA = a;
+        var elementB = b;
+        var etageA = elementA.getEtage();
+        var etageB = elementB.getEtage();
+        var compareEtage = getEtageSortIndex(etageA).localeCompare(getEtageSortIndex(etageB));
+        if (compareEtage != 0) {
+            return compareEtage;
+        }
+        var typA = elementA.getCategory();
+        var typB = elementB.getCategory();
+        var compareTyp = typA.localeCompare(typB);
+        if (compareTyp != 0) {
+            return compareTyp;
+        }
+        var raumA = elementA.getRaum();
+        var raumB = elementB.getRaum();
+        var compareRaum = raumA.localeCompare(raumB);
+        if (compareRaum != 0) {
+            return compareRaum;
+        }
+        var deviceA = elementA.getDevice();
+        var deviceB = elementB.getDevice();
+        var compareDevice = deviceA.localeCompare(deviceB);
+        if (compareDevice != 0) {
+            return compareDevice;
+        }
+        return 0;
+    });
+    return inputArray;
+}
+function getEtageSortIndex(etage) {
+    if (etage == "OG") {
+        return "a";
+    }
+    else if (etage == "EG") {
+        return "b";
+    }
+    else if (etage == "UG") {
+        return "c";
+    }
+    else {
+        return "d";
     }
 }
 module.exports = { createHomematicDevice: createHomematicDevice, createHomeaticDimmer: createHomeaticDimmer, createHomeaticWandschalter: createHomeaticWandschalter, loadHomematicWandthermostate: loadHomematicWandthermostate, loadHomematicPraesenzmelder: loadHomematicPraesenzmelder, loadHomematicWetterstationen: loadHomematicWetterstationen, loadHomematicDoors: loadHomematicDoors, loadHomematicRollladen: loadHomematicRollladen, loadHomematicWandschalter: loadHomematicWandschalter, loadHomematicFussbodenheizungen: loadHomematicFussbodenheizungen, loadHomematicWandtaster: loadHomematicWandtaster, loadHomematicAccessPoints: loadHomematicAccessPoints, loadHomematicTemperatursensoren: loadHomematicTemperatursensoren, loadHomematicRauchmelder: loadHomematicRauchmelder, loadHomematicFunktschaltaktoren: loadHomematicFunktschaltaktoren, loadHomematicWindows: loadHomematicWindows, loadHomematicSteckdosen: loadHomematicSteckdosen, loadHomematicHeizkoerper: loadHomematicHeizkoerper, loadHomematicDimmer: loadHomematicDimmer, loadHomematicDevicesAll: loadHomematicDevicesAll };

@@ -389,7 +389,7 @@ export function createZigbeeLampeWeiss(adapter:any, rawId: number, baseState: st
     // Gruppe:
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampeWeissGroup, isGroup, deviceZigbeeLampeWeiss);
 
-    // alexaLevelSchemeForOn: LampeWeissColorScheme
+    // alexaLevelSchemeForOn: LampeWeissAlexaScheme
     if (alexaLevelSchemeForOn != null) {
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_aktiv, true, deviceZigbeeLampeWeiss);
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_level, alexaLevelSchemeForOn.getLevel(), deviceZigbeeLampeWeiss);
@@ -754,6 +754,7 @@ export function loadZigbeeSteckdosen(adapter: any) {
             ));                    
         }
     });
+    cacheSteckdosenArray = sortArray(cacheSteckdosenArray);                                            
     return cacheSteckdosenArray;
 }
 
@@ -777,6 +778,7 @@ export function loadZigbeeBewegungsmelder(adapter: any) {
             ));
         }
     });
+    cacheBewegungsmelderArray = sortArray(cacheBewegungsmelderArray);                                        
     return cacheBewegungsmelderArray;
 }
 
@@ -918,6 +920,7 @@ export function loadZigbeeLampenRGB(adapter: any) {
             ));
         }
     });
+    cacheLampenRGBArray = sortArray(cacheLampenRGBArray);                                    
     return cacheLampenRGBArray;
 }
 
@@ -935,7 +938,7 @@ export function loadZigbeeLampenWeiss(adapter: any) {
             var alexaOnScheme = null;
             if (adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_AlexaColorSchemeForOn_Weiss_aktiv).val == true) {
                 // @ts-ignore                                                
-                alexaOnScheme = new LampeWeissColorScheme(null,
+                alexaOnScheme = new LampeWeissAlexaScheme(null,
                     adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_AlexaColorSchemeForOn_Weiss_level).val,
                     adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_AlexaColorSchemeForOn_Weiss_ct).val
                 );
@@ -1052,6 +1055,7 @@ export function loadZigbeeLampenWeiss(adapter: any) {
             ));
         }
     });
+    cacheLampenWeissArray = sortArray(cacheLampenWeissArray);                                
     return cacheLampenWeissArray;
 }
 
@@ -1075,6 +1079,7 @@ export function loadZigbeeRauchmelder(adapter: any) {
             ));
         }
     });
+    cacheRauchmelderArray = sortArray(cacheRauchmelderArray);                            
     return cacheRauchmelderArray;
 }
 
@@ -1098,6 +1103,7 @@ export function loadZigbeeWandtaster(adapter: any) {
             ));
         }
     });
+    cacheWandtasterArray = sortArray(cacheWandtasterArray);                        
     return cacheWandtasterArray;
 }
 
@@ -1122,6 +1128,7 @@ export function loadZigbeeDosenrelais(adapter: any) {
             ));
         }
     });
+    cacheDosenrelaisArray = sortArray(cacheDosenrelaisArray);                    
     return cacheDosenrelaisArray;
 }
 
@@ -1145,6 +1152,7 @@ export function loadZigbeeSchalter(adapter: any) {
             ));
         }
     });
+    cacheSchalterArray = sortArray(cacheSchalterArray);                
     return cacheSchalterArray;
 }
 
@@ -1168,6 +1176,7 @@ export function loadZigbeeRepeater(adapter: any) {
             ));
         }
     });
+    cacheRepeaterArray = sortArray(cacheRepeaterArray);            
     return cacheRepeaterArray;
 }
 
@@ -1182,7 +1191,7 @@ export function loadZigbeeFenstersensor(adapter: any) {
         var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceZigbeeFenstersensor) {
             // @ts-ignore            
-            cacheFenstersensorenArray.push(new Zigbee(adapter,
+            cacheFenstersensorenArray.push(new ZigbeeFenstersensor(adapter,
                 adapter.getState(datenpunktPraefix + "." + attributeRawID).val,     // [0] Device-ID         (z.B. 1 --> In der Anzeige wird daraus "H01")
                 adapter.getState(datenpunktPraefix + "." + attributeBaseState).val, // [1] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)
                 adapter.getState(datenpunktPraefix + "." + attributeEtage).val,     // [2] Etage/Bereich     (z.B. EG)
@@ -1191,6 +1200,7 @@ export function loadZigbeeFenstersensor(adapter: any) {
             ));
         }
     });
+    cacheFenstersensorenArray = sortArray(cacheFenstersensorenArray);        
     return cacheFenstersensorenArray;
 }
 
@@ -1243,7 +1253,61 @@ export function loadZigbeeDevicesAll(adapter: any) {
         // @ts-ignore                    
         zigbeeAllArray.push(zigbee);
     });
+    zigbeeAllArray = sortArray(zigbeeAllArray);    
     return zigbeeAllArray;
 }
+
+function sortArray(inputArray) {
+    inputArray.sort((a,b) => {
+        var elementA = a;
+        var elementB = b;
+
+        var etageA = elementA.getEtage();
+        var etageB = elementB.getEtage();
+        var compareEtage = getEtageSortIndex(etageA).localeCompare(getEtageSortIndex(etageB));
+        if (compareEtage != 0) {
+            return compareEtage;
+        }
+
+        var typA = elementA.getCategory();
+        var typB = elementB.getCategory();
+        var compareTyp = typA.localeCompare(typB);
+        if (compareTyp != 0) {
+            return compareTyp;
+        }
+
+
+        var raumA = elementA.getRaum();
+        var raumB = elementB.getRaum();
+        var compareRaum = raumA.localeCompare(raumB);
+        if (compareRaum != 0) {
+            return compareRaum;
+        }
+
+        var deviceA = elementA.getDevice();
+        var deviceB = elementB.getDevice();
+        var compareDevice = deviceA.localeCompare(deviceB);
+        if (compareDevice != 0) {
+            return compareDevice;
+        }
+
+        return 0;
+    });    
+    return inputArray;
+}
+
+function getEtageSortIndex(etage: string) {
+    if (etage == "OG") {
+        return "a";
+    } else if (etage == "EG") {
+        return "b";
+    } else if (etage == "UG") {
+        return "c";
+    } else {
+        return "d";
+    }
+}
+
+
 
 module.exports = { createZigbeeDevice, createZigbeeDosenrelais, createZigbeeLampeRGB, createZigbeeLampeWeiss, createZigbeeSteckdose, loadZigbeeSteckdosen, loadZigbeeBewegungsmelder, loadZigbeeLampenRGB, loadZigbeeLampenWeiss, loadZigbeeRauchmelder, loadZigbeeWandtaster, loadZigbeeDosenrelais, loadZigbeeSchalter, loadZigbeeRepeater, loadZigbeeFenstersensor, loadZigbeeDevicesAll };

@@ -86,8 +86,8 @@ export function createHomeaticDimmer(adapter: any, rawId: number, baseState: str
     tasterBooleanOff: string[], nachtbeleuchtung:boolean, turnOffExitHouseSummer:boolean, turnOffExitHouseWinter:boolean, turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean) {
 
     // Allgemein:
-    this.createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicDimmer);
-    
+    createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicDimmer);
+        
     // alexaScheme1: InstanceType<typeof DimmerAlexaScheme>
     if (alexaScheme1 != null) {
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme1_aktiv, true, deviceHomematicDimmer);
@@ -243,11 +243,9 @@ export function createHomeaticWandschalter(adapter:any, rawId: number, baseState
     alexaSmartNamesForOn:string[], alexaActionNamesForOn:string[], alexaSmartNamesForOff: string[],alexaActionNamesForOff: string[], 
     nachtbeleuchtung:boolean, turnOffExitHouseSummer:boolean, turnOffExitHouseWinter:boolean, turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean) {
 
-adapter.log("Wandschalter Create 1");
-
     // Allgemein:
-    this.createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicWandschalter);
-    adapter.log("Wandschalter Create 2");
+    //export function createHomematicDevice(adapter: any, rawId: number, baseState: string, etage: string, raum: string, device: string, category: string) {
+    createHomematicDevice(adapter,                  rawId,          baseState,         etage,         raum,         device,         deviceHomematicWandschalter);
 
     // alexaSmartNamesForOn:string[]
     var db_alexaSmartNamesForOn = null;
@@ -261,7 +259,6 @@ adapter.log("Wandschalter Create 1");
         }
     });
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, deviceHomematicWandschalter);
-    adapter.log("Wandschalter Create 3");
 
     // alexaActionNamesForOn:string[]
     var db_alexaActionNamesForOn = null;
@@ -275,7 +272,6 @@ adapter.log("Wandschalter Create 1");
         }
     });
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, deviceHomematicWandschalter);
-    adapter.log("Wandschalter Create 4");
 
     // alexaSmartNamesForOff:string[]
     var db_alexaSmartNamesForOff = null;
@@ -311,7 +307,6 @@ adapter.log("Wandschalter Create 1");
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceHomematicWandschalter);
 }
 
-
 function createDatenpunktSingle(adapter: any, deviceRawId, attributeType, attributeName, attributeValue, category) {
     var stateDatenpunkt = "0_userdata.0.devices.homematic." + category + "." + deviceRawId + "." + attributeName;
     adapter.createState(stateDatenpunkt, attributeValue, {
@@ -343,9 +338,9 @@ export function loadHomematicRollladen(adapter: any) {
             ));
         }
     });
+    cacheRollladenArray = sortArray(cacheRollladenArray);                                                                                                        
     return cacheRollladenArray;
 }
-
 
 var cacheWandthermostateArray = null;
 export function loadHomematicWandthermostate(adapter: any) {
@@ -367,6 +362,7 @@ export function loadHomematicWandthermostate(adapter: any) {
             ));
         }
     });
+    cacheWandthermostateArray = sortArray(cacheWandthermostateArray);                                                                                                        
     return cacheWandthermostateArray;
 }
 
@@ -390,6 +386,7 @@ export function loadHomematicPraesenzmelder(adapter: any) {
             ));
         }
     });
+    cachePraesenzmelderArray = sortArray(cachePraesenzmelderArray);                                                                                                        
     return cachePraesenzmelderArray;
 }
 
@@ -413,6 +410,7 @@ export function loadHomematicWetterstationen(adapter: any) {
             ));
         }
     });
+    cacheWetterstationenArray = sortArray(cacheWetterstationenArray);                                                                                                    
     return cacheWetterstationenArray;
 }
 
@@ -436,6 +434,7 @@ export function loadHomematicDoors(adapter: any) {
             ));
         }
     });
+    cacheDoorsArray = sortArray(cacheDoorsArray);                                                                                                
     return cacheDoorsArray;
 }
 
@@ -469,6 +468,7 @@ export function loadHomematicWandschalter(adapter: any) {
             ));
         }
     });
+    cacheWandschalterArray = sortArray(cacheWandschalterArray);                                                                                            
     return cacheWandschalterArray;
 }
 
@@ -492,6 +492,7 @@ export function loadHomematicFussbodenheizungen(adapter: any) {
             ));
         }
     });
+    cacheFussbodenheizungenArray = sortArray(cacheFussbodenheizungenArray);                                                                                        
     return cacheFussbodenheizungenArray;
 }
 
@@ -515,6 +516,7 @@ export function loadHomematicWandtaster(adapter: any) {
             ));
         }
     });
+    cacheWandtasterArray = sortArray(cacheWandtasterArray);                                                                                    
     return cacheWandtasterArray;
 }
 
@@ -538,6 +540,7 @@ export function loadHomematicAccessPoints(adapter: any) {
             ));
         }
     });
+    cacheAccessPointsArray = sortArray(cacheAccessPointsArray);                                                                                
     return cacheAccessPointsArray;
 }
 
@@ -561,6 +564,7 @@ export function loadHomematicTemperatursensoren(adapter: any) {
             ));
         }
     });
+    cacheTemperatursensorenArray = sortArray(cacheTemperatursensorenArray);                                                                            
     return cacheTemperatursensorenArray;
 }
 
@@ -584,6 +588,7 @@ export function loadHomematicRauchmelder(adapter: any) {
             ));
         }
     });
+    cacheRauchmelderArray = sortArray(cacheRauchmelderArray);                                                                        
     return cacheRauchmelderArray;
 }
 
@@ -607,6 +612,7 @@ export function loadHomematicFunktschaltaktoren(adapter: any) {
             ));
         }
     });
+    cacheFunkschaltaktorenArray = sortArray(cacheFunkschaltaktorenArray);                                                                    
     return cacheFunkschaltaktorenArray;
 }
 
@@ -630,6 +636,7 @@ export function loadHomematicWindows(adapter: any) {
             ));
         }
     });
+    cacheWindowsArray = sortArray(cacheWindowsArray);                                                                
     return cacheWindowsArray;
 }
 
@@ -653,6 +660,7 @@ export function loadHomematicSteckdosen(adapter: any) {
             ));
         }
     });
+    cacheSteckdosenArray = sortArray(cacheSteckdosenArray);                                                            
     return cacheSteckdosenArray;
 }
 
@@ -676,6 +684,7 @@ export function loadHomematicHeizkoerper(adapter: any) {
             ));
         }
     });
+    cacheHeizkoerperArray = sortArray(cacheHeizkoerperArray);                                                        
     return cacheHeizkoerperArray;
 }
 
@@ -694,8 +703,8 @@ export function loadHomematicDimmer(adapter: any) {
             var alexaOnScheme = null;
             if (adapter.getState(datenpunktPraefix + "." + attributeDimmer_alexaScheme_aktiv, ).val == true) {
                 // @ts-ignore                                                
-                alexaOnScheme = new DimmerAlexaScheme>(null,
-                    adapter.getState(datenpunktPraefix + "." + attributeDimmer_alexaScheme_level, ).val
+                alexaOnScheme = new DimmerAlexaScheme(null,
+                    adapter.getState(datenpunktPraefix + "." + attributeDimmer_alexaScheme_level ).val
                 );
             }
 
@@ -770,9 +779,10 @@ export function loadHomematicDimmer(adapter: any) {
                     adapter.getState(datenpunktPraefix + "." + attributeDimmer_tasterScheme4_level).val
                 ));
             }
-
+           
             // @ts-ignore            
-            cacheDimmerArray.push(new HomematicDimmer(adapter,
+            cacheDimmerArray.push(new HomematicDimmer(
+                adapter,
                 adapter.getState(datenpunktPraefix + "." + attributeRawID).val,                                 // [0] Device-ID         (z.B. 1 --> In der Anzeige wird daraus "H01")
                 adapter.getState(datenpunktPraefix + "." + attributeBaseState).val,                             // [1] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)
                 adapter.getState(datenpunktPraefix + "." + attributeEtage).val,                                 // [2] Etage/Bereich     (z.B. EG)
@@ -794,6 +804,7 @@ export function loadHomematicDimmer(adapter: any) {
             ));
         }
     });
+    cacheDimmerArray = sortArray(cacheDimmerArray);                                                    
     return cacheDimmerArray;
 }
 
@@ -802,8 +813,7 @@ export function loadHomematicDevicesAll(adapter: any) {
     if (homematicAllArray != null) {
         return homematicAllArray;
     }
-    adapter.log("Test");
-
+    
     // @ts-ignore            
     homematicAllArray = [];
 
@@ -871,6 +881,7 @@ export function loadHomematicDevicesAll(adapter: any) {
         // @ts-ignore                    
         homematicAllArray.push(homematic);
     });
+    homematicAllArray = sortArray(homematicAllArray);                                                
     return homematicAllArray;
 }
 
@@ -880,6 +891,57 @@ function toStringArray(databaseValue) { // z.B. "Werkbank|Arbeiten|Keller"
         return stringArray;
     } else {
         return databaseValue.split('|');
+    }
+}
+
+function sortArray(inputArray) {
+    inputArray.sort((a,b) => {
+        var elementA = a;
+        var elementB = b;
+
+        var etageA = elementA.getEtage();
+        var etageB = elementB.getEtage();
+        var compareEtage = getEtageSortIndex(etageA).localeCompare(getEtageSortIndex(etageB));
+        if (compareEtage != 0) {
+            return compareEtage;
+        }
+
+        var typA = elementA.getCategory();
+        var typB = elementB.getCategory();
+        var compareTyp = typA.localeCompare(typB);
+        if (compareTyp != 0) {
+            return compareTyp;
+        }
+
+
+        var raumA = elementA.getRaum();
+        var raumB = elementB.getRaum();
+        var compareRaum = raumA.localeCompare(raumB);
+        if (compareRaum != 0) {
+            return compareRaum;
+        }
+
+        var deviceA = elementA.getDevice();
+        var deviceB = elementB.getDevice();
+        var compareDevice = deviceA.localeCompare(deviceB);
+        if (compareDevice != 0) {
+            return compareDevice;
+        }
+
+        return 0;
+    });    
+    return inputArray;
+}
+
+function getEtageSortIndex(etage: string) {
+    if (etage == "OG") {
+        return "a";
+    } else if (etage == "EG") {
+        return "b";
+    } else if (etage == "UG") {
+        return "c";
+    } else {
+        return "d";
     }
 }
 

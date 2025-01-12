@@ -388,7 +388,9 @@ export class HomematicDimmer extends AbstractHomematic {
     private turnOnEnterHouseSummer:boolean;
     private turnOnEnterHouseWinter:boolean;
 
-    constructor(adapter:any, id: number, baseState: string, etage: string, raum: string, device: string, alexaSmartNamesForOn:string[], alexaActionNamesForOn:string[], alexaLevelSchemeForOn: DimmerAlexaScheme, alexaSmartNamesForOff: string[],alexaActionNamesForOff: string[], levelSchemes: DimmerAlexaScheme[], tasterBooleanOn: DimmerTasterScheme[], tasterBooleanOff: string[], nachtbeleuchtung:boolean, turnOffExitHouseSummer:boolean, turnOffExitHouseWinter:boolean, turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean) {
+    constructor(adapter:any, id: number, baseState: string, etage: string, raum: string, device: string, alexaSmartNamesForOn:string[], alexaActionNamesForOn:string[], alexaLevelSchemeForOn: DimmerAlexaScheme, alexaSmartNamesForOff: string[],
+            alexaActionNamesForOff: string[], levelSchemes: DimmerAlexaScheme[], tasterBooleanOn: DimmerTasterScheme[], tasterBooleanOff: string[], nachtbeleuchtung:boolean, turnOffExitHouseSummer:boolean, turnOffExitHouseWinter:boolean, 
+            turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean) {
         super(adapter, id, baseState, etage, raum, device); 
         this.alexaLevelSchemeForOn = alexaLevelSchemeForOn;
         this.levelSchemes = levelSchemes;

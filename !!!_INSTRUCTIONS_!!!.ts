@@ -15,7 +15,7 @@ npm publish
 docker exec -it iobroker bash
 
 // 5.) Im Docker iobroker container drin das NPM module aktualisieren: (PUTTY)
- npm update iobroker-ucl                 (initial installieren mit: npm install iobroker-ucl)
+npm update iobroker-ucl                  (initial installieren mit: npm install iobroker-ucl)
  npm ls --depth=0              (um sicher zu gehen, dass richtige Version auch gezogen wurde)
  
 
