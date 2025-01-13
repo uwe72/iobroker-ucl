@@ -1257,6 +1257,21 @@ export function loadZigbeeDevicesAll(adapter: any) {
     return zigbeeAllArray;
 }
 
+function clearZigbeeCaches(adapter: any) {
+    zigbeeAllArray = null;
+    cacheFenstersensorenArray = null;
+    cacheRepeaterArray = null;
+    cacheSchalterArray = null;
+    cacheDosenrelaisArray = null;
+    cacheWandtasterArray = null;
+    cacheRauchmelderArray = null;
+    cacheLampenWeissArray = null;
+    cacheLampenRGBArray = null;
+    cacheBewegungsmelderArray = null;
+    cacheSteckdosenArray = null; 
+    adapter.log(">>> Zigbee cache cleared!! <<<");
+}
+
 function sortArray(inputArray) {
     inputArray.sort((a,b) => {
         var elementA = a;
@@ -1310,4 +1325,4 @@ function getEtageSortIndex(etage: string) {
 
 
 
-module.exports = { createZigbeeDevice, createZigbeeDosenrelais, createZigbeeLampeRGB, createZigbeeLampeWeiss, createZigbeeSteckdose, loadZigbeeSteckdosen, loadZigbeeBewegungsmelder, loadZigbeeLampenRGB, loadZigbeeLampenWeiss, loadZigbeeRauchmelder, loadZigbeeWandtaster, loadZigbeeDosenrelais, loadZigbeeSchalter, loadZigbeeRepeater, loadZigbeeFenstersensor, loadZigbeeDevicesAll };
+module.exports = { createZigbeeDevice, createZigbeeDosenrelais, createZigbeeLampeRGB, createZigbeeLampeWeiss, createZigbeeSteckdose, loadZigbeeSteckdosen, loadZigbeeBewegungsmelder, loadZigbeeLampenRGB, loadZigbeeLampenWeiss, loadZigbeeRauchmelder, loadZigbeeWandtaster, loadZigbeeDosenrelais, loadZigbeeSchalter, loadZigbeeRepeater, loadZigbeeFenstersensor, loadZigbeeDevicesAll, clearZigbeeCaches };

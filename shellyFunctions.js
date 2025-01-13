@@ -488,7 +488,6 @@ function loadShellySensoren(adapter) {
     return cacheSensorenArray;
 }
 exports.loadShellySensoren = loadShellySensoren;
-console.log("test");
 /*var cacheLampenRGBArray = null;
 export function loadShellyLampenRGB(adapter: any) {
     if (cacheLampenRGBArray != null) {
@@ -711,6 +710,15 @@ function toStringArray(databaseValue) {
         return databaseValue.split('|');
     }
 }
+function clearShellyCaches(adapter) {
+    shellyAllArray = null;
+    cacheSteckdosenArray = null;
+    cacheLampenWeissArray = null;
+    cacheDimmerArray = null;
+    cacheSensorenArray = null;
+    cacheRollladenArray = null;
+    adapter.log(">>> Shelly cache cleared!! <<<");
+}
 function sortArray(inputArray) {
     inputArray.sort(function (a, b) {
         var elementA = a;
@@ -757,4 +765,4 @@ function getEtageSortIndex(etage) {
         return "d";
     }
 }
-module.exports = { createShellyDevice: createShellyDevice, createShellySensor: createShellySensor, createShellyLampeRGB: createShellyLampeRGB, createShellyRollladen: createShellyRollladen, createShellyDimmer: createShellyDimmer, createShellyLampe: createShellyLampe, createShellySteckdose: createShellySteckdose, loadShellyRollladen: loadShellyRollladen, loadShellySensoren: loadShellySensoren, loadShellyDimmer: loadShellyDimmer, loadShellyLampenWeiss: loadShellyLampenWeiss, loadShellySteckdosen: loadShellySteckdosen, loadShellyDevicesAll: loadShellyDevicesAll };
+module.exports = { createShellyDevice: createShellyDevice, createShellySensor: createShellySensor, createShellyLampeRGB: createShellyLampeRGB, createShellyRollladen: createShellyRollladen, createShellyDimmer: createShellyDimmer, createShellyLampe: createShellyLampe, createShellySteckdose: createShellySteckdose, loadShellyRollladen: loadShellyRollladen, loadShellySensoren: loadShellySensoren, loadShellyDimmer: loadShellyDimmer, loadShellyLampenWeiss: loadShellyLampenWeiss, loadShellySteckdosen: loadShellySteckdosen, loadShellyDevicesAll: loadShellyDevicesAll, clearShellyCaches: clearShellyCaches };

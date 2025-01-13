@@ -529,7 +529,6 @@ export function loadShellySensoren(adapter: any) {
     return cacheSensorenArray;
 }
 
-console.log("test");
 
 /*var cacheLampenRGBArray = null;
 export function loadShellyLampenRGB(adapter: any) {
@@ -803,6 +802,16 @@ function toStringArray(databaseValue) { // z.B. "Werkbank|Arbeiten|Keller"
     }
 }
 
+function clearShellyCaches(adapter: any) {
+    shellyAllArray = null;
+    cacheSteckdosenArray = null;
+    cacheLampenWeissArray = null;
+    cacheDimmerArray = null;
+    cacheSensorenArray = null;
+    cacheRollladenArray = null;
+    adapter.log(">>> Shelly cache cleared!! <<<");    
+}
+
 function sortArray(inputArray) {
     inputArray.sort((a,b) => {
         var elementA = a;
@@ -855,4 +864,4 @@ function getEtageSortIndex(etage: string) {
 }
 
 
-module.exports = { createShellyDevice, createShellySensor, createShellyLampeRGB, createShellyRollladen, createShellyDimmer, createShellyLampe, createShellySteckdose, loadShellyRollladen, loadShellySensoren, loadShellyDimmer, loadShellyLampenWeiss, loadShellySteckdosen, loadShellyDevicesAll };
+module.exports = { createShellyDevice, createShellySensor, createShellyLampeRGB, createShellyRollladen, createShellyDimmer, createShellyLampe, createShellySteckdose, loadShellyRollladen, loadShellySensoren, loadShellyDimmer, loadShellyLampenWeiss, loadShellySteckdosen, loadShellyDevicesAll, clearShellyCaches };

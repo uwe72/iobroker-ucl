@@ -894,6 +894,26 @@ function toStringArray(databaseValue) { // z.B. "Werkbank|Arbeiten|Keller"
     }
 }
 
+function clearHomematicCaches(adapter: any) {
+    homematicAllArray = null;
+    cacheDimmerArray = null;
+    cacheHeizkoerperArray = null;
+    cacheSteckdosenArray = null;
+    cacheWindowsArray = null;
+    cacheFunkschaltaktorenArray = null;
+    cacheRauchmelderArray = null;
+    cacheTemperatursensorenArray = null;
+    cacheAccessPointsArray = null;
+    cacheWandtasterArray = null;
+    cacheFussbodenheizungenArray = null;
+    cacheWandschalterArray = null;
+    cacheDoorsArray = null;
+    cacheWetterstationenArray = null;
+    cachePraesenzmelderArray = null;
+    cacheWandthermostateArray = null;
+    cacheRollladenArray = null;    adapter.log(">>> Homematic cache cleared!! <<<");
+}
+
 function sortArray(inputArray) {
     inputArray.sort((a,b) => {
         var elementA = a;
@@ -946,4 +966,6 @@ function getEtageSortIndex(etage: string) {
 }
 
 
-module.exports = { createHomematicDevice, createHomeaticDimmer, createHomeaticWandschalter, loadHomematicWandthermostate, loadHomematicPraesenzmelder, loadHomematicWetterstationen, loadHomematicDoors, loadHomematicRollladen, loadHomematicWandschalter, loadHomematicFussbodenheizungen, loadHomematicWandtaster, loadHomematicAccessPoints, loadHomematicTemperatursensoren, loadHomematicRauchmelder, loadHomematicFunktschaltaktoren, loadHomematicWindows, loadHomematicSteckdosen, loadHomematicHeizkoerper, loadHomematicDimmer, loadHomematicDevicesAll };
+
+
+module.exports = { createHomematicDevice, createHomeaticDimmer, createHomeaticWandschalter, loadHomematicWandthermostate, loadHomematicPraesenzmelder, loadHomematicWetterstationen, loadHomematicDoors, loadHomematicRollladen, loadHomematicWandschalter, loadHomematicFussbodenheizungen, loadHomematicWandtaster, loadHomematicAccessPoints, loadHomematicTemperatursensoren, loadHomematicRauchmelder, loadHomematicFunktschaltaktoren, loadHomematicWindows, loadHomematicSteckdosen, loadHomematicHeizkoerper, loadHomematicDimmer, loadHomematicDevicesAll, clearHomematicCaches };

@@ -1101,6 +1101,20 @@ function loadZigbeeDevicesAll(adapter) {
     return zigbeeAllArray;
 }
 exports.loadZigbeeDevicesAll = loadZigbeeDevicesAll;
+function clearZigbeeCaches(adapter) {
+    zigbeeAllArray = null;
+    cacheFenstersensorenArray = null;
+    cacheRepeaterArray = null;
+    cacheSchalterArray = null;
+    cacheDosenrelaisArray = null;
+    cacheWandtasterArray = null;
+    cacheRauchmelderArray = null;
+    cacheLampenWeissArray = null;
+    cacheLampenRGBArray = null;
+    cacheBewegungsmelderArray = null;
+    cacheSteckdosenArray = null;
+    adapter.log(">>> Zigbee cache cleared!! <<<");
+}
 function sortArray(inputArray) {
     inputArray.sort(function (a, b) {
         var elementA = a;
@@ -1147,4 +1161,4 @@ function getEtageSortIndex(etage) {
         return "d";
     }
 }
-module.exports = { createZigbeeDevice: createZigbeeDevice, createZigbeeDosenrelais: createZigbeeDosenrelais, createZigbeeLampeRGB: createZigbeeLampeRGB, createZigbeeLampeWeiss: createZigbeeLampeWeiss, createZigbeeSteckdose: createZigbeeSteckdose, loadZigbeeSteckdosen: loadZigbeeSteckdosen, loadZigbeeBewegungsmelder: loadZigbeeBewegungsmelder, loadZigbeeLampenRGB: loadZigbeeLampenRGB, loadZigbeeLampenWeiss: loadZigbeeLampenWeiss, loadZigbeeRauchmelder: loadZigbeeRauchmelder, loadZigbeeWandtaster: loadZigbeeWandtaster, loadZigbeeDosenrelais: loadZigbeeDosenrelais, loadZigbeeSchalter: loadZigbeeSchalter, loadZigbeeRepeater: loadZigbeeRepeater, loadZigbeeFenstersensor: loadZigbeeFenstersensor, loadZigbeeDevicesAll: loadZigbeeDevicesAll };
+module.exports = { createZigbeeDevice: createZigbeeDevice, createZigbeeDosenrelais: createZigbeeDosenrelais, createZigbeeLampeRGB: createZigbeeLampeRGB, createZigbeeLampeWeiss: createZigbeeLampeWeiss, createZigbeeSteckdose: createZigbeeSteckdose, loadZigbeeSteckdosen: loadZigbeeSteckdosen, loadZigbeeBewegungsmelder: loadZigbeeBewegungsmelder, loadZigbeeLampenRGB: loadZigbeeLampenRGB, loadZigbeeLampenWeiss: loadZigbeeLampenWeiss, loadZigbeeRauchmelder: loadZigbeeRauchmelder, loadZigbeeWandtaster: loadZigbeeWandtaster, loadZigbeeDosenrelais: loadZigbeeDosenrelais, loadZigbeeSchalter: loadZigbeeSchalter, loadZigbeeRepeater: loadZigbeeRepeater, loadZigbeeFenstersensor: loadZigbeeFenstersensor, loadZigbeeDevicesAll: loadZigbeeDevicesAll, clearZigbeeCaches: clearZigbeeCaches };

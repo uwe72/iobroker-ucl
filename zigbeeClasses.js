@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ZigbeeDosenrelais = exports.ZigbeeWandtaster = exports.ZigbeeBewegungsmelder = exports.ZigbeeRauchmelder = exports.ZigbeeFenstersensor = exports.ZigbeeRepeater = exports.ZigbeeSchalter = exports.ZigbeeSteckdose = exports.ZigbeeLampeWeiss = exports.LampeWeissAlexaScheme = exports.LampeWeissTasterScheme = exports.ZigbeeLampeRGB = exports.WhiteColorScheme = exports.RGBColorScheme = exports.ColorScheme = exports.AbstractZigbee = void 0;
+exports.ZigbeeDosenrelais = exports.ZigbeeWandtaster = exports.ZigbeeBewegungsmelder = exports.ZigbeeRauchmelder = exports.ZigbeeFenstersensor = exports.ZigbeeRepeater = exports.ZigbeeSchalter = exports.ZigbeeSteckdose = exports.ColorConverter = exports.ZigbeeLampeWeiss = exports.LampeWeissAlexaScheme = exports.LampeWeissTasterScheme = exports.ZigbeeLampeRGB = exports.WhiteColorScheme = exports.RGBColorScheme = exports.ColorScheme = exports.AbstractZigbee = void 0;
 // https://stackoverflow.com/questions/8595509/how-do-you-share-constants-in-nodejs-modules
 var deviceZigbeeSteckdose = "Steckdose";
 var deviceZigbeeBewegungsmelder = "Bewegungsmelder";
@@ -845,6 +845,7 @@ var ColorConverter = /** @class */ (function () {
     };
     return ColorConverter;
 }());
+exports.ColorConverter = ColorConverter;
 var ZigbeeSteckdose = /** @class */ (function (_super) {
     __extends(ZigbeeSteckdose, _super);
     function ZigbeeSteckdose(adapter, id, baseState, etage, raum, device, alexaSmartNamesForOn, alexaActionNamesForOn, alexaSmartNamesForOff, alexaActionNamesForOff, additionalStates4TurnOn, additionalStates4TurnOff) {
@@ -1108,6 +1109,7 @@ var ZigbeeDosenrelais = /** @class */ (function (_super) {
 exports.ZigbeeDosenrelais = ZigbeeDosenrelais;
 module.exports = {
     AbstractZigbee: AbstractZigbee,
+    ColorConverter: ColorConverter,
     ColorScheme: ColorScheme,
     RGBColorScheme: RGBColorScheme,
     WhiteColorScheme: WhiteColorScheme,

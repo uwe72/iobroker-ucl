@@ -817,6 +817,26 @@ function toStringArray(databaseValue) {
         return databaseValue.split('|');
     }
 }
+function clearHomematicCaches(adapter) {
+    homematicAllArray = null;
+    cacheDimmerArray = null;
+    cacheHeizkoerperArray = null;
+    cacheSteckdosenArray = null;
+    cacheWindowsArray = null;
+    cacheFunkschaltaktorenArray = null;
+    cacheRauchmelderArray = null;
+    cacheTemperatursensorenArray = null;
+    cacheAccessPointsArray = null;
+    cacheWandtasterArray = null;
+    cacheFussbodenheizungenArray = null;
+    cacheWandschalterArray = null;
+    cacheDoorsArray = null;
+    cacheWetterstationenArray = null;
+    cachePraesenzmelderArray = null;
+    cacheWandthermostateArray = null;
+    cacheRollladenArray = null;
+    adapter.log(">>> Homematic cache cleared!! <<<");
+}
 function sortArray(inputArray) {
     inputArray.sort(function (a, b) {
         var elementA = a;
@@ -863,4 +883,4 @@ function getEtageSortIndex(etage) {
         return "d";
     }
 }
-module.exports = { createHomematicDevice: createHomematicDevice, createHomeaticDimmer: createHomeaticDimmer, createHomeaticWandschalter: createHomeaticWandschalter, loadHomematicWandthermostate: loadHomematicWandthermostate, loadHomematicPraesenzmelder: loadHomematicPraesenzmelder, loadHomematicWetterstationen: loadHomematicWetterstationen, loadHomematicDoors: loadHomematicDoors, loadHomematicRollladen: loadHomematicRollladen, loadHomematicWandschalter: loadHomematicWandschalter, loadHomematicFussbodenheizungen: loadHomematicFussbodenheizungen, loadHomematicWandtaster: loadHomematicWandtaster, loadHomematicAccessPoints: loadHomematicAccessPoints, loadHomematicTemperatursensoren: loadHomematicTemperatursensoren, loadHomematicRauchmelder: loadHomematicRauchmelder, loadHomematicFunktschaltaktoren: loadHomematicFunktschaltaktoren, loadHomematicWindows: loadHomematicWindows, loadHomematicSteckdosen: loadHomematicSteckdosen, loadHomematicHeizkoerper: loadHomematicHeizkoerper, loadHomematicDimmer: loadHomematicDimmer, loadHomematicDevicesAll: loadHomematicDevicesAll };
+module.exports = { createHomematicDevice: createHomematicDevice, createHomeaticDimmer: createHomeaticDimmer, createHomeaticWandschalter: createHomeaticWandschalter, loadHomematicWandthermostate: loadHomematicWandthermostate, loadHomematicPraesenzmelder: loadHomematicPraesenzmelder, loadHomematicWetterstationen: loadHomematicWetterstationen, loadHomematicDoors: loadHomematicDoors, loadHomematicRollladen: loadHomematicRollladen, loadHomematicWandschalter: loadHomematicWandschalter, loadHomematicFussbodenheizungen: loadHomematicFussbodenheizungen, loadHomematicWandtaster: loadHomematicWandtaster, loadHomematicAccessPoints: loadHomematicAccessPoints, loadHomematicTemperatursensoren: loadHomematicTemperatursensoren, loadHomematicRauchmelder: loadHomematicRauchmelder, loadHomematicFunktschaltaktoren: loadHomematicFunktschaltaktoren, loadHomematicWindows: loadHomematicWindows, loadHomematicSteckdosen: loadHomematicSteckdosen, loadHomematicHeizkoerper: loadHomematicHeizkoerper, loadHomematicDimmer: loadHomematicDimmer, loadHomematicDevicesAll: loadHomematicDevicesAll, clearHomematicCaches: clearHomematicCaches };
