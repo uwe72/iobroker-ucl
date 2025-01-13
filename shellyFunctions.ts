@@ -393,7 +393,7 @@ export function createShellySteckdose(adapter:any, rawId: number, etage: string,
     createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellySteckdose);
 
     // attributeChannel
-    createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeChannel, channel, deviceShellyLampeWeiss);
+    createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeChannel, channel, deviceShellySteckdose);
     
     // alexaSmartNamesForOn:string[]
     var db_alexaSmartNamesForOn = null;
