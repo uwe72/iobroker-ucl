@@ -733,13 +733,13 @@ function loadHomematicDimmer(adapter) {
     return cacheDimmerArray;
 }
 exports.loadHomematicDimmer = loadHomematicDimmer;
-var homematicAllArray = null;
+//var homematicAllArray = null;
 function loadHomematicDevicesAll(adapter) {
-    if (homematicAllArray != null) {
+    /*if (homematicAllArray != null) {
         return homematicAllArray;
-    }
+    }*/
     // @ts-ignore            
-    homematicAllArray = [];
+    var homematicAllArray = [];
     adapter.loadHomematicWandthermostate(adapter).forEach(function (homematic) {
         // @ts-ignore            
         homematicAllArray.push(homematic);
@@ -818,7 +818,7 @@ function toStringArray(databaseValue) {
     }
 }
 function clearHomematicCaches(adapter) {
-    homematicAllArray = null;
+    //homematicAllArray = null;
     cacheDimmerArray = null;
     cacheHeizkoerperArray = null;
     cacheSteckdosenArray = null;

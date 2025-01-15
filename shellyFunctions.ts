@@ -555,20 +555,15 @@ export function loadShellyLampenRGB(adapter: any) {
 
 var cacheDimmerArray = null;
 export function loadShellyDimmer(adapter: any) {
-    adapter.log("loadShelly Modul inside");
     if (cacheDimmerArray != null) {
-        adapter.log("loadShelly Modul inside_b_ääääääääääääääääää" + cacheDimmerArray);
         return cacheDimmerArray;
     }
-    adapter.log("loadShelly Modul inside_b");
 
     // @ts-ignore            
     cacheDimmerArray = [];
     adapter.$('state[id=0_userdata.0.devices.shelly.*.*.category]').each(datenpunktKey => { 
         var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceShellyDimmer) {
-            adapter.log("loadShelly Modul inside_c" + datenpunktKey);
-
 
             // Einschalt-Scheme:
             var alexaOnScheme = null;
@@ -760,14 +755,14 @@ export function loadShellySteckdosen(adapter: any) {
     return cacheSteckdosenArray;
 }
 
-var shellyAllArray = null;
+//var shellyAllArray = null;
 export function loadShellyDevicesAll(adapter: any) {
-    if (shellyAllArray != null) {
-        return shellyAllArray;
-    }
+    //if (shellyAllArray != null) {
+      //  return shellyAllArray;
+    //}
 
     // @ts-ignore            
-    shellyAllArray = [];
+    var shellyAllArray = [];
 
     adapter.loadShellyLampenWeiss(adapter).forEach(shelly => {
         // @ts-ignore            
@@ -803,7 +798,7 @@ function toStringArray(databaseValue) { // z.B. "Werkbank|Arbeiten|Keller"
 }
 
 function clearShellyCaches(adapter: any) {
-    shellyAllArray = null;
+    //shellyAllArray = null;
     cacheSteckdosenArray = null;
     cacheLampenWeissArray = null;
     cacheDimmerArray = null;

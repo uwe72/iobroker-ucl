@@ -434,8 +434,9 @@ export class ZigbeeLampeRGB extends AbstractZigbee {
 
                         const rgbColorscheme = colorscheme as RGBColorScheme;
                         //setState(this.getBaseState() + ".xy", this.colorConverter.convertHSL2XY(rgbColorscheme.getHue(), rgbColorscheme.getSat()));
-                        this.adapter.setState(this.getBaseState() + ".hue", rgbColorscheme.getHue());//, rgbColorscheme.getSat()));
-                        this.adapter.setState(this.getBaseState() + ".sat", rgbColorscheme.getSat());
+                        //this.adapter.setState(this.getBaseState() + ".hue", rgbColorscheme.getHue());//, rgbColorscheme.getSat()));
+                        //this.adapter.setState(this.getBaseState() + ".sat", rgbColorscheme.getSat());
+                        this.adapter.setState(this.getBaseState() + ".xy", this.colorConverter.convertHSL2XY(rgbColorscheme.getHue(), rgbColorscheme.getSat()).join()); // Im Hue-Fall ist es ein String
                     } else {
                         const whiteColorscheme = colorscheme as WhiteColorScheme;
                         this.adapter.setState(this.getBaseState() + ".ct", whiteColorscheme.getCt());

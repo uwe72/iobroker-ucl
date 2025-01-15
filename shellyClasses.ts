@@ -234,8 +234,6 @@ export class ShellyLampeWeiss extends AbstractShelly {
         this.turnOnEnterHouseSummer = turnOnEnterHouseSummer;
         this.turnOnEnterHouseWinter = turnOnEnterHouseWinter;
 
-        adapter.log("here7777: " + additionalStates4TurnOff);
-
         this.nachtbeleuchtung = nachtbeleuchtung;
         this.channel = channel;
         this.alexaSmartNamesForOn = alexaSmartNamesForOn;
@@ -446,16 +444,12 @@ export class ShellyDimmer extends AbstractShelly {
             turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean) {
         super(adapter, id, etage, raum, device, baseState); 
 
-
-        adapter.log("here:1 " + alexaLevelSchemeForOn);
-        //adapter.log("here:2 " + alexaLevelSchemeForOn.getAlexaName());
-
         this.alexaSmartNamesForOn = alexaSmartNamesForOn;
         this.alexaSmartNamesForOff = alexaSmartNamesForOff;
-         this.alexaActionNamesForOn = alexaActionNamesForOn;
+        this.alexaActionNamesForOn = alexaActionNamesForOn;
         this.alexaActionNamesForOff = alexaActionNamesForOff;
 
-         this.nachtbeleuchtung = nachtbeleuchtung;
+        this.nachtbeleuchtung = nachtbeleuchtung;
         this.turnOffExitHouseSummer = turnOffExitHouseSummer;
         this.turnOffExitHouseWinter = turnOffExitHouseWinter;
         this.turnOnEnterHouseSummer = turnOnEnterHouseSummer;
@@ -465,15 +459,12 @@ export class ShellyDimmer extends AbstractShelly {
         this.tasterBooleanOn = tasterBooleanOn;
         this.levelSchemes = levelSchemes;
         this.tasterBooleanOff = tasterBooleanOff;                
-adapter.log("1111ff" + this.alexaLevelSchemeForOn);
+
         if (this.alexaLevelSchemeForOn != null) {
-            adapter.log("1111a");
             if (this.alexaLevelSchemeForOn.getAlexaName() != null) {
-                adapter.log("1111b");
                 this.createState(this.alexaLevelSchemeForOn.getAlexaName());
             }
             this.alexaLevelSchemeForOn.setDevice(this);  
-            adapter.log("1111c");          
         }             
         this.tasterBooleanOn.forEach(tasterScheme => {    
             if (tasterScheme.getTasterBooleanOnName() != null) {

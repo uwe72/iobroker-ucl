@@ -1204,15 +1204,15 @@ export function loadZigbeeFenstersensor(adapter: any) {
     return cacheFenstersensorenArray;
 }
 
-var zigbeeAllArray = null;
+//var zigbeeAllArray = null;
 export function loadZigbeeDevicesAll(adapter: any) {
-    if (zigbeeAllArray != null) {
+  /*  if (zigbeeAllArray != null) {
         // @ts-ignore            
         return zigbeeAllArray;
-    }
+    }*/
     
     // @ts-ignore            
-    zigbeeAllArray = [];
+    var zigbeeAllArray = [];
     adapter.loadZigbeeSteckdosen(adapter).forEach(zigbee => {
         // @ts-ignore            
         zigbeeAllArray.push(zigbee);
@@ -1258,7 +1258,7 @@ export function loadZigbeeDevicesAll(adapter: any) {
 }
 
 function clearZigbeeCaches(adapter: any) {
-    zigbeeAllArray = null;
+//    zigbeeAllArray = null;
     cacheFenstersensorenArray = null;
     cacheRepeaterArray = null;
     cacheSchalterArray = null;

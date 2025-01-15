@@ -512,18 +512,14 @@ export function loadShellyLampenRGB(adapter: any) {
 }*/
 var cacheDimmerArray = null;
 function loadShellyDimmer(adapter) {
-    adapter.log("loadShelly Modul inside");
     if (cacheDimmerArray != null) {
-        adapter.log("loadShelly Modul inside_b_ääääääääääääääääää" + cacheDimmerArray);
         return cacheDimmerArray;
     }
-    adapter.log("loadShelly Modul inside_b");
     // @ts-ignore            
     cacheDimmerArray = [];
     adapter.$('state[id=0_userdata.0.devices.shelly.*.*.category]').each(function (datenpunktKey) {
         var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceShellyDimmer) {
-            adapter.log("loadShelly Modul inside_c" + datenpunktKey);
             // Einschalt-Scheme:
             var alexaOnScheme = null;
             if (adapter.getState(datenpunktPraefix + "." + attributeDimmer_alexaScheme_aktiv).val == true) {
@@ -670,13 +666,13 @@ function loadShellySteckdosen(adapter) {
     return cacheSteckdosenArray;
 }
 exports.loadShellySteckdosen = loadShellySteckdosen;
-var shellyAllArray = null;
+//var shellyAllArray = null;
 function loadShellyDevicesAll(adapter) {
-    if (shellyAllArray != null) {
-        return shellyAllArray;
-    }
+    //if (shellyAllArray != null) {
+    //  return shellyAllArray;
+    //}
     // @ts-ignore            
-    shellyAllArray = [];
+    var shellyAllArray = [];
     adapter.loadShellyLampenWeiss(adapter).forEach(function (shelly) {
         // @ts-ignore            
         shellyAllArray.push(shelly);
@@ -711,7 +707,7 @@ function toStringArray(databaseValue) {
     }
 }
 function clearShellyCaches(adapter) {
-    shellyAllArray = null;
+    //shellyAllArray = null;
     cacheSteckdosenArray = null;
     cacheLampenWeissArray = null;
     cacheDimmerArray = null;

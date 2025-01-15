@@ -808,14 +808,14 @@ export function loadHomematicDimmer(adapter: any) {
     return cacheDimmerArray;
 }
 
-var homematicAllArray = null;
+//var homematicAllArray = null;
 export function loadHomematicDevicesAll(adapter: any) {
-    if (homematicAllArray != null) {
+    /*if (homematicAllArray != null) {
         return homematicAllArray;
-    }
+    }*/
     
     // @ts-ignore            
-    homematicAllArray = [];
+    var homematicAllArray = [];
 
     adapter.loadHomematicWandthermostate(adapter).forEach(homematic => {
         // @ts-ignore            
@@ -895,7 +895,7 @@ function toStringArray(databaseValue) { // z.B. "Werkbank|Arbeiten|Keller"
 }
 
 function clearHomematicCaches(adapter: any) {
-    homematicAllArray = null;
+    //homematicAllArray = null;
     cacheDimmerArray = null;
     cacheHeizkoerperArray = null;
     cacheSteckdosenArray = null;

@@ -387,8 +387,9 @@ var ZigbeeLampeRGB = /** @class */ (function (_super) {
                         _this.adapter.log(">>> hue changeColor: Set Sat to: " + colorscheme.getSat());
                         var rgbColorscheme = colorscheme;
                         //setState(this.getBaseState() + ".xy", this.colorConverter.convertHSL2XY(rgbColorscheme.getHue(), rgbColorscheme.getSat()));
-                        _this.adapter.setState(_this.getBaseState() + ".hue", rgbColorscheme.getHue()); //, rgbColorscheme.getSat()));
-                        _this.adapter.setState(_this.getBaseState() + ".sat", rgbColorscheme.getSat());
+                        //this.adapter.setState(this.getBaseState() + ".hue", rgbColorscheme.getHue());//, rgbColorscheme.getSat()));
+                        //this.adapter.setState(this.getBaseState() + ".sat", rgbColorscheme.getSat());
+                        _this.adapter.setState(_this.getBaseState() + ".xy", _this.colorConverter.convertHSL2XY(rgbColorscheme.getHue(), rgbColorscheme.getSat()).join()); // Im Hue-Fall ist es ein String
                     }
                     else {
                         var whiteColorscheme = colorscheme;
