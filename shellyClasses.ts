@@ -66,7 +66,7 @@ export abstract class AbstractShelly {
 
     // Shelly1, Shelly2.5,...
     public getType() : string {
-        var typ = this.adapter.getState(this.baseState + ".id").val;
+        let typ = this.adapter.getState(this.baseState + ".id").val;
         if (typ == "shelly1") {
             return "1";
         } else if (typ == "shellyswitch25") {
@@ -91,8 +91,8 @@ export abstract class AbstractShelly {
     }    
 
     public getFirmware() : string {
-        var versionState = this.baseState + ".version";
-        var version = this.adapter.getState(versionState).val;
+        let versionState = this.baseState + ".version";
+        let version = this.adapter.getState(versionState).val;
         version= version.substr(0, version.indexOf('-')); 
         return version;
     }    
@@ -105,7 +105,7 @@ export abstract class AbstractShelly {
 
         // Level:
         // ----------------------------------------------------------------------------------
-        var alexaLampeLevel = "0_userdata.0.alexa." + smartName + ".level";
+        let alexaLampeLevel = "0_userdata.0.alexa." + smartName + ".level";
         this.adapter.createState(alexaLampeLevel, 0, {
             name: alexaLampeLevel,
             desc: alexaLampeLevel,
@@ -134,7 +134,7 @@ export abstract class AbstractShelly {
 
         // HUE:
         // ----------------------------------------------------------------------------------
-        var alexaLampeHue = "0_userdata.0.alexa." + smartName + ".hue";
+        let alexaLampeHue = "0_userdata.0.alexa." + smartName + ".hue";
         this.adapter.createState(alexaLampeHue, 0, {
             name: alexaLampeHue,
             desc: alexaLampeHue,
@@ -160,7 +160,7 @@ export abstract class AbstractShelly {
 
         // SAT:
         // ----------------------------------------------------------------------------------
-        var alexaLampeSat = "0_userdata.0.alexa." + smartName + ".sat";
+        let alexaLampeSat = "0_userdata.0.alexa." + smartName + ".sat";
         this.adapter.createState(alexaLampeSat, 0, {
             name: alexaLampeSat,
             desc: alexaLampeSat,
@@ -186,7 +186,7 @@ export abstract class AbstractShelly {
 
         // CT:
         // ----------------------------------------------------------------------------------
-        var alexaLampeCT = "0_userdata.0.alexa." + smartName + ".ct";
+        let alexaLampeCT = "0_userdata.0.alexa." + smartName + ".ct";
         this.adapter.createState(alexaLampeCT, 0, {
             name: alexaLampeCT,
             desc: alexaLampeCT,
@@ -265,7 +265,7 @@ export class ShellyLampeWeiss extends AbstractShelly {
     }
 
     private createState(key_in) {
-        var jarvisDatenpunkt = key_in;//.replace(/\./g,'_'); // wegen Wohnzimmer T.V.
+        let jarvisDatenpunkt = key_in;//.replace(/\./g,'_'); // wegen Wohnzimmer T.V.
         //log(">>> CREATE STATE: " + jarvisDatenpunkt);
         this.adapter.createState(jarvisDatenpunkt, false, {
             name: jarvisDatenpunkt,
@@ -317,7 +317,7 @@ export class ShellyLampeWeiss extends AbstractShelly {
     }
 
     public getAlexaNamesForOnAsString() : string {
-        var result = "";
+        let result = "";
 
         this.alexaSmartNamesForOn.forEach(alexaOnName => {    
             if (result == "") {
@@ -338,7 +338,7 @@ export class ShellyLampeWeiss extends AbstractShelly {
     }
 
     public getAlexaNamesForOffAsString() : string {
-        var result = "";
+        let result = "";
 
         this.alexaSmartNamesForOff.forEach(alexaOffName => {    
             if (result == "") {
@@ -510,7 +510,7 @@ export class ShellyDimmer extends AbstractShelly {
     }    
 
     private createState(key_in) {
-        var jarvisDatenpunkt = key_in;//.replace(/\./g,'_'); // wegen Wohnzimmer T.V.
+        let jarvisDatenpunkt = key_in;//.replace(/\./g,'_'); // wegen Wohnzimmer T.V.
         //log(">>> CREATE STATE: " + jarvisDatenpunkt);
         this.adapter.createState(jarvisDatenpunkt, false, {
             name: jarvisDatenpunkt,
@@ -550,7 +550,7 @@ export class ShellyDimmer extends AbstractShelly {
     }
 
     public getAlexaNamesForOnAsString() : string {
-        var result = "";
+        let result = "";
 
         this.alexaSmartNamesForOn.forEach(alexaOnName => {    
             if (result == "") {
@@ -571,7 +571,7 @@ export class ShellyDimmer extends AbstractShelly {
     }
 
     public getAlexaNamesForOffAsString() : string {
-        var result = "";
+        let result = "";
 
         this.alexaSmartNamesForOff.forEach(alexaOffName => {    
             if (result == "") {
@@ -706,7 +706,7 @@ export class ShellyLampeRGB extends AbstractShelly {
     }
 
     private createState(key_in) {
-        var jarvisDatenpunkt = key_in;//.replace(/\./g,'_'); // wegen Wohnzimmer T.V.
+        let jarvisDatenpunkt = key_in;//.replace(/\./g,'_'); // wegen Wohnzimmer T.V.
         //log(">>> CREATE STATE: " + jarvisDatenpunkt);
         this.adapter.createState(jarvisDatenpunkt, false, {
             name: jarvisDatenpunkt,
@@ -747,7 +747,7 @@ export class ShellyLampeRGB extends AbstractShelly {
     }
 
     public getAlexaNamesForOnAsString() : string {
-        var result = "";
+        let result = "";
 
         this.alexaSmartNamesForOn.forEach(alexaOnName => {    
             if (result == "") {
@@ -768,7 +768,7 @@ export class ShellyLampeRGB extends AbstractShelly {
     }
 
     public getAlexaNamesForOffAsString() : string {
-        var result = "";
+        let result = "";
 
         this.alexaSmartNamesForOff.forEach(alexaOffName => {    
             if (result == "") {

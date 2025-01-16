@@ -145,7 +145,7 @@
     
     
         public createHTML() {
-            var html = "";
+            let html = "";
     
             html += "<html>                                             \n";
             html += "   <head>                                          \n";
@@ -211,7 +211,7 @@
     
     
             // Max. Columns ermitteln:
-            var maxCols = 0;
+            let maxCols = 0;
             this.tables.forEach(table => {    
                 if (table.getColumns().length > maxCols) {
                     maxCols = table.getColumns().length;
@@ -220,7 +220,7 @@
     
     
     
-            var tableIndex = 0;
+            let tableIndex = 0;
             this.tables.forEach(table => {    
                 if (tableIndex++ != 0) {
                     html += "       <tr class=\"style1\"><td class=\"style1\" colspan=\"" + maxCols + "\" style=\"padding: 6px;  background-color:#212121\"></td></tr>";    
@@ -228,24 +228,24 @@
     
                 if (table.isDoubleHeaderVisible() == true) {
                     html += "           <tr class=\"style1\">                                    \n";
-                    var skipColumns : number = 0;
+                    let skipColumns : number = 0;
                     table.getColumns().forEach(column => {    
                         if (skipColumns == 0) {
-                            var colSpan = column.getOnTopColumnColSpan();
+                            let colSpan = column.getOnTopColumnColSpan();
                             if (colSpan == null) {
                                 colSpan = 1;
                             }
     
                             // Alignment:
-                            var userAlignemt = column.getOnTopCellAlignment();
-                            var cellAlignment = " text-align:left";
+                            let userAlignemt = column.getOnTopCellAlignment();
+                            let cellAlignment = " text-align:left";
                             if (userAlignemt != null) {
                                 cellAlignment = " text-align:" + userAlignemt;
                             }
     
                             // Background-Color:
-                            var userBackground = column.getOnTopBackgroundColor();
-                            var cellBackground = "";
+                            let userBackground = column.getOnTopBackgroundColor();
+                            let cellBackground = "";
                             if (userBackground != null) {
                                 cellBackground = " background-color:" + userBackground + ";";
                             }
@@ -268,10 +268,10 @@
                     table.getColumns().forEach(column => {    
     
                         // Background-Color:
-                        var userBackground = column.getColumnHeaderBackgroundColor();
+                        let userBackground = column.getColumnHeaderBackgroundColor();
                         if (userBackground != null) {
                             //html += "           <th><font size=2px\">" + column.getColumnName() + "</th></font>	\n";
-                            var cellBackground = " background-color:" + userBackground + ";";
+                            let cellBackground = " background-color:" + userBackground + ";";
                             html += "           <th class=\"style1\" style=\" "  + cellBackground  + "\">" + "<font size=2px\">" +  column.getColumnName() + "</font></th>";    
                         } else {
                             html += "           <th class=\"style1\"><font size=2px\">" + column.getColumnName() + "</th></font>	\n";
@@ -289,37 +289,37 @@
                 }
                 
     
-                var rowIndex: number = -1;
+                let rowIndex: number = -1;
                 table.getRows().forEach(row=> {
                     rowIndex++;    
                     html += "       <tr class=\"style1\">                                    \n";
                     table.getColumns().forEach(column => {    
-                        var cellValue = column.getValueAt(row, rowIndex);
+                        let cellValue = column.getValueAt(row, rowIndex);
     
                             // Alignment:
-                            var userAlignemt = column.getCellAlignment(row);
-                            var cellAlignment = "text-align:left";
+                            let userAlignemt = column.getCellAlignment(row);
+                            let cellAlignment = "text-align:left";
                             if (userAlignemt != null) {
                                 cellAlignment = "text-align:" + userAlignemt + ";";
                             }
     
                             // Width:
-                            var userWidth = column.getColumnnWidth();
-                            var cellWidth = "";
+                            let userWidth = column.getColumnnWidth();
+                            let cellWidth = "";
                             if (userWidth != null && userWidth != -1) {
                                 cellWidth = "width=\"" + userWidth + "px\"; ";
                             }
     
                             // Background-Color:
-                            var userBackground = column.getCellBackgroundColor(row, rowIndex);
-                            var cellBackground = "";
+                            let userBackground = column.getCellBackgroundColor(row, rowIndex);
+                            let cellBackground = "";
                             if (userBackground != null) {
                                 cellBackground = "background-color:" + userBackground + ";";
                             }
     
                             // Foreground-Color:
-                            var userForeground = column.getCellForegroundColor(row, rowIndex);
-                            var cellForegorund = "";
+                            let userForeground = column.getCellForegroundColor(row, rowIndex);
+                            let cellForegorund = "";
                             if (userForeground != null) {
                                 cellForegorund = "color:" + userForeground + ";";
                             }
@@ -335,28 +335,28 @@
                     html += "       </tr>                                    \n";                        
     
                     // Separator Thick:
-                    var found = false;
-                    for(var i = 0; i < this.separatorRowAfterObjectThick.length; i++) {
+                    let found2 = false;
+                    for(let i = 0; i < this.separatorRowAfterObjectThick.length; i++) {
                         if (this.separatorRowAfterObjectThick[i] == row) {
-                            found = true;
+                            found2 = true;
                             break;
                         }
                     }
-                    if (found) {
+                    if (found2) {
                         html += "       <tr class=\"style1\">                                 \n";        
                         html += "       <td class=\"style1\" colspan=\"" + table.getColumns().length + "\" style=\"padding: 6px;  background-color:#212121\"></td>";    
                         html += "       </tr>                                 \n";        
                     }
     
                     // Separator Thin:
-                    var found = false;
-                    for(var i = 0; i < this.separatorRowAfterObjectThin.length; i++) {
+                    let found3 = false;
+                    for(let i = 0; i < this.separatorRowAfterObjectThin.length; i++) {
                         if (this.separatorRowAfterObjectThin[i] == row) {
-                            found = true;
+                            found3 = true;
                             break;
                         }
                     }
-                    if (found) {
+                    if (found3) {
                         html += "       <tr class=\"style1\">                                 \n";        
                         html += "       <td class=\"style1\" colspan=\"" + table.getColumns().length + "\" style=\"padding: 2px;  background-color:#AAAAAA\"></td>";    
                         html += "       </tr>                                 \n";        

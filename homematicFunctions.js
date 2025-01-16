@@ -216,6 +216,7 @@ function createHomeaticDimmer(adapter, rawId, baseState, etage, raum, device, al
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, deviceHomematicDimmer);
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceHomematicDimmer);
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceHomematicDimmer);
+    clearHomematicCaches(adapter);
 }
 exports.createHomeaticDimmer = createHomeaticDimmer;
 // Wandschalter:
@@ -281,6 +282,7 @@ function createHomeaticWandschalter(adapter, rawId, baseState, etage, raum, devi
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, deviceHomematicWandschalter);
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceHomematicWandschalter);
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceHomematicWandschalter);
+    clearHomematicCaches(adapter);
 }
 exports.createHomeaticWandschalter = createHomeaticWandschalter;
 function createDatenpunktSingle(adapter, deviceRawId, attributeType, attributeName, attributeValue, category) {

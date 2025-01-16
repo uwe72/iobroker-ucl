@@ -69,6 +69,7 @@ function createShellyDevice(adapter, rawId, etage, raum, device, baseState, cate
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeEtage, etage, category);
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRaum, raum, category);
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDevice, device, category);
+    clearShellyCaches(adapter);
 }
 exports.createShellyDevice = createShellyDevice;
 function createDatenpunktSingle(adapter, deviceRawId, attributeType, attributeName, attributeValue, category) {
@@ -86,18 +87,21 @@ console.log("test");
 function createShellySensor(adapter, rawId, etage, raum, device, baseState) {
     // Allgemein:
     createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellySensor);
+    clearShellyCaches(adapter);
 }
 exports.createShellySensor = createShellySensor;
 // Lampe RGB:
 function createShellyLampeRGB(adapter, rawId, etage, raum, device, baseState) {
     // Allgemein:
     createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellyLampeRGB);
+    clearShellyCaches(adapter);
 }
 exports.createShellyLampeRGB = createShellyLampeRGB;
 // Rollladen:
 function createShellyRollladen(adapter, rawId, etage, raum, device, baseState) {
     // Allgemein:
     createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellyRollladen);
+    clearShellyCaches(adapter);
 }
 exports.createShellyRollladen = createShellyRollladen;
 // Dimmer:
@@ -256,6 +260,7 @@ function createShellyDimmer(adapter, rawId, etage, raum, device, baseState, alex
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, deviceShellyDimmer);
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceShellyDimmer);
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceShellyDimmer);
+    clearShellyCaches(adapter);
 }
 exports.createShellyDimmer = createShellyDimmer;
 // Lampe Weiss:
@@ -348,6 +353,7 @@ function createShellyLampe(adapter, rawId, etage, raum, device, baseState, chann
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, deviceShellyLampeWeiss);
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceShellyLampeWeiss);
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceShellyLampeWeiss);
+    clearShellyCaches(adapter);
 }
 exports.createShellyLampe = createShellyLampe;
 // Steckdose:
@@ -440,6 +446,7 @@ function createShellySteckdose(adapter, rawId, etage, raum, device, baseState, c
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, deviceShellySteckdose);
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceShellySteckdose);
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceShellySteckdose);
+    clearShellyCaches(adapter);
 }
 exports.createShellySteckdose = createShellySteckdose;
 var cacheRollladenArray = null;

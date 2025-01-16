@@ -185,9 +185,9 @@ var HtmlCreator = /** @class */ (function () {
             }
             if (table.isDoubleHeaderVisible() == true) {
                 html += "           <tr class=\"style1\">                                    \n";
-                var skipColumns = 0;
+                var skipColumns_1 = 0;
                 table.getColumns().forEach(function (column) {
-                    if (skipColumns == 0) {
+                    if (skipColumns_1 == 0) {
                         var colSpan = column.getOnTopColumnColSpan();
                         if (colSpan == null) {
                             colSpan = 1;
@@ -206,10 +206,10 @@ var HtmlCreator = /** @class */ (function () {
                         }
                         //html += "           <th colspan=\"" + colSpan + "\" style=\"text-align:left " + cellBackground + "\"><font size=2px\">" + column.getOnTopColumnName() + "</th></font>	\n";
                         html += "           <th class=\"style1\" colspan=\"" + colSpan + "\" + style=\" " + cellBackground + cellAlignment + "\">" + column.getOnTopColumnName() + "</th>";
-                        skipColumns += colSpan - 1;
+                        skipColumns_1 += colSpan - 1;
                     }
                     else {
-                        skipColumns--;
+                        skipColumns_1--;
                     }
                 });
                 html += "           </tr>                                   \n";
@@ -276,27 +276,27 @@ var HtmlCreator = /** @class */ (function () {
                 });
                 html += "       </tr>                                    \n";
                 // Separator Thick:
-                var found = false;
+                var found2 = false;
                 for (var i = 0; i < _this.separatorRowAfterObjectThick.length; i++) {
                     if (_this.separatorRowAfterObjectThick[i] == row) {
-                        found = true;
+                        found2 = true;
                         break;
                     }
                 }
-                if (found) {
+                if (found2) {
                     html += "       <tr class=\"style1\">                                 \n";
                     html += "       <td class=\"style1\" colspan=\"" + table.getColumns().length + "\" style=\"padding: 6px;  background-color:#212121\"></td>";
                     html += "       </tr>                                 \n";
                 }
                 // Separator Thin:
-                var found = false;
+                var found3 = false;
                 for (var i = 0; i < _this.separatorRowAfterObjectThin.length; i++) {
                     if (_this.separatorRowAfterObjectThin[i] == row) {
-                        found = true;
+                        found3 = true;
                         break;
                     }
                 }
-                if (found) {
+                if (found3) {
                     html += "       <tr class=\"style1\">                                 \n";
                     html += "       <td class=\"style1\" colspan=\"" + table.getColumns().length + "\" style=\"padding: 2px;  background-color:#AAAAAA\"></td>";
                     html += "       </tr>                                 \n";

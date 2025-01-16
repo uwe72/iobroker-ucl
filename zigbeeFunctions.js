@@ -119,6 +119,7 @@ function createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, cate
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeEtage, etage, category);
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRaum, raum, category);
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDevice, device, category);
+    clearZigbeeCaches(adapter);
 }
 exports.createZigbeeDevice = createZigbeeDevice;
 // Dosenrelais:
@@ -222,6 +223,7 @@ function createZigbeeSteckdose(adapter, rawId, baseState, etage, raum, device, a
         }
     });
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_additionalStates4TurnOff, deviceZigbeeSteckdose);
+    clearZigbeeCaches(adapter);
 }
 exports.createZigbeeSteckdose = createZigbeeSteckdose;
 // LampeWeiss:
@@ -416,6 +418,7 @@ function createZigbeeLampeWeiss(adapter, rawId, baseState, etage, raum, device, 
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_level, null, deviceZigbeeLampeWeiss);
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_ct, null, deviceZigbeeLampeWeiss);*/
     }
+    clearZigbeeCaches(adapter);
 }
 exports.createZigbeeLampeWeiss = createZigbeeLampeWeiss;
 // LampeRGB:
@@ -658,6 +661,7 @@ function createZigbeeLampeRGB(adapter, rawId, baseState, etage, raum, device, is
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss4_level, null, category);
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss4_ct, null, category);*/
     }
+    clearZigbeeCaches(adapter);
 }
 exports.createZigbeeLampeRGB = createZigbeeLampeRGB;
 function createDatenpunktSingle(adapter, deviceRawId, attributeType, attributeName, attributeValue, category) {

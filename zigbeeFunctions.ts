@@ -142,6 +142,7 @@ export function createZigbeeDevice(adapter:any, rawId: number, baseState: string
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeEtage, etage, category);
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRaum, raum, category);
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDevice, device, category);
+    clearZigbeeCaches(adapter);
 }
 
 // Dosenrelais:
@@ -151,7 +152,7 @@ export function createZigbeeDosenrelais(adapter:any, rawId: number, baseState: s
     createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeDosenrelais);
 
     // Spezifisch:
-    var db_smartNames = null;
+    let db_smartNames = null;
     smartNames.forEach(value => {
         if (db_smartNames == null) {
             // @ts-ignore                        
@@ -172,7 +173,7 @@ export function createZigbeeSteckdose(adapter:any, rawId: number, baseState: str
     createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeSteckdose);
 
     // alexaSmartNamesForOn:string[]
-    var db_alexaSmartNamesForOn = null;
+    let db_alexaSmartNamesForOn = null;
     alexaSmartNamesForOn.forEach(value => {
         if (db_alexaSmartNamesForOn == null) {
             // @ts-ignore            
@@ -185,7 +186,7 @@ export function createZigbeeSteckdose(adapter:any, rawId: number, baseState: str
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, deviceZigbeeSteckdose);
 
     // alexaActionNamesForOn:string[]
-    var db_alexaActionNamesForOn = null;
+    let db_alexaActionNamesForOn = null;
     alexaActionNamesForOn.forEach(value => {
         if (db_alexaActionNamesForOn == null) {
             // @ts-ignore            
@@ -198,7 +199,7 @@ export function createZigbeeSteckdose(adapter:any, rawId: number, baseState: str
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, deviceZigbeeSteckdose);
 
     // alexaSmartNamesForOff:string[]
-    var db_alexaSmartNamesForOff = null;
+    let db_alexaSmartNamesForOff = null;
     alexaSmartNamesForOff.forEach(value => {
         if (db_alexaSmartNamesForOff == null) {
             // @ts-ignore            
@@ -211,7 +212,7 @@ export function createZigbeeSteckdose(adapter:any, rawId: number, baseState: str
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, deviceZigbeeSteckdose);
 
     // alexaActionNamesForOff:string[]
-    var db_alexaActionNamesForOff = null;
+    let db_alexaActionNamesForOff = null;
     alexaActionNamesForOff.forEach(value => {
         if (db_alexaActionNamesForOff == null) {
             // @ts-ignore                        
@@ -224,7 +225,7 @@ export function createZigbeeSteckdose(adapter:any, rawId: number, baseState: str
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, deviceZigbeeSteckdose);
 
     // additionalStates4TurnOn: string[]
-    var db_additionalStates4TurnOn = null;
+    let db_additionalStates4TurnOn = null;
     additionalStates4TurnOn.forEach(value => {
         if (db_additionalStates4TurnOn == null) {
             // @ts-ignore                        
@@ -237,7 +238,7 @@ export function createZigbeeSteckdose(adapter:any, rawId: number, baseState: str
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOn, db_additionalStates4TurnOn, deviceZigbeeSteckdose);
 
     // additionalStates4TurnOff: string[]
-    var db_additionalStates4TurnOff = null;
+    let db_additionalStates4TurnOff = null;
     additionalStates4TurnOff.forEach(value => {
         if (db_additionalStates4TurnOff == null) {
             // @ts-ignore                        
@@ -248,6 +249,7 @@ export function createZigbeeSteckdose(adapter:any, rawId: number, baseState: str
         }
     });
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_additionalStates4TurnOff, deviceZigbeeSteckdose);
+    clearZigbeeCaches(adapter);    
 }
 
 // LampeWeiss:
@@ -263,7 +265,7 @@ export function createZigbeeLampeWeiss(adapter:any, rawId: number, baseState: st
     createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeLampeWeiss);
 
     // alexaSmartNamesForOn:string[]
-    var db_alexaSmartNamesForOn = null;
+    let db_alexaSmartNamesForOn = null;
     alexaSmartNamesForOn.forEach(value => {
         if (db_alexaSmartNamesForOn == null) {
             // @ts-ignore                                    
@@ -276,7 +278,7 @@ export function createZigbeeLampeWeiss(adapter:any, rawId: number, baseState: st
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, deviceZigbeeLampeWeiss);
 
     // alexaActionNamesForOn:string[]
-    var db_alexaActionNamesForOn = null;
+    let db_alexaActionNamesForOn = null;
     alexaActionNamesForOn.forEach(value => {
         if (db_alexaActionNamesForOn == null) {
             // @ts-ignore                                    
@@ -289,7 +291,7 @@ export function createZigbeeLampeWeiss(adapter:any, rawId: number, baseState: st
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, deviceZigbeeLampeWeiss);
 
     // alexaSmartNamesForOff:string[]
-    var db_alexaSmartNamesForOff = null;
+    let db_alexaSmartNamesForOff = null;
     alexaSmartNamesForOff.forEach(value => {
         if (db_alexaSmartNamesForOff == null) {
             // @ts-ignore                                    
@@ -302,7 +304,7 @@ export function createZigbeeLampeWeiss(adapter:any, rawId: number, baseState: st
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, deviceZigbeeLampeWeiss);
 
     // alexaActionNamesForOff:string[]
-    var db_alexaActionNamesForOff = null;
+    let db_alexaActionNamesForOff = null;
     alexaActionNamesForOff.forEach(value => {
         if (db_alexaActionNamesForOff == null) {
             // @ts-ignore                                    
@@ -367,7 +369,7 @@ export function createZigbeeLampeWeiss(adapter:any, rawId: number, baseState: st
     }    
 
     // tasterBooleanOff: string[]
-    var db_tasterBooleanOff = null;
+    let db_tasterBooleanOff = null;
     tasterBooleanOff.forEach(value => {
         if (db_tasterBooleanOff == null) {
             // @ts-ignore                                    
@@ -451,6 +453,7 @@ export function createZigbeeLampeWeiss(adapter:any, rawId: number, baseState: st
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_level, null, deviceZigbeeLampeWeiss);
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_ct, null, deviceZigbeeLampeWeiss);*/
     }
+    clearZigbeeCaches(adapter);    
 }
 
 // LampeRGB:
@@ -461,7 +464,7 @@ export function createZigbeeLampeRGB(adapter:any, rawId: number, baseState: stri
     tasterBooleanOn: string[], tasterBooleanOff: string[],nachtbeleuchtung:boolean, turnOffExitHouseSummer:boolean, turnOffExitHouseWinter:boolean, 
     turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean) {
 
-    var category: string = deviceZigbeeLampeRGB;
+    let category: string = deviceZigbeeLampeRGB;
 
     // Allgemein:
     createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeLampeRGB);
@@ -470,7 +473,7 @@ export function createZigbeeLampeRGB(adapter:any, rawId: number, baseState: stri
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_Group, isGroup, category);
     
     // groupMembers:string[]
-    var db_groupMembers = null;
+    let db_groupMembers = null;
     groupMembers.forEach(value => {
         if (db_groupMembers == null) {
             // @ts-ignore                                    
@@ -483,7 +486,7 @@ export function createZigbeeLampeRGB(adapter:any, rawId: number, baseState: stri
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_Groupmembers, db_groupMembers, category);
 
     // alexaSmartNamesForOn:string[]
-    var db_alexaSmartNamesForOn = null;
+    let db_alexaSmartNamesForOn = null;
     alexaSmartNamesForOn.forEach(value => {
         if (db_alexaSmartNamesForOn == null) {
             // @ts-ignore                                    
@@ -496,7 +499,7 @@ export function createZigbeeLampeRGB(adapter:any, rawId: number, baseState: stri
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, category);
 
     // alexaActionNamesForOn:string[]
-    var db_alexaActionNamesForOn = null;
+    let db_alexaActionNamesForOn = null;
     alexaActionNamesForOn.forEach(value => {
         if (db_alexaActionNamesForOn == null) {
             // @ts-ignore                                    
@@ -509,7 +512,7 @@ export function createZigbeeLampeRGB(adapter:any, rawId: number, baseState: stri
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, category);
 
     // alexaSmartNamesForOff:string[]
-    var db_alexaSmartNamesForOff = null;
+    let db_alexaSmartNamesForOff = null;
     alexaSmartNamesForOff.forEach(value => {
         if (db_alexaSmartNamesForOff == null) {
             // @ts-ignore                                    
@@ -522,7 +525,7 @@ export function createZigbeeLampeRGB(adapter:any, rawId: number, baseState: stri
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, category);
 
     // alexaActionNamesForOff:string[]
-    var db_alexaActionNamesForOff = null;
+    let db_alexaActionNamesForOff = null;
     alexaActionNamesForOff.forEach(value => {
         if (db_alexaActionNamesForOff == null) {
             // @ts-ignore                                    
@@ -535,7 +538,7 @@ export function createZigbeeLampeRGB(adapter:any, rawId: number, baseState: stri
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, category);
 
     // tasterBooleanOn: string[]
-    var db_tasterBooleanOn = null;
+    let db_tasterBooleanOn = null;
     tasterBooleanOn.forEach(value => {
         if (db_tasterBooleanOn == null) {
             // @ts-ignore                                    
@@ -548,7 +551,7 @@ export function createZigbeeLampeRGB(adapter:any, rawId: number, baseState: stri
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOn, db_tasterBooleanOn, category);
 
     // tasterBooleanOff: string[]
-    var db_tasterBooleanOff = null;
+    let db_tasterBooleanOff = null;
     tasterBooleanOff.forEach(value => {
         if (db_tasterBooleanOff == null) {
             // @ts-ignore                                    
@@ -703,10 +706,11 @@ export function createZigbeeLampeRGB(adapter:any, rawId: number, baseState: stri
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss4_level, null, category);
         createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss4_ct, null, category);*/
     }
+    clearZigbeeCaches(adapter);    
 }
 
 function createDatenpunktSingle(adapter:any, deviceRawId, attributeType, attributeName, attributeValue, category:string) {
-    var stateDatenpunkt = "0_userdata.0.devices.zigbee." + category + "." + deviceRawId + "." + attributeName;
+    let stateDatenpunkt = "0_userdata.0.devices.zigbee." + category + "." + deviceRawId + "." + attributeName;
     adapter.createState(stateDatenpunkt, attributeValue, {
         name: "Z" + deviceRawId.toString().padStart(3, '0'),
         desc: "",
@@ -720,7 +724,7 @@ function createDatenpunktSingle(adapter:any, deviceRawId, attributeType, attribu
 }
 
 function toStringArray(databaseValue) { // z.B. "Werkbank|Arbeiten|Keller"
-    var stringArray = [];
+    let stringArray = [];
     if (databaseValue == null) {
         return stringArray;
     } else {
@@ -736,7 +740,7 @@ export function loadZigbeeSteckdosen(adapter: any) {
     // @ts-ignore            
     cacheSteckdosenArray = [];
     adapter.$('state[id=0_userdata.0.devices.zigbee.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.zigbee.Steckdose.30.category;
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceZigbeeSteckdose) {
             // @ts-ignore            
             cacheSteckdosenArray.push(new ZigbeeSteckdose(adapter,
@@ -766,7 +770,7 @@ export function loadZigbeeBewegungsmelder(adapter: any) {
     // @ts-ignore            
     cacheBewegungsmelderArray = [];
     adapter.$('state[id=0_userdata.0.devices.zigbee.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.zigbee.Steckdose.30.category;
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceZigbeeBewegungsmelder) {
             // @ts-ignore            
             cacheBewegungsmelderArray.push(new ZigbeeBewegungsmelder(adapter,
@@ -790,11 +794,11 @@ export function loadZigbeeLampenRGB(adapter: any) {
     // @ts-ignore            
     cacheLampenRGBArray = [];
     adapter.$('state[id=0_userdata.0.devices.zigbee.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.zigbee.Steckdose.30.category;
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceZigbeeLampeRGB) {
 
             // Einschalt-Scheme:
-            var alexaOnScheme = null;
+            let alexaOnScheme = null;
             if (adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_AlexaColorSchemeForOn_Farbe_aktiv).val == true) {
                 alexaOnScheme = new RGBColorScheme(null,
                     adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_AlexaColorSchemeForOn_Farbe_level).val,
@@ -809,7 +813,7 @@ export function loadZigbeeLampenRGB(adapter: any) {
             }
 
             // Weitere Schemes als Array:
-            var schemeArray = [];
+            let schemeArray = [];
 
             // RGBColorScheme1:
             if (adapter.getState(datenpunktPraefix + "." + attributeRGBLamp_ColorSchemes_Farbe1_aktiv).val == true) {
@@ -932,10 +936,10 @@ export function loadZigbeeLampenWeiss(adapter: any) {
     // @ts-ignore            
     cacheLampenWeissArray = [];
     adapter.$('state[id=0_userdata.0.devices.zigbee.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.zigbee.Steckdose.30.category;
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceZigbeeLampeWeiss) {
             // Einschalt-Scheme:
-            var alexaOnScheme = null;
+            let alexaOnScheme = null;
             if (adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_AlexaColorSchemeForOn_Weiss_aktiv).val == true) {
                 // @ts-ignore                                                
                 alexaOnScheme = new LampeWeissAlexaScheme(null,
@@ -945,7 +949,7 @@ export function loadZigbeeLampenWeiss(adapter: any) {
             }
 
             // Weitere Schemes als Array:
-            var schemeArray = [];
+            let schemeArray = [];
 
             // WhiteColorScheme1:
             if (adapter.getState(datenpunktPraefix + "." + attributeLampWeiss_ColorSchemes_Weiss1_aktiv).val == true) {
@@ -988,7 +992,7 @@ export function loadZigbeeLampenWeiss(adapter: any) {
             }
 
             // Taster Boolean On Schemes:
-            var tasterOnBoolschemeArray = [];
+            let tasterOnBoolschemeArray = [];
 
             // LampeWeissTasterScheme1:
             //constructor(tasterBooleanOn: string, level: number, ct: number) {
@@ -1067,7 +1071,7 @@ export function loadZigbeeRauchmelder(adapter: any) {
     // @ts-ignore            
     cacheRauchmelderArray = [];
     adapter.$('state[id=0_userdata.0.devices.zigbee.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.zigbee.Steckdose.30.category;
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceZigbeeRauchmelder) {
             // @ts-ignore                            
             cacheRauchmelderArray.push(new ZigbeeRauchmelder(adapter,
@@ -1091,7 +1095,7 @@ export function loadZigbeeWandtaster(adapter: any) {
     // @ts-ignore            
     cacheWandtasterArray = [];
     adapter.$('state[id=0_userdata.0.devices.zigbee.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.zigbee.Steckdose.30.category;
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceZigbeeWandtaster) {
             // @ts-ignore            
             cacheWandtasterArray.push(new ZigbeeWandtaster(adapter,
@@ -1115,7 +1119,7 @@ export function loadZigbeeDosenrelais(adapter: any) {
     // @ts-ignore            
     cacheDosenrelaisArray = [];
     adapter.$('state[id=0_userdata.0.devices.zigbee.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.zigbee.Steckdose.30.category;
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceZigbeeDosenrelais) {
             // @ts-ignore            
             cacheDosenrelaisArray.push(new ZigbeeDosenrelais(adapter,
@@ -1140,7 +1144,7 @@ export function loadZigbeeSchalter(adapter: any) {
     // @ts-ignore            
     cacheSchalterArray = [];
     adapter.$('state[id=0_userdata.0.devices.zigbee.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.zigbee.Steckdose.30.category;
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceZigbeeSchalter) {
             // @ts-ignore            
             cacheSchalterArray.push(new ZigbeeSchalter(adapter,
@@ -1164,7 +1168,7 @@ export function loadZigbeeRepeater(adapter: any) {
     // @ts-ignore            
     cacheRepeaterArray = [];
     adapter.$('state[id=0_userdata.0.devices.zigbee.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.zigbee.Steckdose.30.category;
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceZigbeeRepeater) {
             // @ts-ignore            
             cacheRepeaterArray.push(new ZigbeeRepeater(adapter,
@@ -1188,7 +1192,7 @@ export function loadZigbeeFenstersensor(adapter: any) {
     // @ts-ignore            
     cacheFenstersensorenArray = [];
     adapter.$('state[id=0_userdata.0.devices.zigbee.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.zigbee.Steckdose.30.category;
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceZigbeeFenstersensor) {
             // @ts-ignore            
             cacheFenstersensorenArray.push(new ZigbeeFenstersensor(adapter,
@@ -1212,7 +1216,7 @@ export function loadZigbeeDevicesAll(adapter: any) {
     }*/
     
     // @ts-ignore            
-    var zigbeeAllArray = [];
+    let zigbeeAllArray = [];
     adapter.loadZigbeeSteckdosen(adapter).forEach(zigbee => {
         // @ts-ignore            
         zigbeeAllArray.push(zigbee);
@@ -1274,34 +1278,34 @@ function clearZigbeeCaches(adapter: any) {
 
 function sortArray(inputArray) {
     inputArray.sort((a,b) => {
-        var elementA = a;
-        var elementB = b;
+        let elementA = a;
+        let elementB = b;
 
-        var etageA = elementA.getEtage();
-        var etageB = elementB.getEtage();
-        var compareEtage = getEtageSortIndex(etageA).localeCompare(getEtageSortIndex(etageB));
+        let etageA = elementA.getEtage();
+        let etageB = elementB.getEtage();
+        let compareEtage = getEtageSortIndex(etageA).localeCompare(getEtageSortIndex(etageB));
         if (compareEtage != 0) {
             return compareEtage;
         }
 
-        var typA = elementA.getCategory();
-        var typB = elementB.getCategory();
-        var compareTyp = typA.localeCompare(typB);
+        let typA = elementA.getCategory();
+        let typB = elementB.getCategory();
+        let compareTyp = typA.localeCompare(typB);
         if (compareTyp != 0) {
             return compareTyp;
         }
 
 
-        var raumA = elementA.getRaum();
-        var raumB = elementB.getRaum();
-        var compareRaum = raumA.localeCompare(raumB);
+        let raumA = elementA.getRaum();
+        let raumB = elementB.getRaum();
+        let compareRaum = raumA.localeCompare(raumB);
         if (compareRaum != 0) {
             return compareRaum;
         }
 
-        var deviceA = elementA.getDevice();
-        var deviceB = elementB.getDevice();
-        var compareDevice = deviceA.localeCompare(deviceB);
+        let deviceA = elementA.getDevice();
+        let deviceB = elementB.getDevice();
+        let compareDevice = deviceA.localeCompare(deviceB);
         if (compareDevice != 0) {
             return compareDevice;
         }

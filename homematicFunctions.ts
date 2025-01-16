@@ -166,7 +166,7 @@ export function createHomeaticDimmer(adapter: any, rawId: number, baseState: str
     }
 
     // additionalStates4TurnOff: string[]
-    var db_additionalStates4TurnOff = null;
+    let db_additionalStates4TurnOff = null;
     tasterBooleanOff.forEach(value => {
         if (db_additionalStates4TurnOff == null) {
             // @ts-ignore                        
@@ -179,7 +179,7 @@ export function createHomeaticDimmer(adapter: any, rawId: number, baseState: str
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_additionalStates4TurnOff, deviceHomematicDimmer);
 
     // alexaSmartNamesForOn:string[]
-    var db_alexaSmartNamesForOn = null;
+    let db_alexaSmartNamesForOn = null;
     alexaSmartNamesForOn.forEach(value => {
         if (db_alexaSmartNamesForOn == null) {
             // @ts-ignore            
@@ -192,7 +192,7 @@ export function createHomeaticDimmer(adapter: any, rawId: number, baseState: str
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, deviceHomematicDimmer);
 
     // alexaActionNamesForOn:string[]
-    var db_alexaActionNamesForOn = null;
+    let db_alexaActionNamesForOn = null;
     alexaActionNamesForOn.forEach(value => {
         if (db_alexaActionNamesForOn == null) {
             // @ts-ignore            
@@ -205,7 +205,7 @@ export function createHomeaticDimmer(adapter: any, rawId: number, baseState: str
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, deviceHomematicDimmer);
 
     // alexaSmartNamesForOff:string[]
-    var db_alexaSmartNamesForOff = null;
+    let db_alexaSmartNamesForOff = null;
     alexaSmartNamesForOff.forEach(value => {
         if (db_alexaSmartNamesForOff == null) {
             // @ts-ignore            
@@ -218,7 +218,7 @@ export function createHomeaticDimmer(adapter: any, rawId: number, baseState: str
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, deviceHomematicDimmer);
 
     // alexaActionNamesForOff:string[]
-    var db_alexaActionNamesForOff = null;
+    let db_alexaActionNamesForOff = null;
     alexaActionNamesForOff.forEach(value => {
         if (db_alexaActionNamesForOff == null) {
             // @ts-ignore                        
@@ -236,6 +236,7 @@ export function createHomeaticDimmer(adapter: any, rawId: number, baseState: str
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, deviceHomematicDimmer);
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceHomematicDimmer);
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceHomematicDimmer);
+    clearHomematicCaches(adapter);
 }
 
 // Wandschalter:
@@ -248,7 +249,7 @@ export function createHomeaticWandschalter(adapter:any, rawId: number, baseState
     createHomematicDevice(adapter,                  rawId,          baseState,         etage,         raum,         device,         deviceHomematicWandschalter);
 
     // alexaSmartNamesForOn:string[]
-    var db_alexaSmartNamesForOn = null;
+    let db_alexaSmartNamesForOn = null;
     alexaSmartNamesForOn.forEach(value => {
         if (db_alexaSmartNamesForOn == null) {
             // @ts-ignore            
@@ -261,7 +262,7 @@ export function createHomeaticWandschalter(adapter:any, rawId: number, baseState
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, deviceHomematicWandschalter);
 
     // alexaActionNamesForOn:string[]
-    var db_alexaActionNamesForOn = null;
+    let db_alexaActionNamesForOn = null;
     alexaActionNamesForOn.forEach(value => {
         if (db_alexaActionNamesForOn == null) {
             // @ts-ignore            
@@ -274,7 +275,7 @@ export function createHomeaticWandschalter(adapter:any, rawId: number, baseState
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, deviceHomematicWandschalter);
 
     // alexaSmartNamesForOff:string[]
-    var db_alexaSmartNamesForOff = null;
+    let db_alexaSmartNamesForOff = null;
     alexaSmartNamesForOff.forEach(value => {
         if (db_alexaSmartNamesForOff == null) {
             // @ts-ignore            
@@ -287,7 +288,7 @@ export function createHomeaticWandschalter(adapter:any, rawId: number, baseState
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, deviceHomematicWandschalter);
 
     // alexaActionNamesForOff:string[]
-    var db_alexaActionNamesForOff = null;
+    let db_alexaActionNamesForOff = null;
     alexaActionNamesForOff.forEach(value => {
         if (db_alexaActionNamesForOff == null) {
             // @ts-ignore                        
@@ -305,10 +306,11 @@ export function createHomeaticWandschalter(adapter:any, rawId: number, baseState
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, deviceHomematicWandschalter);
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceHomematicWandschalter);
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceHomematicWandschalter);
+    clearHomematicCaches(adapter);    
 }
 
 function createDatenpunktSingle(adapter: any, deviceRawId, attributeType, attributeName, attributeValue, category) {
-    var stateDatenpunkt = "0_userdata.0.devices.homematic." + category + "." + deviceRawId + "." + attributeName;
+    let stateDatenpunkt = "0_userdata.0.devices.homematic." + category + "." + deviceRawId + "." + attributeName;
     adapter.createState(stateDatenpunkt, attributeValue, {
         name: "H" + deviceRawId.toString().padStart(2, '0'),
         desc: "",
@@ -326,7 +328,7 @@ export function loadHomematicRollladen(adapter: any) {
     // @ts-ignore            
     cacheRollladenArray = [];
     adapter.$('state[id=0_userdata.0.devices.homematic.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.homematic.30.type
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceHomematicRollladen) {
             // @ts-ignore                            
             cacheRollladenArray.push(new HomematicRollladen(adapter,
@@ -350,7 +352,7 @@ export function loadHomematicWandthermostate(adapter: any) {
     // @ts-ignore            
     cacheWandthermostateArray = [];
     adapter.$('state[id=0_userdata.0.devices.homematic.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.homematic.30.type
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceHomematicWandthermostat) {
             // @ts-ignore            
             cacheWandthermostateArray.push(new HomematicWandthermostat(adapter,
@@ -374,7 +376,7 @@ export function loadHomematicPraesenzmelder(adapter: any) {
     // @ts-ignore            
     cachePraesenzmelderArray = [];
     adapter.$('state[id=0_userdata.0.devices.homematic.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.homematic.30.type
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceHomematicPraesenzmelder) {
             // @ts-ignore                            
             cachePraesenzmelderArray.push(new HomematicPraesenzmelder(adapter,
@@ -398,7 +400,7 @@ export function loadHomematicWetterstationen(adapter: any) {
     // @ts-ignore            
     cacheWetterstationenArray = [];
     adapter.$('state[id=0_userdata.0.devices.homematic.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.homematic.30.type
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceHomematicWetterstation) {
             // @ts-ignore            
             cacheWetterstationenArray.push(new HomematicWetterstation(adapter,
@@ -422,7 +424,7 @@ export function loadHomematicDoors(adapter: any) {
     // @ts-ignore            
     cacheDoorsArray = [];
     adapter.$('state[id=0_userdata.0.devices.homematic.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.homematic.30.type
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceHomematicDoor) {
             // @ts-ignore            
             cacheDoorsArray.push(new HomematicDoor(adapter,
@@ -447,7 +449,7 @@ export function loadHomematicWandschalter(adapter: any) {
     // @ts-ignore            
     cacheWandschalterArray = [];
     adapter.$('state[id=0_userdata.0.devices.homematic.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.homematic.30.type
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceHomematicWandschalter) {
             // @ts-ignore            
             cacheWandschalterArray.push(new HomematicWandschalter(adapter,
@@ -480,7 +482,7 @@ export function loadHomematicFussbodenheizungen(adapter: any) {
     // @ts-ignore            
     cacheFussbodenheizungenArray = [];
     adapter.$('state[id=0_userdata.0.devices.homematic.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.homematic.30.type
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceHomematicFussbodenheizung) {
             // @ts-ignore            
             cacheFussbodenheizungenArray.push(new HomematicFussbodenheizung(adapter,
@@ -504,7 +506,7 @@ export function loadHomematicWandtaster(adapter: any) {
     // @ts-ignore            
     cacheWandtasterArray = [];
     adapter.$('state[id=0_userdata.0.devices.homematic.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.homematic.30.type
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceHomematicWandtaster) {
             // @ts-ignore            
             cacheWandtasterArray.push(new HomematicWandtaster(adapter,
@@ -528,7 +530,7 @@ export function loadHomematicAccessPoints(adapter: any) {
     // @ts-ignore            
     cacheAccessPointsArray = [];
     adapter.$('state[id=0_userdata.0.devices.homematic.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.homematic.30.type
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceHomematicAccessPoint) {
             // @ts-ignore            
             cacheAccessPointsArray.push(new HomematicAccessPoint(adapter,
@@ -552,7 +554,7 @@ export function loadHomematicTemperatursensoren(adapter: any) {
     // @ts-ignore            
     cacheTemperatursensorenArray = [];
     adapter.$('state[id=0_userdata.0.devices.homematic.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.homematic.30.type
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceHomematicTemperatursensor) {
             // @ts-ignore            
             cacheTemperatursensorenArray.push(new HomematicTemperatursensor(adapter,
@@ -576,7 +578,7 @@ export function loadHomematicRauchmelder(adapter: any) {
     // @ts-ignore            
     cacheRauchmelderArray = [];
     adapter.$('state[id=0_userdata.0.devices.homematic.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.homematic.30.type
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceHomematicRauchmelder) {
             // @ts-ignore            
             cacheRauchmelderArray.push(new HomematicRauchmelder(adapter,
@@ -600,7 +602,7 @@ export function loadHomematicFunktschaltaktoren(adapter: any) {
     // @ts-ignore            
     cacheFunkschaltaktorenArray = [];
     adapter.$('state[id=0_userdata.0.devices.homematic.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.homematic.30.type
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceHomematicFunkSchaltaktor) {
             // @ts-ignore            
             cacheFunkschaltaktorenArray.push(new HomematicFunkschaltaktor(adapter,
@@ -624,7 +626,7 @@ export function loadHomematicWindows(adapter: any) {
     // @ts-ignore            
     cacheWindowsArray = [];
     adapter.$('state[id=0_userdata.0.devices.homematic.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.homematic.30.type
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceHomematicWindow) {
             // @ts-ignore            
             cacheWindowsArray.push(new HomematicWindow(adapter,
@@ -648,7 +650,7 @@ export function loadHomematicSteckdosen(adapter: any) {
     // @ts-ignore            
     cacheSteckdosenArray = [];
     adapter.$('state[id=0_userdata.0.devices.homematic.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.homematic.30.type
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceHomematicSteckdose) {
             // @ts-ignore            
             cacheSteckdosenArray.push(new HomematicSteckdose(adapter,
@@ -672,7 +674,7 @@ export function loadHomematicHeizkoerper(adapter: any) {
     // @ts-ignore            
     cacheHeizkoerperArray = [];
     adapter.$('state[id=0_userdata.0.devices.homematic.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.homematic.30.type
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceHomematicHeizkoerper) {
             // @ts-ignore            
             cacheHeizkoerperArray.push(new HomematicHeizkoerper(adapter,
@@ -696,11 +698,11 @@ export function loadHomematicDimmer(adapter: any) {
     // @ts-ignore            
     cacheDimmerArray = [];
     adapter.$('state[id=0_userdata.0.devices.homematic.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.homematic.30.type
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceHomematicDimmer) {
 
             // Einschalt-Scheme:
-            var alexaOnScheme = null;
+            let alexaOnScheme = null;
             if (adapter.getState(datenpunktPraefix + "." + attributeDimmer_alexaScheme_aktiv, ).val == true) {
                 // @ts-ignore                                                
                 alexaOnScheme = new DimmerAlexaScheme(null,
@@ -709,7 +711,7 @@ export function loadHomematicDimmer(adapter: any) {
             }
 
             // Weitere Schemes als Array:
-            var schemeArray = [];
+            let schemeArray = [];
 
             // alexaScheme1: InstanceType<typeof DimmerAlexaScheme>
             if (adapter.getState(datenpunktPraefix + "." + attributeDimmer_alexaScheme1_aktiv ).val == true) {
@@ -745,7 +747,7 @@ export function loadHomematicDimmer(adapter: any) {
             }
 
             // Weitere Schemes als Array:
-            var tasterSchemeArray = [];
+            let tasterSchemeArray = [];
 
             // tasterScheme1: InstanceType<typeof DimmerTasterScheme>
             if (adapter.getState(datenpunktPraefix + "." + attributeDimmer_tasterScheme1_aktiv ).val == true) {
@@ -815,7 +817,7 @@ export function loadHomematicDevicesAll(adapter: any) {
     }*/
     
     // @ts-ignore            
-    var homematicAllArray = [];
+    let homematicAllArray = [];
 
     adapter.loadHomematicWandthermostate(adapter).forEach(homematic => {
         // @ts-ignore            
@@ -886,7 +888,7 @@ export function loadHomematicDevicesAll(adapter: any) {
 }
 
 function toStringArray(databaseValue) { // z.B. "Werkbank|Arbeiten|Keller"
-    var stringArray = [];
+    let stringArray = [];
     if (databaseValue == null) {
         return stringArray;
     } else {
@@ -916,34 +918,34 @@ function clearHomematicCaches(adapter: any) {
 
 function sortArray(inputArray) {
     inputArray.sort((a,b) => {
-        var elementA = a;
-        var elementB = b;
+        let elementA = a;
+        let elementB = b;
 
-        var etageA = elementA.getEtage();
-        var etageB = elementB.getEtage();
-        var compareEtage = getEtageSortIndex(etageA).localeCompare(getEtageSortIndex(etageB));
+        let etageA = elementA.getEtage();
+        let etageB = elementB.getEtage();
+        let compareEtage = getEtageSortIndex(etageA).localeCompare(getEtageSortIndex(etageB));
         if (compareEtage != 0) {
             return compareEtage;
         }
 
-        var typA = elementA.getCategory();
-        var typB = elementB.getCategory();
-        var compareTyp = typA.localeCompare(typB);
+        let typA = elementA.getCategory();
+        let typB = elementB.getCategory();
+        let compareTyp = typA.localeCompare(typB);
         if (compareTyp != 0) {
             return compareTyp;
         }
 
 
-        var raumA = elementA.getRaum();
-        var raumB = elementB.getRaum();
-        var compareRaum = raumA.localeCompare(raumB);
+        let raumA = elementA.getRaum();
+        let raumB = elementB.getRaum();
+        let compareRaum = raumA.localeCompare(raumB);
         if (compareRaum != 0) {
             return compareRaum;
         }
 
-        var deviceA = elementA.getDevice();
-        var deviceB = elementB.getDevice();
-        var compareDevice = deviceA.localeCompare(deviceB);
+        let deviceA = elementA.getDevice();
+        let deviceB = elementB.getDevice();
+        let compareDevice = deviceA.localeCompare(deviceB);
         if (compareDevice != 0) {
             return compareDevice;
         }

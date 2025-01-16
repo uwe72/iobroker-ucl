@@ -82,10 +82,11 @@ export function createShellyDevice(adapter: any, rawId: number, etage: string, r
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeEtage, etage, category);
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRaum, raum, category);
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDevice, device, category);
+    clearShellyCaches(adapter);
 }
 
 function createDatenpunktSingle(adapter: any, deviceRawId, attributeType, attributeName, attributeValue, category) {
-    var stateDatenpunkt = "0_userdata.0.devices.shelly." + category + "." + deviceRawId + "." + attributeName;
+    let stateDatenpunkt = "0_userdata.0.devices.shelly." + category + "." + deviceRawId + "." + attributeName;
     adapter.createState(stateDatenpunkt, attributeValue, {
         name: "S" + deviceRawId.toString().padStart(2, '0'),
         desc: "",
@@ -102,6 +103,7 @@ export function createShellySensor(adapter: any, rawId: number,  etage: string, 
 
     // Allgemein:
     createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellySensor);
+    clearShellyCaches(adapter);    
 }
 
 // Lampe RGB:
@@ -109,6 +111,7 @@ export function createShellyLampeRGB(adapter: any, rawId: number,  etage: string
 
     // Allgemein:
     createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellyLampeRGB);
+    clearShellyCaches(adapter);    
 }
 
 // Rollladen:
@@ -116,6 +119,7 @@ export function createShellyRollladen(adapter: any, rawId: number,  etage: strin
 
     // Allgemein:
     createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellyRollladen);
+    clearShellyCaches(adapter);    
 }
 
 // Dimmer:
@@ -213,7 +217,7 @@ export function createShellyDimmer(adapter: any, rawId: number,  etage: string, 
     }
     
     // alexaSmartNamesForOn:string[]
-    var db_alexaSmartNamesForOn = null;
+    let db_alexaSmartNamesForOn = null;
     alexaSmartNamesForOn.forEach(value => {
         if (db_alexaSmartNamesForOn == null) {
             // @ts-ignore            
@@ -226,7 +230,7 @@ export function createShellyDimmer(adapter: any, rawId: number,  etage: string, 
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, deviceShellyDimmer);
 
     // alexaActionNamesForOn:string[]
-    var db_alexaActionNamesForOn = null;
+    let db_alexaActionNamesForOn = null;
     alexaActionNamesForOn.forEach(value => {
         if (db_alexaActionNamesForOn == null) {
             // @ts-ignore            
@@ -239,7 +243,7 @@ export function createShellyDimmer(adapter: any, rawId: number,  etage: string, 
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, deviceShellyDimmer);
 
     // alexaSmartNamesForOff:string[]
-    var db_alexaSmartNamesForOff = null;
+    let db_alexaSmartNamesForOff = null;
     alexaSmartNamesForOff.forEach(value => {
         if (db_alexaSmartNamesForOff == null) {
             // @ts-ignore            
@@ -252,7 +256,7 @@ export function createShellyDimmer(adapter: any, rawId: number,  etage: string, 
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, deviceShellyDimmer);
 
     // alexaActionNamesForOff:string[]
-    var db_alexaActionNamesForOff = null;
+    let db_alexaActionNamesForOff = null;
     alexaActionNamesForOff.forEach(value => {
         if (db_alexaActionNamesForOff == null) {
             // @ts-ignore                        
@@ -265,7 +269,7 @@ export function createShellyDimmer(adapter: any, rawId: number,  etage: string, 
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, deviceShellyDimmer);
 
     // additionalStates4TurnOff: string[]
-    var db_additionalStates4TurnOff = null;
+    let db_additionalStates4TurnOff = null;
     tasterBooleanOff.forEach(value => {
         if (db_additionalStates4TurnOff == null) {
             // @ts-ignore                        
@@ -283,6 +287,7 @@ export function createShellyDimmer(adapter: any, rawId: number,  etage: string, 
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, deviceShellyDimmer);
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceShellyDimmer);
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceShellyDimmer);
+    clearShellyCaches(adapter);    
 }
 
 // Lampe Weiss:
@@ -298,7 +303,7 @@ export function createShellyLampe(adapter:any, rawId: number, etage: string, rau
     createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeChannel, channel, deviceShellyLampeWeiss);
     
     // alexaSmartNamesForOn:string[]
-    var db_alexaSmartNamesForOn = null;
+    let db_alexaSmartNamesForOn = null;
     alexaSmartNamesForOn.forEach(value => {
         if (db_alexaSmartNamesForOn == null) {
             // @ts-ignore            
@@ -311,7 +316,7 @@ export function createShellyLampe(adapter:any, rawId: number, etage: string, rau
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, deviceShellyLampeWeiss);
 
     // alexaActionNamesForOn:string[]
-    var db_alexaActionNamesForOn = null;
+    let db_alexaActionNamesForOn = null;
     alexaActionNamesForOn.forEach(value => {
         if (db_alexaActionNamesForOn == null) {
             // @ts-ignore            
@@ -324,7 +329,7 @@ export function createShellyLampe(adapter:any, rawId: number, etage: string, rau
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, deviceShellyLampeWeiss);
 
     // alexaSmartNamesForOff:string[]
-    var db_alexaSmartNamesForOff = null;
+    let db_alexaSmartNamesForOff = null;
     alexaSmartNamesForOff.forEach(value => {
         if (db_alexaSmartNamesForOff == null) {
             // @ts-ignore            
@@ -337,7 +342,7 @@ export function createShellyLampe(adapter:any, rawId: number, etage: string, rau
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, deviceShellyLampeWeiss);
 
     // alexaActionNamesForOff:string[]
-    var db_alexaActionNamesForOff = null;
+    let db_alexaActionNamesForOff = null;
     alexaActionNamesForOff.forEach(value => {
         if (db_alexaActionNamesForOff == null) {
             // @ts-ignore                        
@@ -350,7 +355,7 @@ export function createShellyLampe(adapter:any, rawId: number, etage: string, rau
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, deviceShellyLampeWeiss);
 
     // additionalStates4TurnOn: string[]
-    var db_additionalStates4TurnOn = null;
+    let db_additionalStates4TurnOn = null;
     additionalStates4TurnOn.forEach(value => {
         if (db_additionalStates4TurnOn == null) {
             // @ts-ignore                        
@@ -363,7 +368,7 @@ export function createShellyLampe(adapter:any, rawId: number, etage: string, rau
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOn, db_additionalStates4TurnOn, deviceShellyLampeWeiss);
 
     // additionalStates4TurnOff: string[]
-    var db_additionalStates4TurnOff = null;
+    let db_additionalStates4TurnOff = null;
     additionalStates4TurnOff.forEach(value => {
         if (db_additionalStates4TurnOff == null) {
             // @ts-ignore                        
@@ -381,6 +386,7 @@ export function createShellyLampe(adapter:any, rawId: number, etage: string, rau
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, deviceShellyLampeWeiss);
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceShellyLampeWeiss);
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceShellyLampeWeiss);
+    clearShellyCaches(adapter);    
 }
 
 // Steckdose:
@@ -396,7 +402,7 @@ export function createShellySteckdose(adapter:any, rawId: number, etage: string,
     createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeChannel, channel, deviceShellySteckdose);
     
     // alexaSmartNamesForOn:string[]
-    var db_alexaSmartNamesForOn = null;
+    let db_alexaSmartNamesForOn = null;
     alexaSmartNamesForOn.forEach(value => {
         if (db_alexaSmartNamesForOn == null) {
             // @ts-ignore            
@@ -409,7 +415,7 @@ export function createShellySteckdose(adapter:any, rawId: number, etage: string,
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, deviceShellySteckdose);
 
     // alexaActionNamesForOn:string[]
-    var db_alexaActionNamesForOn = null;
+    let db_alexaActionNamesForOn = null;
     alexaActionNamesForOn.forEach(value => {
         if (db_alexaActionNamesForOn == null) {
             // @ts-ignore            
@@ -422,7 +428,7 @@ export function createShellySteckdose(adapter:any, rawId: number, etage: string,
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, deviceShellySteckdose);
 
     // alexaSmartNamesForOff:string[]
-    var db_alexaSmartNamesForOff = null;
+    let db_alexaSmartNamesForOff = null;
     alexaSmartNamesForOff.forEach(value => {
         if (db_alexaSmartNamesForOff == null) {
             // @ts-ignore            
@@ -435,7 +441,7 @@ export function createShellySteckdose(adapter:any, rawId: number, etage: string,
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, deviceShellySteckdose);
 
     // alexaActionNamesForOff:string[]
-    var db_alexaActionNamesForOff = null;
+    let db_alexaActionNamesForOff = null;
     alexaActionNamesForOff.forEach(value => {
         if (db_alexaActionNamesForOff == null) {
             // @ts-ignore                        
@@ -448,7 +454,7 @@ export function createShellySteckdose(adapter:any, rawId: number, etage: string,
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, deviceShellySteckdose);
 
     // additionalStates4TurnOn: string[]
-    var db_additionalStates4TurnOn = null;
+    let db_additionalStates4TurnOn = null;
     additionalStates4TurnOn.forEach(value => {
         if (db_additionalStates4TurnOn == null) {
             // @ts-ignore                        
@@ -461,7 +467,7 @@ export function createShellySteckdose(adapter:any, rawId: number, etage: string,
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOn, db_additionalStates4TurnOn, deviceShellySteckdose);
 
     // additionalStates4TurnOff: string[]
-    var db_additionalStates4TurnOff = null;
+    let db_additionalStates4TurnOff = null;
     additionalStates4TurnOff.forEach(value => {
         if (db_additionalStates4TurnOff == null) {
             // @ts-ignore                        
@@ -479,6 +485,7 @@ export function createShellySteckdose(adapter:any, rawId: number, etage: string,
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, deviceShellySteckdose);
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceShellySteckdose);
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceShellySteckdose);
+    clearShellyCaches(adapter);    
 }
 
 var cacheRollladenArray = null;
@@ -489,7 +496,7 @@ export function loadShellyRollladen(adapter: any) {
     // @ts-ignore            
     cacheRollladenArray = [];
     adapter.$('state[id=0_userdata.0.devices.shelly.*.*.category]').each(datenpunktKey => { 
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceShellyRollladen) {
             // @ts-ignore            
             cacheRollladenArray.push(new ShellyRollladen(adapter,
@@ -513,7 +520,7 @@ export function loadShellySensoren(adapter: any) {
     // @ts-ignore            
     cacheSensorenArray = [];
     adapter.$('state[id=0_userdata.0.devices.shelly.*.*.category]').each(datenpunktKey => { 
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceShellySensor) {
             // @ts-ignore            
             cacheSensorenArray.push(new ShellySensor(adapter,
@@ -562,11 +569,11 @@ export function loadShellyDimmer(adapter: any) {
     // @ts-ignore            
     cacheDimmerArray = [];
     adapter.$('state[id=0_userdata.0.devices.shelly.*.*.category]').each(datenpunktKey => { 
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceShellyDimmer) {
 
             // Einschalt-Scheme:
-            var alexaOnScheme = null;
+            let alexaOnScheme = null;
             if (adapter.getState(datenpunktPraefix + "." + attributeDimmer_alexaScheme_aktiv ).val == true) {
                 // @ts-ignore                                                
                 alexaOnScheme = new ShellyDimmerAlexaScheme(null,
@@ -575,7 +582,7 @@ export function loadShellyDimmer(adapter: any) {
             }
 
             // Weitere Schemes als Array:
-            var schemeArray = [];
+            let schemeArray = [];
 
             // alexaScheme1: InstanceType<typeof ShellyDimmerAlexaScheme>
             if (adapter.getState(datenpunktPraefix + "." + attributeDimmer_alexaScheme_aktiv1 ).val == true) {
@@ -614,7 +621,7 @@ export function loadShellyDimmer(adapter: any) {
             }
 
             // Weitere Schemes als Array:
-            var tasterSchemeArray = [];
+            let tasterSchemeArray = [];
 
             // tasterScheme1: InstanceType<typeof ShellyDimmerTasterScheme>
             if (adapter.getState(datenpunktPraefix + "." + attributeDimmer_tasterScheme_aktiv1 ).val == true) {
@@ -688,7 +695,7 @@ export function loadShellyLampenWeiss(adapter: any) {
     cacheLampenWeissArray = [];
 
     adapter.$('state[id=0_userdata.0.devices.shelly.*.*.category]').each(datenpunktKey => { 
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceShellyLampeWeiss) {
 
             // @ts-ignore            
@@ -726,7 +733,7 @@ export function loadShellySteckdosen(adapter: any) {
     cacheSteckdosenArray = [];
 
     adapter.$('state[id=0_userdata.0.devices.shelly.*.*.category]').each(datenpunktKey => { 
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
         if (adapter.getState(datenpunktKey).val == deviceShellySteckdose) {
 
             // @ts-ignore            
@@ -762,7 +769,7 @@ export function loadShellyDevicesAll(adapter: any) {
     //}
 
     // @ts-ignore            
-    var shellyAllArray = [];
+    let shellyAllArray = [];
 
     adapter.loadShellyLampenWeiss(adapter).forEach(shelly => {
         // @ts-ignore            
@@ -789,7 +796,7 @@ export function loadShellyDevicesAll(adapter: any) {
 }
 
 function toStringArray(databaseValue) { // z.B. "Werkbank|Arbeiten|Keller"
-    var stringArray = [];
+    let stringArray = [];
     if (databaseValue == null) {
         return stringArray;
     } else {
@@ -809,34 +816,34 @@ function clearShellyCaches(adapter: any) {
 
 function sortArray(inputArray) {
     inputArray.sort((a,b) => {
-        var elementA = a;
-        var elementB = b;
+        let elementA = a;
+        let elementB = b;
 
-        var etageA = elementA.getEtage();
-        var etageB = elementB.getEtage();
-        var compareEtage = getEtageSortIndex(etageA).localeCompare(getEtageSortIndex(etageB));
+        let etageA = elementA.getEtage();
+        let etageB = elementB.getEtage();
+        let compareEtage = getEtageSortIndex(etageA).localeCompare(getEtageSortIndex(etageB));
         if (compareEtage != 0) {
             return compareEtage;
         }
 
-        var typA = elementA.getCategory();
-        var typB = elementB.getCategory();
-        var compareTyp = typA.localeCompare(typB);
+        let typA = elementA.getCategory();
+        let typB = elementB.getCategory();
+        let compareTyp = typA.localeCompare(typB);
         if (compareTyp != 0) {
             return compareTyp;
         }
 
 
-        var raumA = elementA.getRaum();
-        var raumB = elementB.getRaum();
-        var compareRaum = raumA.localeCompare(raumB);
+        let raumA = elementA.getRaum();
+        let raumB = elementB.getRaum();
+        let compareRaum = raumA.localeCompare(raumB);
         if (compareRaum != 0) {
             return compareRaum;
         }
 
-        var deviceA = elementA.getDevice();
-        var deviceB = elementB.getDevice();
-        var compareDevice = deviceA.localeCompare(deviceB);
+        let deviceA = elementA.getDevice();
+        let deviceB = elementB.getDevice();
+        let compareDevice = deviceA.localeCompare(deviceB);
         if (compareDevice != 0) {
             return compareDevice;
         }

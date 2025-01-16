@@ -56,9 +56,9 @@ export abstract class AbstractZigbee {
     }
 
     public getType(): string {
-        var result = "";
-        var m1 = this.adapter.getObject(this.baseState).native.manufacturername;
-        var m2 = this.adapter.getObject(this.baseState).native.modelid;
+        let result = "";
+        let m1 = this.adapter.getObject(this.baseState).native.manufacturername;
+        let m2 = this.adapter.getObject(this.baseState).native.modelid;
         if (m1 != undefined && m2 != undefined) {
             result += m1;
         }
@@ -86,7 +86,7 @@ export abstract class AbstractZigbee {
 
         // Level:
         // ----------------------------------------------------------------------------------
-        var alexaLampeLevel = "0_userdata.0.alexa." + smartName + ".level";
+        let alexaLampeLevel = "0_userdata.0.alexa." + smartName + ".level";
         this.adapter.createState(alexaLampeLevel, 0, {
             name: alexaLampeLevel,
             desc: alexaLampeLevel,
@@ -115,7 +115,7 @@ export abstract class AbstractZigbee {
 
         // HUE:
         // ----------------------------------------------------------------------------------
-        var alexaLampeHue = "0_userdata.0.alexa." + smartName + ".hue";
+        let alexaLampeHue = "0_userdata.0.alexa." + smartName + ".hue";
         this.adapter.createState(alexaLampeHue, 0, {
             name: alexaLampeHue,
             desc: alexaLampeHue,
@@ -141,7 +141,7 @@ export abstract class AbstractZigbee {
 
         // SAT:
         // ----------------------------------------------------------------------------------
-        var alexaLampeSat = "0_userdata.0.alexa." + smartName + ".sat";
+        let alexaLampeSat = "0_userdata.0.alexa." + smartName + ".sat";
         this.adapter.createState(alexaLampeSat, 0, {
             name: alexaLampeSat,
             desc: alexaLampeSat,
@@ -167,7 +167,7 @@ export abstract class AbstractZigbee {
 
         // CT:
         // ----------------------------------------------------------------------------------
-        var alexaLampeCT = "0_userdata.0.alexa." + smartName + ".ct";
+        let alexaLampeCT = "0_userdata.0.alexa." + smartName + ".ct";
         this.adapter.createState(alexaLampeCT, 0, {
             name: alexaLampeCT,
             desc: alexaLampeCT,
@@ -353,7 +353,7 @@ export class ZigbeeLampeRGB extends AbstractZigbee {
         if (this.isGroup_ == false) {
             this.createAlias(this.getBaseState() + ".reachable", "alias.0.rgb." + this.getDeviceId() + ".reachable");
         } else {
-            var groupReachable = "0_userdata.0.rgb." + this.getDeviceId() + ".reachable";
+            let groupReachable = "0_userdata.0.rgb." + this.getDeviceId() + ".reachable";
             this.adapter.createState(groupReachable, true, {
                 name: groupReachable,
                 desc: groupReachable,
@@ -400,7 +400,7 @@ export class ZigbeeLampeRGB extends AbstractZigbee {
     }
 
     private createState(key_in) {
-        var jarvisDatenpunkt = key_in;//.replace(/\./g,'_'); // wegen Wohnzimmer T.V.
+        let jarvisDatenpunkt = key_in;//.replace(/\./g,'_'); // wegen Wohnzimmer T.V.
         //log(">>> CREATE STATE: " + jarvisDatenpunkt);
         this.adapter.createState(jarvisDatenpunkt, false, {
             name: jarvisDatenpunkt,
@@ -462,7 +462,7 @@ export class ZigbeeLampeRGB extends AbstractZigbee {
     }
 
     public getAlexaNamesForOnAsString(): string {
-        var result = "";
+        let result = "";
 
         this.alexaSmartNamesForOn.forEach(alexaOnName => {
             if (result == "") {
@@ -483,7 +483,7 @@ export class ZigbeeLampeRGB extends AbstractZigbee {
     }
 
     public getAlexaNamesForOffAsString(): string {
-        var result = "";
+        let result = "";
 
         this.alexaSmartNamesForOff.forEach(alexaOffName => {
             if (result == "") {
@@ -725,7 +725,7 @@ export class ZigbeeLampeWeiss extends AbstractZigbee {
     }
 
     public getAlexaNamesForOnAsString(): string {
-        var result = "";
+        let result = "";
 
         this.alexaSmartNamesForOn.forEach(alexaOnName => {
             if (result == "") {
@@ -746,7 +746,7 @@ export class ZigbeeLampeWeiss extends AbstractZigbee {
     }
 
     public getAlexaNamesForOffAsString(): string {
-        var result = "";
+        let result = "";
 
         this.alexaSmartNamesForOff.forEach(alexaOffName => {
             if (result == "") {
@@ -776,7 +776,7 @@ export class ZigbeeLampeWeiss extends AbstractZigbee {
     }
 
     private createState(key_in) {
-        var jarvisDatenpunkt = key_in;//.replace(/\./g,'_'); // wegen Wohnzimmer T.V.
+        let jarvisDatenpunkt = key_in;//.replace(/\./g,'_'); // wegen Wohnzimmer T.V.
         //log(">>> CREATE STATE: " + jarvisDatenpunkt);
         this.adapter.createState(jarvisDatenpunkt, false, {
             name: jarvisDatenpunkt,
@@ -850,7 +850,7 @@ export class ZigbeeLampeWeiss extends AbstractZigbee {
 
 export class ColorConverter {
     public convertXY2HSL(x, y) {
-        var bri = 254;
+        let bri = 254;
         let xy = {
             x: x,
             y: y
@@ -860,17 +860,17 @@ export class ColorConverter {
         let Y = bri / 255;
         let X = (Y / xy.y) * xy.x;
         let Z = (Y / xy.y) * z;
-        var r = X * 1.656492 - Y * 0.354851 - Z * 0.255038;
-        var g = -X * 0.707196 + Y * 1.655397 + Z * 0.036152;
-        var b = X * 0.051713 - Y * 0.121364 + Z * 1.011530;
+        let r = X * 1.656492 - Y * 0.354851 - Z * 0.255038;
+        let g = -X * 0.707196 + Y * 1.655397 + Z * 0.036152;
+        let b = X * 0.051713 - Y * 0.121364 + Z * 1.011530;
 
         r = r <= 0.0031308 ? 12.92 * r : (1.0 + 0.055) * Math.pow(r, (1.0 / 2.4)) - 0.055;
         g = g <= 0.0031308 ? 12.92 * g : (1.0 + 0.055) * Math.pow(g, (1.0 / 2.4)) - 0.055;
         b = b <= 0.0031308 ? 12.92 * b : (1.0 + 0.055) * Math.pow(b, (1.0 / 2.4)) - 0.055;
 
-        var r_new = (r * 255).toString();
-        var g_new = (g * 255).toString();
-        var b_new = (b * 255).toString();
+        let r_new = (r * 255).toString();
+        let g_new = (g * 255).toString();
+        let b_new = (b * 255).toString();
 
         let red = parseInt(r_new) > 255 ? 255 : parseInt(r_new);
         let green = parseInt(g_new) > 255 ? 255 : parseInt(g_new);
@@ -879,7 +879,7 @@ export class ColorConverter {
         red = Math.abs(red);
         green = Math.abs(green);
         blue = Math.abs(blue);
-        var
+        let
             min = Math.min(r, g, b),
             max = Math.max(r, g, b),
             delta = max - min,
@@ -907,7 +907,7 @@ export class ColorConverter {
     }
 
     public convertHSL2XY(h, s) {
-        var l = 50;
+        let l = 50;
         // Must be fractions of 1
         s /= 100;
         l /= 100;
@@ -1005,7 +1005,7 @@ export class ZigbeeSteckdose extends AbstractZigbee {
     }
 
     private createState(key_in) {
-        var jarvisDatenpunkt = key_in;//.replace(/\./g,'_'); // wegen Wohnzimmer T.V.
+        let jarvisDatenpunkt = key_in;//.replace(/\./g,'_'); // wegen Wohnzimmer T.V.
         this.adapter.createState(jarvisDatenpunkt, false, {
             name: jarvisDatenpunkt,
             desc: jarvisDatenpunkt,
@@ -1055,7 +1055,7 @@ export class ZigbeeSteckdose extends AbstractZigbee {
     }
 
     public getAlexaNamesForOnAsString() : string {
-        var result = "";
+        let result = "";
 
         this.alexaSmartNamesForOn.forEach(alexaOnName => {    
             if (result == "") {
@@ -1076,7 +1076,7 @@ export class ZigbeeSteckdose extends AbstractZigbee {
     }
 
     public getAlexaNamesForOffAsString() : string {
-        var result = "";
+        let result = "";
 
         this.alexaSmartNamesForOff.forEach(alexaOffName => {    
             if (result == "") {
@@ -1133,7 +1133,7 @@ export class ZigbeeFenstersensor extends AbstractZigbee {
     }         
 
     public isStatusReachable() : boolean {
-        var reachable = this.adapter.getState(this.baseState + ".reachable").val; // hue.0.Steckdose_Backstube.reachable 
+        let reachable = this.adapter.getState(this.baseState + ".reachable").val; // hue.0.Steckdose_Backstube.reachable 
         return reachable;
     }       
     
@@ -1160,7 +1160,7 @@ export class ZigbeeRauchmelder extends AbstractZigbee {
     }         
 
     public isStatusReachable() : boolean {
-        var reachable = this.adapter.getState(this.baseState + ".reachable").val; // hue.0.Steckdose_Backstube.reachable 
+        let reachable = this.adapter.getState(this.baseState + ".reachable").val; // hue.0.Steckdose_Backstube.reachable 
         return reachable;
     }       
     
