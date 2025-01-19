@@ -67,15 +67,237 @@ const attributeDimmer_tasterScheme4_aktiv = "tasterScheme4_aktiv";
 const attributeDimmer_tasterScheme4_name = "tasterScheme4_name";
 const attributeDimmer_tasterScheme4_level = "tasterScheme4_level";
 
-
-
-export function createHomematicDevice(adapter: any, rawId: number, baseState: string, etage: string, raum: string, device: string, category: string) {
+function createHomematicDevice(adapter: any, rawId: number, baseState: string, etage: string, raum: string, device: string, category: string) {
     createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRawID, rawId, category);
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeCategory, category, category);
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeBaseState, baseState, category);
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeEtage, etage, category);
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRaum, raum, category);
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDevice, device, category);
+}
+
+// Praesenzmelder
+export function createHomematicPraesenzmelder(adapter: any, rawId: number, baseState: string, etage: string, raum: string, device: string) {
+
+    // Bei Update alte States löschen:
+    let stateFolderDatenpunkt = "0_userdata.0.devices.homematic." + deviceHomematicPraesenzmelder + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+
+    // Neue States anlegen:
+    setTimeout(function() {
+        createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicPraesenzmelder);
+        cachePraesenzmelderArray = null;
+    }, 200);
+}
+
+// Wetterstation
+export function createHomematicWetterstation(adapter: any, rawId: number, baseState: string, etage: string, raum: string, device: string) {
+
+    // Bei Update alte States löschen:
+    let stateFolderDatenpunkt = "0_userdata.0.devices.homematic." + deviceHomematicWetterstation + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+
+    // Neue States anlegen:
+    setTimeout(function() {
+        createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicWetterstation);
+        cacheWetterstationenArray = null;
+    }, 200);
+}
+
+// Door
+export function createHomematicDoor(adapter: any, rawId: number, baseState: string, etage: string, raum: string, device: string) {
+
+    // Bei Update alte States löschen:
+    let stateFolderDatenpunkt = "0_userdata.0.devices.homematic." + deviceHomematicDoor + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+
+    // Neue States anlegen:
+    setTimeout(function() {
+        createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicDoor);
+        cacheDoorsArray = null;
+    }, 200);
+}
+
+// Rollladen
+export function createHomematicRollladen(adapter: any, rawId: number, baseState: string, etage: string, raum: string, device: string) {
+
+    // Bei Update alte States löschen:
+    let stateFolderDatenpunkt = "0_userdata.0.devices.homematic." + deviceHomematicRollladen + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+
+    // Neue States anlegen:
+    setTimeout(function() {
+        createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicRollladen);
+        cacheRollladenArray = null;
+    }, 200);
+}
+
+// Fussbodenheizung
+export function createHomematicFussbodenheizung(adapter: any, rawId: number, baseState: string, etage: string, raum: string, device: string) {
+
+    // Bei Update alte States löschen:
+    let stateFolderDatenpunkt = "0_userdata.0.devices.homematic." + deviceHomematicFussbodenheizung + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+
+    // Neue States anlegen:
+    setTimeout(function() {
+        createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicFussbodenheizung);
+        cacheFussbodenheizungenArray = null;
+    }, 200);
+}
+
+// Wandtaster
+export function createHomematicWandtaster(adapter: any, rawId: number, baseState: string, etage: string, raum: string, device: string) {
+
+    // Bei Update alte States löschen:
+    let stateFolderDatenpunkt = "0_userdata.0.devices.homematic." + deviceHomematicWandtaster + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+
+    // Neue States anlegen:
+    setTimeout(function() {
+        createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicWandtaster);
+        cacheWandtasterArray = null;
+    }, 200);
+}
+
+// AccessPoint
+export function createHomematicAccessPoint(adapter: any, rawId: number, baseState: string, etage: string, raum: string, device: string) {
+
+    // Bei Update alte States löschen:
+    let stateFolderDatenpunkt = "0_userdata.0.devices.homematic." + deviceHomematicAccessPoint + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+
+    // Neue States anlegen:
+    setTimeout(function() {
+        createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicAccessPoint);
+        cacheAccessPointsArray = null;
+    }, 200);
+}
+
+// Temperatursensor
+export function createHomematicTemperatursensor(adapter: any, rawId: number, baseState: string, etage: string, raum: string, device: string) {
+
+    // Bei Update alte States löschen:
+    let stateFolderDatenpunkt = "0_userdata.0.devices.homematic." + deviceHomematicTemperatursensor + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+
+    // Neue States anlegen:
+    setTimeout(function() {
+        createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicTemperatursensor);
+        cacheTemperatursensorenArray = null;
+    }, 200);
+}
+
+// Rauchmelder
+export function createHomematicRauchmelder(adapter: any, rawId: number, baseState: string, etage: string, raum: string, device: string) {
+
+    // Bei Update alte States löschen:
+    let stateFolderDatenpunkt = "0_userdata.0.devices.homematic." + deviceHomematicRauchmelder + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+
+    // Neue States anlegen:
+    setTimeout(function() {
+        createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicRauchmelder);
+        cacheRauchmelderArray = null;
+    }, 200);
+}
+
+// FunkSchaltaktor
+export function createHomematicFunkSchaltaktor(adapter: any, rawId: number, baseState: string, etage: string, raum: string, device: string) {
+
+    // Bei Update alte States löschen:
+    let stateFolderDatenpunkt = "0_userdata.0.devices.homematic." + deviceHomematicFunkSchaltaktor + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+
+    // Neue States anlegen:
+    setTimeout(function() {
+        createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicFunkSchaltaktor);
+        cacheFunkschaltaktorenArray = null;
+    }, 200);
+}
+
+// Window
+export function createHomematicWindow(adapter: any, rawId: number, baseState: string, etage: string, raum: string, device: string) {
+
+    // Bei Update alte States löschen:
+    let stateFolderDatenpunkt = "0_userdata.0.devices.homematic." + deviceHomematicWindow + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+
+    // Neue States anlegen:
+    setTimeout(function() {
+        createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicWindow);
+        cacheWindowsArray = null;
+    }, 200);
+}
+
+// Steckdose
+export function createHomematicSteckdose(adapter: any, rawId: number, baseState: string, etage: string, raum: string, device: string) {
+
+    // Bei Update alte States löschen:
+    let stateFolderDatenpunkt = "0_userdata.0.devices.homematic." + deviceHomematicSteckdose + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+
+    // Neue States anlegen:
+    setTimeout(function() {
+        createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicSteckdose);
+        cacheSteckdosenArray = null;
+    }, 200);
+}
+
+// Heizkoerper
+export function createHomematicHeizkoerper(adapter: any, rawId: number, baseState: string, etage: string, raum: string, device: string) {
+
+    // Bei Update alte States löschen:
+    let stateFolderDatenpunkt = "0_userdata.0.devices.homematic." + deviceHomematicHeizkoerper + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+
+    // Neue States anlegen:
+    setTimeout(function() {
+        createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicHeizkoerper);
+        cacheHeizkoerperArray = null;
+    }, 200);
+}
+
+// Wandthermostat
+export function createHomematicWandthermostat(adapter: any, rawId: number, baseState: string, etage: string, raum: string, device: string) {
+
+    // Bei Update alte States löschen:
+    let stateFolderDatenpunkt = "0_userdata.0.devices.homematic." + deviceHomematicWandthermostat + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+
+    // Neue States anlegen:
+    setTimeout(function() {
+        createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicWandthermostat);
+        cacheWandthermostateArray = null;
+    }, 200);
 }
 
 // Dimmer:
@@ -85,158 +307,168 @@ export function createHomeaticDimmer(adapter: any, rawId: number, baseState: str
     tasterBooleanOnScheme1: InstanceType<typeof DimmerTasterScheme>, tasterBooleanOnScheme2: InstanceType<typeof DimmerTasterScheme>, tasterBooleanOnScheme3: InstanceType<typeof DimmerTasterScheme>, tasterBooleanOnScheme4: InstanceType<typeof DimmerTasterScheme>, 
     tasterBooleanOff: string[], nachtbeleuchtung:boolean, turnOffExitHouseSummer:boolean, turnOffExitHouseWinter:boolean, turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean) {
 
-    // Allgemein:
-    createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicDimmer);
-        
-    // alexaScheme1: InstanceType<typeof DimmerAlexaScheme>
-    if (alexaScheme1 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme1_aktiv, true, deviceHomematicDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_alexaScheme1_name, alexaScheme1.getAlexaName(), deviceHomematicDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_alexaScheme1_level, alexaScheme1.getLevel(), deviceHomematicDimmer);
-    } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme1_aktiv, false, deviceHomematicDimmer);
-    }    
-
-    // alexaScheme2: InstanceType<typeof DimmerAlexaScheme>
-    if (alexaScheme2 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme2_aktiv, true, deviceHomematicDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_alexaScheme2_name, alexaScheme1.getAlexaName(), deviceHomematicDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_alexaScheme2_level, alexaScheme1.getLevel(), deviceHomematicDimmer);
-    } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme2_aktiv, false, deviceHomematicDimmer);
-    }    
-
-    // alexaScheme3: InstanceType<typeof DimmerAlexaScheme>
-    if (alexaScheme3 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme3_aktiv, true, deviceHomematicDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_alexaScheme3_name, alexaScheme1.getAlexaName(), deviceHomematicDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_alexaScheme3_level, alexaScheme1.getLevel(), deviceHomematicDimmer);
-    } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme3_aktiv, false, deviceHomematicDimmer);
-    }    
-
-    // alexaScheme4: InstanceType<typeof DimmerAlexaScheme>
-    if (alexaScheme4 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme4_aktiv, true, deviceHomematicDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_alexaScheme4_name, alexaScheme1.getAlexaName(), deviceHomematicDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_alexaScheme4_level, alexaScheme1.getLevel(), deviceHomematicDimmer);
-    } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme4_aktiv, false, deviceHomematicDimmer);
-    }    
-
-    if (tasterBooleanOnScheme1 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme1_aktiv, true, deviceHomematicDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_tasterScheme1_name, tasterBooleanOnScheme1.getTasterBooleanOnName(), deviceHomematicDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_tasterScheme1_level, tasterBooleanOnScheme1.getLevel(), deviceHomematicDimmer);
-    } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme1_aktiv, false, deviceHomematicDimmer);
-    }    
-
-    if (tasterBooleanOnScheme2 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme2_aktiv, true, deviceHomematicDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_tasterScheme2_name, tasterBooleanOnScheme1.getTasterBooleanOnName(), deviceHomematicDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_tasterScheme2_level, tasterBooleanOnScheme1.getLevel(), deviceHomematicDimmer);
-    } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme2_aktiv, false, deviceHomematicDimmer);
-    }    
-
-    if (tasterBooleanOnScheme3 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme3_aktiv, true, deviceHomematicDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_tasterScheme3_name, tasterBooleanOnScheme1.getTasterBooleanOnName(), deviceHomematicDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_tasterScheme3_level, tasterBooleanOnScheme1.getLevel(), deviceHomematicDimmer);
-    } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme3_aktiv, false, deviceHomematicDimmer);
-    }    
-
-    if (tasterBooleanOnScheme4 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme4_aktiv, true, deviceHomematicDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_tasterScheme4_name, tasterBooleanOnScheme1.getTasterBooleanOnName(), deviceHomematicDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_tasterScheme4_level, tasterBooleanOnScheme1.getLevel(), deviceHomematicDimmer);
-    } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme4_aktiv, false, deviceHomematicDimmer);
-    }    
-
-    // alexaLevelSchemeForOn: InstanceType<typeof DimmerAlexaScheme>
-    if (alexaLevelSchemeForOn != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme_aktiv, true, deviceHomematicDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_alexaScheme_name, alexaLevelSchemeForOn.getAlexaName(), deviceHomematicDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_alexaScheme_level, alexaLevelSchemeForOn.getLevel(), deviceHomematicDimmer);
-    } else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme_aktiv, false, deviceHomematicDimmer);
+    // Bei Update alte States löschen:
+    let stateFolderDatenpunkt = "0_userdata.0.devices.homematic." + deviceHomematicDimmer + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
     }
 
-    // additionalStates4TurnOff: string[]
-    let db_additionalStates4TurnOff = null;
-    tasterBooleanOff.forEach(value => {
-        if (db_additionalStates4TurnOff == null) {
-            // @ts-ignore                        
-            db_additionalStates4TurnOff = value;
+    // Neue States anlegen:
+    setTimeout(function() {
+        // Allgemein:
+        createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicDimmer);
+            
+        // alexaScheme1: InstanceType<typeof DimmerAlexaScheme>
+        if (alexaScheme1 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme1_aktiv, true, deviceHomematicDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_alexaScheme1_name, alexaScheme1.getAlexaName(), deviceHomematicDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_alexaScheme1_level, alexaScheme1.getLevel(), deviceHomematicDimmer);
         } else {
-            // @ts-ignore                        
-            db_additionalStates4TurnOff += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_additionalStates4TurnOff, deviceHomematicDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme1_aktiv, false, deviceHomematicDimmer);
+        }    
 
-    // alexaSmartNamesForOn:string[]
-    let db_alexaSmartNamesForOn = null;
-    alexaSmartNamesForOn.forEach(value => {
-        if (db_alexaSmartNamesForOn == null) {
-            // @ts-ignore            
-            db_alexaSmartNamesForOn = value;
+        // alexaScheme2: InstanceType<typeof DimmerAlexaScheme>
+        if (alexaScheme2 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme2_aktiv, true, deviceHomematicDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_alexaScheme2_name, alexaScheme1.getAlexaName(), deviceHomematicDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_alexaScheme2_level, alexaScheme1.getLevel(), deviceHomematicDimmer);
         } else {
-            // @ts-ignore            
-            db_alexaSmartNamesForOn += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, deviceHomematicDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme2_aktiv, false, deviceHomematicDimmer);
+        }    
 
-    // alexaActionNamesForOn:string[]
-    let db_alexaActionNamesForOn = null;
-    alexaActionNamesForOn.forEach(value => {
-        if (db_alexaActionNamesForOn == null) {
-            // @ts-ignore            
-            db_alexaActionNamesForOn = value;
+        // alexaScheme3: InstanceType<typeof DimmerAlexaScheme>
+        if (alexaScheme3 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme3_aktiv, true, deviceHomematicDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_alexaScheme3_name, alexaScheme1.getAlexaName(), deviceHomematicDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_alexaScheme3_level, alexaScheme1.getLevel(), deviceHomematicDimmer);
         } else {
-            // @ts-ignore                        
-            db_alexaActionNamesForOn += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, deviceHomematicDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme3_aktiv, false, deviceHomematicDimmer);
+        }    
 
-    // alexaSmartNamesForOff:string[]
-    let db_alexaSmartNamesForOff = null;
-    alexaSmartNamesForOff.forEach(value => {
-        if (db_alexaSmartNamesForOff == null) {
-            // @ts-ignore            
-            db_alexaSmartNamesForOff = value;
+        // alexaScheme4: InstanceType<typeof DimmerAlexaScheme>
+        if (alexaScheme4 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme4_aktiv, true, deviceHomematicDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_alexaScheme4_name, alexaScheme1.getAlexaName(), deviceHomematicDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_alexaScheme4_level, alexaScheme1.getLevel(), deviceHomematicDimmer);
         } else {
-            // @ts-ignore                        
-            db_alexaSmartNamesForOff += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, deviceHomematicDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme4_aktiv, false, deviceHomematicDimmer);
+        }    
 
-    // alexaActionNamesForOff:string[]
-    let db_alexaActionNamesForOff = null;
-    alexaActionNamesForOff.forEach(value => {
-        if (db_alexaActionNamesForOff == null) {
-            // @ts-ignore                        
-            db_alexaActionNamesForOff = value;
+        if (tasterBooleanOnScheme1 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme1_aktiv, true, deviceHomematicDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_tasterScheme1_name, tasterBooleanOnScheme1.getTasterBooleanOnName(), deviceHomematicDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_tasterScheme1_level, tasterBooleanOnScheme1.getLevel(), deviceHomematicDimmer);
         } else {
-            // @ts-ignore                        
-            db_alexaActionNamesForOff += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, deviceHomematicDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme1_aktiv, false, deviceHomematicDimmer);
+        }    
 
-    // Weitere:
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_Nachtbeleuchtung, nachtbeleuchtung, deviceHomematicDimmer);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseSummer, turnOffExitHouseSummer, deviceHomematicDimmer);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, deviceHomematicDimmer);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceHomematicDimmer);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceHomematicDimmer);
-    clearHomematicCaches(adapter);
+        if (tasterBooleanOnScheme2 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme2_aktiv, true, deviceHomematicDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_tasterScheme2_name, tasterBooleanOnScheme1.getTasterBooleanOnName(), deviceHomematicDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_tasterScheme2_level, tasterBooleanOnScheme1.getLevel(), deviceHomematicDimmer);
+        } else {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme2_aktiv, false, deviceHomematicDimmer);
+        }    
+
+        if (tasterBooleanOnScheme3 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme3_aktiv, true, deviceHomematicDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_tasterScheme3_name, tasterBooleanOnScheme1.getTasterBooleanOnName(), deviceHomematicDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_tasterScheme3_level, tasterBooleanOnScheme1.getLevel(), deviceHomematicDimmer);
+        } else {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme3_aktiv, false, deviceHomematicDimmer);
+        }    
+
+        if (tasterBooleanOnScheme4 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme4_aktiv, true, deviceHomematicDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_tasterScheme4_name, tasterBooleanOnScheme1.getTasterBooleanOnName(), deviceHomematicDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_tasterScheme4_level, tasterBooleanOnScheme1.getLevel(), deviceHomematicDimmer);
+        } else {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme4_aktiv, false, deviceHomematicDimmer);
+        }    
+
+        // alexaLevelSchemeForOn: InstanceType<typeof DimmerAlexaScheme>
+        if (alexaLevelSchemeForOn != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme_aktiv, true, deviceHomematicDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_alexaScheme_name, alexaLevelSchemeForOn.getAlexaName(), deviceHomematicDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_alexaScheme_level, alexaLevelSchemeForOn.getLevel(), deviceHomematicDimmer);
+        } else {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme_aktiv, false, deviceHomematicDimmer);
+        }
+
+        // additionalStates4TurnOff: string[]
+        let db_additionalStates4TurnOff = null;
+        tasterBooleanOff.forEach(value => {
+            if (db_additionalStates4TurnOff == null) {
+                // @ts-ignore                        
+                db_additionalStates4TurnOff = value;
+            } else {
+                // @ts-ignore                        
+                db_additionalStates4TurnOff += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_additionalStates4TurnOff, deviceHomematicDimmer);
+
+        // alexaSmartNamesForOn:string[]
+        let db_alexaSmartNamesForOn = null;
+        alexaSmartNamesForOn.forEach(value => {
+            if (db_alexaSmartNamesForOn == null) {
+                // @ts-ignore            
+                db_alexaSmartNamesForOn = value;
+            } else {
+                // @ts-ignore            
+                db_alexaSmartNamesForOn += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, deviceHomematicDimmer);
+
+        // alexaActionNamesForOn:string[]
+        let db_alexaActionNamesForOn = null;
+        alexaActionNamesForOn.forEach(value => {
+            if (db_alexaActionNamesForOn == null) {
+                // @ts-ignore            
+                db_alexaActionNamesForOn = value;
+            } else {
+                // @ts-ignore                        
+                db_alexaActionNamesForOn += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, deviceHomematicDimmer);
+
+        // alexaSmartNamesForOff:string[]
+        let db_alexaSmartNamesForOff = null;
+        alexaSmartNamesForOff.forEach(value => {
+            if (db_alexaSmartNamesForOff == null) {
+                // @ts-ignore            
+                db_alexaSmartNamesForOff = value;
+            } else {
+                // @ts-ignore                        
+                db_alexaSmartNamesForOff += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, deviceHomematicDimmer);
+
+        // alexaActionNamesForOff:string[]
+        let db_alexaActionNamesForOff = null;
+        alexaActionNamesForOff.forEach(value => {
+            if (db_alexaActionNamesForOff == null) {
+                // @ts-ignore                        
+                db_alexaActionNamesForOff = value;
+            } else {
+                // @ts-ignore                        
+                db_alexaActionNamesForOff += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, deviceHomematicDimmer);
+
+        // Weitere:
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_Nachtbeleuchtung, nachtbeleuchtung, deviceHomematicDimmer);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseSummer, turnOffExitHouseSummer, deviceHomematicDimmer);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, deviceHomematicDimmer);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceHomematicDimmer);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceHomematicDimmer);
+        cacheDimmerArray = null;
+    }, 200);
+
 }
 
 // Wandschalter:
@@ -244,69 +476,77 @@ export function createHomeaticWandschalter(adapter:any, rawId: number, baseState
     alexaSmartNamesForOn:string[], alexaActionNamesForOn:string[], alexaSmartNamesForOff: string[],alexaActionNamesForOff: string[], 
     nachtbeleuchtung:boolean, turnOffExitHouseSummer:boolean, turnOffExitHouseWinter:boolean, turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean) {
 
-    // Allgemein:
-    //export function createHomematicDevice(adapter: any, rawId: number, baseState: string, etage: string, raum: string, device: string, category: string) {
-    createHomematicDevice(adapter,                  rawId,          baseState,         etage,         raum,         device,         deviceHomematicWandschalter);
+    // Bei Update alte States löschen:
+    let stateFolderDatenpunkt = "0_userdata.0.devices.homematic." + deviceHomematicWandschalter + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
 
-    // alexaSmartNamesForOn:string[]
-    let db_alexaSmartNamesForOn = null;
-    alexaSmartNamesForOn.forEach(value => {
-        if (db_alexaSmartNamesForOn == null) {
-            // @ts-ignore            
-            db_alexaSmartNamesForOn = value;
-        } else {
-            // @ts-ignore            
-            db_alexaSmartNamesForOn += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, deviceHomematicWandschalter);
+    // Neue States anlegen:
+    setTimeout(function() {
+        // Allgemein:
+        createHomematicDevice(adapter,                  rawId,          baseState,         etage,         raum,         device,         deviceHomematicWandschalter);
 
-    // alexaActionNamesForOn:string[]
-    let db_alexaActionNamesForOn = null;
-    alexaActionNamesForOn.forEach(value => {
-        if (db_alexaActionNamesForOn == null) {
-            // @ts-ignore            
-            db_alexaActionNamesForOn = value;
-        } else {
-            // @ts-ignore                        
-            db_alexaActionNamesForOn += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, deviceHomematicWandschalter);
+        // alexaSmartNamesForOn:string[]
+        let db_alexaSmartNamesForOn = null;
+        alexaSmartNamesForOn.forEach(value => {
+            if (db_alexaSmartNamesForOn == null) {
+                // @ts-ignore            
+                db_alexaSmartNamesForOn = value;
+            } else {
+                // @ts-ignore            
+                db_alexaSmartNamesForOn += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, deviceHomematicWandschalter);
 
-    // alexaSmartNamesForOff:string[]
-    let db_alexaSmartNamesForOff = null;
-    alexaSmartNamesForOff.forEach(value => {
-        if (db_alexaSmartNamesForOff == null) {
-            // @ts-ignore            
-            db_alexaSmartNamesForOff = value;
-        } else {
-            // @ts-ignore                        
-            db_alexaSmartNamesForOff += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, deviceHomematicWandschalter);
+        // alexaActionNamesForOn:string[]
+        let db_alexaActionNamesForOn = null;
+        alexaActionNamesForOn.forEach(value => {
+            if (db_alexaActionNamesForOn == null) {
+                // @ts-ignore            
+                db_alexaActionNamesForOn = value;
+            } else {
+                // @ts-ignore                        
+                db_alexaActionNamesForOn += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, deviceHomematicWandschalter);
 
-    // alexaActionNamesForOff:string[]
-    let db_alexaActionNamesForOff = null;
-    alexaActionNamesForOff.forEach(value => {
-        if (db_alexaActionNamesForOff == null) {
-            // @ts-ignore                        
-            db_alexaActionNamesForOff = value;
-        } else {
-            // @ts-ignore                        
-            db_alexaActionNamesForOff += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, deviceHomematicWandschalter);
+        // alexaSmartNamesForOff:string[]
+        let db_alexaSmartNamesForOff = null;
+        alexaSmartNamesForOff.forEach(value => {
+            if (db_alexaSmartNamesForOff == null) {
+                // @ts-ignore            
+                db_alexaSmartNamesForOff = value;
+            } else {
+                // @ts-ignore                        
+                db_alexaSmartNamesForOff += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, deviceHomematicWandschalter);
 
-    // Weitere:
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_Nachtbeleuchtung, nachtbeleuchtung, deviceHomematicWandschalter);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseSummer, turnOffExitHouseSummer, deviceHomematicWandschalter);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, deviceHomematicWandschalter);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceHomematicWandschalter);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceHomematicWandschalter);
-    clearHomematicCaches(adapter);    
+        // alexaActionNamesForOff:string[]
+        let db_alexaActionNamesForOff = null;
+        alexaActionNamesForOff.forEach(value => {
+            if (db_alexaActionNamesForOff == null) {
+                // @ts-ignore                        
+                db_alexaActionNamesForOff = value;
+            } else {
+                // @ts-ignore                        
+                db_alexaActionNamesForOff += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, deviceHomematicWandschalter);
+
+        // Weitere:
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_Nachtbeleuchtung, nachtbeleuchtung, deviceHomematicWandschalter);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseSummer, turnOffExitHouseSummer, deviceHomematicWandschalter);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, deviceHomematicWandschalter);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceHomematicWandschalter);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceHomematicWandschalter);
+        cacheWandschalterArray = null;
+    }, 200);
 }
 
 function createDatenpunktSingle(adapter: any, deviceRawId, attributeType, attributeName, attributeValue, category) {
@@ -969,5 +1209,4 @@ function getEtageSortIndex(etage: string) {
 
 
 
-
-module.exports = { createHomematicDevice, createHomeaticDimmer, createHomeaticWandschalter, loadHomematicWandthermostate, loadHomematicPraesenzmelder, loadHomematicWetterstationen, loadHomematicDoors, loadHomematicRollladen, loadHomematicWandschalter, loadHomematicFussbodenheizungen, loadHomematicWandtaster, loadHomematicAccessPoints, loadHomematicTemperatursensoren, loadHomematicRauchmelder, loadHomematicFunktschaltaktoren, loadHomematicWindows, loadHomematicSteckdosen, loadHomematicHeizkoerper, loadHomematicDimmer, loadHomematicDevicesAll, clearHomematicCaches };
+module.exports = { createHomematicHeizkoerper, createHomematicWindow, createHomematicFunkSchaltaktor, createHomematicRauchmelder, createHomematicTemperatursensor, createHomematicAccessPoint, createHomematicWandtaster, createHomematicPraesenzmelder, createHomematicWandthermostat, createHomematicWetterstation, createHomematicDoor, createHomematicRollladen, createHomematicFussbodenheizung, createHomeaticDimmer, createHomeaticWandschalter, loadHomematicWandthermostate, loadHomematicPraesenzmelder, loadHomematicWetterstationen, loadHomematicDoors, loadHomematicRollladen, loadHomematicWandschalter, loadHomematicFussbodenheizungen, loadHomematicWandtaster, loadHomematicAccessPoints, loadHomematicTemperatursensoren, loadHomematicRauchmelder, loadHomematicFunktschaltaktoren, loadHomematicWindows, loadHomematicSteckdosen, loadHomematicHeizkoerper, loadHomematicDimmer, loadHomematicDevicesAll, clearHomematicCaches };

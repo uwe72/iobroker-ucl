@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loadZigbeeDevicesAll = exports.loadZigbeeFenstersensor = exports.loadZigbeeRepeater = exports.loadZigbeeSchalter = exports.loadZigbeeDosenrelais = exports.loadZigbeeWandtaster = exports.loadZigbeeRauchmelder = exports.loadZigbeeLampenWeiss = exports.loadZigbeeLampenRGB = exports.loadZigbeeBewegungsmelder = exports.loadZigbeeSteckdosen = exports.createZigbeeLampeRGB = exports.createZigbeeLampeWeiss = exports.createZigbeeSteckdose = exports.createZigbeeDosenrelais = exports.createZigbeeDevice = void 0;
+exports.loadZigbeeDevicesAll = exports.loadZigbeeFenstersensor = exports.loadZigbeeRepeater = exports.loadZigbeeSchalter = exports.loadZigbeeDosenrelais = exports.loadZigbeeWandtaster = exports.loadZigbeeRauchmelder = exports.loadZigbeeLampenWeiss = exports.loadZigbeeLampenRGB = exports.loadZigbeeBewegungsmelder = exports.loadZigbeeSteckdosen = exports.createZigbeeLampeRGB = exports.createZigbeeLampeWeiss = exports.createZigbeeSteckdose = exports.createZigbeeDosenrelais = exports.createZigbeeBewegungsmelder = exports.createZigbeeRauchmelder = exports.createZigbeeWandtaster = exports.createZigbeeSchalter = exports.createZigbeeRepeater = exports.createZigbeeFenstersensor = void 0;
 var _a = require('./zigbeeClasses.js'), AbstractZigbee = _a.AbstractZigbee, ColorScheme = _a.ColorScheme, RGBColorScheme = _a.RGBColorScheme, WhiteColorScheme = _a.WhiteColorScheme, ZigbeeLampeRGB = _a.ZigbeeLampeRGB, LampeWeissTasterScheme = _a.LampeWeissTasterScheme, LampeWeissAlexaScheme = _a.LampeWeissAlexaScheme, ZigbeeLampeWeiss = _a.ZigbeeLampeWeiss, ZigbeeSteckdose = _a.ZigbeeSteckdose, ZigbeeSchalter = _a.ZigbeeSchalter, ZigbeeRepeater = _a.ZigbeeRepeater, ZigbeeFenstersensor = _a.ZigbeeFenstersensor, ZigbeeRauchmelder = _a.ZigbeeRauchmelder, ZigbeeBewegungsmelder = _a.ZigbeeBewegungsmelder, ZigbeeWandtaster = _a.ZigbeeWandtaster, ZigbeeDosenrelais = _a.ZigbeeDosenrelais, AlexaInputConverter = _a.AlexaInputConverter, deviceZigbeeSteckdose = _a.deviceZigbeeSteckdose, deviceZigbeeBewegungsmelder = _a.deviceZigbeeBewegungsmelder, deviceZigbeeLampeRGB = _a.deviceZigbeeLampeRGB, deviceZigbeeLampeWeiss = _a.deviceZigbeeLampeWeiss, deviceZigbeeRauchmelder = _a.deviceZigbeeRauchmelder, deviceZigbeeWandtaster = _a.deviceZigbeeWandtaster, deviceZigbeeDosenrelais = _a.deviceZigbeeDosenrelais, deviceZigbeeSchalter = _a.deviceZigbeeSchalter, deviceZigbeeRepeater = _a.deviceZigbeeRepeater, deviceZigbeeFenstersensor = _a.deviceZigbeeFenstersensor;
 // Alexa:
 var attribute_AlexaSmartNamesForOn = "alexaSmartNamesForOn";
@@ -119,549 +119,664 @@ function createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, cate
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeEtage, etage, category);
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRaum, raum, category);
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDevice, device, category);
-    clearZigbeeCaches(adapter);
 }
-exports.createZigbeeDevice = createZigbeeDevice;
+// Fenstersensor:
+function createZigbeeFenstersensor(adapter, rawId, baseState, etage, raum, device) {
+    // Bei Update alte States löschen:
+    var stateFolderDatenpunkt = "0_userdata.0.devices.zigbee." + deviceZigbeeFenstersensor + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+    // Neue States anlegen:
+    setTimeout(function () {
+        createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeFenstersensor);
+        cacheFenstersensorenArray = null;
+    }, 200);
+}
+exports.createZigbeeFenstersensor = createZigbeeFenstersensor;
+// Repeater:
+function createZigbeeRepeater(adapter, rawId, baseState, etage, raum, device) {
+    // Bei Update alte States löschen:
+    var stateFolderDatenpunkt = "0_userdata.0.devices.zigbee." + deviceZigbeeRepeater + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+    // Neue States anlegen:
+    setTimeout(function () {
+        createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeRepeater);
+        cacheRepeaterArray = null;
+    }, 200);
+}
+exports.createZigbeeRepeater = createZigbeeRepeater;
+// Schalter:
+function createZigbeeSchalter(adapter, rawId, baseState, etage, raum, device) {
+    // Bei Update alte States löschen:
+    var stateFolderDatenpunkt = "0_userdata.0.devices.zigbee." + deviceZigbeeSchalter + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+    // Neue States anlegen:
+    setTimeout(function () {
+        createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeSchalter);
+        cacheSchalterArray = null;
+    }, 200);
+}
+exports.createZigbeeSchalter = createZigbeeSchalter;
+// Wandtaster:
+function createZigbeeWandtaster(adapter, rawId, baseState, etage, raum, device) {
+    // Bei Update alte States löschen:
+    var stateFolderDatenpunkt = "0_userdata.0.devices.zigbee." + deviceZigbeeWandtaster + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+    // Neue States anlegen:
+    setTimeout(function () {
+        createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeWandtaster);
+        cacheWandtasterArray = null;
+    }, 200);
+}
+exports.createZigbeeWandtaster = createZigbeeWandtaster;
+// Rauchmelder:
+function createZigbeeRauchmelder(adapter, rawId, baseState, etage, raum, device) {
+    // Bei Update alte States löschen:
+    var stateFolderDatenpunkt = "0_userdata.0.devices.zigbee." + deviceZigbeeRauchmelder + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+    // Neue States anlegen:
+    setTimeout(function () {
+        createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeRauchmelder);
+        cacheRauchmelderArray = null;
+    }, 200);
+}
+exports.createZigbeeRauchmelder = createZigbeeRauchmelder;
+// Bewegungsmelder:
+function createZigbeeBewegungsmelder(adapter, rawId, baseState, etage, raum, device) {
+    // Bei Update alte States löschen:
+    var stateFolderDatenpunkt = "0_userdata.0.devices.zigbee." + deviceZigbeeBewegungsmelder + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+    // Neue States anlegen:
+    setTimeout(function () {
+        createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeBewegungsmelder);
+        cacheBewegungsmelderArray = null;
+    }, 200);
+}
+exports.createZigbeeBewegungsmelder = createZigbeeBewegungsmelder;
 // Dosenrelais:
 function createZigbeeDosenrelais(adapter, rawId, baseState, etage, raum, device, smartNames) {
-    // Allgemein:
-    createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeDosenrelais);
-    // Spezifisch:
-    var db_smartNames = null;
-    smartNames.forEach(function (value) {
-        if (db_smartNames == null) {
-            // @ts-ignore                        
-            db_smartNames = value;
-        }
-        else {
-            // @ts-ignore                        
-            db_smartNames += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDosenrelais_smartNames, db_smartNames, deviceZigbeeDosenrelais);
+    // Bei Update alte States löschen:
+    var stateFolderDatenpunkt = "0_userdata.0.devices.zigbee." + deviceZigbeeDosenrelais + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+    // Neue States anlegen:
+    setTimeout(function () {
+        // Allgemein:
+        createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeDosenrelais);
+        // Spezifisch:
+        var db_smartNames = null;
+        smartNames.forEach(function (value) {
+            if (db_smartNames == null) {
+                // @ts-ignore                        
+                db_smartNames = value;
+            }
+            else {
+                // @ts-ignore                        
+                db_smartNames += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDosenrelais_smartNames, db_smartNames, deviceZigbeeDosenrelais);
+        cacheDosenrelaisArray = null;
+    }, 200);
 }
 exports.createZigbeeDosenrelais = createZigbeeDosenrelais;
 // Steckdose:
 function createZigbeeSteckdose(adapter, rawId, baseState, etage, raum, device, alexaSmartNamesForOn, alexaActionNamesForOn, alexaSmartNamesForOff, alexaActionNamesForOff, additionalStates4TurnOn, additionalStates4TurnOff) {
-    // Allgemein:
-    createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeSteckdose);
-    // alexaSmartNamesForOn:string[]
-    var db_alexaSmartNamesForOn = null;
-    alexaSmartNamesForOn.forEach(function (value) {
-        if (db_alexaSmartNamesForOn == null) {
-            // @ts-ignore            
-            db_alexaSmartNamesForOn = value;
-        }
-        else {
-            // @ts-ignore            
-            db_alexaSmartNamesForOn += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, deviceZigbeeSteckdose);
-    // alexaActionNamesForOn:string[]
-    var db_alexaActionNamesForOn = null;
-    alexaActionNamesForOn.forEach(function (value) {
-        if (db_alexaActionNamesForOn == null) {
-            // @ts-ignore            
-            db_alexaActionNamesForOn = value;
-        }
-        else {
-            // @ts-ignore                        
-            db_alexaActionNamesForOn += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, deviceZigbeeSteckdose);
-    // alexaSmartNamesForOff:string[]
-    var db_alexaSmartNamesForOff = null;
-    alexaSmartNamesForOff.forEach(function (value) {
-        if (db_alexaSmartNamesForOff == null) {
-            // @ts-ignore            
-            db_alexaSmartNamesForOff = value;
-        }
-        else {
-            // @ts-ignore                        
-            db_alexaSmartNamesForOff += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, deviceZigbeeSteckdose);
-    // alexaActionNamesForOff:string[]
-    var db_alexaActionNamesForOff = null;
-    alexaActionNamesForOff.forEach(function (value) {
-        if (db_alexaActionNamesForOff == null) {
-            // @ts-ignore                        
-            db_alexaActionNamesForOff = value;
-        }
-        else {
-            // @ts-ignore                        
-            db_alexaActionNamesForOff += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, deviceZigbeeSteckdose);
-    // additionalStates4TurnOn: string[]
-    var db_additionalStates4TurnOn = null;
-    additionalStates4TurnOn.forEach(function (value) {
-        if (db_additionalStates4TurnOn == null) {
-            // @ts-ignore                        
-            db_additionalStates4TurnOn = value;
-        }
-        else {
-            // @ts-ignore                        
-            db_additionalStates4TurnOn += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOn, db_additionalStates4TurnOn, deviceZigbeeSteckdose);
-    // additionalStates4TurnOff: string[]
-    var db_additionalStates4TurnOff = null;
-    additionalStates4TurnOff.forEach(function (value) {
-        if (db_additionalStates4TurnOff == null) {
-            // @ts-ignore                        
-            db_additionalStates4TurnOff = value;
-        }
-        else {
-            // @ts-ignore                        
-            db_additionalStates4TurnOff += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_additionalStates4TurnOff, deviceZigbeeSteckdose);
-    clearZigbeeCaches(adapter);
+    // Bei Update alte States löschen:
+    var stateFolderDatenpunkt = "0_userdata.0.devices.zigbee." + deviceZigbeeSteckdose + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+    // Neue States anlegen:
+    setTimeout(function () {
+        // Allgemein:
+        createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeSteckdose);
+        // alexaSmartNamesForOn:string[]
+        var db_alexaSmartNamesForOn = null;
+        alexaSmartNamesForOn.forEach(function (value) {
+            if (db_alexaSmartNamesForOn == null) {
+                // @ts-ignore            
+                db_alexaSmartNamesForOn = value;
+            }
+            else {
+                // @ts-ignore            
+                db_alexaSmartNamesForOn += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, deviceZigbeeSteckdose);
+        // alexaActionNamesForOn:string[]
+        var db_alexaActionNamesForOn = null;
+        alexaActionNamesForOn.forEach(function (value) {
+            if (db_alexaActionNamesForOn == null) {
+                // @ts-ignore            
+                db_alexaActionNamesForOn = value;
+            }
+            else {
+                // @ts-ignore                        
+                db_alexaActionNamesForOn += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, deviceZigbeeSteckdose);
+        // alexaSmartNamesForOff:string[]
+        var db_alexaSmartNamesForOff = null;
+        alexaSmartNamesForOff.forEach(function (value) {
+            if (db_alexaSmartNamesForOff == null) {
+                // @ts-ignore            
+                db_alexaSmartNamesForOff = value;
+            }
+            else {
+                // @ts-ignore                        
+                db_alexaSmartNamesForOff += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, deviceZigbeeSteckdose);
+        // alexaActionNamesForOff:string[]
+        var db_alexaActionNamesForOff = null;
+        alexaActionNamesForOff.forEach(function (value) {
+            if (db_alexaActionNamesForOff == null) {
+                // @ts-ignore                        
+                db_alexaActionNamesForOff = value;
+            }
+            else {
+                // @ts-ignore                        
+                db_alexaActionNamesForOff += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, deviceZigbeeSteckdose);
+        // additionalStates4TurnOn: string[]
+        var db_additionalStates4TurnOn = null;
+        additionalStates4TurnOn.forEach(function (value) {
+            if (db_additionalStates4TurnOn == null) {
+                // @ts-ignore                        
+                db_additionalStates4TurnOn = value;
+            }
+            else {
+                // @ts-ignore                        
+                db_additionalStates4TurnOn += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOn, db_additionalStates4TurnOn, deviceZigbeeSteckdose);
+        // additionalStates4TurnOff: string[]
+        var db_additionalStates4TurnOff = null;
+        additionalStates4TurnOff.forEach(function (value) {
+            if (db_additionalStates4TurnOff == null) {
+                // @ts-ignore                        
+                db_additionalStates4TurnOff = value;
+            }
+            else {
+                // @ts-ignore                        
+                db_additionalStates4TurnOff += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_additionalStates4TurnOff, deviceZigbeeSteckdose);
+        cacheSteckdosenArray = null;
+    }, 200);
 }
 exports.createZigbeeSteckdose = createZigbeeSteckdose;
 // LampeWeiss:
 function createZigbeeLampeWeiss(adapter, rawId, baseState, etage, raum, device, alexaSmartNamesForOn, alexaActionNamesForOn, alexaLevelSchemeForOn, alexaSmartNamesForOff, alexaActionNamesForOff, colorSchemesWeiss1, colorSchemesWeiss2, colorSchemesWeiss3, colorSchemesWeiss4, isGroup, tasterBooleanOn1, tasterBooleanOn2, tasterBooleanOn3, tasterBooleanOn4, tasterBooleanOff, nachtbeleuchtung, turnOffExitHouseSummer, turnOffExitHouseWinter, turnOnEnterHouseSummer, turnOnEnterHouseWinter) {
-    // Allgemein:
-    createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeLampeWeiss);
-    // alexaSmartNamesForOn:string[]
-    var db_alexaSmartNamesForOn = null;
-    alexaSmartNamesForOn.forEach(function (value) {
-        if (db_alexaSmartNamesForOn == null) {
-            // @ts-ignore                                    
-            db_alexaSmartNamesForOn = value;
+    // Bei Update alte States löschen:
+    var stateFolderDatenpunkt = "0_userdata.0.devices.zigbee." + deviceZigbeeLampeWeiss + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+    // Neue States anlegen:
+    setTimeout(function () {
+        // Allgemein:
+        createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeLampeWeiss);
+        // alexaSmartNamesForOn:string[]
+        var db_alexaSmartNamesForOn = null;
+        alexaSmartNamesForOn.forEach(function (value) {
+            if (db_alexaSmartNamesForOn == null) {
+                // @ts-ignore                                    
+                db_alexaSmartNamesForOn = value;
+            }
+            else {
+                // @ts-ignore                                    
+                db_alexaSmartNamesForOn += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, deviceZigbeeLampeWeiss);
+        // alexaActionNamesForOn:string[]
+        var db_alexaActionNamesForOn = null;
+        alexaActionNamesForOn.forEach(function (value) {
+            if (db_alexaActionNamesForOn == null) {
+                // @ts-ignore                                    
+                db_alexaActionNamesForOn = value;
+            }
+            else {
+                // @ts-ignore                                    
+                db_alexaActionNamesForOn += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, deviceZigbeeLampeWeiss);
+        // alexaSmartNamesForOff:string[]
+        var db_alexaSmartNamesForOff = null;
+        alexaSmartNamesForOff.forEach(function (value) {
+            if (db_alexaSmartNamesForOff == null) {
+                // @ts-ignore                                    
+                db_alexaSmartNamesForOff = value;
+            }
+            else {
+                // @ts-ignore                                    
+                db_alexaSmartNamesForOff += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, deviceZigbeeLampeWeiss);
+        // alexaActionNamesForOff:string[]
+        var db_alexaActionNamesForOff = null;
+        alexaActionNamesForOff.forEach(function (value) {
+            if (db_alexaActionNamesForOff == null) {
+                // @ts-ignore                                    
+                db_alexaActionNamesForOff = value;
+            }
+            else {
+                // @ts-ignore                                    
+                db_alexaActionNamesForOff += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, deviceZigbeeLampeWeiss);
+        // tasterBooleanOn1 : LampeWeissTasterScheme
+        if (tasterBooleanOn1 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn1_aktiv, true, deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn1_name, tasterBooleanOn1.getTasterBooleanOnName(), deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn1_level, tasterBooleanOn1.getLevel(), deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn1_ct, tasterBooleanOn1.getCt(), deviceZigbeeLampeWeiss);
         }
         else {
-            // @ts-ignore                                    
-            db_alexaSmartNamesForOn += "|" + value;
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn1_aktiv, false, deviceZigbeeLampeWeiss);
+            /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn1_name, null, deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn1_level, null, deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn1_ct, null, deviceZigbeeLampeWeiss);        */
         }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, deviceZigbeeLampeWeiss);
-    // alexaActionNamesForOn:string[]
-    var db_alexaActionNamesForOn = null;
-    alexaActionNamesForOn.forEach(function (value) {
-        if (db_alexaActionNamesForOn == null) {
-            // @ts-ignore                                    
-            db_alexaActionNamesForOn = value;
-        }
-        else {
-            // @ts-ignore                                    
-            db_alexaActionNamesForOn += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, deviceZigbeeLampeWeiss);
-    // alexaSmartNamesForOff:string[]
-    var db_alexaSmartNamesForOff = null;
-    alexaSmartNamesForOff.forEach(function (value) {
-        if (db_alexaSmartNamesForOff == null) {
-            // @ts-ignore                                    
-            db_alexaSmartNamesForOff = value;
+        // tasterBooleanOn2 : LampeWeissTasterScheme
+        if (tasterBooleanOn2 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn2_aktiv, true, deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn2_name, tasterBooleanOn2.getTasterBooleanOnName(), deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn2_level, tasterBooleanOn2.getLevel(), deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn2_ct, tasterBooleanOn2.getCt(), deviceZigbeeLampeWeiss);
         }
         else {
-            // @ts-ignore                                    
-            db_alexaSmartNamesForOff += "|" + value;
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn2_aktiv, false, deviceZigbeeLampeWeiss);
+            /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn2_name, null, deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn2_level, null, deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn2_ct, null, deviceZigbeeLampeWeiss);        */
         }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, deviceZigbeeLampeWeiss);
-    // alexaActionNamesForOff:string[]
-    var db_alexaActionNamesForOff = null;
-    alexaActionNamesForOff.forEach(function (value) {
-        if (db_alexaActionNamesForOff == null) {
-            // @ts-ignore                                    
-            db_alexaActionNamesForOff = value;
-        }
-        else {
-            // @ts-ignore                                    
-            db_alexaActionNamesForOff += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, deviceZigbeeLampeWeiss);
-    // tasterBooleanOn1 : LampeWeissTasterScheme
-    if (tasterBooleanOn1 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn1_aktiv, true, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn1_name, tasterBooleanOn1.getTasterBooleanOnName(), deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn1_level, tasterBooleanOn1.getLevel(), deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn1_ct, tasterBooleanOn1.getCt(), deviceZigbeeLampeWeiss);
-    }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn1_aktiv, false, deviceZigbeeLampeWeiss);
-        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn1_name, null, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn1_level, null, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn1_ct, null, deviceZigbeeLampeWeiss);        */
-    }
-    // tasterBooleanOn2 : LampeWeissTasterScheme
-    if (tasterBooleanOn2 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn2_aktiv, true, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn2_name, tasterBooleanOn2.getTasterBooleanOnName(), deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn2_level, tasterBooleanOn2.getLevel(), deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn2_ct, tasterBooleanOn2.getCt(), deviceZigbeeLampeWeiss);
-    }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn2_aktiv, false, deviceZigbeeLampeWeiss);
-        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn2_name, null, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn2_level, null, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn2_ct, null, deviceZigbeeLampeWeiss);        */
-    }
-    // tasterBooleanOn3 : LampeWeissTasterScheme
-    if (tasterBooleanOn3 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn3_aktiv, true, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn3_name, tasterBooleanOn3.getTasterBooleanOnName(), deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn3_level, tasterBooleanOn3.getLevel(), deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn3_ct, tasterBooleanOn3.getCt(), deviceZigbeeLampeWeiss);
-    }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn3_aktiv, false, deviceZigbeeLampeWeiss);
-        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn3_name, null, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn3_level, null, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn3_ct, null, deviceZigbeeLampeWeiss);        */
-    }
-    // tasterBooleanOn4 : LampeWeissTasterScheme
-    if (tasterBooleanOn4 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn4_aktiv, true, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn4_name, tasterBooleanOn4.getTasterBooleanOnName(), deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn4_level, tasterBooleanOn4.getLevel(), deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn4_ct, tasterBooleanOn4.getCt(), deviceZigbeeLampeWeiss);
-    }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn4_aktiv, false, deviceZigbeeLampeWeiss);
-        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn4_name, null, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn4_level, null, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn4_ct, null, deviceZigbeeLampeWeiss);        */
-    }
-    // tasterBooleanOff: string[]
-    var db_tasterBooleanOff = null;
-    tasterBooleanOff.forEach(function (value) {
-        if (db_tasterBooleanOff == null) {
-            // @ts-ignore                                    
-            db_tasterBooleanOff = value;
+        // tasterBooleanOn3 : LampeWeissTasterScheme
+        if (tasterBooleanOn3 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn3_aktiv, true, deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn3_name, tasterBooleanOn3.getTasterBooleanOnName(), deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn3_level, tasterBooleanOn3.getLevel(), deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn3_ct, tasterBooleanOn3.getCt(), deviceZigbeeLampeWeiss);
         }
         else {
-            // @ts-ignore                                    
-            db_tasterBooleanOff += "|" + value;
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn3_aktiv, false, deviceZigbeeLampeWeiss);
+            /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn3_name, null, deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn3_level, null, deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn3_ct, null, deviceZigbeeLampeWeiss);        */
         }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_tasterBooleanOff, deviceZigbeeLampeWeiss);
-    // Weitere:
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_Nachtbeleuchtung, nachtbeleuchtung, deviceZigbeeLampeWeiss);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseSummer, turnOffExitHouseSummer, deviceZigbeeLampeWeiss);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, deviceZigbeeLampeWeiss);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceZigbeeLampeWeiss);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceZigbeeLampeWeiss);
-    // Gruppe:
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampeWeissGroup, isGroup, deviceZigbeeLampeWeiss);
-    // alexaLevelSchemeForOn: LampeWeissAlexaScheme
-    if (alexaLevelSchemeForOn != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_aktiv, true, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_level, alexaLevelSchemeForOn.getLevel(), deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_ct, alexaLevelSchemeForOn.getCt(), deviceZigbeeLampeWeiss);
-    }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_aktiv, false, deviceZigbeeLampeWeiss);
-        /*createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_level, null, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_ct, null, deviceZigbeeLampeWeiss);*/
-    }
-    // colorSchemesWeiss1: LampeWeissAlexaScheme
-    if (colorSchemesWeiss1 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss1_aktiv, true, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss1_name, colorSchemesWeiss1.getAlexaName(), deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss1_level, colorSchemesWeiss1.getLevel(), deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss1_ct, colorSchemesWeiss1.getCt(), deviceZigbeeLampeWeiss);
-    }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss1_aktiv, false, deviceZigbeeLampeWeiss);
-        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss1_name, null, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss1_level, null, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss1_ct, null, deviceZigbeeLampeWeiss);*/
-    }
-    // colorSchemesWeiss2: LampeWeissAlexaScheme
-    if (colorSchemesWeiss2 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss2_aktiv, true, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss2_name, colorSchemesWeiss2.getAlexaName(), deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss2_level, colorSchemesWeiss2.getLevel(), deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss2_ct, colorSchemesWeiss2.getCt(), deviceZigbeeLampeWeiss);
-    }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss2_aktiv, false, deviceZigbeeLampeWeiss);
-        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss2_name, null, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss2_level, null, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss2_ct, null, deviceZigbeeLampeWeiss);*/
-    }
-    // colorSchemesWeiss3: LampeWeissAlexaScheme
-    if (colorSchemesWeiss3 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss3_aktiv, true, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss3_name, colorSchemesWeiss3.getAlexaName(), deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss3_level, colorSchemesWeiss3.getLevel(), deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss3_ct, colorSchemesWeiss3.getCt(), deviceZigbeeLampeWeiss);
-    }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss3_aktiv, false, deviceZigbeeLampeWeiss);
-        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss3_name, null, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss3_level, null, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss3_ct, null, deviceZigbeeLampeWeiss);*/
-    }
-    // colorSchemesWeiss4: LampeWeissAlexaScheme
-    if (colorSchemesWeiss4 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss4_aktiv, true, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss4_name, colorSchemesWeiss4.getAlexaName(), deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_level, colorSchemesWeiss4.getLevel(), deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_ct, colorSchemesWeiss4.getCt(), deviceZigbeeLampeWeiss);
-    }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss4_aktiv, false, deviceZigbeeLampeWeiss);
-        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss4_name, null, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_level, null, deviceZigbeeLampeWeiss);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_ct, null, deviceZigbeeLampeWeiss);*/
-    }
-    clearZigbeeCaches(adapter);
+        // tasterBooleanOn4 : LampeWeissTasterScheme
+        if (tasterBooleanOn4 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn4_aktiv, true, deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn4_name, tasterBooleanOn4.getTasterBooleanOnName(), deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn4_level, tasterBooleanOn4.getLevel(), deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn4_ct, tasterBooleanOn4.getCt(), deviceZigbeeLampeWeiss);
+        }
+        else {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_tasterBoolOn4_aktiv, false, deviceZigbeeLampeWeiss);
+            /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_tasterBoolOn4_name, null, deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn4_level, null, deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_tasterBoolOn4_ct, null, deviceZigbeeLampeWeiss);        */
+        }
+        // tasterBooleanOff: string[]
+        var db_tasterBooleanOff = null;
+        tasterBooleanOff.forEach(function (value) {
+            if (db_tasterBooleanOff == null) {
+                // @ts-ignore                                    
+                db_tasterBooleanOff = value;
+            }
+            else {
+                // @ts-ignore                                    
+                db_tasterBooleanOff += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_tasterBooleanOff, deviceZigbeeLampeWeiss);
+        // Weitere:
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_Nachtbeleuchtung, nachtbeleuchtung, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseSummer, turnOffExitHouseSummer, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceZigbeeLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceZigbeeLampeWeiss);
+        // Gruppe:
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampeWeissGroup, isGroup, deviceZigbeeLampeWeiss);
+        // alexaLevelSchemeForOn: LampeWeissAlexaScheme
+        if (alexaLevelSchemeForOn != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_aktiv, true, deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_level, alexaLevelSchemeForOn.getLevel(), deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_ct, alexaLevelSchemeForOn.getCt(), deviceZigbeeLampeWeiss);
+        }
+        else {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_aktiv, false, deviceZigbeeLampeWeiss);
+            /*createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_level, null, deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_AlexaColorSchemeForOn_Weiss_ct, null, deviceZigbeeLampeWeiss);*/
+        }
+        // colorSchemesWeiss1: LampeWeissAlexaScheme
+        if (colorSchemesWeiss1 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss1_aktiv, true, deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss1_name, colorSchemesWeiss1.getAlexaName(), deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss1_level, colorSchemesWeiss1.getLevel(), deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss1_ct, colorSchemesWeiss1.getCt(), deviceZigbeeLampeWeiss);
+        }
+        else {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss1_aktiv, false, deviceZigbeeLampeWeiss);
+            /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss1_name, null, deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss1_level, null, deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss1_ct, null, deviceZigbeeLampeWeiss);*/
+        }
+        // colorSchemesWeiss2: LampeWeissAlexaScheme
+        if (colorSchemesWeiss2 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss2_aktiv, true, deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss2_name, colorSchemesWeiss2.getAlexaName(), deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss2_level, colorSchemesWeiss2.getLevel(), deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss2_ct, colorSchemesWeiss2.getCt(), deviceZigbeeLampeWeiss);
+        }
+        else {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss2_aktiv, false, deviceZigbeeLampeWeiss);
+            /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss2_name, null, deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss2_level, null, deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss2_ct, null, deviceZigbeeLampeWeiss);*/
+        }
+        // colorSchemesWeiss3: LampeWeissAlexaScheme
+        if (colorSchemesWeiss3 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss3_aktiv, true, deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss3_name, colorSchemesWeiss3.getAlexaName(), deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss3_level, colorSchemesWeiss3.getLevel(), deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss3_ct, colorSchemesWeiss3.getCt(), deviceZigbeeLampeWeiss);
+        }
+        else {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss3_aktiv, false, deviceZigbeeLampeWeiss);
+            /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss3_name, null, deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss3_level, null, deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss3_ct, null, deviceZigbeeLampeWeiss);*/
+        }
+        // colorSchemesWeiss4: LampeWeissAlexaScheme
+        if (colorSchemesWeiss4 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss4_aktiv, true, deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss4_name, colorSchemesWeiss4.getAlexaName(), deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_level, colorSchemesWeiss4.getLevel(), deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_ct, colorSchemesWeiss4.getCt(), deviceZigbeeLampeWeiss);
+        }
+        else {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeLampWeiss_ColorSchemes_Weiss4_aktiv, false, deviceZigbeeLampeWeiss);
+            /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeLampWeiss_ColorSchemes_Weiss4_name, null, deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_level, null, deviceZigbeeLampeWeiss);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_ct, null, deviceZigbeeLampeWeiss);*/
+        }
+        cacheLampenWeissArray = null;
+    }, 200);
 }
 exports.createZigbeeLampeWeiss = createZigbeeLampeWeiss;
 // LampeRGB:
 function createZigbeeLampeRGB(adapter, rawId, baseState, etage, raum, device, isGroup, groupMembers, alexaSmartNamesForOn, alexaActionNamesForOn, alexaColorSchemeForOnFarbe, alexaColorSchemeForOnWeiss, alexaSmartNamesForOff, alexaActionNamesForOff, colorSchemesFarbe1, colorSchemesFarbe2, colorSchemesFarbe3, colorSchemesFarbe4, colorSchemesWeiss1, colorSchemesWeiss2, colorSchemesWeiss3, colorSchemesWeiss4, tasterBooleanOn, tasterBooleanOff, nachtbeleuchtung, turnOffExitHouseSummer, turnOffExitHouseWinter, turnOnEnterHouseSummer, turnOnEnterHouseWinter) {
-    var category = deviceZigbeeLampeRGB;
-    // Allgemein:
-    createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeLampeRGB);
-    // Lampe-RGB spezifisch:
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_Group, isGroup, category);
-    // groupMembers:string[]
-    var db_groupMembers = null;
-    groupMembers.forEach(function (value) {
-        if (db_groupMembers == null) {
-            // @ts-ignore                                    
-            db_groupMembers = value;
+    // Bei Update alte States löschen:
+    var stateFolderDatenpunkt = "0_userdata.0.devices.zigbee." + deviceZigbeeLampeRGB + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+    // Neue States anlegen:
+    setTimeout(function () {
+        var category = deviceZigbeeLampeRGB;
+        // Allgemein:
+        createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeLampeRGB);
+        // Lampe-RGB spezifisch:
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_Group, isGroup, category);
+        // groupMembers:string[]
+        var db_groupMembers = null;
+        groupMembers.forEach(function (value) {
+            if (db_groupMembers == null) {
+                // @ts-ignore                                    
+                db_groupMembers = value;
+            }
+            else {
+                // @ts-ignore                                    
+                db_groupMembers += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_Groupmembers, db_groupMembers, category);
+        // alexaSmartNamesForOn:string[]
+        var db_alexaSmartNamesForOn = null;
+        alexaSmartNamesForOn.forEach(function (value) {
+            if (db_alexaSmartNamesForOn == null) {
+                // @ts-ignore                                    
+                db_alexaSmartNamesForOn = value;
+            }
+            else {
+                // @ts-ignore                                    
+                db_alexaSmartNamesForOn += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, category);
+        // alexaActionNamesForOn:string[]
+        var db_alexaActionNamesForOn = null;
+        alexaActionNamesForOn.forEach(function (value) {
+            if (db_alexaActionNamesForOn == null) {
+                // @ts-ignore                                    
+                db_alexaActionNamesForOn = value;
+            }
+            else {
+                // @ts-ignore                                    
+                db_alexaActionNamesForOn += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, category);
+        // alexaSmartNamesForOff:string[]
+        var db_alexaSmartNamesForOff = null;
+        alexaSmartNamesForOff.forEach(function (value) {
+            if (db_alexaSmartNamesForOff == null) {
+                // @ts-ignore                                    
+                db_alexaSmartNamesForOff = value;
+            }
+            else {
+                // @ts-ignore                                    
+                db_alexaSmartNamesForOff += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, category);
+        // alexaActionNamesForOff:string[]
+        var db_alexaActionNamesForOff = null;
+        alexaActionNamesForOff.forEach(function (value) {
+            if (db_alexaActionNamesForOff == null) {
+                // @ts-ignore                                    
+                db_alexaActionNamesForOff = value;
+            }
+            else {
+                // @ts-ignore                                    
+                db_alexaActionNamesForOff += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, category);
+        // tasterBooleanOn: string[]
+        var db_tasterBooleanOn = null;
+        tasterBooleanOn.forEach(function (value) {
+            if (db_tasterBooleanOn == null) {
+                // @ts-ignore                                    
+                db_tasterBooleanOn = value;
+            }
+            else {
+                // @ts-ignore                                    
+                db_tasterBooleanOn += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOn, db_tasterBooleanOn, category);
+        // tasterBooleanOff: string[]
+        var db_tasterBooleanOff = null;
+        tasterBooleanOff.forEach(function (value) {
+            if (db_tasterBooleanOff == null) {
+                // @ts-ignore                                    
+                db_tasterBooleanOff = value;
+            }
+            else {
+                // @ts-ignore                                    
+                db_tasterBooleanOff += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_tasterBooleanOff, category);
+        // Weitere:
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_Nachtbeleuchtung, nachtbeleuchtung, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseSummer, turnOffExitHouseSummer, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, category);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, category);
+        // alexaColorSchemeForOnFarbe: RGBColorScheme
+        if (alexaColorSchemeForOnFarbe != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_aktiv, true, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_level, alexaColorSchemeForOnFarbe.getLevel(), category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_hue, alexaColorSchemeForOnFarbe.getHue(), category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_sat, alexaColorSchemeForOnFarbe.getSat(), category);
         }
         else {
-            // @ts-ignore                                    
-            db_groupMembers += "|" + value;
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_aktiv, false, category);
+            /*createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_level, null, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_hue, null, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_sat, null, category);*/
         }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_Groupmembers, db_groupMembers, category);
-    // alexaSmartNamesForOn:string[]
-    var db_alexaSmartNamesForOn = null;
-    alexaSmartNamesForOn.forEach(function (value) {
-        if (db_alexaSmartNamesForOn == null) {
-            // @ts-ignore                                    
-            db_alexaSmartNamesForOn = value;
-        }
-        else {
-            // @ts-ignore                                    
-            db_alexaSmartNamesForOn += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, category);
-    // alexaActionNamesForOn:string[]
-    var db_alexaActionNamesForOn = null;
-    alexaActionNamesForOn.forEach(function (value) {
-        if (db_alexaActionNamesForOn == null) {
-            // @ts-ignore                                    
-            db_alexaActionNamesForOn = value;
+        // alexaColorSchemeForOnWeiss: WhiteColorScheme
+        if (alexaColorSchemeForOnWeiss != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_aktiv, true, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_level, alexaColorSchemeForOnWeiss.getLevel(), category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_ct, alexaColorSchemeForOnWeiss.getCt(), category);
         }
         else {
-            // @ts-ignore                                    
-            db_alexaActionNamesForOn += "|" + value;
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_aktiv, false, category);
+            /*createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_level, null, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_ct, null, category);*/
         }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, category);
-    // alexaSmartNamesForOff:string[]
-    var db_alexaSmartNamesForOff = null;
-    alexaSmartNamesForOff.forEach(function (value) {
-        if (db_alexaSmartNamesForOff == null) {
-            // @ts-ignore                                    
-            db_alexaSmartNamesForOff = value;
-        }
-        else {
-            // @ts-ignore                                    
-            db_alexaSmartNamesForOff += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, category);
-    // alexaActionNamesForOff:string[]
-    var db_alexaActionNamesForOff = null;
-    alexaActionNamesForOff.forEach(function (value) {
-        if (db_alexaActionNamesForOff == null) {
-            // @ts-ignore                                    
-            db_alexaActionNamesForOff = value;
+        // colorSchemesFarbe1: RGBColorScheme
+        if (colorSchemesFarbe1 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe1_aktiv, true, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe1_name, colorSchemesFarbe1.getAlexaName(), category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_level, colorSchemesFarbe1.getLevel(), category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_hue, colorSchemesFarbe1.getHue(), category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_sat, colorSchemesFarbe1.getSat(), category);
         }
         else {
-            // @ts-ignore                                    
-            db_alexaActionNamesForOff += "|" + value;
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe1_aktiv, false, category);
+            /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe1_name, null, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_level, null, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_hue, null, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_sat, null, category);*/
         }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, category);
-    // tasterBooleanOn: string[]
-    var db_tasterBooleanOn = null;
-    tasterBooleanOn.forEach(function (value) {
-        if (db_tasterBooleanOn == null) {
-            // @ts-ignore                                    
-            db_tasterBooleanOn = value;
-        }
-        else {
-            // @ts-ignore                                    
-            db_tasterBooleanOn += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOn, db_tasterBooleanOn, category);
-    // tasterBooleanOff: string[]
-    var db_tasterBooleanOff = null;
-    tasterBooleanOff.forEach(function (value) {
-        if (db_tasterBooleanOff == null) {
-            // @ts-ignore                                    
-            db_tasterBooleanOff = value;
+        // colorSchemesFarbe2: RGBColorScheme
+        if (colorSchemesFarbe2 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe2_aktiv, true, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe2_name, colorSchemesFarbe2.getAlexaName(), category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_level, colorSchemesFarbe2.getLevel(), category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_hue, colorSchemesFarbe2.getHue(), category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_sat, colorSchemesFarbe2.getSat(), category);
         }
         else {
-            // @ts-ignore                                    
-            db_tasterBooleanOff += "|" + value;
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe2_aktiv, false, category);
+            /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe2_name, null, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_level, null, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_hue, null, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_sat, null, category);*/
         }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_tasterBooleanOff, category);
-    // Weitere:
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_Nachtbeleuchtung, nachtbeleuchtung, category);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseSummer, turnOffExitHouseSummer, category);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, category);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, category);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, category);
-    // alexaColorSchemeForOnFarbe: RGBColorScheme
-    if (alexaColorSchemeForOnFarbe != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_aktiv, true, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_level, alexaColorSchemeForOnFarbe.getLevel(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_hue, alexaColorSchemeForOnFarbe.getHue(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_sat, alexaColorSchemeForOnFarbe.getSat(), category);
-    }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_aktiv, false, category);
-        /*createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_level, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_hue, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Farbe_sat, null, category);*/
-    }
-    // alexaColorSchemeForOnWeiss: WhiteColorScheme
-    if (alexaColorSchemeForOnWeiss != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_aktiv, true, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_level, alexaColorSchemeForOnWeiss.getLevel(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_ct, alexaColorSchemeForOnWeiss.getCt(), category);
-    }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_aktiv, false, category);
-        /*createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_level, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_AlexaColorSchemeForOn_Weiss_ct, null, category);*/
-    }
-    // colorSchemesFarbe1: RGBColorScheme
-    if (colorSchemesFarbe1 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe1_aktiv, true, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe1_name, colorSchemesFarbe1.getAlexaName(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_level, colorSchemesFarbe1.getLevel(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_hue, colorSchemesFarbe1.getHue(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_sat, colorSchemesFarbe1.getSat(), category);
-    }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe1_aktiv, false, category);
-        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe1_name, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_level, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_hue, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe1_sat, null, category);*/
-    }
-    // colorSchemesFarbe2: RGBColorScheme
-    if (colorSchemesFarbe2 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe2_aktiv, true, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe2_name, colorSchemesFarbe2.getAlexaName(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_level, colorSchemesFarbe2.getLevel(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_hue, colorSchemesFarbe2.getHue(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_sat, colorSchemesFarbe2.getSat(), category);
-    }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe2_aktiv, false, category);
-        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe2_name, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_level, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_hue, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe2_sat, null, category);*/
-    }
-    // colorSchemesFarbe3: RGBColorScheme
-    if (colorSchemesFarbe3 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe3_aktiv, true, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe3_name, colorSchemesFarbe3.getAlexaName(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_level, colorSchemesFarbe3.getLevel(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_hue, colorSchemesFarbe3.getHue(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_sat, colorSchemesFarbe3.getSat(), category);
-    }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe3_aktiv, false, category);
-        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe3_name, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_level, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_hue, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_sat, null, category);*/
-    }
-    // colorSchemesFarbe4: RGBColorScheme
-    if (colorSchemesFarbe4 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe4_aktiv, true, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe4_name, colorSchemesFarbe4.getAlexaName(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_level, colorSchemesFarbe4.getLevel(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_hue, colorSchemesFarbe4.getHue(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_sat, colorSchemesFarbe4.getSat(), category);
-    }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe4_aktiv, false, category);
-        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe4_name, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_level, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_hue, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_sat, null, category);*/
-    }
-    // colorSchemesWeiss1: WhiteColorScheme
-    if (colorSchemesWeiss1 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss1_aktiv, true, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss1_name, colorSchemesWeiss1.getAlexaName(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss1_level, colorSchemesWeiss1.getLevel(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss1_ct, colorSchemesWeiss1.getCt(), category);
-    }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss1_aktiv, false, category);
-        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss1_name, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss1_level, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss1_ct, null, category);*/
-    }
-    // colorSchemesWeiss2: WhiteColorScheme
-    if (colorSchemesWeiss2 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss2_aktiv, true, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss2_name, colorSchemesWeiss2.getAlexaName(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss2_level, colorSchemesWeiss2.getLevel(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss2_ct, colorSchemesWeiss2.getCt(), category);
-    }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss2_aktiv, false, category);
-        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss2_name, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss2_level, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss2_ct, null, category);*/
-    }
-    // colorSchemesWeiss3: WhiteColorScheme
-    if (colorSchemesWeiss3 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss3_aktiv, true, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss3_name, colorSchemesWeiss3.getAlexaName(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss3_level, colorSchemesWeiss3.getLevel(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss3_ct, colorSchemesWeiss3.getCt(), category);
-    }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss3_aktiv, false, category);
-        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss3_name, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss3_level, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss3_ct, null, category);*/
-    }
-    // colorSchemesWeiss4: WhiteColorScheme
-    if (colorSchemesWeiss4 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss4_aktiv, true, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss4_name, colorSchemesWeiss4.getAlexaName(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss4_level, colorSchemesWeiss4.getLevel(), category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss4_ct, colorSchemesWeiss4.getCt(), category);
-    }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss4_aktiv, false, category);
-        /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss4_name, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss4_level, null, category);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss4_ct, null, category);*/
-    }
-    clearZigbeeCaches(adapter);
+        // colorSchemesFarbe3: RGBColorScheme
+        if (colorSchemesFarbe3 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe3_aktiv, true, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe3_name, colorSchemesFarbe3.getAlexaName(), category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_level, colorSchemesFarbe3.getLevel(), category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_hue, colorSchemesFarbe3.getHue(), category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_sat, colorSchemesFarbe3.getSat(), category);
+        }
+        else {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe3_aktiv, false, category);
+            /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe3_name, null, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_level, null, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_hue, null, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe3_sat, null, category);*/
+        }
+        // colorSchemesFarbe4: RGBColorScheme
+        if (colorSchemesFarbe4 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe4_aktiv, true, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe4_name, colorSchemesFarbe4.getAlexaName(), category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_level, colorSchemesFarbe4.getLevel(), category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_hue, colorSchemesFarbe4.getHue(), category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_sat, colorSchemesFarbe4.getSat(), category);
+        }
+        else {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Farbe4_aktiv, false, category);
+            /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Farbe4_name, null, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_level, null, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_hue, null, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Farbe4_sat, null, category);*/
+        }
+        // colorSchemesWeiss1: WhiteColorScheme
+        if (colorSchemesWeiss1 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss1_aktiv, true, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss1_name, colorSchemesWeiss1.getAlexaName(), category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss1_level, colorSchemesWeiss1.getLevel(), category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss1_ct, colorSchemesWeiss1.getCt(), category);
+        }
+        else {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss1_aktiv, false, category);
+            /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss1_name, null, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss1_level, null, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss1_ct, null, category);*/
+        }
+        // colorSchemesWeiss2: WhiteColorScheme
+        if (colorSchemesWeiss2 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss2_aktiv, true, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss2_name, colorSchemesWeiss2.getAlexaName(), category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss2_level, colorSchemesWeiss2.getLevel(), category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss2_ct, colorSchemesWeiss2.getCt(), category);
+        }
+        else {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss2_aktiv, false, category);
+            /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss2_name, null, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss2_level, null, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss2_ct, null, category);*/
+        }
+        // colorSchemesWeiss3: WhiteColorScheme
+        if (colorSchemesWeiss3 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss3_aktiv, true, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss3_name, colorSchemesWeiss3.getAlexaName(), category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss3_level, colorSchemesWeiss3.getLevel(), category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss3_ct, colorSchemesWeiss3.getCt(), category);
+        }
+        else {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss3_aktiv, false, category);
+            /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss3_name, null, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss3_level, null, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss3_ct, null, category);*/
+        }
+        // colorSchemesWeiss4: WhiteColorScheme
+        if (colorSchemesWeiss4 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss4_aktiv, true, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss4_name, colorSchemesWeiss4.getAlexaName(), category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss4_level, colorSchemesWeiss4.getLevel(), category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss4_ct, colorSchemesWeiss4.getCt(), category);
+        }
+        else {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeRGBLamp_ColorSchemes_Weiss4_aktiv, false, category);
+            /*createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRGBLamp_ColorSchemes_Weiss4_name, null, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss4_level, null, category);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss4_ct, null, category);*/
+        }
+        cacheLampenRGBArray = null;
+    }, 200);
 }
 exports.createZigbeeLampeRGB = createZigbeeLampeRGB;
 function createDatenpunktSingle(adapter, deviceRawId, attributeType, attributeName, attributeValue, category) {
@@ -673,9 +788,6 @@ function createDatenpunktSingle(adapter, deviceRawId, attributeType, attributeNa
         read: true,
         write: true
     });
-    /*if (adapter.getState(stateDatenpunkt).val != attributeValue) {
-        adapter.setState(stateDatenpunkt, attributeValue);
-    }*/
 }
 function toStringArray(databaseValue) {
     var stringArray = [];
@@ -1165,4 +1277,4 @@ function getEtageSortIndex(etage) {
         return "d";
     }
 }
-module.exports = { createZigbeeDevice: createZigbeeDevice, createZigbeeDosenrelais: createZigbeeDosenrelais, createZigbeeLampeRGB: createZigbeeLampeRGB, createZigbeeLampeWeiss: createZigbeeLampeWeiss, createZigbeeSteckdose: createZigbeeSteckdose, loadZigbeeSteckdosen: loadZigbeeSteckdosen, loadZigbeeBewegungsmelder: loadZigbeeBewegungsmelder, loadZigbeeLampenRGB: loadZigbeeLampenRGB, loadZigbeeLampenWeiss: loadZigbeeLampenWeiss, loadZigbeeRauchmelder: loadZigbeeRauchmelder, loadZigbeeWandtaster: loadZigbeeWandtaster, loadZigbeeDosenrelais: loadZigbeeDosenrelais, loadZigbeeSchalter: loadZigbeeSchalter, loadZigbeeRepeater: loadZigbeeRepeater, loadZigbeeFenstersensor: loadZigbeeFenstersensor, loadZigbeeDevicesAll: loadZigbeeDevicesAll, clearZigbeeCaches: clearZigbeeCaches };
+module.exports = { createZigbeeDosenrelais: createZigbeeDosenrelais, createZigbeeLampeRGB: createZigbeeLampeRGB, createZigbeeLampeWeiss: createZigbeeLampeWeiss, createZigbeeSteckdose: createZigbeeSteckdose, createZigbeeBewegungsmelder: createZigbeeBewegungsmelder, createZigbeeRauchmelder: createZigbeeRauchmelder, createZigbeeWandtaster: createZigbeeWandtaster, createZigbeeSchalter: createZigbeeSchalter, createZigbeeRepeater: createZigbeeRepeater, createZigbeeFenstersensor: createZigbeeFenstersensor, loadZigbeeSteckdosen: loadZigbeeSteckdosen, loadZigbeeBewegungsmelder: loadZigbeeBewegungsmelder, loadZigbeeLampenRGB: loadZigbeeLampenRGB, loadZigbeeLampenWeiss: loadZigbeeLampenWeiss, loadZigbeeRauchmelder: loadZigbeeRauchmelder, loadZigbeeWandtaster: loadZigbeeWandtaster, loadZigbeeDosenrelais: loadZigbeeDosenrelais, loadZigbeeSchalter: loadZigbeeSchalter, loadZigbeeRepeater: loadZigbeeRepeater, loadZigbeeFenstersensor: loadZigbeeFenstersensor, loadZigbeeDevicesAll: loadZigbeeDevicesAll, clearZigbeeCaches: clearZigbeeCaches };

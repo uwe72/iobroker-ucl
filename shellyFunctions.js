@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loadShellyDevicesAll = exports.loadShellySteckdosen = exports.loadShellyLampenWeiss = exports.loadShellyDimmer = exports.loadShellySensoren = exports.loadShellyRollladen = exports.createShellySteckdose = exports.createShellyLampe = exports.createShellyDimmer = exports.createShellyRollladen = exports.createShellyLampeRGB = exports.createShellySensor = exports.createShellyDevice = void 0;
+exports.loadShellyDevicesAll = exports.loadShellySteckdosen = exports.loadShellyLampenWeiss = exports.loadShellyDimmer = exports.loadShellySensoren = exports.loadShellyRollladen = exports.createShellySteckdose = exports.createShellyLampe = exports.createShellyDimmer = exports.createShellyRollladen = exports.createShellySensor = void 0;
 var _a = require('./shellyClasses.js'), ShellyLampeWeiss = _a.ShellyLampeWeiss, ShellyDimmerAlexaScheme = _a.ShellyDimmerAlexaScheme, ShellyDimmerTasterScheme = _a.ShellyDimmerTasterScheme, ShellyDimmer = _a.ShellyDimmer, ShellyRGBAlexaScheme = _a.ShellyRGBAlexaScheme, ShellyRGBTasterScheme = _a.ShellyRGBTasterScheme, ShellyLampeRGB = _a.ShellyLampeRGB, ShellySteckdose = _a.ShellySteckdose, ShellyRollladen = _a.ShellyRollladen, ShellySensor = _a.ShellySensor, deviceShellyLampeWeiss = _a.deviceShellyLampeWeiss, deviceShellyDimmer = _a.deviceShellyDimmer, deviceShellyLampeRGB = _a.deviceShellyLampeRGB, deviceShellySteckdose = _a.deviceShellySteckdose, deviceShellyRollladen = _a.deviceShellyRollladen, deviceShellySensor = _a.deviceShellySensor;
 var attributeRawID = "rawId";
 var attributeBaseState = "baseState";
@@ -71,7 +71,6 @@ function createShellyDevice(adapter, rawId, etage, raum, device, baseState, cate
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDevice, device, category);
     clearShellyCaches(adapter);
 }
-exports.createShellyDevice = createShellyDevice;
 function createDatenpunktSingle(adapter, deviceRawId, attributeType, attributeName, attributeValue, category) {
     var stateDatenpunkt = "0_userdata.0.devices.shelly." + category + "." + deviceRawId + "." + attributeName;
     adapter.createState(stateDatenpunkt, attributeValue, {
@@ -85,368 +84,401 @@ function createDatenpunktSingle(adapter, deviceRawId, attributeType, attributeNa
 console.log("test");
 // Sensor:
 function createShellySensor(adapter, rawId, etage, raum, device, baseState) {
-    // Allgemein:
-    createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellySensor);
-    clearShellyCaches(adapter);
+    // Bei Update alte States löschen:
+    var stateFolderDatenpunkt = "0_userdata.0.devices.shelly." + deviceShellySensor + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+    // Neue States anlegen:
+    setTimeout(function () {
+        // Allgemein:
+        createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellySensor);
+        cacheSensorenArray = null;
+    }, 200);
 }
 exports.createShellySensor = createShellySensor;
-// Lampe RGB:
-function createShellyLampeRGB(adapter, rawId, etage, raum, device, baseState) {
-    // Allgemein:
-    createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellyLampeRGB);
-    clearShellyCaches(adapter);
-}
-exports.createShellyLampeRGB = createShellyLampeRGB;
 // Rollladen:
 function createShellyRollladen(adapter, rawId, etage, raum, device, baseState) {
-    // Allgemein:
-    createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellyRollladen);
-    clearShellyCaches(adapter);
+    // Bei Update alte States löschen:
+    var stateFolderDatenpunkt = "0_userdata.0.devices.shelly." + deviceShellyRollladen + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+    // Neue States anlegen:
+    setTimeout(function () {
+        // Allgemein:
+        createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellyRollladen);
+        cacheRollladenArray = null;
+    }, 200);
 }
 exports.createShellyRollladen = createShellyRollladen;
 // Dimmer:
 function createShellyDimmer(adapter, rawId, etage, raum, device, baseState, alexaSmartNamesForOn, alexaActionNamesForOn, alexaLevelSchemeForOn, alexaSmartNamesForOff, alexaActionNamesForOff, levelScheme1, levelScheme2, levelScheme3, levelScheme4, tasterBooleanOn1, tasterBooleanOn2, tasterBooleanOn3, tasterBooleanOn4, tasterBooleanOff, nachtbeleuchtung, turnOffExitHouseSummer, turnOffExitHouseWinter, turnOnEnterHouseSummer, turnOnEnterHouseWinter) {
-    // Allgemein:
-    createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellyDimmer);
-    // alexaLevelSchemeForOn:  InstanceType<typeof ShellyDimmerAlexaScheme>
-    if (alexaLevelSchemeForOn != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme_aktiv, true, deviceShellyDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_alexaScheme_name, alexaLevelSchemeForOn.getAlexaName(), deviceShellyDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_alexaScheme_level, alexaLevelSchemeForOn.getLevel(), deviceShellyDimmer);
+    // Bei Update alte States löschen:
+    var stateFolderDatenpunkt = "0_userdata.0.devices.shelly." + deviceShellyDimmer + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
     }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme_aktiv, false, deviceShellyDimmer);
-    }
-    // levelScheme1:  InstanceType<typeof ShellyDimmerAlexaScheme>
-    if (levelScheme1 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme_aktiv1, true, deviceShellyDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_alexaScheme_name1, levelScheme1.getAlexaName(), deviceShellyDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_alexaScheme_level1, levelScheme1.getLevel(), deviceShellyDimmer);
-    }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme_aktiv1, false, deviceShellyDimmer);
-    }
-    // levelScheme2:  InstanceType<typeof ShellyDimmerAlexaScheme>
-    if (levelScheme2 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme_aktiv2, true, deviceShellyDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_alexaScheme_name2, levelScheme2.getAlexaName(), deviceShellyDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_alexaScheme_level2, levelScheme2.getLevel(), deviceShellyDimmer);
-    }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme_aktiv2, false, deviceShellyDimmer);
-    }
-    // levelScheme3:  InstanceType<typeof ShellyDimmerAlexaScheme>
-    if (levelScheme3 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme_aktiv3, true, deviceShellyDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_alexaScheme_name3, levelScheme3.getAlexaName(), deviceShellyDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_alexaScheme_level3, levelScheme3.getLevel(), deviceShellyDimmer);
-    }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme_aktiv3, false, deviceShellyDimmer);
-    }
-    // levelScheme4:  InstanceType<typeof ShellyDimmerAlexaScheme>
-    if (levelScheme4 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme_aktiv4, true, deviceShellyDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_alexaScheme_name4, levelScheme4.getAlexaName(), deviceShellyDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_alexaScheme_level4, levelScheme4.getLevel(), deviceShellyDimmer);
-    }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme_aktiv4, false, deviceShellyDimmer);
-    }
-    // tasterBooleanOn1: InstanceType<typeof ShellyDimmerTasterScheme>
-    if (tasterBooleanOn1 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme_aktiv1, true, deviceShellyDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_tasterScheme_name1, tasterBooleanOn1.getTasterBooleanOnName(), deviceShellyDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_tasterScheme_level1, tasterBooleanOn1.getLevel(), deviceShellyDimmer);
-    }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme_aktiv1, false, deviceShellyDimmer);
-    }
-    // tasterBooleanOn2: InstanceType<typeof ShellyDimmerTasterScheme>
-    if (tasterBooleanOn2 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme_aktiv2, true, deviceShellyDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_tasterScheme_name2, tasterBooleanOn1.getTasterBooleanOnName(), deviceShellyDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_tasterScheme_level2, tasterBooleanOn1.getLevel(), deviceShellyDimmer);
-    }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme_aktiv2, false, deviceShellyDimmer);
-    }
-    // tasterBooleanOn3: InstanceType<typeof ShellyDimmerTasterScheme>
-    if (tasterBooleanOn3 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme_aktiv3, true, deviceShellyDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_tasterScheme_name3, tasterBooleanOn1.getTasterBooleanOnName(), deviceShellyDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_tasterScheme_level3, tasterBooleanOn1.getLevel(), deviceShellyDimmer);
-    }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme_aktiv3, false, deviceShellyDimmer);
-    }
-    // tasterBooleanOn4: InstanceType<typeof ShellyDimmerTasterScheme>
-    if (tasterBooleanOn4 != null) {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme_aktiv4, true, deviceShellyDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_tasterScheme_name4, tasterBooleanOn1.getTasterBooleanOnName(), deviceShellyDimmer);
-        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_tasterScheme_level4, tasterBooleanOn1.getLevel(), deviceShellyDimmer);
-    }
-    else {
-        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme_aktiv4, false, deviceShellyDimmer);
-    }
-    // alexaSmartNamesForOn:string[]
-    var db_alexaSmartNamesForOn = null;
-    alexaSmartNamesForOn.forEach(function (value) {
-        if (db_alexaSmartNamesForOn == null) {
-            // @ts-ignore            
-            db_alexaSmartNamesForOn = value;
+    // Neue States anlegen:
+    setTimeout(function () {
+        // Allgemein:
+        createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellyDimmer);
+        // alexaLevelSchemeForOn:  InstanceType<typeof ShellyDimmerAlexaScheme>
+        if (alexaLevelSchemeForOn != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme_aktiv, true, deviceShellyDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_alexaScheme_name, alexaLevelSchemeForOn.getAlexaName(), deviceShellyDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_alexaScheme_level, alexaLevelSchemeForOn.getLevel(), deviceShellyDimmer);
         }
         else {
-            // @ts-ignore            
-            db_alexaSmartNamesForOn += "|" + value;
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme_aktiv, false, deviceShellyDimmer);
         }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, deviceShellyDimmer);
-    // alexaActionNamesForOn:string[]
-    var db_alexaActionNamesForOn = null;
-    alexaActionNamesForOn.forEach(function (value) {
-        if (db_alexaActionNamesForOn == null) {
-            // @ts-ignore            
-            db_alexaActionNamesForOn = value;
+        // levelScheme1:  InstanceType<typeof ShellyDimmerAlexaScheme>
+        if (levelScheme1 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme_aktiv1, true, deviceShellyDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_alexaScheme_name1, levelScheme1.getAlexaName(), deviceShellyDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_alexaScheme_level1, levelScheme1.getLevel(), deviceShellyDimmer);
         }
         else {
-            // @ts-ignore                        
-            db_alexaActionNamesForOn += "|" + value;
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme_aktiv1, false, deviceShellyDimmer);
         }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, deviceShellyDimmer);
-    // alexaSmartNamesForOff:string[]
-    var db_alexaSmartNamesForOff = null;
-    alexaSmartNamesForOff.forEach(function (value) {
-        if (db_alexaSmartNamesForOff == null) {
-            // @ts-ignore            
-            db_alexaSmartNamesForOff = value;
+        // levelScheme2:  InstanceType<typeof ShellyDimmerAlexaScheme>
+        if (levelScheme2 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme_aktiv2, true, deviceShellyDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_alexaScheme_name2, levelScheme2.getAlexaName(), deviceShellyDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_alexaScheme_level2, levelScheme2.getLevel(), deviceShellyDimmer);
         }
         else {
-            // @ts-ignore                        
-            db_alexaSmartNamesForOff += "|" + value;
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme_aktiv2, false, deviceShellyDimmer);
         }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, deviceShellyDimmer);
-    // alexaActionNamesForOff:string[]
-    var db_alexaActionNamesForOff = null;
-    alexaActionNamesForOff.forEach(function (value) {
-        if (db_alexaActionNamesForOff == null) {
-            // @ts-ignore                        
-            db_alexaActionNamesForOff = value;
+        // levelScheme3:  InstanceType<typeof ShellyDimmerAlexaScheme>
+        if (levelScheme3 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme_aktiv3, true, deviceShellyDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_alexaScheme_name3, levelScheme3.getAlexaName(), deviceShellyDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_alexaScheme_level3, levelScheme3.getLevel(), deviceShellyDimmer);
         }
         else {
-            // @ts-ignore                        
-            db_alexaActionNamesForOff += "|" + value;
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme_aktiv3, false, deviceShellyDimmer);
         }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, deviceShellyDimmer);
-    // additionalStates4TurnOff: string[]
-    var db_additionalStates4TurnOff = null;
-    tasterBooleanOff.forEach(function (value) {
-        if (db_additionalStates4TurnOff == null) {
-            // @ts-ignore                        
-            db_additionalStates4TurnOff = value;
+        // levelScheme4:  InstanceType<typeof ShellyDimmerAlexaScheme>
+        if (levelScheme4 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme_aktiv4, true, deviceShellyDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_alexaScheme_name4, levelScheme4.getAlexaName(), deviceShellyDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_alexaScheme_level4, levelScheme4.getLevel(), deviceShellyDimmer);
         }
         else {
-            // @ts-ignore                        
-            db_additionalStates4TurnOff += "|" + value;
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_alexaScheme_aktiv4, false, deviceShellyDimmer);
         }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_additionalStates4TurnOff, deviceShellyDimmer);
-    // Weitere:
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_Nachtbeleuchtung, nachtbeleuchtung, deviceShellyDimmer);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseSummer, turnOffExitHouseSummer, deviceShellyDimmer);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, deviceShellyDimmer);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceShellyDimmer);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceShellyDimmer);
-    clearShellyCaches(adapter);
+        // tasterBooleanOn1: InstanceType<typeof ShellyDimmerTasterScheme>
+        if (tasterBooleanOn1 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme_aktiv1, true, deviceShellyDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_tasterScheme_name1, tasterBooleanOn1.getTasterBooleanOnName(), deviceShellyDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_tasterScheme_level1, tasterBooleanOn1.getLevel(), deviceShellyDimmer);
+        }
+        else {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme_aktiv1, false, deviceShellyDimmer);
+        }
+        // tasterBooleanOn2: InstanceType<typeof ShellyDimmerTasterScheme>
+        if (tasterBooleanOn2 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme_aktiv2, true, deviceShellyDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_tasterScheme_name2, tasterBooleanOn1.getTasterBooleanOnName(), deviceShellyDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_tasterScheme_level2, tasterBooleanOn1.getLevel(), deviceShellyDimmer);
+        }
+        else {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme_aktiv2, false, deviceShellyDimmer);
+        }
+        // tasterBooleanOn3: InstanceType<typeof ShellyDimmerTasterScheme>
+        if (tasterBooleanOn3 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme_aktiv3, true, deviceShellyDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_tasterScheme_name3, tasterBooleanOn1.getTasterBooleanOnName(), deviceShellyDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_tasterScheme_level3, tasterBooleanOn1.getLevel(), deviceShellyDimmer);
+        }
+        else {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme_aktiv3, false, deviceShellyDimmer);
+        }
+        // tasterBooleanOn4: InstanceType<typeof ShellyDimmerTasterScheme>
+        if (tasterBooleanOn4 != null) {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme_aktiv4, true, deviceShellyDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDimmer_tasterScheme_name4, tasterBooleanOn1.getTasterBooleanOnName(), deviceShellyDimmer);
+            createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeDimmer_tasterScheme_level4, tasterBooleanOn1.getLevel(), deviceShellyDimmer);
+        }
+        else {
+            createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attributeDimmer_tasterScheme_aktiv4, false, deviceShellyDimmer);
+        }
+        // alexaSmartNamesForOn:string[]
+        var db_alexaSmartNamesForOn = null;
+        alexaSmartNamesForOn.forEach(function (value) {
+            if (db_alexaSmartNamesForOn == null) {
+                // @ts-ignore            
+                db_alexaSmartNamesForOn = value;
+            }
+            else {
+                // @ts-ignore            
+                db_alexaSmartNamesForOn += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, deviceShellyDimmer);
+        // alexaActionNamesForOn:string[]
+        var db_alexaActionNamesForOn = null;
+        alexaActionNamesForOn.forEach(function (value) {
+            if (db_alexaActionNamesForOn == null) {
+                // @ts-ignore            
+                db_alexaActionNamesForOn = value;
+            }
+            else {
+                // @ts-ignore                        
+                db_alexaActionNamesForOn += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, deviceShellyDimmer);
+        // alexaSmartNamesForOff:string[]
+        var db_alexaSmartNamesForOff = null;
+        alexaSmartNamesForOff.forEach(function (value) {
+            if (db_alexaSmartNamesForOff == null) {
+                // @ts-ignore            
+                db_alexaSmartNamesForOff = value;
+            }
+            else {
+                // @ts-ignore                        
+                db_alexaSmartNamesForOff += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, deviceShellyDimmer);
+        // alexaActionNamesForOff:string[]
+        var db_alexaActionNamesForOff = null;
+        alexaActionNamesForOff.forEach(function (value) {
+            if (db_alexaActionNamesForOff == null) {
+                // @ts-ignore                        
+                db_alexaActionNamesForOff = value;
+            }
+            else {
+                // @ts-ignore                        
+                db_alexaActionNamesForOff += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, deviceShellyDimmer);
+        // additionalStates4TurnOff: string[]
+        var db_additionalStates4TurnOff = null;
+        tasterBooleanOff.forEach(function (value) {
+            if (db_additionalStates4TurnOff == null) {
+                // @ts-ignore                        
+                db_additionalStates4TurnOff = value;
+            }
+            else {
+                // @ts-ignore                        
+                db_additionalStates4TurnOff += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_additionalStates4TurnOff, deviceShellyDimmer);
+        // Weitere:
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_Nachtbeleuchtung, nachtbeleuchtung, deviceShellyDimmer);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseSummer, turnOffExitHouseSummer, deviceShellyDimmer);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, deviceShellyDimmer);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceShellyDimmer);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceShellyDimmer);
+        cacheDimmerArray = null;
+    }, 200);
 }
 exports.createShellyDimmer = createShellyDimmer;
 // Lampe Weiss:
 function createShellyLampe(adapter, rawId, etage, raum, device, baseState, channel, alexaSmartNamesForOn, alexaActionNamesForOn, alexaSmartNamesForOff, alexaActionNamesForOff, additionalStates4TurnOn, additionalStates4TurnOff, nachtbeleuchtung, turnOffExitHouseSummer, turnOffExitHouseWinter, turnOnEnterHouseSummer, turnOnEnterHouseWinter) {
-    // Allgemein:
-    createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellyLampeWeiss);
-    // attributeChannel
-    createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeChannel, channel, deviceShellyLampeWeiss);
-    // alexaSmartNamesForOn:string[]
-    var db_alexaSmartNamesForOn = null;
-    alexaSmartNamesForOn.forEach(function (value) {
-        if (db_alexaSmartNamesForOn == null) {
-            // @ts-ignore            
-            db_alexaSmartNamesForOn = value;
-        }
-        else {
-            // @ts-ignore            
-            db_alexaSmartNamesForOn += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, deviceShellyLampeWeiss);
-    // alexaActionNamesForOn:string[]
-    var db_alexaActionNamesForOn = null;
-    alexaActionNamesForOn.forEach(function (value) {
-        if (db_alexaActionNamesForOn == null) {
-            // @ts-ignore            
-            db_alexaActionNamesForOn = value;
-        }
-        else {
-            // @ts-ignore                        
-            db_alexaActionNamesForOn += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, deviceShellyLampeWeiss);
-    // alexaSmartNamesForOff:string[]
-    var db_alexaSmartNamesForOff = null;
-    alexaSmartNamesForOff.forEach(function (value) {
-        if (db_alexaSmartNamesForOff == null) {
-            // @ts-ignore            
-            db_alexaSmartNamesForOff = value;
-        }
-        else {
-            // @ts-ignore                        
-            db_alexaSmartNamesForOff += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, deviceShellyLampeWeiss);
-    // alexaActionNamesForOff:string[]
-    var db_alexaActionNamesForOff = null;
-    alexaActionNamesForOff.forEach(function (value) {
-        if (db_alexaActionNamesForOff == null) {
-            // @ts-ignore                        
-            db_alexaActionNamesForOff = value;
-        }
-        else {
-            // @ts-ignore                        
-            db_alexaActionNamesForOff += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, deviceShellyLampeWeiss);
-    // additionalStates4TurnOn: string[]
-    var db_additionalStates4TurnOn = null;
-    additionalStates4TurnOn.forEach(function (value) {
-        if (db_additionalStates4TurnOn == null) {
-            // @ts-ignore                        
-            db_additionalStates4TurnOn = value;
-        }
-        else {
-            // @ts-ignore                        
-            db_additionalStates4TurnOn += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOn, db_additionalStates4TurnOn, deviceShellyLampeWeiss);
-    // additionalStates4TurnOff: string[]
-    var db_additionalStates4TurnOff = null;
-    additionalStates4TurnOff.forEach(function (value) {
-        if (db_additionalStates4TurnOff == null) {
-            // @ts-ignore                        
-            db_additionalStates4TurnOff = value;
-        }
-        else {
-            // @ts-ignore                        
-            db_additionalStates4TurnOff += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_additionalStates4TurnOff, deviceShellyLampeWeiss);
-    // Weitere:
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_Nachtbeleuchtung, nachtbeleuchtung, deviceShellyLampeWeiss);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseSummer, turnOffExitHouseSummer, deviceShellyLampeWeiss);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, deviceShellyLampeWeiss);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceShellyLampeWeiss);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceShellyLampeWeiss);
-    clearShellyCaches(adapter);
+    // Bei Update alte States löschen:
+    var stateFolderDatenpunkt = "0_userdata.0.devices.shelly." + deviceShellyLampeWeiss + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+    // Neue States anlegen:
+    setTimeout(function () {
+        // Allgemein:
+        createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellyLampeWeiss);
+        // attributeChannel
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeChannel, channel, deviceShellyLampeWeiss);
+        // alexaSmartNamesForOn:string[]
+        var db_alexaSmartNamesForOn = null;
+        alexaSmartNamesForOn.forEach(function (value) {
+            if (db_alexaSmartNamesForOn == null) {
+                // @ts-ignore            
+                db_alexaSmartNamesForOn = value;
+            }
+            else {
+                // @ts-ignore            
+                db_alexaSmartNamesForOn += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, deviceShellyLampeWeiss);
+        // alexaActionNamesForOn:string[]
+        var db_alexaActionNamesForOn = null;
+        alexaActionNamesForOn.forEach(function (value) {
+            if (db_alexaActionNamesForOn == null) {
+                // @ts-ignore            
+                db_alexaActionNamesForOn = value;
+            }
+            else {
+                // @ts-ignore                        
+                db_alexaActionNamesForOn += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, deviceShellyLampeWeiss);
+        // alexaSmartNamesForOff:string[]
+        var db_alexaSmartNamesForOff = null;
+        alexaSmartNamesForOff.forEach(function (value) {
+            if (db_alexaSmartNamesForOff == null) {
+                // @ts-ignore            
+                db_alexaSmartNamesForOff = value;
+            }
+            else {
+                // @ts-ignore                        
+                db_alexaSmartNamesForOff += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, deviceShellyLampeWeiss);
+        // alexaActionNamesForOff:string[]
+        var db_alexaActionNamesForOff = null;
+        alexaActionNamesForOff.forEach(function (value) {
+            if (db_alexaActionNamesForOff == null) {
+                // @ts-ignore                        
+                db_alexaActionNamesForOff = value;
+            }
+            else {
+                // @ts-ignore                        
+                db_alexaActionNamesForOff += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, deviceShellyLampeWeiss);
+        // additionalStates4TurnOn: string[]
+        var db_additionalStates4TurnOn = null;
+        additionalStates4TurnOn.forEach(function (value) {
+            if (db_additionalStates4TurnOn == null) {
+                // @ts-ignore                        
+                db_additionalStates4TurnOn = value;
+            }
+            else {
+                // @ts-ignore                        
+                db_additionalStates4TurnOn += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOn, db_additionalStates4TurnOn, deviceShellyLampeWeiss);
+        // additionalStates4TurnOff: string[]
+        var db_additionalStates4TurnOff = null;
+        additionalStates4TurnOff.forEach(function (value) {
+            if (db_additionalStates4TurnOff == null) {
+                // @ts-ignore                        
+                db_additionalStates4TurnOff = value;
+            }
+            else {
+                // @ts-ignore                        
+                db_additionalStates4TurnOff += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_additionalStates4TurnOff, deviceShellyLampeWeiss);
+        // Weitere:
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_Nachtbeleuchtung, nachtbeleuchtung, deviceShellyLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseSummer, turnOffExitHouseSummer, deviceShellyLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, deviceShellyLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceShellyLampeWeiss);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceShellyLampeWeiss);
+        cacheLampenWeissArray = null;
+    }, 200);
 }
 exports.createShellyLampe = createShellyLampe;
 // Steckdose:
 function createShellySteckdose(adapter, rawId, etage, raum, device, baseState, channel, alexaSmartNamesForOn, alexaActionNamesForOn, alexaSmartNamesForOff, alexaActionNamesForOff, additionalStates4TurnOn, additionalStates4TurnOff, nachtbeleuchtung, turnOffExitHouseSummer, turnOffExitHouseWinter, turnOnEnterHouseSummer, turnOnEnterHouseWinter) {
-    // Allgemein:
-    createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellySteckdose);
-    // attributeChannel
-    createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeChannel, channel, deviceShellySteckdose);
-    // alexaSmartNamesForOn:string[]
-    var db_alexaSmartNamesForOn = null;
-    alexaSmartNamesForOn.forEach(function (value) {
-        if (db_alexaSmartNamesForOn == null) {
-            // @ts-ignore            
-            db_alexaSmartNamesForOn = value;
-        }
-        else {
-            // @ts-ignore            
-            db_alexaSmartNamesForOn += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, deviceShellySteckdose);
-    // alexaActionNamesForOn:string[]
-    var db_alexaActionNamesForOn = null;
-    alexaActionNamesForOn.forEach(function (value) {
-        if (db_alexaActionNamesForOn == null) {
-            // @ts-ignore            
-            db_alexaActionNamesForOn = value;
-        }
-        else {
-            // @ts-ignore                        
-            db_alexaActionNamesForOn += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, deviceShellySteckdose);
-    // alexaSmartNamesForOff:string[]
-    var db_alexaSmartNamesForOff = null;
-    alexaSmartNamesForOff.forEach(function (value) {
-        if (db_alexaSmartNamesForOff == null) {
-            // @ts-ignore            
-            db_alexaSmartNamesForOff = value;
-        }
-        else {
-            // @ts-ignore                        
-            db_alexaSmartNamesForOff += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, deviceShellySteckdose);
-    // alexaActionNamesForOff:string[]
-    var db_alexaActionNamesForOff = null;
-    alexaActionNamesForOff.forEach(function (value) {
-        if (db_alexaActionNamesForOff == null) {
-            // @ts-ignore                        
-            db_alexaActionNamesForOff = value;
-        }
-        else {
-            // @ts-ignore                        
-            db_alexaActionNamesForOff += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, deviceShellySteckdose);
-    // additionalStates4TurnOn: string[]
-    var db_additionalStates4TurnOn = null;
-    additionalStates4TurnOn.forEach(function (value) {
-        if (db_additionalStates4TurnOn == null) {
-            // @ts-ignore                        
-            db_additionalStates4TurnOn = value;
-        }
-        else {
-            // @ts-ignore                        
-            db_additionalStates4TurnOn += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOn, db_additionalStates4TurnOn, deviceShellySteckdose);
-    // additionalStates4TurnOff: string[]
-    var db_additionalStates4TurnOff = null;
-    additionalStates4TurnOff.forEach(function (value) {
-        if (db_additionalStates4TurnOff == null) {
-            // @ts-ignore                        
-            db_additionalStates4TurnOff = value;
-        }
-        else {
-            // @ts-ignore                        
-            db_additionalStates4TurnOff += "|" + value;
-        }
-    });
-    createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_additionalStates4TurnOff, deviceShellySteckdose);
-    // Weitere:
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_Nachtbeleuchtung, nachtbeleuchtung, deviceShellySteckdose);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseSummer, turnOffExitHouseSummer, deviceShellySteckdose);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, deviceShellySteckdose);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceShellySteckdose);
-    createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceShellySteckdose);
-    clearShellyCaches(adapter);
+    // Bei Update alte States löschen:
+    var stateFolderDatenpunkt = "0_userdata.0.devices.shelly." + deviceShellySteckdose + "." + rawId;
+    if (adapter.existsState(stateFolderDatenpunkt)) {
+        adapter.deleteState(stateFolderDatenpunkt);
+    }
+    // Neue States anlegen:
+    setTimeout(function () {
+        // Allgemein:
+        createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellySteckdose);
+        // attributeChannel
+        createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeChannel, channel, deviceShellySteckdose);
+        // alexaSmartNamesForOn:string[]
+        var db_alexaSmartNamesForOn = null;
+        alexaSmartNamesForOn.forEach(function (value) {
+            if (db_alexaSmartNamesForOn == null) {
+                // @ts-ignore            
+                db_alexaSmartNamesForOn = value;
+            }
+            else {
+                // @ts-ignore            
+                db_alexaSmartNamesForOn += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOn, db_alexaSmartNamesForOn, deviceShellySteckdose);
+        // alexaActionNamesForOn:string[]
+        var db_alexaActionNamesForOn = null;
+        alexaActionNamesForOn.forEach(function (value) {
+            if (db_alexaActionNamesForOn == null) {
+                // @ts-ignore            
+                db_alexaActionNamesForOn = value;
+            }
+            else {
+                // @ts-ignore                        
+                db_alexaActionNamesForOn += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOn, db_alexaActionNamesForOn, deviceShellySteckdose);
+        // alexaSmartNamesForOff:string[]
+        var db_alexaSmartNamesForOff = null;
+        alexaSmartNamesForOff.forEach(function (value) {
+            if (db_alexaSmartNamesForOff == null) {
+                // @ts-ignore            
+                db_alexaSmartNamesForOff = value;
+            }
+            else {
+                // @ts-ignore                        
+                db_alexaSmartNamesForOff += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaSmartNamesForOff, db_alexaSmartNamesForOff, deviceShellySteckdose);
+        // alexaActionNamesForOff:string[]
+        var db_alexaActionNamesForOff = null;
+        alexaActionNamesForOff.forEach(function (value) {
+            if (db_alexaActionNamesForOff == null) {
+                // @ts-ignore                        
+                db_alexaActionNamesForOff = value;
+            }
+            else {
+                // @ts-ignore                        
+                db_alexaActionNamesForOff += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_AlexaActionNamesForOff, db_alexaActionNamesForOff, deviceShellySteckdose);
+        // additionalStates4TurnOn: string[]
+        var db_additionalStates4TurnOn = null;
+        additionalStates4TurnOn.forEach(function (value) {
+            if (db_additionalStates4TurnOn == null) {
+                // @ts-ignore                        
+                db_additionalStates4TurnOn = value;
+            }
+            else {
+                // @ts-ignore                        
+                db_additionalStates4TurnOn += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOn, db_additionalStates4TurnOn, deviceShellySteckdose);
+        // additionalStates4TurnOff: string[]
+        var db_additionalStates4TurnOff = null;
+        additionalStates4TurnOff.forEach(function (value) {
+            if (db_additionalStates4TurnOff == null) {
+                // @ts-ignore                        
+                db_additionalStates4TurnOff = value;
+            }
+            else {
+                // @ts-ignore                        
+                db_additionalStates4TurnOff += "|" + value;
+            }
+        });
+        createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_additionalStates4TurnOff, deviceShellySteckdose);
+        // Weitere:
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_Nachtbeleuchtung, nachtbeleuchtung, deviceShellySteckdose);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseSummer, turnOffExitHouseSummer, deviceShellySteckdose);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, deviceShellySteckdose);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceShellySteckdose);
+        createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceShellySteckdose);
+        clearShellyCaches(adapter);
+    }, 200);
 }
 exports.createShellySteckdose = createShellySteckdose;
 var cacheRollladenArray = null;
@@ -495,28 +527,6 @@ function loadShellySensoren(adapter) {
     return cacheSensorenArray;
 }
 exports.loadShellySensoren = loadShellySensoren;
-/*var cacheLampenRGBArray = null;
-export function loadShellyLampenRGB(adapter: any) {
-    if (cacheLampenRGBArray != null) {
-        return cacheLampenRGBArray;
-    }
-    // @ts-ignore
-    cacheLampenRGBArray = [];
-    adapter.$('state[id=0_userdata.0.devices.shelly.*.*.category]').each(datenpunktKey => {
-        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
-        if (adapter.getState(datenpunktKey).val == deviceShellyLampeRGB) {
-            // @ts-ignore
-            cacheLampenRGBArray.push(new ShellySensor(adapter,
-                adapter.getState(datenpunktPraefix + "." + attributeRawID).val,     // [0] Device-ID         (z.B. 1 --> In der Anzeige wird daraus "H01")
-                adapter.getState(datenpunktPraefix + "." + attributeEtage).val,     // [1] Etage/Bereich     (z.B. EG)
-                adapter.getState(datenpunktPraefix + "." + attributeRaum).val,      // [2] Raum/Unterbereich (z.B. Wohnzimmer)
-                adapter.getState(datenpunktPraefix + "." + attributeDevice).val,     // [3] Device            (z.B. Stehlampe)
-                adapter.getState(datenpunktPraefix + "." + attributeBaseState).val // [4] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)
-            ));
-        }
-    });
-    return cacheLampenRGBArray;
-}*/
 var cacheDimmerArray = null;
 function loadShellyDimmer(adapter) {
     if (cacheDimmerArray != null) {
@@ -768,4 +778,4 @@ function getEtageSortIndex(etage) {
         return "d";
     }
 }
-module.exports = { createShellyDevice: createShellyDevice, createShellySensor: createShellySensor, createShellyLampeRGB: createShellyLampeRGB, createShellyRollladen: createShellyRollladen, createShellyDimmer: createShellyDimmer, createShellyLampe: createShellyLampe, createShellySteckdose: createShellySteckdose, loadShellyRollladen: loadShellyRollladen, loadShellySensoren: loadShellySensoren, loadShellyDimmer: loadShellyDimmer, loadShellyLampenWeiss: loadShellyLampenWeiss, loadShellySteckdosen: loadShellySteckdosen, loadShellyDevicesAll: loadShellyDevicesAll, clearShellyCaches: clearShellyCaches };
+module.exports = { createShellyDevice: createShellyDevice, createShellySensor: createShellySensor, createShellyRollladen: createShellyRollladen, createShellyDimmer: createShellyDimmer, createShellyLampe: createShellyLampe, createShellySteckdose: createShellySteckdose, loadShellyRollladen: loadShellyRollladen, loadShellySensoren: loadShellySensoren, loadShellyDimmer: loadShellyDimmer, loadShellyLampenWeiss: loadShellyLampenWeiss, loadShellySteckdosen: loadShellySteckdosen, loadShellyDevicesAll: loadShellyDevicesAll, clearShellyCaches: clearShellyCaches };
