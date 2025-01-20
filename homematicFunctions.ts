@@ -147,7 +147,7 @@ export function createHomematicWandthermostat(adapter: any, rawId: number, baseS
 }
 
 // Dimmer:
-export function createHomeaticDimmer(adapter: any, rawId: number, baseState: string, etage: string, raum: string, device: string,
+export function createHomematicDimmer(adapter: any, rawId: number, baseState: string, etage: string, raum: string, device: string,
     alexaSmartNamesForOn: string[], alexaActionNamesForOn: string[], alexaLevelSchemeForOn: InstanceType<typeof DimmerAlexaScheme>, alexaSmartNamesForOff: string[], alexaActionNamesForOff: string[],
     alexaScheme1: InstanceType<typeof DimmerAlexaScheme>, alexaScheme2: InstanceType<typeof DimmerAlexaScheme>, alexaScheme3: InstanceType<typeof DimmerAlexaScheme>, alexaScheme4: InstanceType<typeof DimmerAlexaScheme>,
     tasterBooleanOnScheme1: InstanceType<typeof DimmerTasterScheme>, tasterBooleanOnScheme2: InstanceType<typeof DimmerTasterScheme>, tasterBooleanOnScheme3: InstanceType<typeof DimmerTasterScheme>, tasterBooleanOnScheme4: InstanceType<typeof DimmerTasterScheme>,
@@ -307,7 +307,7 @@ export function createHomeaticDimmer(adapter: any, rawId: number, baseState: str
 }
 
 // Wandschalter:
-export function createHomeaticWandschalter(adapter: any, rawId: number, baseState: string, etage: string, raum: string, device: string,
+export function createHomematicWandschalter(adapter: any, rawId: number, baseState: string, etage: string, raum: string, device: string,
     alexaSmartNamesForOn: string[], alexaActionNamesForOn: string[], alexaSmartNamesForOff: string[], alexaActionNamesForOff: string[],
     nachtbeleuchtung: boolean, turnOffExitHouseSummer: boolean, turnOffExitHouseWinter: boolean, turnOnEnterHouseSummer: boolean, turnOnEnterHouseWinter: boolean) {
 
@@ -1034,4 +1034,4 @@ function getEtageSortIndex(etage: string) {
 
 
 
-module.exports = { createHomematicHeizkoerper, createHomematicWindow, createHomematicFunkSchaltaktor, createHomematicRauchmelder, createHomematicTemperatursensor, createHomematicAccessPoint, createHomematicWandtaster, createHomematicPraesenzmelder, createHomematicWandthermostat, createHomematicWetterstation, createHomematicDoor, createHomematicRollladen, createHomematicFussbodenheizung, createHomeaticDimmer, createHomeaticWandschalter, loadHomematicWandthermostate, loadHomematicPraesenzmelder, loadHomematicWetterstationen, loadHomematicDoors, loadHomematicRollladen, loadHomematicWandschalter, loadHomematicFussbodenheizungen, loadHomematicWandtaster, loadHomematicAccessPoints, loadHomematicTemperatursensoren, loadHomematicRauchmelder, loadHomematicFunktschaltaktoren, loadHomematicWindows, loadHomematicSteckdosen, loadHomematicHeizkoerper, loadHomematicDimmer, loadHomematicDevicesAll, clearHomematicCaches };
+module.exports = { createHomematicSteckdose, createHomematicHeizkoerper, createHomematicWindow, createHomematicFunkSchaltaktor, createHomematicRauchmelder, createHomematicTemperatursensor, createHomematicAccessPoint, createHomematicWandtaster, createHomematicPraesenzmelder, createHomematicWandthermostat, createHomematicWetterstation, createHomematicDoor, createHomematicRollladen, createHomematicFussbodenheizung, createHomematicDimmer, createHomematicWandschalter, loadHomematicWandthermostate, loadHomematicPraesenzmelder, loadHomematicWetterstationen, loadHomematicDoors, loadHomematicRollladen, loadHomematicWandschalter, loadHomematicFussbodenheizungen, loadHomematicWandtaster, loadHomematicAccessPoints, loadHomematicTemperatursensoren, loadHomematicRauchmelder, loadHomematicFunktschaltaktoren, loadHomematicWindows, loadHomematicSteckdosen, loadHomematicHeizkoerper, loadHomematicDimmer, loadHomematicDevicesAll, clearHomematicCaches };
