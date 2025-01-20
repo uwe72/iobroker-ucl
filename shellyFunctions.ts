@@ -82,7 +82,6 @@ function createShellyDevice(adapter: any, rawId: number, etage: string, raum: st
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeEtage, etage, category);
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeRaum, raum, category);
     createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDevice, device, category);
-    clearShellyCaches(adapter);
 }
 
 function createDatenpunktSingle(adapter: any, deviceRawId, attributeType, attributeName, attributeValue, category) {
@@ -100,38 +99,12 @@ console.log("test");
 
 // Sensor:
 export function createShellySensor(adapter: any, rawId: number,  etage: string, raum: string, device: string, baseState: string) {
-
-    // Bei Update alte States löschen:
-    let stateFolderDatenpunkt = "0_userdata.0.devices.shelly." + deviceShellySensor + "." + rawId;
-    if (adapter.existsState(stateFolderDatenpunkt)) {
-        adapter.deleteState(stateFolderDatenpunkt);
-    }
-
-    // Neue States anlegen:
-    setTimeout(function() {
-
-        // Allgemein:
-        createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellySensor);
-        cacheSensorenArray = null;
-    }, 200);
+    createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellySensor);
 }
 
 // Rollladen:
 export function createShellyRollladen(adapter: any, rawId: number,  etage: string, raum: string, device: string, baseState: string) {
-
-    // Bei Update alte States löschen:
-    let stateFolderDatenpunkt = "0_userdata.0.devices.shelly." + deviceShellyRollladen + "." + rawId;
-    if (adapter.existsState(stateFolderDatenpunkt)) {
-        adapter.deleteState(stateFolderDatenpunkt);
-    }
-
-    // Neue States anlegen:
-    setTimeout(function() {
-
-        // Allgemein:
-        createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellyRollladen);
-        cacheRollladenArray = null;    
-    }, 200);
+    createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellyRollladen);
 }
 
 // Dimmer:
@@ -144,14 +117,6 @@ export function createShellyDimmer(adapter: any, rawId: number,  etage: string, 
             tasterBooleanOff: string[],
         nachtbeleuchtung:boolean, turnOffExitHouseSummer:boolean, turnOffExitHouseWinter:boolean, turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean) {
 
-    // Bei Update alte States löschen:
-    let stateFolderDatenpunkt = "0_userdata.0.devices.shelly." + deviceShellyDimmer + "." + rawId;
-    if (adapter.existsState(stateFolderDatenpunkt)) {
-        adapter.deleteState(stateFolderDatenpunkt);
-    }
-
-    // Neue States anlegen:
-    setTimeout(function() {
         // Allgemein:
         createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellyDimmer);
 
@@ -307,8 +272,6 @@ export function createShellyDimmer(adapter: any, rawId: number,  etage: string, 
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, deviceShellyDimmer);
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceShellyDimmer);
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceShellyDimmer);
-        cacheDimmerArray = null;
-    }, 200);
 }
 
 // Lampe Weiss:
@@ -317,14 +280,6 @@ export function createShellyLampe(adapter:any, rawId: number, etage: string, rau
     additionalStates4TurnOn:string[], additionalStates4TurnOff:string[], 
         nachtbeleuchtung:boolean, turnOffExitHouseSummer:boolean, turnOffExitHouseWinter:boolean, turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean) {
 
-    // Bei Update alte States löschen:
-    let stateFolderDatenpunkt = "0_userdata.0.devices.shelly." + deviceShellyLampeWeiss + "." + rawId;
-    if (adapter.existsState(stateFolderDatenpunkt)) {
-        adapter.deleteState(stateFolderDatenpunkt);
-    }
-
-    // Neue States anlegen:
-    setTimeout(function() {
         // Allgemein:
         createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellyLampeWeiss);
 
@@ -415,8 +370,6 @@ export function createShellyLampe(adapter:any, rawId: number, etage: string, rau
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, deviceShellyLampeWeiss);
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceShellyLampeWeiss);
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceShellyLampeWeiss);
-        cacheLampenWeissArray = null;
-    }, 200);
 }
 
 // Steckdose:
@@ -425,14 +378,6 @@ export function createShellySteckdose(adapter:any, rawId: number, etage: string,
         additionalStates4TurnOn:string[], additionalStates4TurnOff:string[], 
         nachtbeleuchtung:boolean, turnOffExitHouseSummer:boolean, turnOffExitHouseWinter:boolean, turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean) {
 
-    // Bei Update alte States löschen:
-    let stateFolderDatenpunkt = "0_userdata.0.devices.shelly." + deviceShellySteckdose + "." + rawId;
-    if (adapter.existsState(stateFolderDatenpunkt)) {
-        adapter.deleteState(stateFolderDatenpunkt);
-    }
-
-    // Neue States anlegen:
-    setTimeout(function() {
         // Allgemein:
         createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellySteckdose);
 
@@ -523,9 +468,6 @@ export function createShellySteckdose(adapter:any, rawId: number, etage: string,
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOffExitHouseWinter, turnOffExitHouseWinter, deviceShellySteckdose);
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceShellySteckdose);
         createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceShellySteckdose);
-        clearShellyCaches(adapter);    
-
-    }, 200);
 }
 
 var cacheRollladenArray = null;

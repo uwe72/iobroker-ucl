@@ -146,112 +146,38 @@ function createZigbeeDevice(adapter:any, rawId: number, baseState: string, etage
 
 // Fenstersensor:
 export function createZigbeeFenstersensor(adapter:any, rawId: number, baseState: string, etage:string, raum:string, device:string) {
-
-    // Bei Update alte States löschen:
-    let stateFolderDatenpunkt = "0_userdata.0.devices.zigbee." + deviceZigbeeFenstersensor + "." + rawId;
-    if (adapter.existsState(stateFolderDatenpunkt)) {
-        adapter.deleteState(stateFolderDatenpunkt);
-    }
-
-    // Neue States anlegen:
-    setTimeout(function() {
-        createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeFenstersensor);
-        cacheFenstersensorenArray = null;
-    }, 200);
+    createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeFenstersensor);
 }
 
 // Repeater:
 export function createZigbeeRepeater(adapter:any, rawId: number, baseState: string, etage:string, raum:string, device:string) {
-
-    // Bei Update alte States löschen:
-    let stateFolderDatenpunkt = "0_userdata.0.devices.zigbee." + deviceZigbeeRepeater + "." + rawId;
-    if (adapter.existsState(stateFolderDatenpunkt)) {
-        adapter.deleteState(stateFolderDatenpunkt);
-    }
-
-    // Neue States anlegen:
-    setTimeout(function() {
         createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeRepeater);
-        cacheRepeaterArray = null;
-    }, 200);
 }
 
 // Schalter:
 export function createZigbeeSchalter(adapter:any, rawId: number, baseState: string, etage:string, raum:string, device:string) {
-
-    // Bei Update alte States löschen:
-    let stateFolderDatenpunkt = "0_userdata.0.devices.zigbee." + deviceZigbeeSchalter + "." + rawId;
-    if (adapter.existsState(stateFolderDatenpunkt)) {
-        adapter.deleteState(stateFolderDatenpunkt);
-    }
-
-    // Neue States anlegen:
-    setTimeout(function() {
         createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeSchalter);
-        cacheSchalterArray = null;
-    }, 200);
 }
 
 // Wandtaster:
 export function createZigbeeWandtaster(adapter:any, rawId: number, baseState: string, etage:string, raum:string, device:string) {
-
-    // Bei Update alte States löschen:
-    let stateFolderDatenpunkt = "0_userdata.0.devices.zigbee." + deviceZigbeeWandtaster + "." + rawId;
-    if (adapter.existsState(stateFolderDatenpunkt)) {
-        adapter.deleteState(stateFolderDatenpunkt);
-    }
-
-    // Neue States anlegen:
-    setTimeout(function() {
         createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeWandtaster);
-        cacheWandtasterArray = null;
-    }, 200);
 }
 
 // Rauchmelder:
 export function createZigbeeRauchmelder(adapter:any, rawId: number, baseState: string, etage:string, raum:string, device:string) {
-
-    // Bei Update alte States löschen:
-    let stateFolderDatenpunkt = "0_userdata.0.devices.zigbee." + deviceZigbeeRauchmelder + "." + rawId;
-    if (adapter.existsState(stateFolderDatenpunkt)) {
-        adapter.deleteState(stateFolderDatenpunkt);
-    }
-
-    // Neue States anlegen:
-    setTimeout(function() {
         createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeRauchmelder);
-        cacheRauchmelderArray = null;
-    }, 200);
 }
 
 // Bewegungsmelder:
 export function createZigbeeBewegungsmelder(adapter:any, rawId: number, baseState: string, etage:string, raum:string, device:string) {
-
-    // Bei Update alte States löschen:
-    let stateFolderDatenpunkt = "0_userdata.0.devices.zigbee." + deviceZigbeeBewegungsmelder + "." + rawId;
-    if (adapter.existsState(stateFolderDatenpunkt)) {
-        adapter.deleteState(stateFolderDatenpunkt);
-    }
-
-    // Neue States anlegen:
-    setTimeout(function() {
         createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeBewegungsmelder);
-        cacheBewegungsmelderArray = null;
-    }, 200);
 }
 
 // Dosenrelais:
 export function createZigbeeDosenrelais(adapter:any, rawId: number, baseState: string, etage:string, raum:string, device:string, smartNames:string[]) {
 
-    // Bei Update alte States löschen:
-    let stateFolderDatenpunkt = "0_userdata.0.devices.zigbee." + deviceZigbeeDosenrelais + "." + rawId;
-    if (adapter.existsState(stateFolderDatenpunkt)) {
-        adapter.deleteState(stateFolderDatenpunkt);
-    }
-
-    // Neue States anlegen:
-    setTimeout(function() {
-        // Allgemein:
+    // Allgemein:
         createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeDosenrelais);
 
         // Spezifisch:
@@ -266,22 +192,11 @@ export function createZigbeeDosenrelais(adapter:any, rawId: number, baseState: s
             }
         });
         createDatenpunktSingle(adapter, rawId, attributeTypeString, attributeDosenrelais_smartNames, db_smartNames, deviceZigbeeDosenrelais);
-        cacheDosenrelaisArray = null;
-    }, 200);
 }
 
 // Steckdose:
 export function createZigbeeSteckdose(adapter:any, rawId: number, baseState: string, etage: string, raum: string, device: string, alexaSmartNamesForOn:string[],
     alexaActionNamesForOn:string[], alexaSmartNamesForOff: string[],alexaActionNamesForOff: string[], additionalStates4TurnOn:string[], additionalStates4TurnOff:string[]) {
-
-    // Bei Update alte States löschen:
-    let stateFolderDatenpunkt = "0_userdata.0.devices.zigbee." + deviceZigbeeSteckdose + "." + rawId;
-    if (adapter.existsState(stateFolderDatenpunkt)) {
-        adapter.deleteState(stateFolderDatenpunkt);
-    }
-
-    // Neue States anlegen:
-    setTimeout(function() {
 
         // Allgemein:
         createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeSteckdose);
@@ -363,9 +278,6 @@ export function createZigbeeSteckdose(adapter:any, rawId: number, baseState: str
             }
         });
         createDatenpunktSingle(adapter, rawId, attributeTypeString, attribute_TasterBooleanOff, db_additionalStates4TurnOff, deviceZigbeeSteckdose);
-        cacheSteckdosenArray = null;
-    
-    }, 200);
 }
 
 // LampeWeiss:
@@ -376,15 +288,6 @@ export function createZigbeeLampeWeiss(adapter:any, rawId: number, baseState: st
             tasterBooleanOn1: InstanceType<typeof LampeWeissTasterScheme>, tasterBooleanOn2: InstanceType<typeof LampeWeissTasterScheme>, tasterBooleanOn3: InstanceType<typeof LampeWeissTasterScheme>, tasterBooleanOn4: InstanceType<typeof LampeWeissTasterScheme>, 
             tasterBooleanOff: string[], nachtbeleuchtung:boolean, 
             turnOffExitHouseSummer:boolean, turnOffExitHouseWinter:boolean, turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean) {
-
-    // Bei Update alte States löschen:
-    let stateFolderDatenpunkt = "0_userdata.0.devices.zigbee." + deviceZigbeeLampeWeiss + "." + rawId;
-    if (adapter.existsState(stateFolderDatenpunkt)) {
-        adapter.deleteState(stateFolderDatenpunkt);
-    }
-
-    // Neue States anlegen:
-    setTimeout(function() {
 
         // Allgemein:
         createZigbeeDevice(adapter, rawId, baseState, etage, raum, device, deviceZigbeeLampeWeiss);
@@ -578,9 +481,6 @@ export function createZigbeeLampeWeiss(adapter:any, rawId: number, baseState: st
             createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_level, null, deviceZigbeeLampeWeiss);
             createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeLampWeiss_ColorSchemes_Weiss4_ct, null, deviceZigbeeLampeWeiss);*/
         }
-        cacheLampenWeissArray = null;
-
-    }, 200);
 
 }
 
@@ -592,14 +492,6 @@ export function createZigbeeLampeRGB(adapter:any, rawId: number, baseState: stri
     tasterBooleanOn: string[], tasterBooleanOff: string[],nachtbeleuchtung:boolean, turnOffExitHouseSummer:boolean, turnOffExitHouseWinter:boolean, 
     turnOnEnterHouseSummer:boolean, turnOnEnterHouseWinter:boolean) {
 
-    // Bei Update alte States löschen:
-    let stateFolderDatenpunkt = "0_userdata.0.devices.zigbee." + deviceZigbeeLampeRGB + "." + rawId;
-    if (adapter.existsState(stateFolderDatenpunkt)) {
-        adapter.deleteState(stateFolderDatenpunkt);
-    }
-
-    // Neue States anlegen:
-    setTimeout(function() {
         let category: string = deviceZigbeeLampeRGB;
 
         // Allgemein:
@@ -842,8 +734,6 @@ export function createZigbeeLampeRGB(adapter:any, rawId: number, baseState: stri
             createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss4_level, null, category);
             createDatenpunktSingle(adapter, rawId, attributeTypeNumber, attributeRGBLamp_ColorSchemes_Weiss4_ct, null, category);*/
         }
-        cacheLampenRGBArray = null;
-    }, 200);
 }
 
 function createDatenpunktSingle(adapter:any, deviceRawId, attributeType, attributeName, attributeValue, category:string) {
