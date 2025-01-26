@@ -24,3 +24,5 @@ npm update iobroker-ucl                  (initial installieren mit: npm install 
 
 // TODO: Auto TS:
 https://www.youtube.com/watch?v=PDhQQCI4PJE
+
+test 
