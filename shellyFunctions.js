@@ -1,6 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loadShellyDevicesAll = exports.loadShellySteckdosen = exports.loadShellyLampenWeiss = exports.loadShellyDimmer = exports.loadShellySensoren = exports.loadShellyRollladen = exports.createShellySteckdose = exports.createShellyLampe = exports.createShellyDimmer = exports.createShellyRollladen = exports.createShellySensor = void 0;
+exports.createShellySensor = createShellySensor;
+exports.createShellyRollladen = createShellyRollladen;
+exports.createShellyDimmer = createShellyDimmer;
+exports.createShellyLampe = createShellyLampe;
+exports.createShellySteckdose = createShellySteckdose;
+exports.loadShellyRollladen = loadShellyRollladen;
+exports.loadShellySensoren = loadShellySensoren;
+exports.loadShellyDimmer = loadShellyDimmer;
+exports.loadShellyLampenWeiss = loadShellyLampenWeiss;
+exports.loadShellySteckdosen = loadShellySteckdosen;
+exports.loadShellyDevicesAll = loadShellyDevicesAll;
 var _a = require('./shellyClasses.js'), ShellyLampeWeiss = _a.ShellyLampeWeiss, ShellyDimmerAlexaScheme = _a.ShellyDimmerAlexaScheme, ShellyDimmerTasterScheme = _a.ShellyDimmerTasterScheme, ShellyDimmer = _a.ShellyDimmer, ShellyRGBAlexaScheme = _a.ShellyRGBAlexaScheme, ShellyRGBTasterScheme = _a.ShellyRGBTasterScheme, ShellyLampeRGB = _a.ShellyLampeRGB, ShellySteckdose = _a.ShellySteckdose, ShellyRollladen = _a.ShellyRollladen, ShellySensor = _a.ShellySensor, deviceShellyLampeWeiss = _a.deviceShellyLampeWeiss, deviceShellyDimmer = _a.deviceShellyDimmer, deviceShellyLampeRGB = _a.deviceShellyLampeRGB, deviceShellySteckdose = _a.deviceShellySteckdose, deviceShellyRollladen = _a.deviceShellyRollladen, deviceShellySensor = _a.deviceShellySensor;
 var attributeRawID = "rawId";
 var attributeBaseState = "baseState";
@@ -85,12 +95,10 @@ console.log("test");
 function createShellySensor(adapter, rawId, etage, raum, device, baseState) {
     createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellySensor);
 }
-exports.createShellySensor = createShellySensor;
 // Rollladen:
 function createShellyRollladen(adapter, rawId, etage, raum, device, baseState) {
     createShellyDevice(adapter, rawId, etage, raum, device, baseState, deviceShellyRollladen);
 }
-exports.createShellyRollladen = createShellyRollladen;
 // Dimmer:
 function createShellyDimmer(adapter, rawId, etage, raum, device, baseState, alexaSmartNamesForOn, alexaActionNamesForOn, alexaLevelSchemeForOn, alexaSmartNamesForOff, alexaActionNamesForOff, levelScheme1, levelScheme2, levelScheme3, levelScheme4, tasterBooleanOn1, tasterBooleanOn2, tasterBooleanOn3, tasterBooleanOn4, tasterBooleanOff, nachtbeleuchtung, turnOffExitHouseSummer, turnOffExitHouseWinter, turnOnEnterHouseSummer, turnOnEnterHouseWinter) {
     // Allgemein:
@@ -248,7 +256,6 @@ function createShellyDimmer(adapter, rawId, etage, raum, device, baseState, alex
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceShellyDimmer);
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceShellyDimmer);
 }
-exports.createShellyDimmer = createShellyDimmer;
 // Lampe Weiss:
 function createShellyLampe(adapter, rawId, etage, raum, device, baseState, channel, alexaSmartNamesForOn, alexaActionNamesForOn, alexaSmartNamesForOff, alexaActionNamesForOff, additionalStates4TurnOn, additionalStates4TurnOff, nachtbeleuchtung, turnOffExitHouseSummer, turnOffExitHouseWinter, turnOnEnterHouseSummer, turnOnEnterHouseWinter) {
     // Allgemein:
@@ -340,7 +347,6 @@ function createShellyLampe(adapter, rawId, etage, raum, device, baseState, chann
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceShellyLampeWeiss);
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceShellyLampeWeiss);
 }
-exports.createShellyLampe = createShellyLampe;
 // Steckdose:
 function createShellySteckdose(adapter, rawId, etage, raum, device, baseState, channel, alexaSmartNamesForOn, alexaActionNamesForOn, alexaSmartNamesForOff, alexaActionNamesForOff, additionalStates4TurnOn, additionalStates4TurnOff, nachtbeleuchtung, turnOffExitHouseSummer, turnOffExitHouseWinter, turnOnEnterHouseSummer, turnOnEnterHouseWinter) {
     // Allgemein:
@@ -432,7 +438,6 @@ function createShellySteckdose(adapter, rawId, etage, raum, device, baseState, c
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceShellySteckdose);
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceShellySteckdose);
 }
-exports.createShellySteckdose = createShellySteckdose;
 var cacheRollladenArray = null;
 function loadShellyRollladen(adapter) {
     if (cacheRollladenArray != null) {
@@ -455,7 +460,6 @@ function loadShellyRollladen(adapter) {
     cacheRollladenArray = sortArray(cacheRollladenArray);
     return cacheRollladenArray;
 }
-exports.loadShellyRollladen = loadShellyRollladen;
 var cacheSensorenArray = null;
 function loadShellySensoren(adapter) {
     if (cacheSensorenArray != null) {
@@ -478,7 +482,6 @@ function loadShellySensoren(adapter) {
     cacheSensorenArray = sortArray(cacheSensorenArray);
     return cacheSensorenArray;
 }
-exports.loadShellySensoren = loadShellySensoren;
 var cacheDimmerArray = null;
 function loadShellyDimmer(adapter) {
     if (cacheDimmerArray != null) {
@@ -564,7 +567,6 @@ function loadShellyDimmer(adapter) {
     cacheDimmerArray = sortArray(cacheDimmerArray);
     return cacheDimmerArray;
 }
-exports.loadShellyDimmer = loadShellyDimmer;
 var cacheLampenWeissArray = null;
 function loadShellyLampenWeiss(adapter) {
     if (cacheLampenWeissArray != null) {
@@ -599,7 +601,6 @@ function loadShellyLampenWeiss(adapter) {
     cacheLampenWeissArray = sortArray(cacheLampenWeissArray);
     return cacheLampenWeissArray;
 }
-exports.loadShellyLampenWeiss = loadShellyLampenWeiss;
 var cacheSteckdosenArray = null;
 function loadShellySteckdosen(adapter) {
     if (cacheSteckdosenArray != null) {
@@ -634,7 +635,6 @@ function loadShellySteckdosen(adapter) {
     cacheSteckdosenArray = sortArray(cacheSteckdosenArray);
     return cacheSteckdosenArray;
 }
-exports.loadShellySteckdosen = loadShellySteckdosen;
 //var shellyAllArray = null;
 function loadShellyDevicesAll(adapter) {
     //if (shellyAllArray != null) {
@@ -665,7 +665,6 @@ function loadShellyDevicesAll(adapter) {
     shellyAllArray = sortArray(shellyAllArray);
     return shellyAllArray;
 }
-exports.loadShellyDevicesAll = loadShellyDevicesAll;
 function toStringArray(databaseValue) {
     var stringArray = [];
     if (databaseValue == null) {

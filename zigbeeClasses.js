@@ -126,7 +126,7 @@ var AbstractZigbee = /** @class */ (function () {
             "type": "number",
             "read": true,
             "write": true,
-            "role": "level.color.hue",
+            "role": "level.color.hue", // <---- Das ist wichtig, ohne dieses Common-Zeugs würde hier "state" stehen und die ALexa-App würde dieses Gerär nicht als "Farbe-Lampe" akzeptieren/erkennen
             "smartName": {
                 "de": smartName,
                 "smartType": "LIGHT"
@@ -151,7 +151,7 @@ var AbstractZigbee = /** @class */ (function () {
             "type": "number",
             "read": true,
             "write": true,
-            "role": "level.color.saturation",
+            "role": "level.color.saturation", // <---- Das ist wichtig, ohne dieses Common-Zeugs würde hier "state" stehen und die ALexa-App würde dieses Gerär nicht als "Farbe-Lampe" akzeptieren/erkennen
             "smartName": {
                 "de": smartName,
                 "smartType": "LIGHT"
@@ -328,12 +328,12 @@ var ZigbeeLampeRGB = /** @class */ (function (_super) {
         this.adapter.setObject(aliasDatenpunkt, {
             type: 'state',
             common: {
-                name: this.adapter.getObject(originalDatenpunkt).common.name,
-                type: this.adapter.getObject(originalDatenpunkt).common.type,
-                unit: this.adapter.getObject(originalDatenpunkt).common.unit,
+                name: this.adapter.getObject(originalDatenpunkt).common.name, //'Heizung Ist Temperatur',
+                type: this.adapter.getObject(originalDatenpunkt).common.type, // 'number',
+                unit: this.adapter.getObject(originalDatenpunkt).common.unit, //'°C',
                 read: true,
                 write: true,
-                role: this.adapter.getObject(originalDatenpunkt).common.role,
+                role: this.adapter.getObject(originalDatenpunkt).common.role, //'value.temperature',
                 alias: {
                     id: originalDatenpunkt
                 }

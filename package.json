@@ -1,12 +1,23 @@
 {
   "name": "iobroker-ucl",
-  "version": "1.4.8",
+  "version": "1.4.10",
   "main": "main.js",
-    "scripts": {
+  "scripts": {
     "build": "tsc --build",
     "clean": "tsc --build --clean"
-  },  
+  },
   "author": "",
   "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uwe72/iobroker-ucl.git"
+  },
+  "bugs": {
+    "url": "https://github.com/uwe72/iobroker-ucl/issues"
+  },
+  "homepage": "https://github.com/uwe72/iobroker-ucl#readme",
   "description": ""
 }

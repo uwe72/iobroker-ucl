@@ -126,7 +126,7 @@ var AbstractHomematic = /** @class */ (function () {
             "type": "number",
             "read": true,
             "write": true,
-            "role": "level.color.hue",
+            "role": "level.color.hue", // <---- Das ist wichtig, ohne dieses Common-Zeugs würde hier "state" stehen und die ALexa-App würde dieses Gerär nicht als "Farbe-Lampe" akzeptieren/erkennen
             "smartName": {
                 "de": smartName,
                 "smartType": "LIGHT"
@@ -151,7 +151,7 @@ var AbstractHomematic = /** @class */ (function () {
             "type": "number",
             "read": true,
             "write": true,
-            "role": "level.color.saturation",
+            "role": "level.color.saturation", // <---- Das ist wichtig, ohne dieses Common-Zeugs würde hier "state" stehen und die ALexa-App würde dieses Gerär nicht als "Farbe-Lampe" akzeptieren/erkennen
             "smartName": {
                 "de": smartName,
                 "smartType": "LIGHT"

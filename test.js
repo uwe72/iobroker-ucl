@@ -55,4 +55,5 @@ var DateCalendarTest = /** @class */ (function () {
     return DateCalendarTest;
 }());
 exports.DateCalendarTest = DateCalendarTest;
+console.log("TEST!");
 module.exports = { DateCalendarTest: DateCalendarTest };

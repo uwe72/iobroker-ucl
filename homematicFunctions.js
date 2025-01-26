@@ -1,6 +1,38 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loadHomematicDevicesAll = exports.loadHomematicDimmer = exports.loadHomematicHeizkoerper = exports.loadHomematicSteckdosen = exports.loadHomematicWindows = exports.loadHomematicFunktschaltaktoren = exports.loadHomematicRauchmelder = exports.loadHomematicTemperatursensoren = exports.loadHomematicAccessPoints = exports.loadHomematicWandtaster = exports.loadHomematicFussbodenheizungen = exports.loadHomematicWandschalter = exports.loadHomematicDoors = exports.loadHomematicWetterstationen = exports.loadHomematicPraesenzmelder = exports.loadHomematicWandthermostate = exports.loadHomematicRollladen = exports.createHomematicWandschalter = exports.createHomematicDimmer = exports.createHomematicWandthermostat = exports.createHomematicHeizkoerper = exports.createHomematicSteckdose = exports.createHomematicWindow = exports.createHomematicFunkSchaltaktor = exports.createHomematicRauchmelder = exports.createHomematicTemperatursensor = exports.createHomematicAccessPoint = exports.createHomematicWandtaster = exports.createHomematicFussbodenheizung = exports.createHomematicRollladen = exports.createHomematicDoor = exports.createHomematicWetterstation = exports.createHomematicPraesenzmelder = void 0;
+exports.createHomematicPraesenzmelder = createHomematicPraesenzmelder;
+exports.createHomematicWetterstation = createHomematicWetterstation;
+exports.createHomematicDoor = createHomematicDoor;
+exports.createHomematicRollladen = createHomematicRollladen;
+exports.createHomematicFussbodenheizung = createHomematicFussbodenheizung;
+exports.createHomematicWandtaster = createHomematicWandtaster;
+exports.createHomematicAccessPoint = createHomematicAccessPoint;
+exports.createHomematicTemperatursensor = createHomematicTemperatursensor;
+exports.createHomematicRauchmelder = createHomematicRauchmelder;
+exports.createHomematicFunkSchaltaktor = createHomematicFunkSchaltaktor;
+exports.createHomematicWindow = createHomematicWindow;
+exports.createHomematicSteckdose = createHomematicSteckdose;
+exports.createHomematicHeizkoerper = createHomematicHeizkoerper;
+exports.createHomematicWandthermostat = createHomematicWandthermostat;
+exports.createHomematicDimmer = createHomematicDimmer;
+exports.createHomematicWandschalter = createHomematicWandschalter;
+exports.loadHomematicRollladen = loadHomematicRollladen;
+exports.loadHomematicWandthermostate = loadHomematicWandthermostate;
+exports.loadHomematicPraesenzmelder = loadHomematicPraesenzmelder;
+exports.loadHomematicWetterstationen = loadHomematicWetterstationen;
+exports.loadHomematicDoors = loadHomematicDoors;
+exports.loadHomematicWandschalter = loadHomematicWandschalter;
+exports.loadHomematicFussbodenheizungen = loadHomematicFussbodenheizungen;
+exports.loadHomematicWandtaster = loadHomematicWandtaster;
+exports.loadHomematicAccessPoints = loadHomematicAccessPoints;
+exports.loadHomematicTemperatursensoren = loadHomematicTemperatursensoren;
+exports.loadHomematicRauchmelder = loadHomematicRauchmelder;
+exports.loadHomematicFunktschaltaktoren = loadHomematicFunktschaltaktoren;
+exports.loadHomematicWindows = loadHomematicWindows;
+exports.loadHomematicSteckdosen = loadHomematicSteckdosen;
+exports.loadHomematicHeizkoerper = loadHomematicHeizkoerper;
+exports.loadHomematicDimmer = loadHomematicDimmer;
+exports.loadHomematicDevicesAll = loadHomematicDevicesAll;
 var _a = require('./homematicClasses.js'), HomematicWindow = _a.HomematicWindow, HomematicSteckdose = _a.HomematicSteckdose, HomematicHeizkoerper = _a.HomematicHeizkoerper, HomematicDimmer = _a.HomematicDimmer, HomematicWandthermostat = _a.HomematicWandthermostat, HomematicFussbodenheizung = _a.HomematicFussbodenheizung, HomematicWandschalter = _a.HomematicWandschalter, HomematicDoor = _a.HomematicDoor, HomematicWetterstation = _a.HomematicWetterstation, HomematicAccessPoint = _a.HomematicAccessPoint, HomematicRollladen = _a.HomematicRollladen, HomematicWandtaster = _a.HomematicWandtaster, HomematicTemperatursensor = _a.HomematicTemperatursensor, HomematicRauchmelder = _a.HomematicRauchmelder, HomematicPraesenzmelder = _a.HomematicPraesenzmelder, AbstractHomematic = _a.AbstractHomematic, HomematicFunkschaltaktor = _a.HomematicFunkschaltaktor, DimmerAlexaScheme = _a.DimmerAlexaScheme, DimmerTasterScheme = _a.DimmerTasterScheme, deviceHomematicWandthermostat = _a.deviceHomematicWandthermostat, deviceHomematicPraesenzmelder = _a.deviceHomematicPraesenzmelder, deviceHomematicWetterstation = _a.deviceHomematicWetterstation, deviceHomematicDoor = _a.deviceHomematicDoor, deviceHomematicRollladen = _a.deviceHomematicRollladen, deviceHomematicWandschalter = _a.deviceHomematicWandschalter, deviceHomematicFussbodenheizung = _a.deviceHomematicFussbodenheizung, deviceHomematicWandtaster = _a.deviceHomematicWandtaster, deviceHomematicAccessPoint = _a.deviceHomematicAccessPoint, deviceHomematicTemperatursensor = _a.deviceHomematicTemperatursensor, deviceHomematicRauchmelder = _a.deviceHomematicRauchmelder, deviceHomematicFunkSchaltaktor = _a.deviceHomematicFunkSchaltaktor, deviceHomematicWindow = _a.deviceHomematicWindow, deviceHomematicSteckdose = _a.deviceHomematicSteckdose, deviceHomematicHeizkoerper = _a.deviceHomematicHeizkoerper, deviceHomematicDimmer = _a.deviceHomematicDimmer;
 var attributeRawID = "rawId";
 var attributeBaseState = "baseState";
@@ -67,72 +99,58 @@ function createHomematicDevice(adapter, rawId, baseState, etage, raum, device, c
 function createHomematicPraesenzmelder(adapter, rawId, baseState, etage, raum, device) {
     createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicPraesenzmelder);
 }
-exports.createHomematicPraesenzmelder = createHomematicPraesenzmelder;
 // Wetterstation
 function createHomematicWetterstation(adapter, rawId, baseState, etage, raum, device) {
     createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicWetterstation);
 }
-exports.createHomematicWetterstation = createHomematicWetterstation;
 // Door
 function createHomematicDoor(adapter, rawId, baseState, etage, raum, device) {
     createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicDoor);
 }
-exports.createHomematicDoor = createHomematicDoor;
 // Rollladen
 function createHomematicRollladen(adapter, rawId, baseState, etage, raum, device) {
     createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicRollladen);
 }
-exports.createHomematicRollladen = createHomematicRollladen;
 // Fussbodenheizung
 function createHomematicFussbodenheizung(adapter, rawId, baseState, etage, raum, device) {
     createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicFussbodenheizung);
 }
-exports.createHomematicFussbodenheizung = createHomematicFussbodenheizung;
 // Wandtaster
 function createHomematicWandtaster(adapter, rawId, baseState, etage, raum, device) {
     createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicWandtaster);
 }
-exports.createHomematicWandtaster = createHomematicWandtaster;
 // AccessPoint
 function createHomematicAccessPoint(adapter, rawId, baseState, etage, raum, device) {
     createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicAccessPoint);
 }
-exports.createHomematicAccessPoint = createHomematicAccessPoint;
 // Temperatursensor
 function createHomematicTemperatursensor(adapter, rawId, baseState, etage, raum, device) {
     createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicTemperatursensor);
 }
-exports.createHomematicTemperatursensor = createHomematicTemperatursensor;
 // Rauchmelder
 function createHomematicRauchmelder(adapter, rawId, baseState, etage, raum, device) {
     createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicRauchmelder);
 }
-exports.createHomematicRauchmelder = createHomematicRauchmelder;
 // FunkSchaltaktor
 function createHomematicFunkSchaltaktor(adapter, rawId, baseState, etage, raum, device) {
     createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicFunkSchaltaktor);
 }
-exports.createHomematicFunkSchaltaktor = createHomematicFunkSchaltaktor;
 // Window
 function createHomematicWindow(adapter, rawId, baseState, etage, raum, device) {
     createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicWindow);
 }
-exports.createHomematicWindow = createHomematicWindow;
 // Steckdose
 function createHomematicSteckdose(adapter, rawId, baseState, etage, raum, device) {
     createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicSteckdose);
 }
-exports.createHomematicSteckdose = createHomematicSteckdose;
 // Heizkoerper
 function createHomematicHeizkoerper(adapter, rawId, baseState, etage, raum, device) {
     createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicHeizkoerper);
 }
-exports.createHomematicHeizkoerper = createHomematicHeizkoerper;
 // Wandthermostat
 function createHomematicWandthermostat(adapter, rawId, baseState, etage, raum, device) {
     createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicWandthermostat);
 }
-exports.createHomematicWandthermostat = createHomematicWandthermostat;
 // Dimmer:
 function createHomematicDimmer(adapter, rawId, baseState, etage, raum, device, alexaSmartNamesForOn, alexaActionNamesForOn, alexaLevelSchemeForOn, alexaSmartNamesForOff, alexaActionNamesForOff, alexaScheme1, alexaScheme2, alexaScheme3, alexaScheme4, tasterBooleanOnScheme1, tasterBooleanOnScheme2, tasterBooleanOnScheme3, tasterBooleanOnScheme4, tasterBooleanOff, nachtbeleuchtung, turnOffExitHouseSummer, turnOffExitHouseWinter, turnOnEnterHouseSummer, turnOnEnterHouseWinter) {
     // Allgemein:
@@ -286,7 +304,6 @@ function createHomematicDimmer(adapter, rawId, baseState, etage, raum, device, a
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceHomematicDimmer);
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceHomematicDimmer);
 }
-exports.createHomematicDimmer = createHomematicDimmer;
 // Wandschalter:
 function createHomematicWandschalter(adapter, rawId, baseState, etage, raum, device, alexaSmartNamesForOn, alexaActionNamesForOn, alexaSmartNamesForOff, alexaActionNamesForOff, nachtbeleuchtung, turnOffExitHouseSummer, turnOffExitHouseWinter, turnOnEnterHouseSummer, turnOnEnterHouseWinter) {
     // Allgemein:
@@ -350,7 +367,6 @@ function createHomematicWandschalter(adapter, rawId, baseState, etage, raum, dev
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseSummer, turnOnEnterHouseSummer, deviceHomematicWandschalter);
     createDatenpunktSingle(adapter, rawId, attributeTypeBoolean, attribute_TurnOnEnterHouseWinter, turnOnEnterHouseWinter, deviceHomematicWandschalter);
 }
-exports.createHomematicWandschalter = createHomematicWandschalter;
 function createDatenpunktSingle(adapter, deviceRawId, attributeType, attributeName, attributeValue, category) {
     var stateDatenpunkt = "0_userdata.0.devices.homematic." + category + "." + deviceRawId + "." + attributeName;
     adapter.createState(stateDatenpunkt, attributeValue, {
@@ -383,7 +399,6 @@ function loadHomematicRollladen(adapter) {
     cacheRollladenArray = sortArray(cacheRollladenArray);
     return cacheRollladenArray;
 }
-exports.loadHomematicRollladen = loadHomematicRollladen;
 var cacheWandthermostateArray = null;
 function loadHomematicWandthermostate(adapter) {
     if (cacheWandthermostateArray != null) {
@@ -406,7 +421,6 @@ function loadHomematicWandthermostate(adapter) {
     cacheWandthermostateArray = sortArray(cacheWandthermostateArray);
     return cacheWandthermostateArray;
 }
-exports.loadHomematicWandthermostate = loadHomematicWandthermostate;
 var cachePraesenzmelderArray = null;
 function loadHomematicPraesenzmelder(adapter) {
     if (cachePraesenzmelderArray != null) {
@@ -429,7 +443,6 @@ function loadHomematicPraesenzmelder(adapter) {
     cachePraesenzmelderArray = sortArray(cachePraesenzmelderArray);
     return cachePraesenzmelderArray;
 }
-exports.loadHomematicPraesenzmelder = loadHomematicPraesenzmelder;
 var cacheWetterstationenArray = null;
 function loadHomematicWetterstationen(adapter) {
     if (cacheWetterstationenArray != null) {
@@ -452,7 +465,6 @@ function loadHomematicWetterstationen(adapter) {
     cacheWetterstationenArray = sortArray(cacheWetterstationenArray);
     return cacheWetterstationenArray;
 }
-exports.loadHomematicWetterstationen = loadHomematicWetterstationen;
 var cacheDoorsArray = null;
 function loadHomematicDoors(adapter) {
     if (cacheDoorsArray != null) {
@@ -475,7 +487,6 @@ function loadHomematicDoors(adapter) {
     cacheDoorsArray = sortArray(cacheDoorsArray);
     return cacheDoorsArray;
 }
-exports.loadHomematicDoors = loadHomematicDoors;
 var cacheWandschalterArray = null;
 function loadHomematicWandschalter(adapter) {
     if (cacheWandschalterArray != null) {
@@ -507,7 +518,6 @@ function loadHomematicWandschalter(adapter) {
     cacheWandschalterArray = sortArray(cacheWandschalterArray);
     return cacheWandschalterArray;
 }
-exports.loadHomematicWandschalter = loadHomematicWandschalter;
 var cacheFussbodenheizungenArray = null;
 function loadHomematicFussbodenheizungen(adapter) {
     if (cacheFussbodenheizungenArray != null) {
@@ -530,7 +540,6 @@ function loadHomematicFussbodenheizungen(adapter) {
     cacheFussbodenheizungenArray = sortArray(cacheFussbodenheizungenArray);
     return cacheFussbodenheizungenArray;
 }
-exports.loadHomematicFussbodenheizungen = loadHomematicFussbodenheizungen;
 var cacheWandtasterArray = null;
 function loadHomematicWandtaster(adapter) {
     if (cacheWandtasterArray != null) {
@@ -553,7 +562,6 @@ function loadHomematicWandtaster(adapter) {
     cacheWandtasterArray = sortArray(cacheWandtasterArray);
     return cacheWandtasterArray;
 }
-exports.loadHomematicWandtaster = loadHomematicWandtaster;
 var cacheAccessPointsArray = null;
 function loadHomematicAccessPoints(adapter) {
     if (cacheAccessPointsArray != null) {
@@ -576,7 +584,6 @@ function loadHomematicAccessPoints(adapter) {
     cacheAccessPointsArray = sortArray(cacheAccessPointsArray);
     return cacheAccessPointsArray;
 }
-exports.loadHomematicAccessPoints = loadHomematicAccessPoints;
 var cacheTemperatursensorenArray = null;
 function loadHomematicTemperatursensoren(adapter) {
     if (cacheTemperatursensorenArray != null) {
@@ -599,7 +606,6 @@ function loadHomematicTemperatursensoren(adapter) {
     cacheTemperatursensorenArray = sortArray(cacheTemperatursensorenArray);
     return cacheTemperatursensorenArray;
 }
-exports.loadHomematicTemperatursensoren = loadHomematicTemperatursensoren;
 var cacheRauchmelderArray = null;
 function loadHomematicRauchmelder(adapter) {
     if (cacheRauchmelderArray != null) {
@@ -622,7 +628,6 @@ function loadHomematicRauchmelder(adapter) {
     cacheRauchmelderArray = sortArray(cacheRauchmelderArray);
     return cacheRauchmelderArray;
 }
-exports.loadHomematicRauchmelder = loadHomematicRauchmelder;
 var cacheFunkschaltaktorenArray = null;
 function loadHomematicFunktschaltaktoren(adapter) {
     if (cacheFunkschaltaktorenArray != null) {
@@ -645,7 +650,6 @@ function loadHomematicFunktschaltaktoren(adapter) {
     cacheFunkschaltaktorenArray = sortArray(cacheFunkschaltaktorenArray);
     return cacheFunkschaltaktorenArray;
 }
-exports.loadHomematicFunktschaltaktoren = loadHomematicFunktschaltaktoren;
 var cacheWindowsArray = null;
 function loadHomematicWindows(adapter) {
     if (cacheWindowsArray != null) {
@@ -668,7 +672,6 @@ function loadHomematicWindows(adapter) {
     cacheWindowsArray = sortArray(cacheWindowsArray);
     return cacheWindowsArray;
 }
-exports.loadHomematicWindows = loadHomematicWindows;
 var cacheSteckdosenArray = null;
 function loadHomematicSteckdosen(adapter) {
     if (cacheSteckdosenArray != null) {
@@ -691,7 +694,6 @@ function loadHomematicSteckdosen(adapter) {
     cacheSteckdosenArray = sortArray(cacheSteckdosenArray);
     return cacheSteckdosenArray;
 }
-exports.loadHomematicSteckdosen = loadHomematicSteckdosen;
 var cacheHeizkoerperArray = null;
 function loadHomematicHeizkoerper(adapter) {
     if (cacheHeizkoerperArray != null) {
@@ -714,7 +716,6 @@ function loadHomematicHeizkoerper(adapter) {
     cacheHeizkoerperArray = sortArray(cacheHeizkoerperArray);
     return cacheHeizkoerperArray;
 }
-exports.loadHomematicHeizkoerper = loadHomematicHeizkoerper;
 var cacheDimmerArray = null;
 function loadHomematicDimmer(adapter) {
     if (cacheDimmerArray != null) {
@@ -800,7 +801,6 @@ function loadHomematicDimmer(adapter) {
     cacheDimmerArray = sortArray(cacheDimmerArray);
     return cacheDimmerArray;
 }
-exports.loadHomematicDimmer = loadHomematicDimmer;
 //var homematicAllArray = null;
 function loadHomematicDevicesAll(adapter) {
     /*if (homematicAllArray != null) {
@@ -875,7 +875,6 @@ function loadHomematicDevicesAll(adapter) {
     homematicAllArray = sortArray(homematicAllArray);
     return homematicAllArray;
 }
-exports.loadHomematicDevicesAll = loadHomematicDevicesAll;
 function toStringArray(databaseValue) {
     var stringArray = [];
     if (databaseValue == null) {

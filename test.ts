@@ -50,5 +50,7 @@ export class DateCalendarTest  {
     }     
 }
 
+console.log("TEST!");
+
 module.exports = { DateCalendarTest };
 
