@@ -2,7 +2,7 @@ var fs      = require('fs');
 const axios = require('axios');
 
 export function sendToPictureGartenToTelegram(adapter:any, caption:string) {
-    axios.get("http://192.168.178.188/snap.jpeg", {  responseType: 'arraybuffer'}).then(function (response) {
+    axios.get("https://192.168.178.188/snap.jpeg", {  responseType: 'arraybuffer'}).then(function (response) {
         let filename = "/opt/iobroker/telegramm.jpeg";
         fs.writeFile(filename, response.data, 'binary', function(err) { // Hier wird der erzeugte Namen (picdate) mit dem Pfad zum Speichern übergeben!
             if (err == null) {
@@ -13,7 +13,7 @@ export function sendToPictureGartenToTelegram(adapter:any, caption:string) {
 }
 
 export function sendToPictureSeiteToTelegram(adapter:any, caption:string) {
-    axios.get("http://192.168.178.38/snap.jpeg", {  responseType: 'arraybuffer'}).then(function (response) {
+    axios.get("https://192.168.178.38/snap.jpeg", {  responseType: 'arraybuffer'}).then(function (response) {
         let filename = "/opt/iobroker/telegramm.jpeg";
         fs.writeFile(filename, response.data, 'binary', function(err) { // Hier wird der erzeugte Namen (picdate) mit dem Pfad zum Speichern übergeben!
             if (err == null) {
@@ -24,7 +24,7 @@ export function sendToPictureSeiteToTelegram(adapter:any, caption:string) {
 }
 
 export function sendToPictureHaustuereToTelegram(adapter:any, caption:string) {
-    axios.get("http://192.168.178.173/snap.jpeg", {  responseType: 'arraybuffer'}).then(function (response) {
+    axios.get("https://192.168.178.173/snap.jpeg", {  responseType: 'arraybuffer'}).then(function (response) {
         let filename = "/opt/iobroker/telegramm.jpeg";
         fs.writeFile(filename, response.data, 'binary', function(err) { // Hier wird der erzeugte Namen (picdate) mit dem Pfad zum Speichern übergeben!
             if (err == null) {
@@ -35,7 +35,7 @@ export function sendToPictureHaustuereToTelegram(adapter:any, caption:string) {
 }
 
 export function sendToPictureDoorbellToTelegram(adapter:any, caption:string) {
-    axios.get("http://192.168.178.90/snap.jpeg", {  responseType: 'arraybuffer'}).then(function (response) {
+    axios.get("https://192.168.178.90/snap.jpeg", {  responseType: 'arraybuffer'}).then(function (response) {
         let filename = "/opt/iobroker/telegramm.jpeg";
         fs.writeFile(filename, response.data, 'binary', function(err) { // Hier wird der erzeugte Namen (picdate) mit dem Pfad zum Speichern übergeben!
             if (err == null) {
@@ -46,7 +46,7 @@ export function sendToPictureDoorbellToTelegram(adapter:any, caption:string) {
 }
 
 export function sendToPictureGarageToTelegram(adapter:any, caption:string) {
-    axios.get("http://192.168.178.166/snap.jpeg", {  responseType: 'arraybuffer'}).then(function (response) {
+    axios.get("https://192.168.178.166/snap.jpeg", {  responseType: 'arraybuffer'}).then(function (response) {
         let filename = "/opt/iobroker/telegramm.jpeg";
         fs.writeFile(filename, response.data, 'binary', function(err) { // Hier wird der erzeugte Namen (picdate) mit dem Pfad zum Speichern übergeben!
             if (err == null) {
