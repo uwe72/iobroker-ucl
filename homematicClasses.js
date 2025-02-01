@@ -217,6 +217,17 @@ var HomematicWandthermostat = /** @class */ (function (_super) {
     HomematicWandthermostat.prototype.isStatusBattery = function () {
         return !this.adapter.getState(this.baseState + ".0.LOW_BAT").val; // // hm-rpc.0.000A9BE993E2F7.0.LOW_BAT
     };
+    HomematicWandthermostat.prototype.getProfile = function () {
+        return this.adapter.getState(this.baseState + ".1.ACTIVE_PROFILE").val;
+    };
+    HomematicWandthermostat.prototype.isAutoModus = function () {
+        if (this.adapter.getState(this.baseState + ".1.SET_POINT_MODE").val != 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    };
     return HomematicWandthermostat;
 }(AbstractHomematic));
 exports.HomematicWandthermostat = HomematicWandthermostat;
@@ -307,6 +318,17 @@ var HomematicHeizkoerper = /** @class */ (function (_super) {
     };
     HomematicHeizkoerper.prototype.isStatusBattery = function () {
         return !this.adapter.getState(this.baseState + ".0.LOW_BAT").val; // // hm-rpc.0.000A9BE993E2F7.0.LOW_BAT
+    };
+    HomematicHeizkoerper.prototype.getProfile = function () {
+        return this.adapter.getState(this.baseState + ".1.ACTIVE_PROFILE").val;
+    };
+    HomematicHeizkoerper.prototype.isAutoModus = function () {
+        if (this.adapter.getState(this.baseState + ".1.SET_POINT_MODE").val != 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
     };
     return HomematicHeizkoerper;
 }(AbstractHomematic));

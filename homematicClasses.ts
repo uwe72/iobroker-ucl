@@ -229,6 +229,18 @@ export class HomematicWandthermostat extends AbstractHomematic {
     public isStatusBattery(): boolean { 
         return !this.adapter.getState(this.baseState + ".0.LOW_BAT").val; // // hm-rpc.0.000A9BE993E2F7.0.LOW_BAT
     }
+
+    public getProfile() : number {
+        return this.adapter.getState(this.baseState + ".1.ACTIVE_PROFILE").val;
+    }
+
+    public isAutoModus() : boolean {
+        if (this.adapter.getState(this.baseState + ".1.SET_POINT_MODE").val != 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
 
 export class HomematicPraesenzmelder extends AbstractHomematic {
@@ -323,6 +335,18 @@ export class HomematicHeizkoerper extends AbstractHomematic {
 
     public isStatusBattery(): boolean { 
         return !this.adapter.getState(this.baseState + ".0.LOW_BAT").val; // // hm-rpc.0.000A9BE993E2F7.0.LOW_BAT
+    }
+
+    public getProfile() : number {
+        return this.adapter.getState(this.baseState + ".1.ACTIVE_PROFILE").val;
+    }
+
+    public isAutoModus() : boolean {
+        if (this.adapter.getState(this.baseState + ".1.SET_POINT_MODE").val != 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 
