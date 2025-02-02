@@ -18,7 +18,7 @@ function sendToPictureGartenToTelegram(adapter, caption) {
     });
 }
 function sendToPictureSeiteToTelegram(adapter, caption) {
-    axios.get("https://192.168.178.38/snap.jpeg", { responseType: 'arraybuffer' }).then(function (response) {
+    axios.get("http://192.168.178.38/snap.jpeg", { responseType: 'arraybuffer' }).then(function (response) {
         var filename = "/opt/iobroker/telegramm.jpeg";
         fs.writeFile(filename, response.data, 'binary', function (err) {
             if (err == null) {
@@ -28,7 +28,7 @@ function sendToPictureSeiteToTelegram(adapter, caption) {
     });
 }
 function sendToPictureHaustuereToTelegram(adapter, caption) {
-    axios.get("https://192.168.178.173/snap.jpeg", { responseType: 'arraybuffer' }).then(function (response) {
+    axios.get("http://192.168.178.173/snap.jpeg", { responseType: 'arraybuffer' }).then(function (response) {
         var filename = "/opt/iobroker/telegramm.jpeg";
         fs.writeFile(filename, response.data, 'binary', function (err) {
             if (err == null) {
@@ -38,7 +38,7 @@ function sendToPictureHaustuereToTelegram(adapter, caption) {
     });
 }
 function sendToPictureDoorbellToTelegram(adapter, caption) {
-    axios.get("https://192.168.178.90/snap.jpeg", { responseType: 'arraybuffer' }).then(function (response) {
+    axios.get("http://192.168.178.90/snap.jpeg", { responseType: 'arraybuffer' }).then(function (response) {
         var filename = "/opt/iobroker/telegramm.jpeg";
         fs.writeFile(filename, response.data, 'binary', function (err) {
             if (err == null) {
@@ -48,7 +48,7 @@ function sendToPictureDoorbellToTelegram(adapter, caption) {
     });
 }
 function sendToPictureGarageToTelegram(adapter, caption) {
-    axios.get("https://192.168.178.166/snap.jpeg", { responseType: 'arraybuffer' }).then(function (response) {
+    axios.get("http://192.168.178.166/snap.jpeg", { responseType: 'arraybuffer' }).then(function (response) {
         var filename = "/opt/iobroker/telegramm.jpeg";
         fs.writeFile(filename, response.data, 'binary', function (err) {
             if (err == null) {
