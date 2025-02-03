@@ -241,6 +241,10 @@ export class HomematicWandthermostat extends AbstractHomematic {
             return true;
         }
     }
+
+    public getOeffnungsgrad(): number { // Ventilöffnungsgrad
+        return this.adapter.getState(this.baseState + ".1.LEVEL").val; // hm-rpc.0.000A1F29932CD5.1.LEVEL
+    }
 }
 
 export class HomematicPraesenzmelder extends AbstractHomematic {
@@ -347,6 +351,10 @@ export class HomematicHeizkoerper extends AbstractHomematic {
         } else {
             return true;
         }
+    }
+
+    public getOeffnungsgrad(): number { // Ventilöffnungsgrad
+        return this.adapter.getState(this.baseState + ".1.LEVEL").val; // hm-rpc.0.000A1F29932CD5.1.LEVEL
     }
 }
 

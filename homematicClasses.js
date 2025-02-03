@@ -228,6 +228,9 @@ var HomematicWandthermostat = /** @class */ (function (_super) {
             return true;
         }
     };
+    HomematicWandthermostat.prototype.getOeffnungsgrad = function () {
+        return this.adapter.getState(this.baseState + ".1.LEVEL").val; // hm-rpc.0.000A1F29932CD5.1.LEVEL
+    };
     return HomematicWandthermostat;
 }(AbstractHomematic));
 exports.HomematicWandthermostat = HomematicWandthermostat;
@@ -329,6 +332,9 @@ var HomematicHeizkoerper = /** @class */ (function (_super) {
         else {
             return true;
         }
+    };
+    HomematicHeizkoerper.prototype.getOeffnungsgrad = function () {
+        return this.adapter.getState(this.baseState + ".1.LEVEL").val; // hm-rpc.0.000A1F29932CD5.1.LEVEL
     };
     return HomematicHeizkoerper;
 }(AbstractHomematic));
