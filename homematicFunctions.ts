@@ -141,6 +141,11 @@ export function createHomematicHeizkoerper(adapter: any, rawId: number, baseStat
     createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicHeizkoerper);
 }
 
+// Heizkoerpergruppe
+export function createHomematicHeizkoerpergruppe(adapter: any, rawId: number, baseState: string, etage: string, raum: string, device: string) {
+    createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicHeizkoerpergruppe);
+}
+
 // Wandthermostat
 export function createHomematicWandthermostat(adapter: any, rawId: number, baseState: string, etage: string, raum: string, device: string) {
     createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicWandthermostat);
@@ -755,6 +760,31 @@ export function loadHomematicHeizkoerper(adapter: any) {
     return cacheHeizkoerperArray;
 }
 
+var cacheHeizkoerpergruppeArray = null;
+export function loadHomematicHeizkoerpergruppe(adapter: any) {
+    if (cacheHeizkoerpergruppeArray != null) {
+        return cacheHeizkoerpergruppeArray;
+    }
+    // @ts-ignore            
+    cacheHeizkoerpergruppeArray = [];
+    adapter.$('state[id=0_userdata.0.devices.homematic.*.*.category]').each(datenpunktKey => {  // 0_userdata.0.devices.homematic.30.type
+        let datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        if (adapter.getState(datenpunktKey).val == deviceHomematicHeizkoerpergruppe) {
+            // @ts-ignore            
+            cacheHeizkoerpergruppeArray.push(new HomematicHeizkoerpergruppe(adapter,
+                adapter.getState(datenpunktPraefix + "." + attributeRawID).val,     // [0] Device-ID         (z.B. 1 --> In der Anzeige wird daraus "H01")
+                adapter.getState(datenpunktPraefix + "." + attributeBaseState).val, // [1] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)
+                adapter.getState(datenpunktPraefix + "." + attributeEtage).val,     // [2] Etage/Bereich     (z.B. EG)
+                adapter.getState(datenpunktPraefix + "." + attributeRaum).val,      // [3] Raum/Unterbereich (z.B. Wohnzimmer)
+                adapter.getState(datenpunktPraefix + "." + attributeDevice).val     // [4] Device            (z.B. Stehlampe)            
+            ));
+        }
+    });
+    cacheHeizkoerpergruppeArray = sortArray(cacheHeizkoerpergruppeArray);
+    return cacheHeizkoerpergruppeArray;
+}
+
+
 var cacheDimmerArray = null;
 export function loadHomematicDimmer(adapter: any) {
     if (cacheDimmerArray != null) {
@@ -1034,4 +1064,4 @@ function getEtageSortIndex(etage: string) {
 
 
 
-module.exports = { createHomematicSteckdose, createHomematicHeizkoerper, createHomematicWindow, createHomematicFunkSchaltaktor, createHomematicRauchmelder, createHomematicTemperatursensor, createHomematicAccessPoint, createHomematicWandtaster, createHomematicPraesenzmelder, createHomematicWandthermostat, createHomematicWetterstation, createHomematicDoor, createHomematicRollladen, createHomematicFussbodenheizung, createHomematicDimmer, createHomematicWandschalter, loadHomematicWandthermostate, loadHomematicPraesenzmelder, loadHomematicWetterstationen, loadHomematicDoors, loadHomematicRollladen, loadHomematicWandschalter, loadHomematicFussbodenheizungen, loadHomematicWandtaster, loadHomematicAccessPoints, loadHomematicTemperatursensoren, loadHomematicRauchmelder, loadHomematicFunktschaltaktoren, loadHomematicWindows, loadHomematicSteckdosen, loadHomematicHeizkoerper, loadHomematicDimmer, loadHomematicDevicesAll, clearHomematicCaches };
+module.exports = { createHomematicSteckdose, createHomematicHeizkoerper, createHomematicWindow, createHomematicFunkSchaltaktor, createHomematicRauchmelder, createHomematicTemperatursensor, createHomematicAccessPoint, createHomematicWandtaster, createHomematicPraesenzmelder, createHomematicWandthermostat, createHomematicWetterstation, createHomematicDoor, createHomematicRollladen, createHomematicFussbodenheizung, createHomematicDimmer, createHomematicWandschalter, loadHomematicWandthermostate, loadHomematicPraesenzmelder, loadHomematicWetterstationen, loadHomematicDoors, loadHomematicRollladen, loadHomematicWandschalter, loadHomematicFussbodenheizungen, loadHomematicWandtaster, loadHomematicAccessPoints, loadHomematicTemperatursensoren, loadHomematicRauchmelder, loadHomematicFunktschaltaktoren, loadHomematicHeizkoerpergruppe, loadHomematicWindows, loadHomematicSteckdosen, loadHomematicHeizkoerper, loadHomematicDimmer, loadHomematicDevicesAll, clearHomematicCaches };

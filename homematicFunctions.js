@@ -13,6 +13,7 @@ exports.createHomematicFunkSchaltaktor = createHomematicFunkSchaltaktor;
 exports.createHomematicWindow = createHomematicWindow;
 exports.createHomematicSteckdose = createHomematicSteckdose;
 exports.createHomematicHeizkoerper = createHomematicHeizkoerper;
+exports.createHomematicHeizkoerpergruppe = createHomematicHeizkoerpergruppe;
 exports.createHomematicWandthermostat = createHomematicWandthermostat;
 exports.createHomematicDimmer = createHomematicDimmer;
 exports.createHomematicWandschalter = createHomematicWandschalter;
@@ -31,6 +32,7 @@ exports.loadHomematicFunktschaltaktoren = loadHomematicFunktschaltaktoren;
 exports.loadHomematicWindows = loadHomematicWindows;
 exports.loadHomematicSteckdosen = loadHomematicSteckdosen;
 exports.loadHomematicHeizkoerper = loadHomematicHeizkoerper;
+exports.loadHomematicHeizkoerpergruppe = loadHomematicHeizkoerpergruppe;
 exports.loadHomematicDimmer = loadHomematicDimmer;
 exports.loadHomematicDevicesAll = loadHomematicDevicesAll;
 var _a = require('./homematicClasses.js'), HomematicWindow = _a.HomematicWindow, HomematicSteckdose = _a.HomematicSteckdose, HomematicHeizkoerper = _a.HomematicHeizkoerper, HomematicDimmer = _a.HomematicDimmer, HomematicWandthermostat = _a.HomematicWandthermostat, HomematicFussbodenheizung = _a.HomematicFussbodenheizung, HomematicWandschalter = _a.HomematicWandschalter, HomematicDoor = _a.HomematicDoor, HomematicWetterstation = _a.HomematicWetterstation, HomematicAccessPoint = _a.HomematicAccessPoint, HomematicRollladen = _a.HomematicRollladen, HomematicWandtaster = _a.HomematicWandtaster, HomematicTemperatursensor = _a.HomematicTemperatursensor, HomematicRauchmelder = _a.HomematicRauchmelder, HomematicPraesenzmelder = _a.HomematicPraesenzmelder, AbstractHomematic = _a.AbstractHomematic, HomematicFunkschaltaktor = _a.HomematicFunkschaltaktor, DimmerAlexaScheme = _a.DimmerAlexaScheme, DimmerTasterScheme = _a.DimmerTasterScheme, deviceHomematicWandthermostat = _a.deviceHomematicWandthermostat, deviceHomematicPraesenzmelder = _a.deviceHomematicPraesenzmelder, deviceHomematicWetterstation = _a.deviceHomematicWetterstation, deviceHomematicDoor = _a.deviceHomematicDoor, deviceHomematicRollladen = _a.deviceHomematicRollladen, deviceHomematicWandschalter = _a.deviceHomematicWandschalter, deviceHomematicFussbodenheizung = _a.deviceHomematicFussbodenheizung, deviceHomematicWandtaster = _a.deviceHomematicWandtaster, deviceHomematicAccessPoint = _a.deviceHomematicAccessPoint, deviceHomematicTemperatursensor = _a.deviceHomematicTemperatursensor, deviceHomematicRauchmelder = _a.deviceHomematicRauchmelder, deviceHomematicFunkSchaltaktor = _a.deviceHomematicFunkSchaltaktor, deviceHomematicWindow = _a.deviceHomematicWindow, deviceHomematicSteckdose = _a.deviceHomematicSteckdose, deviceHomematicHeizkoerper = _a.deviceHomematicHeizkoerper, deviceHomematicDimmer = _a.deviceHomematicDimmer;
@@ -146,6 +148,10 @@ function createHomematicSteckdose(adapter, rawId, baseState, etage, raum, device
 // Heizkoerper
 function createHomematicHeizkoerper(adapter, rawId, baseState, etage, raum, device) {
     createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicHeizkoerper);
+}
+// Heizkoerpergruppe
+function createHomematicHeizkoerpergruppe(adapter, rawId, baseState, etage, raum, device) {
+    createHomematicDevice(adapter, rawId, baseState, etage, raum, device, deviceHomematicHeizkoerpergruppe);
 }
 // Wandthermostat
 function createHomematicWandthermostat(adapter, rawId, baseState, etage, raum, device) {
@@ -716,6 +722,28 @@ function loadHomematicHeizkoerper(adapter) {
     cacheHeizkoerperArray = sortArray(cacheHeizkoerperArray);
     return cacheHeizkoerperArray;
 }
+var cacheHeizkoerpergruppeArray = null;
+function loadHomematicHeizkoerpergruppe(adapter) {
+    if (cacheHeizkoerpergruppeArray != null) {
+        return cacheHeizkoerpergruppeArray;
+    }
+    // @ts-ignore            
+    cacheHeizkoerpergruppeArray = [];
+    adapter.$('state[id=0_userdata.0.devices.homematic.*.*.category]').each(function (datenpunktKey) {
+        var datenpunktPraefix = datenpunktKey.replaceAll(".category", "");
+        if (adapter.getState(datenpunktKey).val == deviceHomematicHeizkoerpergruppe) {
+            // @ts-ignore            
+            cacheHeizkoerpergruppeArray.push(new HomematicHeizkoerpergruppe(adapter, adapter.getState(datenpunktPraefix + "." + attributeRawID).val, // [0] Device-ID         (z.B. 1 --> In der Anzeige wird daraus "H01")
+            adapter.getState(datenpunktPraefix + "." + attributeBaseState).val, // [1] Datenpunkt Device (z.B. hm-rpc.1.001B9D898F9CBC)
+            adapter.getState(datenpunktPraefix + "." + attributeEtage).val, // [2] Etage/Bereich     (z.B. EG)
+            adapter.getState(datenpunktPraefix + "." + attributeRaum).val, // [3] Raum/Unterbereich (z.B. Wohnzimmer)
+            adapter.getState(datenpunktPraefix + "." + attributeDevice).val // [4] Device            (z.B. Stehlampe)            
+            ));
+        }
+    });
+    cacheHeizkoerpergruppeArray = sortArray(cacheHeizkoerpergruppeArray);
+    return cacheHeizkoerpergruppeArray;
+}
 var cacheDimmerArray = null;
 function loadHomematicDimmer(adapter) {
     if (cacheDimmerArray != null) {
@@ -950,4 +978,4 @@ function getEtageSortIndex(etage) {
         return "d";
     }
 }
-module.exports = { createHomematicSteckdose: createHomematicSteckdose, createHomematicHeizkoerper: createHomematicHeizkoerper, createHomematicWindow: createHomematicWindow, createHomematicFunkSchaltaktor: createHomematicFunkSchaltaktor, createHomematicRauchmelder: createHomematicRauchmelder, createHomematicTemperatursensor: createHomematicTemperatursensor, createHomematicAccessPoint: createHomematicAccessPoint, createHomematicWandtaster: createHomematicWandtaster, createHomematicPraesenzmelder: createHomematicPraesenzmelder, createHomematicWandthermostat: createHomematicWandthermostat, createHomematicWetterstation: createHomematicWetterstation, createHomematicDoor: createHomematicDoor, createHomematicRollladen: createHomematicRollladen, createHomematicFussbodenheizung: createHomematicFussbodenheizung, createHomematicDimmer: createHomematicDimmer, createHomematicWandschalter: createHomematicWandschalter, loadHomematicWandthermostate: loadHomematicWandthermostate, loadHomematicPraesenzmelder: loadHomematicPraesenzmelder, loadHomematicWetterstationen: loadHomematicWetterstationen, loadHomematicDoors: loadHomematicDoors, loadHomematicRollladen: loadHomematicRollladen, loadHomematicWandschalter: loadHomematicWandschalter, loadHomematicFussbodenheizungen: loadHomematicFussbodenheizungen, loadHomematicWandtaster: loadHomematicWandtaster, loadHomematicAccessPoints: loadHomematicAccessPoints, loadHomematicTemperatursensoren: loadHomematicTemperatursensoren, loadHomematicRauchmelder: loadHomematicRauchmelder, loadHomematicFunktschaltaktoren: loadHomematicFunktschaltaktoren, loadHomematicWindows: loadHomematicWindows, loadHomematicSteckdosen: loadHomematicSteckdosen, loadHomematicHeizkoerper: loadHomematicHeizkoerper, loadHomematicDimmer: loadHomematicDimmer, loadHomematicDevicesAll: loadHomematicDevicesAll, clearHomematicCaches: clearHomematicCaches };
+module.exports = { createHomematicSteckdose: createHomematicSteckdose, createHomematicHeizkoerper: createHomematicHeizkoerper, createHomematicWindow: createHomematicWindow, createHomematicFunkSchaltaktor: createHomematicFunkSchaltaktor, createHomematicRauchmelder: createHomematicRauchmelder, createHomematicTemperatursensor: createHomematicTemperatursensor, createHomematicAccessPoint: createHomematicAccessPoint, createHomematicWandtaster: createHomematicWandtaster, createHomematicPraesenzmelder: createHomematicPraesenzmelder, createHomematicWandthermostat: createHomematicWandthermostat, createHomematicWetterstation: createHomematicWetterstation, createHomematicDoor: createHomematicDoor, createHomematicRollladen: createHomematicRollladen, createHomematicFussbodenheizung: createHomematicFussbodenheizung, createHomematicDimmer: createHomematicDimmer, createHomematicWandschalter: createHomematicWandschalter, loadHomematicWandthermostate: loadHomematicWandthermostate, loadHomematicPraesenzmelder: loadHomematicPraesenzmelder, loadHomematicWetterstationen: loadHomematicWetterstationen, loadHomematicDoors: loadHomematicDoors, loadHomematicRollladen: loadHomematicRollladen, loadHomematicWandschalter: loadHomematicWandschalter, loadHomematicFussbodenheizungen: loadHomematicFussbodenheizungen, loadHomematicWandtaster: loadHomematicWandtaster, loadHomematicAccessPoints: loadHomematicAccessPoints, loadHomematicTemperatursensoren: loadHomematicTemperatursensoren, loadHomematicRauchmelder: loadHomematicRauchmelder, loadHomematicFunktschaltaktoren: loadHomematicFunktschaltaktoren, loadHomematicHeizkoerpergruppe: loadHomematicHeizkoerpergruppe, loadHomematicWindows: loadHomematicWindows, loadHomematicSteckdosen: loadHomematicSteckdosen, loadHomematicHeizkoerper: loadHomematicHeizkoerper, loadHomematicDimmer: loadHomematicDimmer, loadHomematicDevicesAll: loadHomematicDevicesAll, clearHomematicCaches: clearHomematicCaches };

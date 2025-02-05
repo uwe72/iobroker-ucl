@@ -13,6 +13,7 @@ const deviceHomematicFunkSchaltaktor: string = "FunkSchaltaktor";
 const deviceHomematicWindow: string = "Window";
 const deviceHomematicSteckdose: string = "Steckdose";
 const deviceHomematicHeizkoerper: string = "Heizkoerper";
+const deviceHomematicHeizkoerpergruppe: string = "Heizkoerpergruppe";
 const deviceHomematicDimmer: string = "Dimmer";
 
 export abstract class AbstractHomematic {
@@ -42,6 +43,12 @@ export abstract class AbstractHomematic {
 
     public getBaseState(): string {
         return this.baseState;
+    }
+
+    // hm-rpc.0.000A1D89A5E65F --> 000A1D89A5E65F
+    public getBaseStateShort() : string {
+        let device = this.baseState.substring(this.baseState.lastIndexOf('.')+1); 
+        return device;
     }
 
     public getType(): string {
@@ -356,6 +363,134 @@ export class HomematicHeizkoerper extends AbstractHomematic {
     public getOeffnungsgrad(): number { // Ventilöffnungsgrad
         return this.adapter.getState(this.baseState + ".1.LEVEL").val; // hm-rpc.0.000A1F29932CD5.1.LEVEL
     }
+}
+
+class HomematicHeizkoerpergruppe extends AbstractHomematic {
+
+    constructor(adapter: any, id: number, baseState: string, etage: string, raum: string, device: string) { 
+        super(adapter, id, baseState, etage, raum, device); 
+
+        // Dieser Label wird später im Jarvis Formular angezeigt:
+        var labelState = "0_userdata.0.homematic.labels." + this.getDeviceId();
+        this.adapter.createState(labelState, "", {
+            name: labelState,
+            desc: labelState,
+            type: 'string', 
+            read: true,
+            write: true
+        });
+        setTimeout(time => {
+            this.adapter.setState(labelState, device + " (" + this.getDeviceId() + ")");
+        }, 1000);
+
+        // Aliase erzeugen um diese Datenpunkte einfacher bei den Jarvis Geräten hinzuzufügen (muss dann nur die ID austauschen):
+        this.createAlias(this.getBaseState() + ".1.ACTUAL_TEMPERATURE", "alias.0.heizkoerper." + this.getDeviceId() + ".ACTUAL_TEMPERATURE"); // hm-rpc.0.000A1D89A5E65F.1.ACTUAL_TEMPERATURE
+        this.createAlias(this.getBaseState() + ".1.SET_POINT_TEMPERATURE", "alias.0.heizkoerper." + this.getDeviceId() + ".SET_POINT_TEMPERATURE"); // hm-rpc.0.000A1D89A5E65F.1.SET_POINT_TEMPERATURE
+        this.createAlias(this.getBaseState() + ".1.LEVEL", "alias.0.heizkoerper." + this.getDeviceId() + ".LEVEL"); // hm-rpc.0.000A1D89A5E65F.1.LEVEL
+        this.createAlias(this.getBaseState() + ".0.UNREACH", "alias.0.heizkoerper." + this.getDeviceId() + ".UNREACH"); // hm-rpc.0.000A1D89A5887A.0.UNREACH
+        this.createAlias(this.getBaseState() + ".1.ACTIVE_PROFILE", "alias.0.heizkoerper." + this.getDeviceId() + ".ACTIVE_PROFILE"); // hm-rpc.1.INT0000001.1.ACTIVE_PROFILE
+        this.createAlias(this.getBaseState() + ".1.HUMIDITY", "alias.0.heizkoerper." + this.getDeviceId() + ".HUMIDITY"); // hm-rpc.1.INT0000001.1.HUMIDITY
+        this.createAlias(this.getBaseState() + ".1.SET_POINT_MODE", "alias.0.heizkoerper." + this.getDeviceId() + ".AUTO_MODUS_READ_ONLY");// hm-rpc.1.INT0000042.1.SET_POINT_MODE
+
+        // Datenpunkte gleich mit InfluxDB protokollieren:
+        this.activateInfluxDB("alias.0.heizkoerper." + this.getDeviceId() + ".ACTUAL_TEMPERATURE");
+        this.activateInfluxDB("alias.0.heizkoerper." + this.getDeviceId() + ".SET_POINT_TEMPERATURE");
+        this.activateInfluxDB("alias.0.heizkoerper." + this.getDeviceId() + ".LEVEL");
+        this.activateInfluxDB("alias.0.heizkoerper." + this.getDeviceId() + ".ACTIVE_PROFILE");
+    }
+
+    public getTemperatureIst() : number {
+        return this.adapter.getState(this.baseState + ".1.ACTUAL_TEMPERATURE").val; // hm-rpc.0.000A9BE9A03005.1.ACTUAL_TEMPERATURE
+    }
+
+    public getTemperatureSoll() : number {
+        return this.adapter.getState(this.baseState + ".1.SET_POINT_TEMPERATURE").val; // hm-rpc.0.000A9BE9A03005.1.SET_POINT_TEMPERATURE
+    }
+
+    public getCategoryAsString(): string {
+        return "Heizkörpergruppe";            
+    }
+
+    public getDeviceId() : string {
+        return "HG" + this.id.toString().padStart(3, '0');
+    }
+
+    public switchToProfil(profileIndex) {
+        this.adapter.sendTo('hm-rpc.1', 'setValue', {ID: this.getBaseStateShort() + ":1", paramType: 'ACTIVE_PROFILE', params: profileIndex}, res => { 
+        });                                                   
+    }
+
+    public getOeffnungsgrad(): number { // Ventilöffnungsgrad
+        return this.adapter.getState(this.baseState + ".1.LEVEL").val; // hm-rpc.0.000A1F29932CD5.1.LEVEL
+    }
+
+    public isAutoModus() : boolean {
+        if (this.adapter.getState(this.baseState + ".1.SET_POINT_MODE").val != 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public getProfileOeffnungsgrad(): number { // Ventilöffnungsgrad
+        return this.adapter.getState(this.baseState + ".1.LEVEL").val; // hm-rpc.0.000A1F29932CD5.1.LEVEL
+    }
+
+    public getProfile() : number {
+        return this.adapter.getState(this.baseState + ".1.ACTIVE_PROFILE").val;
+    }
+
+    public getCategory(): string {
+        return deviceHomematicHeizkoerpergruppe;
+    }
+
+    private activateInfluxDB(datenpunkt) {
+        let objId = datenpunkt;//"alias.0.rgb.Z03.level";
+
+        // @ts-ignore                    
+        let obj = this.adapter.getObject(objId) as unknown as iobJS.StateObject;
+
+        //let obj = this.adapter.getObject(objId) as unknown as this.adapter.iobJS.StateObject;
+
+        if (!obj.common.custom) {
+            obj.common.custom = {};
+        }
+
+        obj.common.custom['influxdb.0'] = {
+            "enabled": true,
+            "storageType": "",
+            "aliasId": "",
+            "debounceTime": 0,
+            "blockTime": 0,
+            "changesOnly": true,
+            "changesRelogInterval": 60,
+            "changesMinDelta": 0,
+            "ignoreBelowNumber": "",
+            "disableSkippedValueLogging": false,
+            "enableDebugLogs": false,
+            "debounce": 1000
+        };
+
+        this.adapter.setObject(objId, obj);
+    }
+
+    private createAlias(originalDatenpunkt, aliasDatenpunkt) {
+        this.adapter.setObject(aliasDatenpunkt, {
+            type: 'state',
+                common: {
+                name: this.adapter.getObject(originalDatenpunkt).common.name,    //'Heizung Ist Temperatur',
+                type: this.adapter.getObject(originalDatenpunkt).common.type,    // 'number',
+                unit: this.adapter.getObject(originalDatenpunkt).common.unit,    //'°C',
+                read: true,
+                write: true,
+                role: this.adapter.getObject(originalDatenpunkt).common.role,    //'value.temperature',
+                alias: {
+                    id: originalDatenpunkt
+                }
+            },
+            native: {}
+        });
+    }     
 }
 
 export class DimmerAlexaScheme {
@@ -860,6 +995,6 @@ export class HomematicFussbodenheizung extends AbstractHomematic {
 
 
 module.exports = { 
-    HomematicWindow, HomematicSteckdose, HomematicHeizkoerper, HomematicDimmer, HomematicWandthermostat, HomematicFussbodenheizung, HomematicWandschalter, HomematicDoor, HomematicWetterstation, HomematicAccessPoint, HomematicRollladen, HomematicWandtaster, HomematicTemperatursensor, HomematicRauchmelder, HomematicPraesenzmelder, AbstractHomematic, HomematicFunkschaltaktor, DimmerAlexaScheme, DimmerTasterScheme,
-    deviceHomematicWandthermostat, deviceHomematicPraesenzmelder, deviceHomematicWetterstation, deviceHomematicDoor, deviceHomematicRollladen, deviceHomematicWandschalter, deviceHomematicFussbodenheizung, deviceHomematicWandtaster, deviceHomematicAccessPoint, deviceHomematicTemperatursensor, deviceHomematicRauchmelder, deviceHomematicFunkSchaltaktor, deviceHomematicWindow, deviceHomematicSteckdose, deviceHomematicHeizkoerper, deviceHomematicDimmer
+    HomematicWindow, HomematicSteckdose, HomematicHeizkoerper, HomematicHeizkoerpergruppe, HomematicDimmer, HomematicWandthermostat, HomematicFussbodenheizung, HomematicWandschalter, HomematicDoor, HomematicWetterstation, HomematicAccessPoint, HomematicRollladen, HomematicWandtaster, HomematicTemperatursensor, HomematicRauchmelder, HomematicPraesenzmelder, AbstractHomematic, HomematicFunkschaltaktor, DimmerAlexaScheme, DimmerTasterScheme,
+    deviceHomematicHeizkoerpergruppe, deviceHomematicWandthermostat, deviceHomematicPraesenzmelder, deviceHomematicWetterstation, deviceHomematicDoor, deviceHomematicRollladen, deviceHomematicWandschalter, deviceHomematicFussbodenheizung, deviceHomematicWandtaster, deviceHomematicAccessPoint, deviceHomematicTemperatursensor, deviceHomematicRauchmelder, deviceHomematicFunkSchaltaktor, deviceHomematicWindow, deviceHomematicSteckdose, deviceHomematicHeizkoerper, deviceHomematicDimmer
 };
