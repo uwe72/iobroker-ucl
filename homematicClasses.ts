@@ -415,8 +415,8 @@ class HomematicHeizkoerpergruppe extends AbstractHomematic {
         return "HG" + this.id.toString().padStart(3, '0');
     }
 
-    public switchToProfil(profileIndex) {
-        this.adapter.sendTo('hm-rpc.1', 'setValue', {ID: this.getBaseStateShort() + ":1", paramType: 'ACTIVE_PROFILE', params: profileIndex}, res => { 
+    public switchToProfil(adapterInstanceIndex, profileIndex) {
+        this.adapter.sendTo('hm-rpc.' + adapterInstanceIndex, 'setValue', {ID: this.getBaseStateShort() + ":1", paramType: 'ACTIVE_PROFILE', params: profileIndex}, res => { 
         });                                                   
     }
 

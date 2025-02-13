@@ -1,5 +1,5 @@
-const { HomematicWindow, HomematicSteckdose, HomematicHeizkoerper, HomematicDimmer, HomematicWandthermostat, HomematicFussbodenheizung, HomematicWandschalter, HomematicDoor, HomematicWetterstation, HomematicAccessPoint, HomematicRollladen, HomematicWandtaster, HomematicTemperatursensor, HomematicRauchmelder, HomematicPraesenzmelder, AbstractHomematic, HomematicFunkschaltaktor, DimmerAlexaScheme, DimmerTasterScheme,
-    deviceHomematicWandthermostat, deviceHomematicPraesenzmelder, deviceHomematicWetterstation, deviceHomematicDoor, deviceHomematicRollladen, deviceHomematicWandschalter, deviceHomematicFussbodenheizung, deviceHomematicWandtaster, deviceHomematicAccessPoint, deviceHomematicTemperatursensor, deviceHomematicRauchmelder, deviceHomematicFunkSchaltaktor, deviceHomematicWindow, deviceHomematicSteckdose, deviceHomematicHeizkoerper, deviceHomematicDimmer } = require('./homematicClasses.js');
+const { HomematicWindow, HomematicSteckdose, HomematicHeizkoerper, HomematicHeizkoerpergruppe, HomematicDimmer, HomematicWandthermostat, HomematicFussbodenheizung, HomematicWandschalter, HomematicDoor, HomematicWetterstation, HomematicAccessPoint, HomematicRollladen, HomematicWandtaster, HomematicTemperatursensor, HomematicRauchmelder, HomematicPraesenzmelder, AbstractHomematic, HomematicFunkschaltaktor, DimmerAlexaScheme, DimmerTasterScheme,
+    deviceHomematicHeizkoerpergruppe, deviceHomematicWandthermostat, deviceHomematicPraesenzmelder, deviceHomematicWetterstation, deviceHomematicDoor, deviceHomematicRollladen, deviceHomematicWandschalter, deviceHomematicFussbodenheizung, deviceHomematicWandtaster, deviceHomematicAccessPoint, deviceHomematicTemperatursensor, deviceHomematicRauchmelder, deviceHomematicFunkSchaltaktor, deviceHomematicWindow, deviceHomematicSteckdose, deviceHomematicHeizkoerper, deviceHomematicDimmer } = require('./homematicClasses.js');
 
 const attributeRawID = "rawId";
 const attributeBaseState = "baseState";
@@ -974,6 +974,10 @@ export function loadHomematicDevicesAll(adapter: any) {
         // @ts-ignore                    
         homematicAllArray.push(homematic);
     });
+    adapter.loadHomematicHeizkoerpergruppe(adapter).forEach(homematic => {
+        // @ts-ignore                    
+        homematicAllArray.push(homematic);
+    });
     adapter.loadHomematicDimmer(adapter).forEach(homematic => {
         // @ts-ignore                    
         homematicAllArray.push(homematic);
@@ -995,6 +999,7 @@ function clearHomematicCaches(adapter: any) {
     //homematicAllArray = null;
     cacheDimmerArray = null;
     cacheHeizkoerperArray = null;
+    cacheHeizkoerpergruppeArray = null;
     cacheSteckdosenArray = null;
     cacheWindowsArray = null;
     cacheFunkschaltaktorenArray = null;
@@ -1064,4 +1069,4 @@ function getEtageSortIndex(etage: string) {
 
 
 
-module.exports = { createHomematicSteckdose, createHomematicHeizkoerper, createHomematicWindow, createHomematicFunkSchaltaktor, createHomematicRauchmelder, createHomematicTemperatursensor, createHomematicAccessPoint, createHomematicWandtaster, createHomematicPraesenzmelder, createHomematicWandthermostat, createHomematicWetterstation, createHomematicDoor, createHomematicRollladen, createHomematicFussbodenheizung, createHomematicDimmer, createHomematicWandschalter, loadHomematicWandthermostate, loadHomematicPraesenzmelder, loadHomematicWetterstationen, loadHomematicDoors, loadHomematicRollladen, loadHomematicWandschalter, loadHomematicFussbodenheizungen, loadHomematicWandtaster, loadHomematicAccessPoints, loadHomematicTemperatursensoren, loadHomematicRauchmelder, loadHomematicFunktschaltaktoren, loadHomematicHeizkoerpergruppe, loadHomematicWindows, loadHomematicSteckdosen, loadHomematicHeizkoerper, loadHomematicDimmer, loadHomematicDevicesAll, clearHomematicCaches };
+module.exports = { createHomematicSteckdose, createHomematicHeizkoerper, createHomematicHeizkoerpergruppe, createHomematicWindow, createHomematicFunkSchaltaktor, createHomematicRauchmelder, createHomematicTemperatursensor, createHomematicAccessPoint, createHomematicWandtaster, createHomematicPraesenzmelder, createHomematicWandthermostat, createHomematicWetterstation, createHomematicDoor, createHomematicRollladen, createHomematicFussbodenheizung, createHomematicDimmer, createHomematicWandschalter, loadHomematicWandthermostate, loadHomematicPraesenzmelder, loadHomematicWetterstationen, loadHomematicDoors, loadHomematicRollladen, loadHomematicWandschalter, loadHomematicFussbodenheizungen, loadHomematicWandtaster, loadHomematicAccessPoints, loadHomematicTemperatursensoren, loadHomematicRauchmelder, loadHomematicFunktschaltaktoren, loadHomematicHeizkoerpergruppe, loadHomematicWindows, loadHomematicSteckdosen, loadHomematicHeizkoerper, loadHomematicDimmer, loadHomematicDevicesAll, clearHomematicCaches };
